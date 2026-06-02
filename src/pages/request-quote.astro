@@ -1,5 +1,8 @@
 ---
+import Button from '../components/Button.astro'
 import Layout from '../layouts/Layout.astro'
+import Section from '../components/Section.astro'
+import { site } from '../data/site'
 ---
 
 <Layout
@@ -7,27 +10,25 @@ import Layout from '../layouts/Layout.astro'
   description="Request a pressure washing quote from CFL Wash Co. for driveway, sidewalk, walkway, and concrete cleaning in Central Florida."
   canonicalPath="/request-quote"
 >
-  <main class="min-h-screen bg-slate-50 px-6 py-20">
-    <section class="mx-auto max-w-3xl rounded-3xl bg-white p-8 shadow-sm ring-1 ring-slate-200">
-      <p class="text-sm font-semibold uppercase tracking-[0.2em] text-blue-700">
+  <main>
+    <Section class="py-20">
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">
         Request a Quote
       </p>
-
-      <h1 class="mt-4 text-4xl font-bold tracking-tight text-slate-950">
-        Tell us what needs cleaning.
+      <h1 class="mt-4 max-w-2xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
+        This route is ready for the future quote flow.
       </h1>
-
-      <p class="mt-4 text-lg leading-8 text-slate-700">
-        This page will become the quote form. For now, it confirms the route,
-        canonical URL, Tailwind setup, and Cloudflare Pages build are working.
+      <p class="mt-5 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
+        No form is implemented yet. The page exists so the quote workflow, SEO, and
+        internal linking have a stable destination.
       </p>
 
-      <a
-        href="/"
-        class="mt-8 inline-flex rounded-2xl bg-blue-700 px-6 py-4 font-semibold text-white hover:bg-blue-800"
-      >
-        Back Home
-      </a>
-    </section>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <Button href={site.phoneHref}>Call {site.phoneDisplay}</Button>
+        <Button href={`mailto:${site.email}`} variant="secondary">
+          Email {site.email}
+        </Button>
+      </div>
+    </Section>
   </main>
 </Layout>
