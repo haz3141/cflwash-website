@@ -7,20 +7,13 @@ export const site = {
   tagline: 'Exterior cleaning made easy across Central Florida.',
   title: 'CFL Wash Co. | Pressure Washing in Central Florida',
   description:
-    'Driveway, sidewalk, walkway, and exterior cleaning in Central Florida.',
+    'Driveway, sidewalk, walkway, and concrete cleaning in Central Florida.',
 
   phoneDisplay: '(386) 000-0000',
   phoneHref: 'tel:+13860000000',
-
   email: 'hello@cflwash.com',
 
   serviceArea: 'Central Florida',
   primaryCity: 'Deltona',
   state: 'FL',
-
-  social: {
-    facebook: '',
-    instagram: '',
-    googleBusinessProfile: '',
-  },
-}
+} as const

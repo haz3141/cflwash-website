@@ -1,0 +1,36 @@
+---
+import Button from '../../components/Button.astro'
+import Layout from '../../layouts/Layout.astro'
+import Section from '../../components/Section.astro'
+import { site } from '../../data/site'
+import { serviceAreas } from '../../data/serviceAreas'
+
+const area = serviceAreas.find((item) => item.slug === 'deltona')!
+---
+
+<Layout
+  title={`${area.name} Service Area | CFL Wash Co.`}
+  description={area.description}
+  canonicalPath="/service-areas/deltona"
+>
+  <main>
+    <Section class="py-20">
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">
+        Service Area
+      </p>
+      <h1 class="mt-4 text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
+        {area.name}
+      </h1>
+      <p class="mt-5 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
+        {area.description}
+      </p>
+
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <Button href="/request-quote">Request a Quote</Button>
+        <Button href={site.phoneHref} variant="secondary">
+          Call {site.phoneDisplay}
+        </Button>
+      </div>
+    </Section>
+  </main>
+</Layout>

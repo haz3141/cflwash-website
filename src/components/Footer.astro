@@ -1,0 +1,51 @@
+---
+import { site } from '../data/site'
+import { services } from '../data/services'
+import { serviceAreas } from '../data/serviceAreas'
+---
+
+<footer class="border-t border-slate-200 bg-white">
+  <div class="mx-auto grid w-full max-w-6xl gap-8 px-6 py-10 md:grid-cols-3">
+    <div>
+      <p class="text-sm font-semibold text-slate-950">{site.name}</p>
+      <p class="mt-3 max-w-sm text-sm leading-6 text-slate-600">
+        {site.tagline}
+      </p>
+    </div>
+
+    <div>
+      <p class="text-sm font-semibold text-slate-950">Services</p>
+      <ul class="mt-3 space-y-2 text-sm text-slate-600">
+        {services.map((service) => (
+          <li>
+            <a href={`/${service.slug}`} class="hover:text-slate-950">
+              {service.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div>
+      <p class="text-sm font-semibold text-slate-950">Service Areas</p>
+      <ul class="mt-3 space-y-2 text-sm text-slate-600">
+        {serviceAreas.map((area) => (
+          <li>
+            <a href={`/service-areas/${area.slug}`} class="hover:text-slate-950">
+              {area.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-slate-200">
+    <div class="mx-auto flex w-full max-w-6xl flex-col gap-2 px-6 py-4 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+      <p>© {new Date().getFullYear()} {site.legalName}</p>
+      <p>
+        {site.phoneDisplay} · {site.email}
+      </p>
+    </div>
+  </div>
+</footer>
