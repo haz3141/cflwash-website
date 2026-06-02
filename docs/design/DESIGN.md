@@ -35,6 +35,19 @@ Recommended system:
 - Warm neutral: light concrete, sand, or sun-warmed off-white
 - Borders: soft slate or cool gray
 
+Suggested starting tokens:
+
+- Deep Navy: `#0A1B2E`
+- Water Blue: `#1F5DBE`
+- Curb Green: `#206B3A`
+- Sun Gold: `#E0AA3A`
+- Warm Off-White: `#F6F1E6`
+- Concrete Light: `#EEF2F4`
+- Slate Text: `#23262B`
+- Muted Text: `#5B6673`
+- Soft Border: `#D9E2EA`
+- White: `#FFFFFF`
+
 Rules:
 
 - Keep the base light and high-contrast.
@@ -74,11 +87,11 @@ Rules:
 
 - CTAs should be obvious: `Request a Quote`, `Call`, `Email`.
 - Buttons should have clear hover/focus states.
-- Cards should be simple, with restrained borders and 8px or smaller radius unless the design system changes.
+- Cards should be simple, with restrained borders and moderate radius. Use approximately 8px-16px radius for most cards. Avoid excessive pill shapes, nested cards, or generic dashboard-style containers.
 - Do not put cards inside cards.
 - Keep service and area cards dense enough for scanning.
 - Use real links for phone, email, services, and area pages.
-- Avoid UI that implies online scheduling, payment, or customer accounts before those features exist.
+- Avoid UI that implies instant booking, online scheduling, online payment, or customer accounts before those features exist.
 
 ## Homepage Structure
 
