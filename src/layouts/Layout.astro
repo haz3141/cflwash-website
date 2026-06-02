@@ -1,0 +1,48 @@
+---
+import '../styles/global.css'
+import { site } from '../data/site'
+
+type Props = {
+  title?: string
+  description?: string
+  canonicalPath?: string
+}
+
+const {
+  title = site.title,
+  description = site.description,
+  canonicalPath = '/',
+} = Astro.props
+
+const cleanPath = canonicalPath === '/'
+  ? ''
+  : canonicalPath.startsWith('/')
+    ? canonicalPath
+    : '/' + canonicalPath
+
+const canonicalUrl = site.url + cleanPath
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content={site.name} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+
+  <body>
+    <slot />
+  </body>
+</html>
