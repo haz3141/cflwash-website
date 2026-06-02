@@ -19,7 +19,10 @@ Recommended MVP additions:
 - `/service-areas/deland`
 - `/service-areas/sanford`
 - `/service-areas/lake-mary`
-- Future project pages under `/projects/[slug]`
+
+Post-launch additions after real jobs exist:
+
+- Project pages under `/projects/[slug]`
 
 Keep the MVP focused on local lead generation before adding blog content.
 
@@ -77,6 +80,8 @@ Rules:
 
 Project pages are the best way to build proof without fake claims.
 
+They are not required before launch. Publish them only after real completed jobs, usable notes, and approved photos exist.
+
 Recommended URL pattern:
 
 - `/projects/deltona-driveway-pressure-washing-[short-id]`
@@ -114,12 +119,19 @@ Sitemap:
 - Include all indexable production pages.
 - Exclude thank-you pages, form endpoints, drafts, and thin placeholders.
 - Keep sitemap URLs on `https://cflwash.com`.
+- Current repo note: `astro.config.mjs` sets the production site URL, but sitemap generation still needs to be installed/configured or otherwise verified.
 
 Robots:
 
 - Allow normal crawling for public pages.
 - Keep sitemap reference current.
+- Confirm `public/robots.txt` points to a generated sitemap URL that exists in production.
 - `public/robots.txt` currently allows `OAI-SearchBot`; keep this intentional if AI-search visibility is desired.
+
+Indexing:
+
+- `/thank-you` should be `noindex` and excluded from the sitemap.
+- Preview, draft, and utility routes should not be indexed.
 
 ## LocalBusiness And Service Schema Notes
 
@@ -133,6 +145,7 @@ LocalBusiness schema should include:
 - Service area
 - Business type/category
 - SameAs links when profiles exist
+- Hours only after operating hours are confirmed
 
 Service schema may be used for:
 
@@ -146,6 +159,7 @@ Schema rules:
 - Do not include reviews unless they are real and published with permission.
 - Do not claim insurance, licensing, hours, or address data unless verified.
 - Keep schema consistent with visible page content.
+- Do not add schema for services or pages that do not exist yet.
 
 ## AI-Search Visibility Notes
 

@@ -10,7 +10,9 @@
 - [ ] Verify Cloudflare Pages production deployment.
 - [ ] Finalize MVP service list: driveway, sidewalk, walkway, concrete, HOA notice cleanup, curb appeal cleaning.
 - [ ] Confirm primary service areas: Deltona, Orange City, DeBary, DeLand, Sanford, Lake Mary.
+- [ ] Add missing service-area routes and data entries for DeLand, Sanford, and Lake Mary if they will be shown as primary areas at launch.
 - [ ] Add a simple working quote form or clear phone/email quote path.
+- [ ] Confirm `/thank-you` is used only for quote confirmation and is not indexed.
 - [ ] Review all website copy against `docs/strategy/CLAIMS.md`.
 
 ### Days 8-14: Local Presence
@@ -57,15 +59,29 @@
 
 - [ ] Replace placeholder phone number.
 - [ ] Make quote page functional or clearly contact-based.
+- [ ] Keep quote CTAs visible on the homepage, service pages, service-area pages, and footer/final CTA.
 - [ ] Keep services focused on concrete-oriented exterior cleaning.
 - [ ] Add homepage sections from `docs/design/DESIGN.md`.
 - [ ] Add real before/after proof only after jobs exist.
 - [ ] Add unique metadata for each page.
 - [ ] Add canonical URLs.
-- [ ] Add sitemap output and verify `public/robots.txt`.
+- [ ] Add sitemap output and verify `public/robots.txt` references a sitemap that actually exists.
+- [ ] Exclude or noindex `/thank-you` and any form-only utility pages.
 - [ ] Add LocalBusiness schema after verified business data is ready.
 - [ ] Test mobile navigation, CTAs, and form submission.
 - [ ] Run `pnpm run build` before launch.
+
+## Quote Flow Requirements
+
+Minimum launch flow:
+
+- [ ] Quote page explains how to request a quote.
+- [ ] Visitor can contact CFL Wash Co. by working phone, email, or form.
+- [ ] Form, if used, collects name, phone or email, service address or city, requested service, and job notes.
+- [ ] Form, if used, sends a notification to the business inbox.
+- [ ] Form, if used, redirects to `/thank-you` after successful submission.
+- [ ] `/thank-you` should be noindex and excluded from the sitemap.
+- [ ] Do not imply instant booking, same-day service, payment, or confirmed scheduling unless those workflows exist.
 
 ## Google Business Profile Checklist
 

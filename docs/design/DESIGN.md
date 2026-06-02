@@ -91,11 +91,13 @@ Recommended homepage order:
 - HOA notice and curb appeal feature
 - Before/after proof section with placeholders until real jobs exist
 - Service areas: Deltona, Orange City, DeBary, DeLand, Sanford, Lake Mary
-- Three-step process: request quote, confirm details, get cleaned and receive photos
+- Three-step process: request quote, confirm details, get cleaned and receive photos when that workflow is in place
 - Short homeowner FAQ
 - Final CTA
 
 Current implementation is a static Astro/Tailwind lead-gen foundation. Design work should enhance this structure instead of replacing it with a marketing-only landing page.
+
+If the homepage or navigation lists a service area, Codex should make sure the matching data entry and route exist first. Current service-area route coverage may lag the full primary service-area list during MVP build-out.
 
 ## Stitch Usage Rules
 
@@ -106,6 +108,7 @@ Stitch should:
 - Preserve the MVP service focus.
 - Use `CFL Wash Co.` as the primary wordmark text.
 - Treat `cflwash.com` as the production domain.
+- Keep the quote CTA available in the header, hero, service sections, and final CTA.
 - Design reusable website sections, not a one-off mockup.
 - Leave room for real before/after photos.
 - Include mobile layout direction.

@@ -11,7 +11,7 @@ Use these only when they match the current offer and operational reality:
 - CFL Wash Co. helps with curb appeal cleaning.
 - CFL Wash Co. can help clean concrete surfaces affected by everyday buildup, grime, and staining.
 - Requesting a quote is the primary next step.
-- Before/after proof will be added as real projects are completed.
+- Before/after proof can be added as real projects are completed and approved for publication.
 
 Preferred wording:
 
@@ -32,6 +32,9 @@ Do not use these until documentation or operational proof exists:
 - Top-rated
 - Best pressure washing company
 - Same-day service
+- Instant booking
+- Online scheduling
+- Online payment
 - 24/7 service
 - Guaranteed results
 - Satisfaction guaranteed
