@@ -2,6 +2,7 @@
 type Spacing = 'default' | 'compact' | 'none'
 
 type Props = {
+  id?: string
   eyebrow?: string
   title?: string
   description?: string
@@ -10,6 +11,7 @@ type Props = {
 }
 
 const {
+  id,
   eyebrow,
   title,
   description,
@@ -26,6 +28,7 @@ const spacingClasses: Record<Spacing, string> = {
 ---
 
 <section
+  id={id}
   class={`mx-auto w-full max-w-[var(--container-width)] px-6 ${spacingClasses[spacing]} ${className}`.trim()}
 >
   {
