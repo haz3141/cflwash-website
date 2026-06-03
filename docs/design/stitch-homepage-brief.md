@@ -20,6 +20,7 @@ Create a premium but approachable local service website that feels clean, trustw
 The design should feel like a modern Central Florida exterior cleaning company, not a generic industrial pressure washing site.
 
 The site should help homeowners quickly understand:
+
 - What CFL Wash Co. does
 - Where it serves
 - Why it is trustworthy
@@ -29,6 +30,7 @@ The site should help homeowners quickly understand:
 ## Primary audience
 
 Homeowners in Central Florida, especially:
+
 - Deltona
 - Orange City
 - DeBary
@@ -37,6 +39,7 @@ Homeowners in Central Florida, especially:
 - Lake Mary
 
 Primary use cases:
+
 - HOA notice cleanup
 - Dirty driveway or sidewalk
 - Curb appeal improvement
@@ -46,12 +49,14 @@ Primary use cases:
 ## Services to highlight
 
 Primary:
+
 - Driveway pressure washing
 - Sidewalk cleaning
 - Walkway cleaning
 - Concrete cleaning
 
 Secondary/future:
+
 - Patio cleaning
 - Pool deck cleaning
 - HOA notice cleanup
@@ -62,6 +67,7 @@ Do not make the design feel like a roof cleaning or full-house soft wash company
 ## Brand feel
 
 Keywords:
+
 - Clean
 - Local
 - Trustworthy
@@ -75,6 +81,7 @@ Keywords:
 - Before/after proof
 
 Avoid:
+
 - Dark industrial design
 - Harsh black/yellow construction look
 - Generic janitorial look
@@ -87,6 +94,7 @@ Avoid:
 Use a bright Florida daylight feeling.
 
 Suggested colors:
+
 - Clean white / soft off-white backgrounds
 - Deep navy or slate for text
 - Fresh blue accents for water/cleaning
@@ -94,6 +102,7 @@ Suggested colors:
 - Soft warm neutral tones for Florida light and concrete
 
 The design should have:
+
 - Strong whitespace
 - Clear section separation
 - Rounded cards/buttons
@@ -124,7 +133,7 @@ The design should have:
 
    CTAs:
    - Request a Quote
-   - Call (386) 000-0000
+   - Call verified phone number when available
 
 3. Trust bar
    Examples:
@@ -160,11 +169,12 @@ The design should have:
    Keep it short and homeowner-friendly.
 
 10. Final CTA
-   Encourage quote request.
+    Encourage quote request.
 
 ## Additional pages to design
 
 Also provide direction for:
+
 - Service page layout
 - Service-area page layout
 - Request quote page layout
@@ -175,6 +185,7 @@ Also provide direction for:
 The design will be implemented in Astro + Tailwind.
 
 Keep components reusable:
+
 - Header
 - Footer
 - Button
