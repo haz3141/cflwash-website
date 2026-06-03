@@ -1,0 +1,71 @@
+---
+import { serviceAreas } from '../../data/serviceAreas'
+import { services } from '../../data/services'
+import { site } from '../../data/site'
+---
+
+<footer
+  class="border-t border-[var(--color-border)] bg-[var(--color-background)]"
+>
+  <div
+    class="mx-auto grid w-full max-w-[var(--container-width)] gap-8 px-6 py-10 md:grid-cols-3"
+  >
+    <div>
+      <p class="text-sm font-semibold text-[var(--color-text)]">{site.name}</p>
+      <p class="mt-3 max-w-sm text-sm leading-6 text-[var(--color-text-muted)]">
+        {site.tagline}
+      </p>
+    </div>
+
+    <div>
+      <p class="text-sm font-semibold text-[var(--color-text)]">Services</p>
+      <ul class="mt-3 space-y-2 text-sm text-[var(--color-text-muted)]">
+        {
+          services.map((service) => (
+            <li>
+              <a
+                href={`/${service.slug}`}
+                class="hover:text-[var(--color-text)]"
+              >
+                {service.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div>
+      <p class="text-sm font-semibold text-[var(--color-text)]">
+        Service Areas
+      </p>
+      <ul class="mt-3 space-y-2 text-sm text-[var(--color-text-muted)]">
+        {
+          serviceAreas.map((area) => (
+            <li>
+              <a
+                href={`/service-areas/${area.slug}`}
+                class="hover:text-[var(--color-text)]"
+              >
+                {area.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-[var(--color-border)]">
+    <div
+      class="mx-auto flex w-full max-w-[var(--container-width)] flex-col gap-2 px-6 py-4 text-sm text-[var(--color-text-muted)] sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p>© {new Date().getFullYear()} {site.legalName}</p>
+      <p>
+        <a href={`mailto:${site.email}`} class="hover:text-[var(--color-text)]">
+          {site.email}
+        </a>
+      </p>
+    </div>
+  </div>
+</footer>

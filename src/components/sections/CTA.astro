@@ -1,0 +1,45 @@
+---
+import Button from '../ui/Button.astro'
+import Card from '../ui/Card.astro'
+
+type Props = {
+  title: string
+  description: string
+  primaryHref: string
+  primaryLabel: string
+  secondaryHref?: string
+  secondaryLabel?: string
+}
+
+const {
+  title,
+  description,
+  primaryHref,
+  primaryLabel,
+  secondaryHref,
+  secondaryLabel,
+} = Astro.props as Props
+---
+
+<section class="mx-auto w-full max-w-[var(--container-width)] px-6">
+  <Card class="bg-[var(--color-surface)] p-6 sm:p-8">
+    <h2 class="text-xl font-semibold text-[var(--color-text)] sm:text-2xl">
+      {title}
+    </h2>
+    <p
+      class="mt-3 max-w-2xl text-sm leading-7 text-[var(--color-text-muted)] sm:text-base"
+    >
+      {description}
+    </p>
+    <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+      <Button href={primaryHref}>{primaryLabel}</Button>
+      {
+        secondaryHref && secondaryLabel && (
+          <Button href={secondaryHref} variant="secondary">
+            {secondaryLabel}
+          </Button>
+        )
+      }
+    </div>
+  </Card>
+</section>

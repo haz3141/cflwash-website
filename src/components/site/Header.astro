@@ -1,0 +1,54 @@
+---
+import Button from '../ui/Button.astro'
+import { serviceAreas } from '../../data/serviceAreas'
+import { services } from '../../data/services'
+import { site } from '../../data/site'
+
+const serviceLinks = services.map((service) => ({
+  label: service.name,
+  href: `/${service.slug}`,
+}))
+
+const areaLinks = serviceAreas.map((area) => ({
+  label: area.name,
+  href: `/service-areas/${area.slug}`,
+}))
+---
+
+<header
+  class="border-b border-[var(--color-border)] bg-[var(--color-background)]"
+>
+  <div
+    class="mx-auto flex w-full max-w-[var(--container-width)] items-center justify-between gap-4 px-6 py-4"
+  >
+    <a
+      href="/"
+      class="text-sm font-semibold text-[var(--color-text)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+    >
+      {site.name}
+    </a>
+
+    <nav
+      class="hidden items-center gap-6 text-sm text-[var(--color-text-muted)] md:flex"
+    >
+      <a
+        href={serviceLinks[0].href}
+        class="hover:text-[var(--color-text)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+        >{serviceLinks[0].label}</a
+      >
+      <a
+        href={areaLinks[0].href}
+        class="hover:text-[var(--color-text)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+        >{areaLinks[0].label}</a
+      >
+    </nav>
+
+    <Button
+      href="/request-quote"
+      variant="primary"
+      class="hidden sm:inline-flex"
+    >
+      Request a Quote
+    </Button>
+  </div>
+</header>
