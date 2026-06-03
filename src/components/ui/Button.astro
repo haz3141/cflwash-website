@@ -1,0 +1,44 @@
+---
+type Variant = 'primary' | 'secondary' | 'ghost'
+type ButtonType = 'button' | 'submit' | 'reset'
+
+type Props = {
+  href?: string
+  variant?: Variant
+  type?: ButtonType
+  class?: string
+}
+
+const {
+  href,
+  variant = 'primary',
+  type = 'button',
+  class: className = '',
+  ...attrs
+} = Astro.props as Props
+
+const base =
+  'inline-flex min-h-11 items-center justify-center rounded-[var(--radius-md)] px-5 py-2.5 text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]'
+
+const variants: Record<Variant, string> = {
+  primary:
+    'bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]',
+  secondary:
+    'bg-[var(--color-background)] text-[var(--color-text)] ring-1 ring-inset ring-[var(--color-border)] hover:bg-[var(--color-surface)]',
+  ghost: 'text-[var(--color-text)] hover:bg-[var(--color-surface)]',
+}
+
+const classes = `${base} ${variants[variant]} ${className}`.trim()
+---
+
+{
+  href ? (
+    <a href={href} class={classes} {...attrs}>
+      <slot />
+    </a>
+  ) : (
+    <button type={type} class={classes} {...attrs}>
+      <slot />
+    </button>
+  )
+}

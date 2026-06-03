@@ -1,9 +1,10 @@
 ---
-import CTA from '../components/CTA.astro'
-import Button from '../components/Button.astro'
+import CTA from '../components/sections/CTA.astro'
+import ServiceCard from '../components/sections/ServiceCard.astro'
+import Button from '../components/ui/Button.astro'
+import Card from '../components/ui/Card.astro'
+import Section from '../components/ui/Section.astro'
 import Layout from '../layouts/Layout.astro'
-import Section from '../components/Section.astro'
-import ServiceCard from '../components/ServiceCard.astro'
 import { services } from '../data/services'
 import { serviceAreas } from '../data/serviceAreas'
 import { site } from '../data/site'
@@ -11,38 +12,49 @@ import { site } from '../data/site'
 
 <Layout>
   <main>
-    <section class="border-b border-slate-200">
-      <div class="mx-auto grid w-full max-w-6xl gap-10 px-6 py-20 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:items-end lg:py-24">
+    <section class="border-b border-[var(--color-border)]">
+      <div
+        class="mx-auto grid w-full max-w-[var(--container-width)] gap-10 px-6 py-20 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:items-end lg:py-24"
+      >
         <div>
-          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">
+          <p
+            class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-text-muted)]"
+          >
             {site.serviceArea}
           </p>
-          <h1 class="mt-4 max-w-3xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
+          <h1
+            class="mt-4 max-w-3xl text-4xl font-semibold text-[var(--color-text)] sm:text-5xl"
+          >
             Pressure washing for driveways, sidewalks, walkways, and concrete.
           </h1>
-          <p class="mt-5 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
+          <p
+            class="mt-5 max-w-2xl text-base leading-8 text-[var(--color-text-muted)] sm:text-lg"
+          >
             {site.tagline} This version keeps the site static and simple while the
             content foundation is established.
           </p>
           <div class="mt-8 flex flex-col gap-3 sm:flex-row">
             <Button href="/request-quote">Request a Quote</Button>
-            <Button href={site.phoneHref} variant="secondary">
-              Call {site.phoneDisplay}
+            <Button href={`mailto:${site.email}`} variant="secondary">
+              Email CFL Wash Co.
             </Button>
           </div>
         </div>
 
-        <div class="rounded-lg border border-slate-200 bg-slate-50 p-6">
-          <p class="text-sm font-semibold text-slate-950">Core services</p>
-          <ul class="mt-4 space-y-3 text-sm leading-6 text-slate-600">
-            {services.map((service) => (
-              <li>{service.name}</li>
-            ))}
-          </ul>
-          <p class="mt-6 text-sm text-slate-500">
-            Placeholder service foundation for build-out, content, and future visual direction.
+        <Card class="bg-[var(--color-surface)] p-6">
+          <p class="text-sm font-semibold text-[var(--color-text)]">
+            Core services
           </p>
-        </div>
+          <ul
+            class="mt-4 space-y-3 text-sm leading-6 text-[var(--color-text-muted)]"
+          >
+            {services.map((service) => <li>{service.name}</li>)}
+          </ul>
+          <p class="mt-6 text-sm text-[var(--color-text-muted)]">
+            Placeholder service foundation for build-out, content, and future
+            visual direction.
+          </p>
+        </Card>
       </div>
     </section>
 
@@ -50,16 +62,17 @@ import { site } from '../data/site'
       eyebrow="Services"
       title="Primary service pages"
       description="Each service page is a standalone static route so the site can grow without changing the structure."
-      class="py-16"
     >
       <div class="grid gap-4 md:grid-cols-3">
-        {services.map((service) => (
-          <ServiceCard
-            title={service.name}
-            description={service.summary}
-            href={`/${service.slug}`}
-          />
-        ))}
+        {
+          services.map((service) => (
+            <ServiceCard
+              title={service.name}
+              description={service.summary}
+              href={`/${service.slug}`}
+            />
+          ))
+        }
       </div>
     </Section>
 
@@ -67,21 +80,26 @@ import { site } from '../data/site'
       eyebrow="Coverage"
       title="Service areas"
       description="The foundation includes the initial local area pages we know we need."
-      class="py-16"
     >
       <div class="grid gap-4 md:grid-cols-3">
-        {serviceAreas.map((area) => (
-          <article class="rounded-lg border border-slate-200 bg-white p-5">
-            <h3 class="text-base font-semibold text-slate-950">{area.name}</h3>
-            <p class="mt-2 text-sm leading-6 text-slate-600">{area.description}</p>
-            <a
-              href={`/service-areas/${area.slug}`}
-              class="mt-4 inline-flex text-sm font-medium text-slate-900 hover:text-slate-600"
-            >
-              View area page
-            </a>
-          </article>
-        ))}
+        {
+          serviceAreas.map((area) => (
+            <Card>
+              <h3 class="text-base font-semibold text-[var(--color-text)]">
+                {area.name}
+              </h3>
+              <p class="mt-2 text-sm leading-6 text-[var(--color-text-muted)]">
+                {area.description}
+              </p>
+              <a
+                href={`/service-areas/${area.slug}`}
+                class="mt-4 inline-flex text-sm font-medium text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+              >
+                View area page
+              </a>
+            </Card>
+          ))
+        }
       </div>
     </Section>
 
@@ -90,8 +108,8 @@ import { site } from '../data/site'
       description="The site now has the pages, shared components, and SEO scaffolding needed before visual direction is finalized in Stitch."
       primaryHref="/request-quote"
       primaryLabel="Request a Quote"
-      secondaryHref={site.phoneHref}
-      secondaryLabel={`Call ${site.phoneDisplay}`}
+      secondaryHref={`mailto:${site.email}`}
+      secondaryLabel="Email CFL Wash Co."
     />
   </main>
 </Layout>

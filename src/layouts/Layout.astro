@@ -1,8 +1,9 @@
 ---
 import '../styles/global.css'
 import { site } from '../data/site'
-import Header from '../components/Header.astro'
-import Footer from '../components/Footer.astro'
+import Footer from '../components/site/Footer.astro'
+import Header from '../components/site/Header.astro'
+import MobileStickyCTA from '../components/site/MobileStickyCTA.astro'
 
 type Props = {
   title?: string
@@ -16,11 +17,12 @@ const {
   canonicalPath = '/',
 } = Astro.props
 
-const cleanPath = canonicalPath === '/'
-  ? ''
-  : canonicalPath.startsWith('/')
-    ? canonicalPath
-    : '/' + canonicalPath
+const cleanPath =
+  canonicalPath === '/'
+    ? ''
+    : canonicalPath.startsWith('/')
+      ? canonicalPath
+      : '/' + canonicalPath
 
 const canonicalUrl = site.url + cleanPath
 const ogTitle = title
@@ -36,7 +38,7 @@ const ogDescription = description
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
-    <meta name="theme-color" content="#0f172a" />
+    <meta name="theme-color" content="#1f5dbe" />
     <meta name="format-detection" content="telephone=no" />
 
     <meta property="og:type" content="website" />
@@ -49,11 +51,14 @@ const ogDescription = description
     <meta name="twitter:card" content="summary_large_image" />
   </head>
 
-  <body class="bg-white text-slate-950 antialiased">
-    <div class="min-h-screen">
+  <body
+    class="bg-[var(--color-background)] text-[var(--color-text)] antialiased"
+  >
+    <div class="min-h-screen pb-20 sm:pb-0">
       <Header />
       <slot />
       <Footer />
+      <MobileStickyCTA />
     </div>
   </body>
 </html>

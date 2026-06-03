@@ -1,7 +1,7 @@
 ---
-import Button from '../components/Button.astro'
+import Button from '../components/ui/Button.astro'
+import Section from '../components/ui/Section.astro'
 import Layout from '../layouts/Layout.astro'
-import Section from '../components/Section.astro'
 import { site } from '../data/site'
 ---
 
@@ -11,23 +11,27 @@ import { site } from '../data/site'
   canonicalPath="/request-quote"
 >
   <main>
-    <Section class="py-20">
-      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">
+    <Section spacing="none" class="py-20">
+      <p
+        class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-text-muted)]"
+      >
         Request a Quote
       </p>
-      <h1 class="mt-4 max-w-2xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
+      <h1
+        class="mt-4 max-w-2xl text-4xl font-semibold text-[var(--color-text)] sm:text-5xl"
+      >
         This route is ready for the future quote flow.
       </h1>
-      <p class="mt-5 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
-        No form is implemented yet. The page exists so the quote workflow, SEO, and
-        internal linking have a stable destination.
+      <p
+        class="mt-5 max-w-2xl text-base leading-8 text-[var(--color-text-muted)] sm:text-lg"
+      >
+        No form is implemented yet. The page exists so the quote workflow, SEO,
+        and internal linking have a stable destination.
       </p>
 
       <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-        <Button href={site.phoneHref}>Call {site.phoneDisplay}</Button>
-        <Button href={`mailto:${site.email}`} variant="secondary">
-          Email {site.email}
-        </Button>
+        <Button href={`mailto:${site.email}`}>Email {site.email}</Button>
+        <Button href="/" variant="secondary"> Back Home </Button>
       </div>
     </Section>
   </main>
