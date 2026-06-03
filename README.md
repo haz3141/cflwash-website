@@ -6,12 +6,12 @@ Astro + Tailwind website for CFL Wash Co., a Central Florida exterior cleaning a
 
 CFL Wash Co. is being built as a fast, local-first lead-generation website focused on:
 
-* Driveway pressure washing
-* Sidewalk cleaning
-* Walkway cleaning
-* Concrete cleaning
-* HOA notice cleanup
-* Curb appeal cleaning
+- Driveway pressure washing
+- Sidewalk cleaning
+- Walkway cleaning
+- Concrete cleaning
+- HOA notice cleanup
+- Curb appeal cleaning
 
 Production domain target:
 
@@ -27,11 +27,11 @@ https://cflwash-website.pages.dev/
 
 ## Tech Stack
 
-* Astro
-* Tailwind CSS
-* TypeScript
-* pnpm
-* Cloudflare Pages
+- Astro
+- Tailwind CSS
+- TypeScript
+- pnpm
+- Cloudflare Pages
 
 ## Local Development
 
@@ -112,13 +112,13 @@ The project uses a small custom Astro + Tailwind component system.
 
 Core rules:
 
-* Keep reusable primitives in `src/components/ui/`.
-* Keep shared site chrome in `src/components/site/`.
-* Keep larger page sections in `src/components/sections/`.
-* Keep reusable business data in `src/data/`.
-* Keep theme values in `src/styles/tokens.css`.
-* Avoid one-off styling when a reusable primitive makes sense.
-* Avoid over-abstraction.
+- Keep reusable primitives in `src/components/ui/`.
+- Keep shared site chrome in `src/components/site/`.
+- Keep larger page sections in `src/components/sections/`.
+- Keep reusable business data in `src/data/`.
+- Keep theme values in `src/styles/tokens.css`.
+- Avoid one-off styling when a reusable primitive makes sense.
+- Avoid over-abstraction.
 
 Stitch outputs are visual guidance only. Do not paste Stitch HTML directly into production.
 
@@ -128,24 +128,24 @@ Do not publish unverified claims.
 
 Avoid:
 
-* Fake reviews
-* 5-star rated
-* Fully insured
-* Licensed
-* Same-day service
-* Instant booking
-* Online scheduling
-* Online payment
-* Guaranteed response time
-* Fake project proof
+- Fake reviews
+- 5-star rated
+- Fully insured
+- Licensed
+- Same-day service
+- Instant booking
+- Online scheduling
+- Online payment
+- Guaranteed response time
+- Fake project proof
 
 Use safe language such as:
 
-* Central Florida based
-* Driveways, sidewalks, and concrete
-* HOA notice cleanup
-* Quote-first process
-* Serving Central Florida
+- Central Florida based
+- Driveways, sidewalks, and concrete
+- HOA notice cleanup
+- Quote-first process
+- Serving Central Florida
 
 See:
 
@@ -190,12 +190,12 @@ docs/engineering/PROJECT_RULES.md
 
 The repo foundation is in place:
 
-* Astro + Tailwind setup
-* Cloudflare Pages deployment
-* Component organization
-* Theme tokens
-* Prettier and ESLint
-* Claim-safe documentation
-* Initial static routes
+- Astro + Tailwind setup
+- Cloudflare Pages deployment
+- Component organization
+- Theme tokens
+- Prettier and ESLint
+- Claim-safe documentation
+- Initial static routes
 
 The next major implementation task is the homepage build from the selected Stitch design direction.
