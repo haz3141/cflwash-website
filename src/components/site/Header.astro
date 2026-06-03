@@ -1,54 +1,52 @@
 ---
 import Button from '../ui/Button.astro'
-import { serviceAreas } from '../../data/serviceAreas'
-import { services } from '../../data/services'
 import { site } from '../../data/site'
 
-const serviceLinks = services.map((service) => ({
-  label: service.name,
-  href: `/${service.slug}`,
-}))
-
-const areaLinks = serviceAreas.map((area) => ({
-  label: area.name,
-  href: `/service-areas/${area.slug}`,
-}))
+const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
 ---
 
 <header
-  class="border-b border-[var(--color-border)] bg-[var(--color-background)]"
+  class="sticky top-0 z-30 border-b border-[var(--color-border)] bg-[var(--color-background)]/95 backdrop-blur"
 >
   <div
-    class="mx-auto flex w-full max-w-[var(--container-width)] items-center justify-between gap-4 px-6 py-4"
+    class="mx-auto flex w-full max-w-[var(--container-width)] items-center justify-between gap-5 px-6 py-4"
   >
     <a
       href="/"
-      class="text-sm font-semibold text-[var(--color-text)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+      class="text-base font-semibold text-[var(--color-primary)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
     >
       {site.name}
     </a>
 
     <nav
-      class="hidden items-center gap-6 text-sm text-[var(--color-text-muted)] md:flex"
+      class="hidden items-center gap-7 text-sm font-medium text-[var(--color-text-muted)] md:flex"
     >
       <a
-        href={serviceLinks[0].href}
+        href="/#services"
         class="hover:text-[var(--color-text)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
-        >{serviceLinks[0].label}</a
+        >Services</a
       >
       <a
-        href={areaLinks[0].href}
+        href="/#service-areas"
         class="hover:text-[var(--color-text)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
-        >{areaLinks[0].label}</a
+        >Service Areas</a
+      >
+      <a
+        href="/request-quote"
+        class="hover:text-[var(--color-text)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+        >Request Quote</a
       >
     </nav>
 
-    <Button
-      href="/request-quote"
-      variant="primary"
-      class="hidden sm:inline-flex"
-    >
-      Request a Quote
-    </Button>
+    <div class="hidden items-center gap-3 sm:flex">
+      {
+        hasPhone && (
+          <Button href={site.phoneHref} variant="secondary">
+            Call
+          </Button>
+        )
+      }
+      <Button href="/request-quote" variant="primary"> Request a Quote </Button>
+    </div>
   </div>
 </header>
