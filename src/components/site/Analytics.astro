@@ -1,0 +1,33 @@
+---
+const ga4MeasurementId = import.meta.env.PUBLIC_GA4_MEASUREMENT_ID?.trim()
+const cfWebAnalyticsToken =
+  import.meta.env.PUBLIC_CF_WEB_ANALYTICS_TOKEN?.trim()
+const ga4ConfigScript = ga4MeasurementId
+  ? `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${ga4MeasurementId}');`
+  : undefined
+---
+
+{
+  ga4MeasurementId && (
+    <>
+      <script
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=${ga4MeasurementId}`}
+      />
+      <script is:inline set:html={ga4ConfigScript} />
+    </>
+  )
+}
+
+{
+  cfWebAnalyticsToken && (
+    <script
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon={JSON.stringify({ token: cfWebAnalyticsToken })}
+    />
+  )
+}

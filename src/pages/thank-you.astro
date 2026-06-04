@@ -9,6 +9,7 @@ import { site } from '../data/site'
   title="Thank You | CFL Wash Co."
   description="Confirmation page for quote requests and contact follow-up."
   canonicalPath="/thank-you"
+  noindex={true}
 >
   <main>
     <Section spacing="none" class="py-20">
@@ -31,7 +32,12 @@ import { site } from '../data/site'
 
       <div class="mt-8 flex flex-col gap-3 sm:flex-row">
         <Button href="/">Back Home</Button>
-        <Button href={`mailto:${site.email}`} variant="secondary">
+        <Button
+          href={`mailto:${site.email}`}
+          variant="secondary"
+          data-cta="email"
+          data-cta-location="thank-you"
+        >
           Email CFL Wash Co.
         </Button>
       </div>

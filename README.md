@@ -188,7 +188,7 @@ docs/engineering/PROJECT_RULES.md
 
 ## Current Status
 
-The repo foundation is in place:
+The repo foundation and initial site structure are in place:
 
 - Astro + Tailwind setup
 - Cloudflare Pages deployment
@@ -196,6 +196,8 @@ The repo foundation is in place:
 - Theme tokens
 - Prettier and ESLint
 - Claim-safe documentation
-- Initial static routes
+- Initial homepage and static routes
+- Canonical URL handling
+- Production metadata hooks for noindex, OG image support, favicon/manifest links, and optional analytics loading
 
-The next major implementation task is the homepage build from the selected Stitch design direction.
+The next major tasks are design polish, content expansion, and connecting the future quote workflow.

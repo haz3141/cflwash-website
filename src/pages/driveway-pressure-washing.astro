@@ -34,8 +34,19 @@ const service = services.find(
       </p>
 
       <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-        <Button href="/request-quote">Request a Quote</Button>
-        <Button href={`mailto:${site.email}`} variant="secondary">
+        <Button
+          href="/request-quote"
+          data-cta="quote"
+          data-cta-location={`service-${service.slug}`}
+        >
+          Request a Quote
+        </Button>
+        <Button
+          href={`mailto:${site.email}`}
+          variant="secondary"
+          data-cta="email"
+          data-cta-location={`service-${service.slug}`}
+        >
           Email CFL Wash Co.
         </Button>
       </div>
