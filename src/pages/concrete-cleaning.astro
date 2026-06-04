@@ -1,0 +1,53 @@
+---
+import Button from '../components/ui/Button.astro'
+import Section from '../components/ui/Section.astro'
+import Layout from '../layouts/Layout.astro'
+import { site } from '../data/site'
+import { services } from '../data/services'
+
+const service = services.find((item) => item.slug === 'concrete-cleaning')!
+---
+
+<Layout
+  title={`${service.name} | CFL Wash Co.`}
+  description={service.description}
+  canonicalPath="/concrete-cleaning"
+>
+  <main>
+    <Section spacing="none" class="py-20">
+      <p
+        class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-text-muted)]"
+      >
+        Service
+      </p>
+      <h1
+        class="mt-4 text-4xl font-semibold text-[var(--color-text)] sm:text-5xl"
+      >
+        {service.name}
+      </h1>
+      <p
+        class="mt-5 max-w-2xl text-base leading-8 text-[var(--color-text-muted)] sm:text-lg"
+      >
+        {service.description}
+      </p>
+
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <Button
+          href="/request-quote"
+          data-cta="quote"
+          data-cta-location={`service-${service.slug}`}
+        >
+          Request a Quote
+        </Button>
+        <Button
+          href={`mailto:${site.email}`}
+          variant="secondary"
+          data-cta="email"
+          data-cta-location={`service-${service.slug}`}
+        >
+          Email CFL Wash Co.
+        </Button>
+      </div>
+    </Section>
+  </main>
+</Layout>

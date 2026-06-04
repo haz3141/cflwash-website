@@ -1,0 +1,53 @@
+---
+import Button from '../../components/ui/Button.astro'
+import Section from '../../components/ui/Section.astro'
+import Layout from '../../layouts/Layout.astro'
+import { site } from '../../data/site'
+import { serviceAreas } from '../../data/serviceAreas'
+
+const area = serviceAreas.find((item) => item.slug === 'debary')!
+---
+
+<Layout
+  title={`${area.name} Service Area | CFL Wash Co.`}
+  description={area.description}
+  canonicalPath="/service-areas/debary"
+>
+  <main>
+    <Section spacing="none" class="py-20">
+      <p
+        class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-text-muted)]"
+      >
+        Service Area
+      </p>
+      <h1
+        class="mt-4 text-4xl font-semibold text-[var(--color-text)] sm:text-5xl"
+      >
+        {area.name}
+      </h1>
+      <p
+        class="mt-5 max-w-2xl text-base leading-8 text-[var(--color-text-muted)] sm:text-lg"
+      >
+        {area.description}
+      </p>
+
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <Button
+          href="/request-quote"
+          data-cta="quote"
+          data-cta-location={`service-area-${area.slug}`}
+        >
+          Request a Quote
+        </Button>
+        <Button
+          href={`mailto:${site.email}`}
+          variant="secondary"
+          data-cta="email"
+          data-cta-location={`service-area-${area.slug}`}
+        >
+          Email CFL Wash Co.
+        </Button>
+      </div>
+    </Section>
+  </main>
+</Layout>

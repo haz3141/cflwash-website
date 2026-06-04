@@ -1,0 +1,14 @@
+---
+type Props = {
+  class?: string
+}
+
+const { class: className = '' } = Astro.props as Props
+
+const classes =
+  `rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-background)] p-5 ${className}`.trim()
+---
+
+<article class={classes}>
+  <slot />
+</article>

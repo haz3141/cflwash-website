@@ -1,26 +1,43 @@
 ---
 import '../styles/global.css'
 import { site } from '../data/site'
+import Analytics from '../components/site/Analytics.astro'
+import Footer from '../components/site/Footer.astro'
+import Header from '../components/site/Header.astro'
+import MobileStickyCTA from '../components/site/MobileStickyCTA.astro'
 
 type Props = {
   title?: string
   description?: string
   canonicalPath?: string
+  noindex?: boolean
+  ogImage?: string
 }
 
 const {
   title = site.title,
   description = site.description,
   canonicalPath = '/',
+  noindex = false,
+  ogImage,
 } = Astro.props
 
-const cleanPath = canonicalPath === '/'
-  ? ''
-  : canonicalPath.startsWith('/')
-    ? canonicalPath
-    : '/' + canonicalPath
+const cleanPath =
+  canonicalPath === '/'
+    ? ''
+    : canonicalPath.startsWith('/')
+      ? canonicalPath
+      : '/' + canonicalPath
 
 const canonicalUrl = site.url + cleanPath
+const ogTitle = title
+const ogDescription = description
+const robotsContent = noindex ? 'noindex, follow' : 'index, follow'
+const ogImageUrl = ogImage
+  ? ogImage.startsWith('http://') || ogImage.startsWith('https://')
+    ? ogImage
+    : site.url + (ogImage.startsWith('/') ? ogImage : `/${ogImage}`)
+  : undefined
 ---
 
 <!doctype html>
@@ -31,18 +48,40 @@ const canonicalUrl = site.url + cleanPath
 
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="robots" content={robotsContent} />
     <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#1f5dbe" />
+    <meta name="format-detection" content="telephone=no" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={ogDescription} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content="en_US" />
+    {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
 
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:card"
+      content={ogImageUrl ? 'summary_large_image' : 'summary'}
+    />
+    <meta name="twitter:title" content={ogTitle} />
+    <meta name="twitter:description" content={ogDescription} />
+    {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
   </head>
 
-  <body>
-    <slot />
+  <body
+    class="bg-[var(--color-background)] text-[var(--color-text)] antialiased"
+  >
+    <div class="min-h-screen pb-20 sm:pb-0">
+      <Header />
+      <slot />
+      <Footer />
+      <MobileStickyCTA />
+    </div>
+    <Analytics />
   </body>
 </html>

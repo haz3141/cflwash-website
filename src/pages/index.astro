@@ -1,38 +1,378 @@
 ---
+import Button from '../components/ui/Button.astro'
+import Card from '../components/ui/Card.astro'
+import Section from '../components/ui/Section.astro'
 import Layout from '../layouts/Layout.astro'
+import { services } from '../data/services'
+import { serviceAreas } from '../data/serviceAreas'
 import { site } from '../data/site'
+
+const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
+const secondaryHeroHref = hasPhone ? site.phoneHref : `mailto:${site.email}`
+const secondaryHeroLabel = hasPhone
+  ? `Call ${site.phoneDisplay}`
+  : 'Email CFL Wash Co.'
+
+const trustCues = [
+  {
+    label: 'Central Florida based',
+    detail: 'Serving homeowners across the local area',
+  },
+  {
+    label: 'Driveways, sidewalks, and concrete',
+    detail: 'Focused curb appeal cleaning for hard surfaces',
+  },
+  {
+    label: 'HOA notice cleanup',
+    detail: 'Quote-first help for visible concrete buildup',
+  },
+  {
+    label: 'Simple quote path',
+    detail: 'Request a quote before any work is scheduled',
+  },
+]
+
+const processSteps = [
+  {
+    title: 'Request a quote',
+    description:
+      'Share the surface, city, and a few details about the driveway, sidewalk, walkway, or concrete area.',
+  },
+  {
+    title: 'Confirm the scope',
+    description:
+      'CFL Wash Co. reviews the job details and confirms the best cleaning plan before work begins.',
+  },
+  {
+    title: 'Clean the concrete',
+    description:
+      'The work stays focused on cleaner-looking concrete and practical curb appeal for the property.',
+  },
+]
+
+const unlinkedServiceAreas = ['DeLand', 'Sanford', 'Lake Mary']
 ---
 
-<Layout canonicalPath="/">
-  <main class="min-h-screen bg-slate-50">
-    <section class="mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-6 py-20">
-      <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-blue-700">
-        {site.name}
-      </p>
+<Layout
+  title="Driveway, Sidewalk, and Concrete Cleaning in Central Florida | CFL Wash Co."
+  description="Request a simple quote for driveway, walkway, sidewalk, and concrete cleaning across Central Florida."
+  canonicalPath="/"
+>
+  <main>
+    <section class="overflow-hidden bg-[var(--color-surface)]">
+      <div
+        class="mx-auto grid w-full max-w-[var(--container-width)] gap-12 px-6 py-16 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,0.92fr)] lg:items-center lg:py-24"
+      >
+        <div>
+          <p
+            class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-primary)]"
+          >
+            Serving Central Florida
+          </p>
+          <h1
+            class="mt-4 max-w-3xl text-4xl font-semibold leading-tight text-[var(--color-text)] sm:text-5xl lg:text-6xl"
+          >
+            Driveway, Sidewalk, and Concrete Cleaning in Central Florida
+          </h1>
+          <p
+            class="mt-5 max-w-2xl text-base leading-8 text-[var(--color-text-muted)] sm:text-lg"
+          >
+            Simple quotes for driveway, walkway, sidewalk, and concrete cleaning
+            across Central Florida. Built for curb appeal, HOA notices, and
+            cleaner-looking concrete.
+          </p>
 
-      <h1 class="max-w-3xl text-4xl font-bold tracking-tight text-slate-950 sm:text-6xl">
-        Driveway, sidewalk, and exterior cleaning in Central Florida.
-      </h1>
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Button
+              href="/request-quote"
+              data-cta="quote"
+              data-cta-location="home-hero"
+            >
+              Request a Quote
+            </Button>
+            {
+              secondaryHeroHref && (
+                <Button
+                  href={secondaryHeroHref}
+                  variant="secondary"
+                  data-cta={hasPhone ? 'call' : 'email'}
+                  data-cta-location="home-hero"
+                >
+                  {secondaryHeroLabel}
+                </Button>
+              )
+            }
+          </div>
+        </div>
 
-      <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-700">
-        {site.tagline} Starting with driveway, walkway, sidewalk, and concrete
-        cleaning for curb appeal and HOA notices.
-      </p>
-
-      <div class="mt-10 flex flex-col gap-3 sm:flex-row">
-        <a
-          href="/request-quote"
-          class="rounded-2xl bg-blue-700 px-6 py-4 text-center font-semibold text-white shadow-sm hover:bg-blue-800"
+        <div
+          class="relative min-h-[27rem] overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[linear-gradient(180deg,#e9f6ff_0%,#ffffff_52%,#eef2f4_52%,#dfe7ec_100%)] shadow-sm"
+          aria-hidden="true"
         >
-          Request a Quote
-        </a>
+          <div class="absolute inset-x-0 top-0 h-28 bg-[#b7dbff]"></div>
+          <div
+            class="absolute left-1/2 top-16 h-24 w-48 -translate-x-1/2 rounded-t-[2rem] border border-[var(--color-border)] bg-white shadow-sm"
+          >
+          </div>
+          <div
+            class="absolute left-1/2 top-24 h-16 w-24 -translate-x-1/2 rounded-t-[1.5rem] bg-[var(--color-surface-warm)]"
+          >
+          </div>
+          <div
+            class="absolute left-1/2 top-40 h-72 w-[72%] -translate-x-1/2 skew-x-[-8deg] rounded-t-2xl border border-[var(--color-border)] bg-[linear-gradient(135deg,#f8fbfc_0%,#e4edf2_58%,#f8fbfc_100%)] shadow-[0_24px_80px_rgba(10,27,46,0.16)]"
+          >
+          </div>
+          <div
+            class="absolute bottom-0 left-0 h-44 w-28 rounded-tr-[4rem] bg-[var(--color-secondary)]/90"
+          >
+          </div>
+          <div
+            class="absolute bottom-0 right-0 h-52 w-32 rounded-tl-[5rem] bg-[var(--color-secondary)]/85"
+          >
+          </div>
+          <div
+            class="absolute bottom-14 left-1/2 h-px w-[60%] -translate-x-1/2 bg-white/80"
+          >
+          </div>
+          <div
+            class="absolute bottom-28 left-1/2 h-px w-[52%] -translate-x-1/2 bg-white/80"
+          >
+          </div>
+          <div
+            class="absolute right-8 top-8 h-20 w-20 rounded-full border-[12px] border-[var(--color-primary)]/20"
+          >
+          </div>
+          <div
+            class="absolute bottom-7 left-7 rounded-[var(--radius-md)] bg-white/95 px-4 py-3 shadow-sm ring-1 ring-[var(--color-border)]"
+          >
+            <p
+              class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-primary)]"
+            >
+              Concrete focus
+            </p>
+            <p class="mt-1 text-sm font-semibold text-[var(--color-text)]">
+              Driveways, walks, and curb appeal
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <a
-          href={site.phoneHref}
-          class="rounded-2xl border border-slate-300 bg-white px-6 py-4 text-center font-semibold text-slate-950 shadow-sm hover:bg-slate-100"
+    <section class="border-y border-[var(--color-border)] bg-white">
+      <div
+        class="mx-auto grid w-full max-w-[var(--container-width)] gap-4 px-6 py-6 sm:grid-cols-2 lg:grid-cols-4"
+      >
+        {
+          trustCues.map((cue) => (
+            <div class="flex gap-3">
+              <span class="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-[var(--color-secondary)]" />
+              <div>
+                <p class="text-sm font-semibold text-[var(--color-text)]">
+                  {cue.label}
+                </p>
+                <p class="mt-1 text-sm leading-6 text-[var(--color-text-muted)]">
+                  {cue.detail}
+                </p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <Section
+      id="services"
+      eyebrow="Services"
+      title="Concrete-focused exterior cleaning"
+      description="Start with the surfaces homeowners notice first: driveways, sidewalks, walkways, and concrete around the property."
+      class="scroll-mt-24"
+    >
+      <div class="grid gap-4 md:grid-cols-3">
+        {
+          services.map((service) => (
+            <Card class="flex h-full flex-col bg-white">
+              <div class="mb-5 h-10 w-10 rounded-[var(--radius-md)] bg-[var(--color-primary)]/10 ring-1 ring-[var(--color-primary)]/15" />
+              <h3 class="text-lg font-semibold text-[var(--color-text)]">
+                {service.name}
+              </h3>
+              <p class="mt-3 flex-1 text-sm leading-7 text-[var(--color-text-muted)]">
+                {service.summary}
+              </p>
+              <a
+                href={`/${service.slug}`}
+                class="mt-6 inline-flex text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+              >
+                View service
+              </a>
+            </Card>
+          ))
+        }
+      </div>
+    </Section>
+
+    <section class="bg-[var(--color-surface)]">
+      <div
+        class="mx-auto grid w-full max-w-[var(--container-width)] gap-8 px-6 py-[var(--section-spacing)] lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-center"
+      >
+        <div>
+          <p
+            class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-primary)]"
+          >
+            HOA and curb appeal
+          </p>
+          <h2
+            class="mt-3 text-3xl font-semibold leading-tight text-[var(--color-text)] sm:text-4xl"
+          >
+            A practical cleanup path for visible concrete.
+          </h2>
+          <p class="mt-4 text-base leading-8 text-[var(--color-text-muted)]">
+            HOA notices and curb appeal projects usually start with the surfaces
+            closest to the street. CFL Wash Co. keeps the service focus on
+            driveway, walkway, sidewalk, and concrete cleaning so the quote
+            stays clear.
+          </p>
+          <div class="mt-7">
+            <Button
+              href="/request-quote"
+              data-cta="quote"
+              data-cta-location="home-hoa"
+            >
+              Request a Quote
+            </Button>
+          </div>
+        </div>
+
+        <div class="grid gap-3 sm:grid-cols-2">
+          {
+            [
+              'Driveway and front walk refreshes',
+              'Sidewalk cleaning for neighborhood presentation',
+              'Concrete patios, pads, aprons, and entry areas',
+              'Quote-first scope before work is scheduled',
+            ].map((item) => (
+              <div class="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white p-5">
+                <span class="block h-1 w-10 rounded-full bg-[var(--color-accent)]" />
+                <p class="mt-4 text-sm font-semibold leading-6 text-[var(--color-text)]">
+                  {item}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <Section
+      eyebrow="Process"
+      title="Simple quote-first process"
+      description="Request a quote, confirm the scope, and move forward with the concrete cleaning that fits the property."
+    >
+      <div class="grid gap-4 md:grid-cols-3">
+        {
+          processSteps.map((step, index) => (
+            <Card class="bg-white">
+              <div class="flex items-center gap-4">
+                <span class="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-primary)] text-sm font-semibold text-white">
+                  {index + 1}
+                </span>
+                <h3 class="text-base font-semibold text-[var(--color-text)]">
+                  {step.title}
+                </h3>
+              </div>
+              <p class="mt-4 text-sm leading-7 text-[var(--color-text-muted)]">
+                {step.description}
+              </p>
+            </Card>
+          ))
+        }
+      </div>
+    </Section>
+
+    <section
+      id="service-areas"
+      class="scroll-mt-24 border-y border-[var(--color-border)] bg-[var(--color-surface)]"
+    >
+      <div
+        class="mx-auto grid w-full max-w-[var(--container-width)] gap-8 px-6 py-[var(--section-spacing)] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]"
+      >
+        <div>
+          <p
+            class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-primary)]"
+          >
+            Service areas
+          </p>
+          <h2
+            class="mt-3 text-2xl font-semibold text-[var(--color-text)] sm:text-3xl"
+          >
+            Serving Central Florida homeowners.
+          </h2>
+          <p
+            class="mt-3 text-sm leading-7 text-[var(--color-text-muted)] sm:text-base"
+          >
+            Explore the current service area pages below. Additional nearby
+            cities are listed as part of the broader Central Florida service
+            area.
+          </p>
+        </div>
+
+        <div class="grid gap-3 sm:grid-cols-2">
+          {
+            serviceAreas.map((area) => (
+              <a
+                href={`/service-areas/${area.slug}`}
+                class="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-4 text-sm font-semibold text-[var(--color-text)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+              >
+                {area.name}
+              </a>
+            ))
+          }
+          {
+            unlinkedServiceAreas.map((area) => (
+              <p class="rounded-[var(--radius-md)] border border-dashed border-[var(--color-border)] bg-white/70 p-4 text-sm font-semibold text-[var(--color-text-muted)]">
+                {area}
+              </p>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-[var(--section-spacing)]">
+      <div
+        class="mx-auto max-w-[var(--container-width)] overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-primary)] px-6 py-12 text-center text-white shadow-sm sm:px-10"
+      >
+        <p
+          class="text-sm font-semibold uppercase tracking-[0.18em] text-white/75"
         >
-          Call {site.phoneDisplay}
-        </a>
+          Ready for a cleaner-looking driveway?
+        </p>
+        <h2 class="mx-auto mt-3 max-w-2xl text-3xl font-semibold sm:text-4xl">
+          Request a simple Central Florida concrete cleaning quote.
+        </h2>
+        <p class="mx-auto mt-4 max-w-2xl text-base leading-8 text-white/85">
+          Tell CFL Wash Co. what needs attention and get a clear next step for
+          driveway, walkway, sidewalk, or concrete cleaning.
+        </p>
+        <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+          <Button
+            href="/request-quote"
+            variant="secondary"
+            class="bg-white text-[var(--color-primary)] hover:bg-[var(--color-surface)]"
+            data-cta="quote"
+            data-cta-location="home-final"
+          >
+            Request a Quote
+          </Button>
+          <Button
+            href={secondaryHeroHref}
+            variant="ghost"
+            class="text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
+            data-cta={hasPhone ? 'call' : 'email'}
+            data-cta-location="home-final"
+          >
+            {secondaryHeroLabel}
+          </Button>
+        </div>
       </div>
     </section>
   </main>

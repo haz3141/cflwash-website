@@ -1,0 +1,87 @@
+---
+import { serviceAreas } from '../../data/serviceAreas'
+import { services } from '../../data/services'
+import { site } from '../../data/site'
+
+const unlinkedServiceAreas = ['DeLand', 'Sanford', 'Lake Mary']
+---
+
+<footer class="border-t border-[var(--color-border)] bg-[var(--color-surface)]">
+  <div
+    class="mx-auto grid w-full max-w-[var(--container-width)] gap-8 px-6 py-10 md:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)_minmax(0,0.8fr)]"
+  >
+    <div>
+      <p class="text-base font-semibold text-[var(--color-primary)]">
+        {site.name}
+      </p>
+      <p class="mt-3 max-w-sm text-sm leading-6 text-[var(--color-text-muted)]">
+        Driveway, sidewalk, walkway, and concrete cleaning for Central Florida
+        curb appeal.
+      </p>
+      <p class="mt-4 text-sm text-[var(--color-text-muted)]">
+        <a
+          href={`mailto:${site.email}`}
+          data-cta="email"
+          data-cta-location="footer"
+          class="hover:text-[var(--color-text)]"
+        >
+          {site.email}
+        </a>
+      </p>
+    </div>
+
+    <div>
+      <p class="text-sm font-semibold text-[var(--color-text)]">Services</p>
+      <ul class="mt-3 space-y-2 text-sm text-[var(--color-text-muted)]">
+        {
+          services.map((service) => (
+            <li>
+              <a
+                href={`/${service.slug}`}
+                class="hover:text-[var(--color-text)]"
+              >
+                {service.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div>
+      <p class="text-sm font-semibold text-[var(--color-text)]">
+        Service Areas
+      </p>
+      <ul class="mt-3 space-y-2 text-sm text-[var(--color-text-muted)]">
+        {
+          serviceAreas.map((area) => (
+            <li>
+              <a
+                href={`/service-areas/${area.slug}`}
+                class="hover:text-[var(--color-text)]"
+              >
+                {area.name}
+              </a>
+            </li>
+          ))
+        }
+        {
+          unlinkedServiceAreas.map((area) => (
+            <li>
+              <span>{area}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-[var(--color-border)]">
+    <div
+      class="mx-auto flex w-full max-w-[var(--container-width)] flex-col gap-2 px-6 py-4 text-sm text-[var(--color-text-muted)] sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p>© {new Date().getFullYear()} {site.legalName}</p>
+      <p>Serving Central Florida</p>
+    </div>
+  </div>
+</footer>

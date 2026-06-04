@@ -1,0 +1,66 @@
+---
+import Button from '../ui/Button.astro'
+import { site } from '../../data/site'
+
+const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
+---
+
+<header
+  class="sticky top-0 z-30 border-b border-[var(--color-border)] bg-[var(--color-background)]/95 backdrop-blur"
+>
+  <div
+    class="mx-auto flex w-full max-w-[var(--container-width)] items-center justify-between gap-5 px-6 py-4"
+  >
+    <a
+      href="/"
+      class="text-base font-semibold text-[var(--color-primary)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+    >
+      {site.name}
+    </a>
+
+    <nav
+      class="hidden items-center gap-7 text-sm font-medium text-[var(--color-text-muted)] md:flex"
+    >
+      <a
+        href="/#services"
+        class="hover:text-[var(--color-text)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+        >Services</a
+      >
+      <a
+        href="/#service-areas"
+        class="hover:text-[var(--color-text)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+        >Service Areas</a
+      >
+      <a
+        href="/request-quote"
+        data-cta="quote"
+        data-cta-location="header-nav"
+        class="hover:text-[var(--color-text)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+        >Request Quote</a
+      >
+    </nav>
+
+    <div class="hidden items-center gap-3 sm:flex">
+      {
+        hasPhone && (
+          <Button
+            href={site.phoneHref}
+            variant="secondary"
+            data-cta="call"
+            data-cta-location="header"
+          >
+            Call
+          </Button>
+        )
+      }
+      <Button
+        href="/request-quote"
+        variant="primary"
+        data-cta="quote"
+        data-cta-location="header"
+      >
+        Request a Quote
+      </Button>
+    </div>
+  </div>
+</header>

@@ -1,7 +1,8 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig } from 'astro/config'
+import sitemap from '@astrojs/sitemap'
 
-import tailwindcss from '@tailwindcss/vite';
+import tailwindcss from '@tailwindcss/vite'
 
 // https://astro.build/config
 export default defineConfig({
@@ -10,7 +11,13 @@ export default defineConfig({
   build: {
     format: 'file',
   },
+  integrations: [
+    sitemap({
+      filter: (page) =>
+        !page.endsWith('/thank-you') && !page.endsWith('/thank-you/'),
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },
-});
+})

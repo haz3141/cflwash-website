@@ -1,0 +1,46 @@
+---
+import Button from '../components/ui/Button.astro'
+import Section from '../components/ui/Section.astro'
+import Layout from '../layouts/Layout.astro'
+import { site } from '../data/site'
+---
+
+<Layout
+  title="Thank You | CFL Wash Co."
+  description="Confirmation page for quote requests and contact follow-up."
+  canonicalPath="/thank-you"
+  noindex={true}
+>
+  <main>
+    <Section spacing="none" class="py-20">
+      <p
+        class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-text-muted)]"
+      >
+        Thank You
+      </p>
+      <h1
+        class="mt-4 text-4xl font-semibold text-[var(--color-text)] sm:text-5xl"
+      >
+        Thanks for reaching out.
+      </h1>
+      <p
+        class="mt-5 max-w-2xl text-base leading-8 text-[var(--color-text-muted)] sm:text-lg"
+      >
+        We have your request details. If you need to add anything else about the
+        driveway, sidewalk, walkway, or concrete area, send us an email.
+      </p>
+
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <Button href="/">Back Home</Button>
+        <Button
+          href={`mailto:${site.email}`}
+          variant="secondary"
+          data-cta="email"
+          data-cta-location="thank-you"
+        >
+          Email CFL Wash Co.
+        </Button>
+      </div>
+    </Section>
+  </main>
+</Layout>

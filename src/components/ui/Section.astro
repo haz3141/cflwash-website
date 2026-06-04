@@ -1,0 +1,59 @@
+---
+type Spacing = 'default' | 'compact' | 'none'
+
+type Props = {
+  id?: string
+  eyebrow?: string
+  title?: string
+  description?: string
+  spacing?: Spacing
+  class?: string
+}
+
+const {
+  id,
+  eyebrow,
+  title,
+  description,
+  spacing = 'default',
+  class: className = '',
+} = Astro.props as Props
+
+const hasHeader = Boolean(eyebrow || title || description)
+const spacingClasses: Record<Spacing, string> = {
+  default: 'py-[var(--section-spacing)]',
+  compact: 'py-[var(--section-spacing-compact)]',
+  none: '',
+}
+---
+
+<section
+  id={id}
+  class={`mx-auto w-full max-w-[var(--container-width)] px-6 ${spacingClasses[spacing]} ${className}`.trim()}
+>
+  {
+    hasHeader && (
+      <div class="max-w-2xl">
+        {eyebrow && (
+          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
+            {eyebrow}
+          </p>
+        )}
+        {title && (
+          <h2 class="mt-3 text-2xl font-semibold text-[var(--color-text)] sm:text-3xl">
+            {title}
+          </h2>
+        )}
+        {description && (
+          <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)] sm:text-base">
+            {description}
+          </p>
+        )}
+      </div>
+    )
+  }
+
+  <div class={hasHeader ? 'mt-8' : undefined}>
+    <slot />
+  </div>
+</section>
