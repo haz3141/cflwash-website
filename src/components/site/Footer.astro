@@ -19,7 +19,12 @@ const unlinkedServiceAreas = ['DeLand', 'Sanford', 'Lake Mary']
         curb appeal.
       </p>
       <p class="mt-4 text-sm text-[var(--color-text-muted)]">
-        <a href={`mailto:${site.email}`} class="hover:text-[var(--color-text)]">
+        <a
+          href={`mailto:${site.email}`}
+          data-cta="email"
+          data-cta-location="footer"
+          class="hover:text-[var(--color-text)]"
+        >
           {site.email}
         </a>
       </p>

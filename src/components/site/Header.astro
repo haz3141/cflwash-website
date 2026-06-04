@@ -33,6 +33,8 @@ const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
       >
       <a
         href="/request-quote"
+        data-cta="quote"
+        data-cta-location="header-nav"
         class="hover:text-[var(--color-text)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
         >Request Quote</a
       >
@@ -41,12 +43,24 @@ const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
     <div class="hidden items-center gap-3 sm:flex">
       {
         hasPhone && (
-          <Button href={site.phoneHref} variant="secondary">
+          <Button
+            href={site.phoneHref}
+            variant="secondary"
+            data-cta="call"
+            data-cta-location="header"
+          >
             Call
           </Button>
         )
       }
-      <Button href="/request-quote" variant="primary"> Request a Quote </Button>
+      <Button
+        href="/request-quote"
+        variant="primary"
+        data-cta="quote"
+        data-cta-location="header"
+      >
+        Request a Quote
+      </Button>
     </div>
   </div>
 </header>

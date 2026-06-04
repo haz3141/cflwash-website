@@ -83,10 +83,21 @@ const unlinkedServiceAreas = ['DeLand', 'Sanford', 'Lake Mary']
           </p>
 
           <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button href="/request-quote">Request a Quote</Button>
+            <Button
+              href="/request-quote"
+              data-cta="quote"
+              data-cta-location="home-hero"
+            >
+              Request a Quote
+            </Button>
             {
               secondaryHeroHref && (
-                <Button href={secondaryHeroHref} variant="secondary">
+                <Button
+                  href={secondaryHeroHref}
+                  variant="secondary"
+                  data-cta={hasPhone ? 'call' : 'email'}
+                  data-cta-location="home-hero"
+                >
                   {secondaryHeroLabel}
                 </Button>
               )
@@ -221,7 +232,13 @@ const unlinkedServiceAreas = ['DeLand', 'Sanford', 'Lake Mary']
             stays clear.
           </p>
           <div class="mt-7">
-            <Button href="/request-quote">Request a Quote</Button>
+            <Button
+              href="/request-quote"
+              data-cta="quote"
+              data-cta-location="home-hoa"
+            >
+              Request a Quote
+            </Button>
           </div>
         </div>
 
@@ -341,6 +358,8 @@ const unlinkedServiceAreas = ['DeLand', 'Sanford', 'Lake Mary']
             href="/request-quote"
             variant="secondary"
             class="bg-white text-[var(--color-primary)] hover:bg-[var(--color-surface)]"
+            data-cta="quote"
+            data-cta-location="home-final"
           >
             Request a Quote
           </Button>
@@ -348,6 +367,8 @@ const unlinkedServiceAreas = ['DeLand', 'Sanford', 'Lake Mary']
             href={secondaryHeroHref}
             variant="ghost"
             class="text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
+            data-cta={hasPhone ? 'call' : 'email'}
+            data-cta-location="home-final"
           >
             {secondaryHeroLabel}
           </Button>

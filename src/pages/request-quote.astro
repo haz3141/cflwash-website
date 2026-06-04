@@ -30,7 +30,13 @@ import { site } from '../data/site'
       </p>
 
       <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-        <Button href={`mailto:${site.email}`}>Email {site.email}</Button>
+        <Button
+          href={`mailto:${site.email}`}
+          data-cta="email"
+          data-cta-location="request-quote"
+        >
+          Email {site.email}
+        </Button>
         <Button href="/" variant="secondary"> Back Home </Button>
       </div>
     </Section>

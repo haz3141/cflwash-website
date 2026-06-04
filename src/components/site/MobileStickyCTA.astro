@@ -11,11 +11,24 @@ const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
   <div class={hasPhone ? 'grid grid-cols-2 gap-3' : undefined}>
     {
       hasPhone && (
-        <Button href={site.phoneHref} variant="secondary" class="w-full">
+        <Button
+          href={site.phoneHref}
+          variant="secondary"
+          class="w-full"
+          data-cta="call"
+          data-cta-location="mobile-sticky"
+        >
           Call
         </Button>
       )
     }
-    <Button href="/request-quote" class="w-full">Request a Quote</Button>
+    <Button
+      href="/request-quote"
+      class="w-full"
+      data-cta="quote"
+      data-cta-location="mobile-sticky"
+    >
+      Request a Quote
+    </Button>
   </div>
 </div>

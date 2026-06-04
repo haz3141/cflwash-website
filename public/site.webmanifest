@@ -1,0 +1,23 @@
+{
+  "name": "CFL Wash Co.",
+  "short_name": "CFL Wash Co.",
+  "description": "Driveway, sidewalk, walkway, and concrete cleaning in Central Florida.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1f5dbe",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon",
+      "purpose": "any"
+    }
+  ]
+}
