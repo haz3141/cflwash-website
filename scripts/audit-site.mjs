@@ -22,6 +22,14 @@ const bannedClaimPhrases = [
   'satisfaction guaranteed',
   'guaranteed response',
 ]
+const forbiddenPublicTerms = [
+  'MVP',
+  'placeholder',
+  'future form workflow',
+  'no form is implemented',
+  'static confirmation route',
+  'future quote flow',
+]
 const assetExtensions = new Set([
   '.avif',
   '.css',
@@ -218,8 +226,11 @@ async function main() {
   )
 
   for (const requiredFile of [
+    'favicon.ico',
+    'favicon.svg',
     'index.html',
     'robots.txt',
+    'site.webmanifest',
     'sitemap-index.xml',
     'thank-you.html',
   ]) {
@@ -293,6 +304,16 @@ async function main() {
       if (normalizedHtml.includes(phrase)) {
         failures.push(
           `Banned claim phrase \`${phrase}\` found in \`dist/${file}\`.`,
+        )
+      }
+    }
+
+    for (const term of forbiddenPublicTerms) {
+      const pattern = new RegExp(term.replaceAll(' ', '\\s+'), 'i')
+
+      if (pattern.test(html)) {
+        failures.push(
+          `Forbidden public term \`${term}\` found in \`dist/${file}\`.`,
         )
       }
     }
