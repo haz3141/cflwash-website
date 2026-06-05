@@ -284,6 +284,35 @@ async function main() {
     })),
   )
 
+  const ga4ConfiguredHtml = htmlContents.filter(({ html }) =>
+    html.includes("gtag('config'"),
+  )
+
+  if (ga4ConfiguredHtml.length > 0) {
+    const ctaTrackingTerms = [
+      'quote_click',
+      'email_click',
+      'call_click',
+      'cta_location',
+      'page_path',
+    ]
+    const ctaTrackingSelectorTerms = [
+      "closest('[data-cta]')",
+      'closest("[data-cta]")',
+    ]
+    const ctaTrackingHtml = htmlContents.find(
+      ({ html }) =>
+        ctaTrackingTerms.every((term) => html.includes(term)) &&
+        ctaTrackingSelectorTerms.some((term) => html.includes(term)),
+    )
+
+    if (!ctaTrackingHtml) {
+      failures.push(
+        'Built HTML with GA4 configured must include delegated CTA click tracking for `quote_click`, `email_click`, and `call_click` with `cta_location` and `page_path` parameters.',
+      )
+    }
+  }
+
   const thankYouPage = htmlContents.find(
     ({ file }) => file === 'thank-you.html',
   )
