@@ -1,10 +1,9 @@
 ---
 import Button from '../components/ui/Button.astro'
-import Card from '../components/ui/Card.astro'
+import QuoteForm from '../components/quote/QuoteForm.astro'
 import Section from '../components/ui/Section.astro'
 import Layout from '../layouts/Layout.astro'
 import { site } from '../data/site'
-import { services } from '../data/services'
 
 const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
 const quoteEmailSubject = 'Quote request for exterior cleaning'
@@ -14,14 +13,13 @@ const quoteEmailBody = [
   'Service needed:',
   'Surface or area to clean:',
   'HOA notice or curb appeal goal (if relevant):',
-  'Photos (optional):',
 ].join('\n')
 const quoteEmailHref = `mailto:${site.email}?subject=${encodeURIComponent(quoteEmailSubject)}&body=${encodeURIComponent(quoteEmailBody)}`
 ---
 
 <Layout
   title="Request a Cleaning Quote | CFL Wash Co."
-  description="Email CFL Wash Co. to request a quote for driveway, sidewalk, walkway, and concrete cleaning in Central Florida."
+  description="Request a quote from CFL Wash Co. for driveway, sidewalk, walkway, and concrete cleaning in Central Florida."
   canonicalPath="/request-quote"
 >
   <main>
@@ -40,8 +38,9 @@ const quoteEmailHref = `mailto:${site.email}?subject=${encodeURIComponent(quoteE
         <p
           class="mt-5 max-w-2xl text-base leading-8 text-[var(--color-text-muted)] sm:text-lg"
         >
-          Email CFL Wash Co. with your city, the surface that needs cleaning,
-          and a few project details to get started.
+          Share your city, service, and project details to request a quote for
+          driveway, sidewalk, walkway, and concrete cleaning. Email is still
+          available if you prefer not to use the online form.
         </p>
 
         <div class="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -50,7 +49,7 @@ const quoteEmailHref = `mailto:${site.email}?subject=${encodeURIComponent(quoteE
             data-cta="email"
             data-cta-location="request-quote-hero"
           >
-            Email CFL Wash Co.
+            Prefer Email?
           </Button>
           <Button
             href="/#services"
@@ -77,98 +76,7 @@ const quoteEmailHref = `mailto:${site.email}?subject=${encodeURIComponent(quoteE
     </Section>
 
     <Section spacing="compact" class="pb-20">
-      <div class="grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
-        <Card class="bg-white">
-          <h2 class="text-xl font-semibold text-[var(--color-text)]">
-            What to include
-          </h2>
-          <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
-            Keep the email brief. These details are enough to start the
-            conversation.
-          </p>
-
-          <ul class="mt-5 space-y-3 text-sm leading-6 text-[var(--color-text)]">
-            <li class="flex gap-3">
-              <span
-                class="mt-2 h-2 w-2 shrink-0 rounded-full bg-[var(--color-primary)]"
-              ></span>
-              <span>Name</span>
-            </li>
-            <li class="flex gap-3">
-              <span
-                class="mt-2 h-2 w-2 shrink-0 rounded-full bg-[var(--color-primary)]"
-              ></span>
-              <span>City</span>
-            </li>
-            <li class="flex gap-3">
-              <span
-                class="mt-2 h-2 w-2 shrink-0 rounded-full bg-[var(--color-primary)]"
-              ></span>
-              <span>Service needed</span>
-            </li>
-            <li class="flex gap-3">
-              <span
-                class="mt-2 h-2 w-2 shrink-0 rounded-full bg-[var(--color-primary)]"
-              ></span>
-              <span>Surface or area to clean</span>
-            </li>
-            <li class="flex gap-3">
-              <span
-                class="mt-2 h-2 w-2 shrink-0 rounded-full bg-[var(--color-primary)]"
-              ></span>
-              <span>HOA notice or curb appeal goal if relevant</span>
-            </li>
-            <li class="flex gap-3">
-              <span
-                class="mt-2 h-2 w-2 shrink-0 rounded-full bg-[var(--color-primary)]"
-              ></span>
-              <span>Optional photos</span>
-            </li>
-          </ul>
-
-          <div class="mt-6">
-            <Button
-              href={quoteEmailHref}
-              data-cta="email"
-              data-cta-location="request-quote-checklist"
-            >
-              Start Email
-            </Button>
-          </div>
-        </Card>
-
-        <Card class="bg-[var(--color-surface)]">
-          <h2 class="text-xl font-semibold text-[var(--color-text)]">
-            Services covered on this site
-          </h2>
-          <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
-            Choose the closest fit and mention it in the email.
-          </p>
-
-          <div class="mt-5 space-y-4">
-            {
-              services.map((service) => (
-                <div class="border-b border-[var(--color-border)] pb-4 last:border-b-0 last:pb-0">
-                  <h3 class="text-sm font-semibold text-[var(--color-text)]">
-                    {service.name}
-                  </h3>
-                  <p class="mt-1 text-sm leading-6 text-[var(--color-text-muted)]">
-                    {service.summary}
-                  </p>
-                  <a
-                    href={`/${service.slug}`}
-                    class="mt-3 inline-flex text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
-                    data-cta="service"
-                    data-cta-location="request-quote-services"
-                  >
-                    View service
-                  </a>
-                </div>
-              ))
-            }
-          </div>
-        </Card>
-      </div>
+      <QuoteForm />
     </Section>
   </main>
 </Layout>
