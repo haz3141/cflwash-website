@@ -29,7 +29,7 @@ The layout can load either or both of:
 - Google Analytics 4 via `PUBLIC_GA4_MEASUREMENT_ID`
 - Cloudflare Web Analytics via `PUBLIC_CF_WEB_ANALYTICS_TOKEN`
 
-CTA elements already include practical `data-cta` and `data-cta-location` attributes where appropriate. These provide stable hooks for later event tracking.
+CTA elements already include practical `data-cta` and `data-cta-location` attributes where appropriate. A document-level click listener now uses those hooks for lightweight GA4 event tracking.
 
 ## Event Model
 
@@ -38,29 +38,31 @@ Track only high-signal actions at first:
 - `quote_click`
 - `call_click`
 - `email_click`
-- `service_page_view`
-- `service_area_page_view`
-- `thank_you_view`
+
+Allowed event parameters:
+
+- `cta_location`
+- `page_path`
+
+Never send personal information to GA4 from these events. Keep names, email addresses, phone numbers, mailto URLs, tel URLs, full link destinations, link text, form values, quote notes, street addresses, and query-string values containing user input out of analytics.
+
+Current intent hierarchy:
+
+1. `quote_click` as the primary intent signal, but not yet the main conversion
+2. `email_click`
+3. `call_click`
+4. `quote_submit` only after a real backend exists
 
 Do not mark an event as a conversion unless it represents a real business action.
-
-Current priority events:
-
-1. Quote-page CTA clicks
-2. Email CTA clicks
-3. Phone CTA clicks after a verified phone number is added
-4. Quote submission after a real form backend exists
 
 ## Event Metadata
 
 Capture context that helps interpret intent:
 
-- Page route
+- Page pathname
 - CTA location
-- Service slug when applicable
-- Service-area slug when applicable
 
-Avoid sending personally identifiable information to GA4. Do not include names, email addresses, phone numbers, street addresses, quote notes, or uploaded photo information in event parameters.
+Avoid sending personally identifiable information to GA4. Do not include names, email addresses, phone numbers, street addresses, quote notes, uploaded photo information, or full link destinations in event parameters.
 
 ## Attribution Notes
 
@@ -90,7 +92,7 @@ After any analytics configuration change:
 
 1. Preserve basic page analytics
 2. Confirm GA4 Realtime data
-3. Track CTA clicks
+3. Track CTA clicks with `quote_click`, `email_click`, and `call_click`
 4. Track quote completion only after the quote backend exists
 5. Add deeper funnel reporting only after the quote flow exists
 
