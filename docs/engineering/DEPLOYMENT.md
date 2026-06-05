@@ -18,39 +18,103 @@ Local commands:
 - `pnpm preview`
 - `pnpm check`
 
-`pnpm check` runs format check, lint, and build.
+`pnpm check` runs formatting, lint, production build, and the production-readiness site audit.
 
-## Production Target
+## Production State
 
 - Production domain: `https://cflwash.com`
-- Preview target: Cloudflare Pages
+- Canonical host: `cflwash.com`
+- Redirecting alias: `https://www.cflwash.com`
+- Cloudflare Pages production URL: `https://cflwash-website.pages.dev`
+- Production branch: `main`
+- Active integration branch: `dev`
 
-The Astro config already sets the production site URL and `trailingSlash: 'never'`.
+`main` and `dev` were synchronized after the first production release.
+
+The `www` hostname permanently redirects to the apex domain with a 301 while preserving path suffixes and query strings.
+
+The Astro config sets the production site URL and preserves `trailingSlash: 'never'`.
+
+## Cloudflare Pages Configuration
+
+Production deployments are triggered from `main`.
+
+Preview deployments may be limited by branch-control rules. The initial production-readiness test used a `preview/*` branch before promoting `dev` to `main`.
+
+Custom domains attached to the Pages project:
+
+- `cflwash.com`
+- `www.cflwash.com`
+
+Cloudflare Bulk Redirects handles the `www` to apex redirect.
 
 ## Environment Variables
 
-The site treats analytics as optional.
+The site treats analytics as configuration-driven.
 
 Supported env vars:
 
 - `PUBLIC_GA4_MEASUREMENT_ID`
 - `PUBLIC_CF_WEB_ANALYTICS_TOKEN`
 
-If neither is set, analytics scripts do not load.
+Current production state:
+
+- `PUBLIC_GA4_MEASUREMENT_ID` is configured in Cloudflare Pages production environment variables.
+- The live production HTML has been verified to include the GA4 Google tag.
+- Cloudflare Web Analytics remains optional.
+
+If neither analytics variable is set, analytics scripts do not load.
+
+Do not hardcode analytics identifiers in source files.
 
 ## Indexing And Crawlability
 
 - Shared layout generates canonical URLs from the production site URL.
 - Shared layout supports `noindex, follow` on utility pages.
-- `public/robots.txt` allows normal crawling and references the sitemap URL.
-- `/thank-you` must remain noindex.
+- `public/robots.txt` allows normal crawling and references the live sitemap.
+- `/thank-you` remains `noindex, follow`.
+- `https://cflwash.com/robots.txt` returns `200`.
+- `https://cflwash.com/sitemap-index.xml` returns `200`.
+
+## Verified Production Checks
+
+The following behavior was verified after launch:
+
+- `https://cflwash.com` returns `200`.
+- `https://cflwash.com/request-quote` returns `200`.
+- `https://www.cflwash.com` returns `301` to `https://cflwash.com/`.
+- `https://www.cflwash.com/request-quote` preserves the path while redirecting.
+- Query strings are preserved by the `www` redirect.
+- Production HTML does not contain the known fake/internal placeholder patterns used by the site audit.
+- `/thank-you` contains `noindex, follow`.
+
+## Release Workflow
+
+Feature work:
+
+1. Branch from `dev`.
+2. Open PR into `dev`.
+3. Squash and merge.
+
+Production release:
+
+1. Validate `dev` with `pnpm check`.
+2. Test through a Cloudflare preview deployment when needed.
+3. Open a release PR from `dev` to `main`.
+4. Use a normal merge commit to preserve the curated `dev` history.
+5. Confirm the Cloudflare Pages production deployment.
+6. Fast-forward `dev` to `main` after the release so both branches share the release commit.
 
 ## Deployment Checks
 
 Before a release, confirm:
 
-- Production build passes
-- Canonical URLs resolve to the production domain
-- Sitemap output exists in production
-- Robots file points at the live sitemap
-- Analytics only load when configured
+- `pnpm check` passes.
+- Production build passes.
+- Canonical URLs resolve to the production domain.
+- Sitemap output exists in production.
+- Robots file points at the live sitemap.
+- `/thank-you` remains noindex.
+- Analytics only load when configured.
+- Preview branches do not alter the production deployment.
+- `www` redirects to the apex domain.

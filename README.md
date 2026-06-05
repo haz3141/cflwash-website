@@ -13,17 +13,19 @@ CFL Wash Co. is being built as a fast, local-first lead-generation website focus
 - HOA notice cleanup
 - Curb appeal cleaning
 
-Production domain target:
+Production domain:
 
 ```text
 https://cflwash.com
 ```
 
-Cloudflare Pages preview:
+Cloudflare Pages production URL:
 
 ```text
 https://cflwash-website.pages.dev/
 ```
+
+`https://www.cflwash.com` permanently redirects to the apex production domain.
 
 ## Tech Stack
 
@@ -73,6 +75,7 @@ This runs:
 pnpm format:check
 pnpm lint
 pnpm build
+pnpm audit:site
 ```
 
 Format files:
@@ -101,9 +104,12 @@ src/
   styles/        Global styles and design tokens
 
 docs/
+  adr/           Architectural decision records
   design/        Design guidance and Stitch briefs
-  strategy/      Launch, SEO, and claims guidance
-  engineering/   Project workflow and repo rules
+  engineering/   Deployment, QA, and repo rules
+  product/       Product requirements, quote phases, and page inventory
+  seo/           Technical SEO and analytics tracking plans
+  strategy/      Launch, post-launch, SEO, and claims guidance
 ```
 
 ## Design System
@@ -160,9 +166,9 @@ Use feature branches for meaningful work.
 Base active work from `dev`:
 
 ```sh
-git checkout dev
-git pull origin dev
-git checkout -b feat/example-branch
+git switch dev
+git pull --ff-only origin dev
+git switch -c feat/example-branch
 ```
 
 Use atomic Conventional Commits:
@@ -180,6 +186,8 @@ feat(home): implement CFL Wash Co homepage
 chore(tooling): add formatting and linting setup
 ```
 
+Feature branches target `dev` and are normally squash-merged. Production releases promote `dev` to `main` through a release PR.
+
 See:
 
 ```text
@@ -188,16 +196,31 @@ docs/engineering/PROJECT_RULES.md
 
 ## Current Status
 
-The repo foundation and initial site structure are in place:
+The first production foundation is live:
 
-- Astro + Tailwind setup
-- Cloudflare Pages deployment
-- Component organization
-- Theme tokens
-- Prettier and ESLint
-- Claim-safe documentation
-- Initial homepage and static routes
+- Production site available at `https://cflwash.com`
+- `www` redirects to the apex domain with a permanent redirect
+- Cloudflare Pages production deployment
+- Claim-safe homepage and static service/service-area routes
+- Contact-based quote request MVP
 - Canonical URL handling
-- Production metadata hooks for noindex, OG image support, favicon/manifest links, and optional analytics loading
+- Sitemap and robots output live
+- `/thank-you` protected with `noindex, follow`
+- Production-readiness audit included in `pnpm check`
+- GA4 installed through Cloudflare Pages environment configuration
+- Product, deployment, SEO, analytics, and launch documentation in place
 
-The next major tasks are design polish, content expansion, and connecting the future quote workflow.
+Current next priorities:
+
+- Confirm Search Console Domain property and sitemap submission
+- Confirm GA4 realtime data
+- Decide the real phone/contact path
+- Add lightweight CTA event tracking
+- Continue design and content polish through small focused branches
+- Build the quote backend only after the intake workflow is defined
+
+See the current live status in:
+
+```text
+docs/strategy/POST_LAUNCH.md
+```
