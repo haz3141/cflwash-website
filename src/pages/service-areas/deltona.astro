@@ -1,34 +1,87 @@
 ---
 import Button from '../../components/ui/Button.astro'
+import Card from '../../components/ui/Card.astro'
 import Section from '../../components/ui/Section.astro'
 import Layout from '../../layouts/Layout.astro'
 import { site } from '../../data/site'
 import { serviceAreas } from '../../data/serviceAreas'
+import { services } from '../../data/services'
 
 const area = serviceAreas.find((item) => item.slug === 'deltona')!
+const otherAreas = serviceAreas.filter((item) => item.slug !== area.slug)
+
+const seoTitle =
+  'Deltona Driveway, Sidewalk, and Concrete Cleaning | CFL Wash Co.'
+const seoDescription =
+  'Concrete-focused pressure washing for Deltona driveways, sidewalks, walkways, curbs, and entry areas. Request a quote from CFL Wash Co.'
+
+const localContexts = [
+  {
+    title: 'Front-of-home concrete',
+    description:
+      'For many Deltona homes, the driveway, sidewalk panels, curb edge, and entry walk are the first surfaces visitors and neighbors notice.',
+  },
+  {
+    title: 'Curb appeal cleanup',
+    description:
+      'Cleaning can help when visible grime, organic buildup, or everyday staining makes concrete look neglected from the street.',
+  },
+  {
+    title: 'Quote details that help',
+    description:
+      'Mention whether the request is for a driveway only, a driveway plus front walk, sidewalk panels, curbs, or another concrete area.',
+  },
+]
+
+const hoaNotes = [
+  'Include the exact surface named in any HOA notice, such as driveway, sidewalk, curb, or entry path.',
+  'Share whether the notice points to staining, dark buildup, organic growth, or general curb appeal.',
+  'Do not wait for a quote to assume every stain can be removed; older rust, oil, and irrigation marks may remain visible.',
+]
+
+const faqs = [
+  {
+    question: 'What services are available in Deltona?',
+    answer:
+      'Current launch services include driveway pressure washing, sidewalk and walkway cleaning, and concrete cleaning for appropriate residential surfaces.',
+  },
+  {
+    question: 'Can CFL Wash Co. help with Deltona HOA notice cleanup?',
+    answer:
+      'CFL Wash Co. can quote concrete-focused cleanup when the notice involves driveways, sidewalks, walkways, curbs, or similar visible surfaces. Include the notice details in the request.',
+  },
+  {
+    question: 'Do you claim to be affiliated with Deltona?',
+    answer:
+      'No. This page describes service availability for Deltona homeowners and does not imply a city endorsement or affiliation.',
+  },
+]
 ---
 
 <Layout
-  title={`${area.name} Service Area | CFL Wash Co.`}
-  description={area.description}
+  title={seoTitle}
+  description={seoDescription}
   canonicalPath="/service-areas/deltona"
 >
   <main>
-    <Section spacing="none" class="py-20">
+    <Section spacing="none" class="py-16 sm:py-20">
       <p
-        class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-text-muted)]"
+        class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-primary)]"
       >
         Service Area
       </p>
       <h1
-        class="mt-4 text-4xl font-semibold text-[var(--color-text)] sm:text-5xl"
+        class="mt-4 max-w-4xl text-4xl font-semibold leading-tight text-[var(--color-text)] sm:text-5xl"
       >
-        {area.name}
+        Deltona driveway, sidewalk, walkway, and concrete cleaning
       </h1>
       <p
-        class="mt-5 max-w-2xl text-base leading-8 text-[var(--color-text-muted)] sm:text-lg"
+        class="mt-5 max-w-3xl text-base leading-8 text-[var(--color-text-muted)] sm:text-lg"
       >
-        {area.description}
+        CFL Wash Co. serves Deltona homeowners with a launch offer focused on
+        the concrete surfaces that shape everyday curb appeal: driveways,
+        sidewalks, walkways, curbs, entry areas, and other appropriate concrete
+        around the home.
       </p>
 
       <div class="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -49,5 +102,158 @@ const area = serviceAreas.find((item) => item.slug === 'deltona')!
         </Button>
       </div>
     </Section>
+
+    <Section
+      eyebrow="Residential context"
+      title="Useful concrete cleaning for Deltona homes"
+      description="The quote starts with the actual surfaces that need attention instead of a broad exterior-cleaning package."
+      class="border-t border-[var(--color-border)]"
+    >
+      <div class="grid gap-4 md:grid-cols-3">
+        {
+          localContexts.map((item) => (
+            <Card class="bg-white">
+              <h2 class="text-base font-semibold text-[var(--color-text)]">
+                {item.title}
+              </h2>
+              <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
+                {item.description}
+              </p>
+            </Card>
+          ))
+        }
+      </div>
+    </Section>
+
+    <section class="bg-[var(--color-surface)]">
+      <div
+        class="mx-auto grid w-full max-w-[var(--container-width)] gap-8 px-6 py-[var(--section-spacing)] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]"
+      >
+        <div>
+          <p
+            class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-primary)]"
+          >
+            Available services
+          </p>
+          <h2
+            class="mt-3 text-2xl font-semibold text-[var(--color-text)] sm:text-3xl"
+          >
+            Launch services available in Deltona
+          </h2>
+          <p
+            class="mt-3 text-sm leading-7 text-[var(--color-text-muted)] sm:text-base"
+          >
+            Current service pages stay centered on concrete cleaning. They do
+            not include roof cleaning, house washing, sealing, repair, or fleet
+            washing.
+          </p>
+        </div>
+
+        <div class="grid gap-4">
+          {
+            services.map((service) => (
+              <a
+                href={`/${service.slug}`}
+                class="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-4 transition-colors hover:border-[var(--color-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+              >
+                <span class="block text-sm font-semibold text-[var(--color-text)]">
+                  {service.name}
+                </span>
+                <span class="mt-2 block text-sm leading-7 text-[var(--color-text-muted)]">
+                  {service.summary}
+                </span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <Section
+      eyebrow="HOA and curb appeal"
+      title="When a Deltona notice or curb-appeal concern points to concrete"
+      description="If the issue is visible buildup on concrete, the quote request should describe the named surface and the condition you want reviewed."
+    >
+      <ul class="grid gap-3 md:grid-cols-3">
+        {
+          hoaNotes.map((item) => (
+            <li class="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-4 text-sm leading-7 text-[var(--color-text-muted)]">
+              {item}
+            </li>
+          ))
+        }
+      </ul>
+    </Section>
+
+    <Section
+      eyebrow="Nearby active areas"
+      title="Other active service-area pages"
+      description="CFL Wash Co. also has active launch pages for nearby Central Florida service areas."
+      class="border-y border-[var(--color-border)] bg-[var(--color-surface)]"
+    >
+      <div class="grid gap-3 sm:grid-cols-2">
+        {
+          otherAreas.map((otherArea) => (
+            <a
+              href={`/service-areas/${otherArea.slug}`}
+              class="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-4 text-sm font-semibold text-[var(--color-text)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+            >
+              {otherArea.name}
+            </a>
+          ))
+        }
+      </div>
+    </Section>
+
+    <Section eyebrow="FAQ" title="Deltona service-area questions">
+      <div class="grid gap-4 md:grid-cols-3">
+        {
+          faqs.map((faq) => (
+            <Card class="bg-white">
+              <h2 class="text-base font-semibold text-[var(--color-text)]">
+                {faq.question}
+              </h2>
+              <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
+                {faq.answer}
+              </p>
+            </Card>
+          ))
+        }
+      </div>
+    </Section>
+
+    <section class="px-6 py-[var(--section-spacing)]">
+      <div
+        class="mx-auto max-w-[var(--container-width)] rounded-[var(--radius-lg)] bg-[var(--color-primary)] px-6 py-12 text-center text-white sm:px-10"
+      >
+        <h2 class="mx-auto max-w-2xl text-3xl font-semibold sm:text-4xl">
+          Request a Deltona concrete cleaning quote.
+        </h2>
+        <p class="mx-auto mt-4 max-w-2xl text-base leading-8 text-white/85">
+          Share the Deltona surface, condition, access details, and service
+          needed so CFL Wash Co. can review the scope.
+        </p>
+        <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+          <Button
+            href="/request-quote"
+            variant="secondary"
+            class="bg-white text-[var(--color-primary)] hover:bg-[var(--color-surface)]"
+            data-cta="quote"
+            data-cta-location={`service-area-${area.slug}-final`}
+          >
+            Request a Quote
+          </Button>
+          <Button
+            href={`mailto:${site.email}`}
+            variant="ghost"
+            class="text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
+            data-cta="email"
+            data-cta-location={`service-area-${area.slug}-final`}
+          >
+            Email CFL Wash Co.
+          </Button>
+        </div>
+      </div>
+    </section>
   </main>
 </Layout>

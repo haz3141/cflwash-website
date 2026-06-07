@@ -1,34 +1,86 @@
 ---
 import Button from '../../components/ui/Button.astro'
+import Card from '../../components/ui/Card.astro'
 import Section from '../../components/ui/Section.astro'
 import Layout from '../../layouts/Layout.astro'
 import { site } from '../../data/site'
 import { serviceAreas } from '../../data/serviceAreas'
+import { services } from '../../data/services'
 
 const area = serviceAreas.find((item) => item.slug === 'debary')!
+const otherAreas = serviceAreas.filter((item) => item.slug !== area.slug)
+
+const seoTitle =
+  'DeBary Driveway, Sidewalk, and Concrete Cleaning | CFL Wash Co.'
+const seoDescription =
+  'DeBary concrete cleaning quotes for driveways, sidewalks, walkways, curbs, entry areas, and other appropriate residential hard surfaces.'
+
+const localContexts = [
+  {
+    title: 'Bundle visible concrete areas',
+    description:
+      'A DeBary quote can cover a driveway along with connected walkways, sidewalk panels, curbs, or entry concrete when those surfaces fit the launch scope.',
+  },
+  {
+    title: 'Realistic cleaning outcomes',
+    description:
+      'Concrete cleaning can help with everyday buildup and curb appeal, but older stains, damaged concrete, and deep discoloration may still show.',
+  },
+  {
+    title: 'Access changes the plan',
+    description:
+      'Side-yard gates, rear patios, parked vehicles, stored items, and drainage around entries should be mentioned before the quote is confirmed.',
+  },
+]
+
+const homeownerNotes = [
+  'Name the highest-priority surface first, such as driveway, front walk, sidewalk, curb, or patio slab.',
+  'Describe staining honestly: oil, rust, irrigation marks, leaf stains, dark buildup, or general grime.',
+  'If an HOA notice is involved, include the deadline and wording without assuming the cleaning result can satisfy every condition.',
+]
+
+const faqs = [
+  {
+    question: 'What launch services are available in DeBary?',
+    answer:
+      'Current launch services include driveway pressure washing, sidewalk and walkway cleaning, and concrete cleaning for appropriate residential surfaces.',
+  },
+  {
+    question: 'Can the quote include a driveway and walkway together?',
+    answer:
+      'Yes. A quote request can include connected concrete surfaces so CFL Wash Co. can review the full front-of-home scope.',
+  },
+  {
+    question: 'Does concrete cleaning repair damaged concrete?',
+    answer:
+      'No. Cleaning may improve the appearance of surface buildup, but it does not repair cracks, spalling, coatings, or worn concrete.',
+  },
+]
 ---
 
 <Layout
-  title={`${area.name} Service Area | CFL Wash Co.`}
-  description={area.description}
+  title={seoTitle}
+  description={seoDescription}
   canonicalPath="/service-areas/debary"
 >
   <main>
-    <Section spacing="none" class="py-20">
+    <Section spacing="none" class="py-16 sm:py-20">
       <p
-        class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-text-muted)]"
+        class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-primary)]"
       >
         Service Area
       </p>
       <h1
-        class="mt-4 text-4xl font-semibold text-[var(--color-text)] sm:text-5xl"
+        class="mt-4 max-w-4xl text-4xl font-semibold leading-tight text-[var(--color-text)] sm:text-5xl"
       >
-        {area.name}
+        DeBary driveway, sidewalk, walkway, and concrete cleaning
       </h1>
       <p
-        class="mt-5 max-w-2xl text-base leading-8 text-[var(--color-text-muted)] sm:text-lg"
+        class="mt-5 max-w-3xl text-base leading-8 text-[var(--color-text-muted)] sm:text-lg"
       >
-        {area.description}
+        CFL Wash Co. serves DeBary homeowners with quote-first cleaning for
+        appropriate concrete surfaces, including driveways, sidewalks, walkways,
+        curbs, entry areas, patios, pads, and aprons.
       </p>
 
       <div class="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -49,5 +101,158 @@ const area = serviceAreas.find((item) => item.slug === 'debary')!
         </Button>
       </div>
     </Section>
+
+    <Section
+      eyebrow="Residential context"
+      title="A practical concrete cleaning scope for DeBary homes"
+      description="Use the quote request to group nearby concrete surfaces when they should be reviewed together."
+      class="border-t border-[var(--color-border)]"
+    >
+      <div class="grid gap-4 md:grid-cols-3">
+        {
+          localContexts.map((item) => (
+            <Card class="bg-white">
+              <h2 class="text-base font-semibold text-[var(--color-text)]">
+                {item.title}
+              </h2>
+              <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
+                {item.description}
+              </p>
+            </Card>
+          ))
+        }
+      </div>
+    </Section>
+
+    <section class="bg-[var(--color-surface)]">
+      <div
+        class="mx-auto grid w-full max-w-[var(--container-width)] gap-8 px-6 py-[var(--section-spacing)] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]"
+      >
+        <div>
+          <p
+            class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-primary)]"
+          >
+            Available services
+          </p>
+          <h2
+            class="mt-3 text-2xl font-semibold text-[var(--color-text)] sm:text-3xl"
+          >
+            DeBary launch services
+          </h2>
+          <p
+            class="mt-3 text-sm leading-7 text-[var(--color-text-muted)] sm:text-base"
+          >
+            The current launch offer is intentionally narrow so homeowners can
+            ask for concrete-focused curb appeal cleaning without a complicated
+            service menu.
+          </p>
+        </div>
+
+        <div class="grid gap-4">
+          {
+            services.map((service) => (
+              <a
+                href={`/${service.slug}`}
+                class="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-4 transition-colors hover:border-[var(--color-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+              >
+                <span class="block text-sm font-semibold text-[var(--color-text)]">
+                  {service.name}
+                </span>
+                <span class="mt-2 block text-sm leading-7 text-[var(--color-text-muted)]">
+                  {service.summary}
+                </span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <Section
+      eyebrow="Homeowner notes"
+      title="Helpful details for DeBary quotes and HOA-related requests"
+      description="Clear condition notes help avoid overpromising and keep the quote aligned with the actual concrete surfaces."
+    >
+      <ul class="grid gap-3 md:grid-cols-3">
+        {
+          homeownerNotes.map((item) => (
+            <li class="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-4 text-sm leading-7 text-[var(--color-text-muted)]">
+              {item}
+            </li>
+          ))
+        }
+      </ul>
+    </Section>
+
+    <Section
+      eyebrow="Nearby active areas"
+      title="Other active service-area pages"
+      description="CFL Wash Co. also has active launch pages for these nearby Central Florida service areas."
+      class="border-y border-[var(--color-border)] bg-[var(--color-surface)]"
+    >
+      <div class="grid gap-3 sm:grid-cols-2">
+        {
+          otherAreas.map((otherArea) => (
+            <a
+              href={`/service-areas/${otherArea.slug}`}
+              class="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-4 text-sm font-semibold text-[var(--color-text)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+            >
+              {otherArea.name}
+            </a>
+          ))
+        }
+      </div>
+    </Section>
+
+    <Section eyebrow="FAQ" title="DeBary service-area questions">
+      <div class="grid gap-4 md:grid-cols-3">
+        {
+          faqs.map((faq) => (
+            <Card class="bg-white">
+              <h2 class="text-base font-semibold text-[var(--color-text)]">
+                {faq.question}
+              </h2>
+              <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
+                {faq.answer}
+              </p>
+            </Card>
+          ))
+        }
+      </div>
+    </Section>
+
+    <section class="px-6 py-[var(--section-spacing)]">
+      <div
+        class="mx-auto max-w-[var(--container-width)] rounded-[var(--radius-lg)] bg-[var(--color-primary)] px-6 py-12 text-center text-white sm:px-10"
+      >
+        <h2 class="mx-auto max-w-2xl text-3xl font-semibold sm:text-4xl">
+          Request a DeBary concrete cleaning quote.
+        </h2>
+        <p class="mx-auto mt-4 max-w-2xl text-base leading-8 text-white/85">
+          Share the DeBary surface type, staining, access details, and whether
+          multiple concrete areas should be reviewed together.
+        </p>
+        <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+          <Button
+            href="/request-quote"
+            variant="secondary"
+            class="bg-white text-[var(--color-primary)] hover:bg-[var(--color-surface)]"
+            data-cta="quote"
+            data-cta-location={`service-area-${area.slug}-final`}
+          >
+            Request a Quote
+          </Button>
+          <Button
+            href={`mailto:${site.email}`}
+            variant="ghost"
+            class="text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
+            data-cta="email"
+            data-cta-location={`service-area-${area.slug}-final`}
+          >
+            Email CFL Wash Co.
+          </Button>
+        </div>
+      </div>
+    </section>
   </main>
 </Layout>

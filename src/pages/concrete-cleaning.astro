@@ -1,34 +1,118 @@
 ---
 import Button from '../components/ui/Button.astro'
+import Card from '../components/ui/Card.astro'
 import Section from '../components/ui/Section.astro'
 import Layout from '../layouts/Layout.astro'
+import { serviceAreas } from '../data/serviceAreas'
 import { site } from '../data/site'
 import { services } from '../data/services'
 
 const service = services.find((item) => item.slug === 'concrete-cleaning')!
+
+const relatedServices = services.filter((item) => item.slug !== service.slug)
+
+const seoTitle = 'Concrete Cleaning in Central Florida | CFL Wash Co.'
+const seoDescription =
+  'Concrete cleaning for patios, pads, aprons, curbs, entry areas, and other appropriate hard surfaces in Central Florida. Request a quote from CFL Wash Co.'
+
+const surfaceExamples = [
+  'Concrete patios and porch-adjacent slabs',
+  'Driveway aprons, curb edges, and front entry concrete',
+  'Trash-bin pads, utility pads, and similar hard-surface areas',
+  'Connected concrete areas that fit the current launch service scope',
+]
+
+const considerations = [
+  {
+    title: 'Surface type and age',
+    description:
+      'Concrete finish, age, patching, cracks, previous coatings, paint, or exposed aggregate can affect what cleaning is appropriate.',
+  },
+  {
+    title: 'Drainage and nearby areas',
+    description:
+      'Low spots, drains, slope, doors, landscape beds, and neighboring surfaces all influence the cleaning plan.',
+  },
+  {
+    title: 'Access and layout',
+    description:
+      'Rear patios, side yards, gates, fences, and stored items can change the reachable area and the quote.',
+  },
+  {
+    title: 'Staining and condition',
+    description:
+      'Everyday grime and surface buildup can often improve. Rust, oil, irrigation marks, deep organic staining, and worn concrete may not fully clear.',
+  },
+]
+
+const prepItems = [
+  'Clear furniture, grills, storage bins, planters, mats, and loose items from the concrete area.',
+  'Share gate, hose access, drainage, or pet details when requesting the quote.',
+  'Point out fragile edges, previous coatings, painted concrete, cracks, or areas that should be avoided.',
+  'Describe any priority stains, but expect the quote to avoid promises of complete stain removal.',
+]
+
+const processSteps = [
+  {
+    title: 'Describe the concrete',
+    description:
+      'Use the quote form to explain the surface type, location, approximate size, access, and condition.',
+  },
+  {
+    title: 'Define the scope',
+    description:
+      'CFL Wash Co. reviews whether the surface fits the current concrete-focused launch services.',
+  },
+  {
+    title: 'Clean appropriate areas',
+    description:
+      'The work focuses on cleaner-looking concrete surfaces, not sealing, resurfacing, repair, or restoration.',
+  },
+]
+
+const faqs = [
+  {
+    question: 'What concrete surfaces can be quoted?',
+    answer:
+      'Current launch services can include appropriate driveways, sidewalks, walkways, patios, pads, aprons, curbs, entry areas, and similar concrete surfaces.',
+  },
+  {
+    question: 'Is this concrete restoration or sealing?',
+    answer:
+      'No. This is a cleaning service. CFL Wash Co. is not offering concrete repair, resurfacing, restoration, or sealing as part of the launch scope.',
+  },
+  {
+    question: 'Can concrete cleaning help with curb appeal?',
+    answer:
+      'Yes, cleaning visible concrete can help curb appeal when the issue is surface buildup or grime. Results vary by surface condition and staining.',
+  },
+]
 ---
 
 <Layout
-  title={`${service.name} | CFL Wash Co.`}
-  description={service.description}
+  title={seoTitle}
+  description={seoDescription}
   canonicalPath="/concrete-cleaning"
 >
   <main>
-    <Section spacing="none" class="py-20">
+    <Section spacing="none" class="py-16 sm:py-20">
       <p
-        class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-text-muted)]"
+        class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-primary)]"
       >
         Service
       </p>
       <h1
-        class="mt-4 text-4xl font-semibold text-[var(--color-text)] sm:text-5xl"
+        class="mt-4 max-w-4xl text-4xl font-semibold leading-tight text-[var(--color-text)] sm:text-5xl"
       >
-        {service.name}
+        Concrete cleaning for patios, pads, aprons, curbs, and entry areas.
       </h1>
       <p
-        class="mt-5 max-w-2xl text-base leading-8 text-[var(--color-text-muted)] sm:text-lg"
+        class="mt-5 max-w-3xl text-base leading-8 text-[var(--color-text-muted)] sm:text-lg"
       >
-        {service.description}
+        Not every concrete surface is a driveway or sidewalk. This broader
+        service helps homeowners request a quote for appropriate concrete areas
+        around the property while keeping the offer clear: cleaning only, not
+        sealing, repair, resurfacing, or restoration.
       </p>
 
       <div class="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -49,5 +133,207 @@ const service = services.find((item) => item.slug === 'concrete-cleaning')!
         </Button>
       </div>
     </Section>
+
+    <Section
+      eyebrow="Where it fits"
+      title="Concrete surfaces that may be part of the quote"
+      description="Use this page when the area is concrete but does not fit neatly into a driveway, sidewalk, or front-walk request."
+      class="border-t border-[var(--color-border)]"
+    >
+      <div class="grid gap-4 md:grid-cols-2">
+        {
+          surfaceExamples.map((item) => (
+            <Card class="bg-white">
+              <p class="text-sm font-semibold leading-7 text-[var(--color-text)]">
+                {item}
+              </p>
+            </Card>
+          ))
+        }
+      </div>
+    </Section>
+
+    <section class="bg-[var(--color-surface)]">
+      <div
+        class="mx-auto grid w-full max-w-[var(--container-width)] gap-8 px-6 py-[var(--section-spacing)] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]"
+      >
+        <div>
+          <p
+            class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-primary)]"
+          >
+            Quote considerations
+          </p>
+          <h2
+            class="mt-3 text-2xl font-semibold text-[var(--color-text)] sm:text-3xl"
+          >
+            Different concrete areas need different expectations.
+          </h2>
+          <p
+            class="mt-3 text-sm leading-7 text-[var(--color-text-muted)] sm:text-base"
+          >
+            A patio slab, curb edge, driveway apron, and utility pad can all
+            behave differently. The quote should account for surface condition,
+            water flow, access, and the type of staining before work is planned.
+          </p>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-2">
+          {
+            considerations.map((item) => (
+              <Card class="bg-white">
+                <h3 class="text-base font-semibold text-[var(--color-text)]">
+                  {item.title}
+                </h3>
+                <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
+                  {item.description}
+                </p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <Section
+      eyebrow="Before the visit"
+      title="Preparation for concrete cleaning"
+      description="The more clearly the area is described and cleared, the easier it is to quote the right cleaning scope."
+    >
+      <ul class="grid gap-3 md:grid-cols-2">
+        {
+          prepItems.map((item) => (
+            <li class="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-4 text-sm leading-7 text-[var(--color-text-muted)]">
+              {item}
+            </li>
+          ))
+        }
+      </ul>
+    </Section>
+
+    <Section
+      eyebrow="Process"
+      title="Quote-first concrete cleaning"
+      description="The quote request clarifies whether the surface fits the current service scope before work is scheduled."
+      class="border-y border-[var(--color-border)] bg-[var(--color-surface)]"
+    >
+      <div class="grid gap-4 md:grid-cols-3">
+        {
+          processSteps.map((step, index) => (
+            <Card class="bg-white">
+              <div class="flex items-center gap-4">
+                <span class="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-primary)] text-sm font-semibold text-white">
+                  {index + 1}
+                </span>
+                <h3 class="text-base font-semibold text-[var(--color-text)]">
+                  {step.title}
+                </h3>
+              </div>
+              <p class="mt-4 text-sm leading-7 text-[var(--color-text-muted)]">
+                {step.description}
+              </p>
+            </Card>
+          ))
+        }
+      </div>
+    </Section>
+
+    <Section
+      eyebrow="Related pages"
+      title="Narrow the quote when the surface is more specific"
+      description="If the concrete area is primarily a driveway, sidewalk, or walkway, these service pages may be the better starting point."
+    >
+      <div class="grid gap-8 lg:grid-cols-2">
+        <div>
+          <h2 class="text-lg font-semibold text-[var(--color-text)]">
+            Related services
+          </h2>
+          <div class="mt-4 grid gap-3">
+            {
+              relatedServices.map((item) => (
+                <a
+                  href={`/${item.slug}`}
+                  class="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-4 text-sm font-semibold text-[var(--color-text)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+                >
+                  {item.name}
+                </a>
+              ))
+            }
+          </div>
+        </div>
+
+        <div>
+          <h2 class="text-lg font-semibold text-[var(--color-text)]">
+            Active service areas
+          </h2>
+          <div class="mt-4 grid gap-3">
+            {
+              serviceAreas.map((area) => (
+                <a
+                  href={`/service-areas/${area.slug}`}
+                  class="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-4 text-sm font-semibold text-[var(--color-text)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+                >
+                  {area.name}
+                </a>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </Section>
+
+    <Section
+      eyebrow="FAQ"
+      title="Concrete cleaning questions"
+      class="border-y border-[var(--color-border)] bg-[var(--color-surface)]"
+    >
+      <div class="grid gap-4 md:grid-cols-3">
+        {
+          faqs.map((faq) => (
+            <Card class="bg-white">
+              <h2 class="text-base font-semibold text-[var(--color-text)]">
+                {faq.question}
+              </h2>
+              <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
+                {faq.answer}
+              </p>
+            </Card>
+          ))
+        }
+      </div>
+    </Section>
+
+    <section class="px-6 py-[var(--section-spacing)]">
+      <div
+        class="mx-auto max-w-[var(--container-width)] rounded-[var(--radius-lg)] bg-[var(--color-primary)] px-6 py-12 text-center text-white sm:px-10"
+      >
+        <h2 class="mx-auto max-w-2xl text-3xl font-semibold sm:text-4xl">
+          Request a concrete cleaning quote.
+        </h2>
+        <p class="mx-auto mt-4 max-w-2xl text-base leading-8 text-white/85">
+          Share the surface type, location, access details, and visible buildup
+          so CFL Wash Co. can review whether it fits the launch services.
+        </p>
+        <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+          <Button
+            href="/request-quote"
+            variant="secondary"
+            class="bg-white text-[var(--color-primary)] hover:bg-[var(--color-surface)]"
+            data-cta="quote"
+            data-cta-location={`service-${service.slug}-final`}
+          >
+            Request a Quote
+          </Button>
+          <Button
+            href={`mailto:${site.email}`}
+            variant="ghost"
+            class="text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
+            data-cta="email"
+            data-cta-location={`service-${service.slug}-final`}
+          >
+            Email CFL Wash Co.
+          </Button>
+        </div>
+      </div>
+    </section>
   </main>
 </Layout>

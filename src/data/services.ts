@@ -10,24 +10,24 @@ export const services: Service[] = [
     slug: 'driveway-pressure-washing',
     name: 'Driveway Pressure Washing',
     description:
-      'Remove buildup, surface grime, and everyday staining from concrete driveways.',
+      'Concrete driveway pressure washing for surface grime, everyday buildup, and curb appeal cleanup.',
     summary:
-      'Driveway cleaning for cleaner curb appeal and better first impressions.',
+      'Focused driveway cleaning for visible concrete buildup, HOA notice support, and a cleaner first impression.',
   },
   {
     slug: 'sidewalk-walkway-cleaning',
     name: 'Sidewalk and Walkway Cleaning',
     description:
-      'Clean sidewalks, walkways, and entry paths with a simple, controlled process.',
+      'Sidewalk, walkway, and entry path cleaning for cleaner pedestrian areas around the home.',
     summary:
-      'Routine cleaning for pedestrian paths, entries, and HOA-friendly upkeep.',
+      'Routine cleaning for front walks, entry paths, sidewalk panels, and HOA-friendly upkeep.',
   },
   {
     slug: 'concrete-cleaning',
     name: 'Concrete Cleaning',
     description:
-      'Refresh concrete surfaces with a straightforward wash focused on utility and clarity.',
+      'Concrete cleaning for patios, pads, aprons, curbs, entry areas, and other appropriate hard surfaces.',
     summary:
-      'A broad service for patios, pads, aprons, and other concrete surfaces.',
+      'A broad concrete cleaning option for patios, pads, aprons, curbs, entry areas, and similar surfaces.',
   },
 ]

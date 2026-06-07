@@ -1,34 +1,86 @@
 ---
 import Button from '../../components/ui/Button.astro'
+import Card from '../../components/ui/Card.astro'
 import Section from '../../components/ui/Section.astro'
 import Layout from '../../layouts/Layout.astro'
 import { site } from '../../data/site'
 import { serviceAreas } from '../../data/serviceAreas'
+import { services } from '../../data/services'
 
 const area = serviceAreas.find((item) => item.slug === 'orange-city')!
+const otherAreas = serviceAreas.filter((item) => item.slug !== area.slug)
+
+const seoTitle =
+  'Orange City Driveway, Walkway, and Concrete Cleaning | CFL Wash Co.'
+const seoDescription =
+  'Request a quote for Orange City driveway pressure washing, walkway cleaning, sidewalk cleaning, and appropriate concrete surface cleaning from CFL Wash Co.'
+
+const localContexts = [
+  {
+    title: 'Entry-focused curb appeal',
+    description:
+      'Orange City quote requests often make the most sense when the driveway, front walk, porch-adjacent concrete, and entry area are described together.',
+  },
+  {
+    title: 'Small areas still matter',
+    description:
+      'A short walkway, curb strip, trash-bin pad, or entry slab can stand out when the surrounding concrete is cleaner or more visible.',
+  },
+  {
+    title: 'Scope before scheduling',
+    description:
+      'A quote-first process helps separate surfaces that fit the launch offer from work that is not currently offered, such as roof cleaning or house washing.',
+  },
+]
+
+const quoteNotes = [
+  'List each concrete area you want reviewed instead of using a general exterior-cleaning request.',
+  'Mention gates, parked vehicles, porch furniture, planters, drainage concerns, or door-adjacent areas.',
+  'If the work is connected to an HOA notice, include the wording and which concrete surface is named.',
+]
+
+const faqs = [
+  {
+    question: 'What concrete cleaning can I request in Orange City?',
+    answer:
+      'You can request a quote for driveway pressure washing, sidewalk and walkway cleaning, and other appropriate concrete cleaning such as entry slabs, curbs, pads, and aprons.',
+  },
+  {
+    question: 'Does CFL Wash Co. offer house washing in Orange City?',
+    answer:
+      'No. The launch offer is focused on driveways, sidewalks, walkways, curbs, entry areas, and other appropriate concrete surfaces.',
+  },
+  {
+    question: 'Can I include several small concrete areas in one quote?',
+    answer:
+      'Yes. Describe each area in the quote request so CFL Wash Co. can review the full concrete-focused scope.',
+  },
+]
 ---
 
 <Layout
-  title={`${area.name} Service Area | CFL Wash Co.`}
-  description={area.description}
+  title={seoTitle}
+  description={seoDescription}
   canonicalPath="/service-areas/orange-city"
 >
   <main>
-    <Section spacing="none" class="py-20">
+    <Section spacing="none" class="py-16 sm:py-20">
       <p
-        class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-text-muted)]"
+        class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-primary)]"
       >
         Service Area
       </p>
       <h1
-        class="mt-4 text-4xl font-semibold text-[var(--color-text)] sm:text-5xl"
+        class="mt-4 max-w-4xl text-4xl font-semibold leading-tight text-[var(--color-text)] sm:text-5xl"
       >
-        {area.name}
+        Orange City driveway, walkway, sidewalk, and concrete cleaning
       </h1>
       <p
-        class="mt-5 max-w-2xl text-base leading-8 text-[var(--color-text-muted)] sm:text-lg"
+        class="mt-5 max-w-3xl text-base leading-8 text-[var(--color-text-muted)] sm:text-lg"
       >
-        {area.description}
+        CFL Wash Co. provides Orange City homeowners with a concrete-focused
+        quote path for driveways, walkways, sidewalks, entry slabs, curbs, and
+        other appropriate hard surfaces that affect curb appeal.
       </p>
 
       <div class="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -49,5 +101,158 @@ const area = serviceAreas.find((item) => item.slug === 'orange-city')!
         </Button>
       </div>
     </Section>
+
+    <Section
+      eyebrow="Residential context"
+      title="Concrete touchpoints around Orange City homes"
+      description="This page is for homeowners who want practical cleanup help for the visible hard surfaces around the property."
+      class="border-t border-[var(--color-border)]"
+    >
+      <div class="grid gap-4 md:grid-cols-3">
+        {
+          localContexts.map((item) => (
+            <Card class="bg-white">
+              <h2 class="text-base font-semibold text-[var(--color-text)]">
+                {item.title}
+              </h2>
+              <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
+                {item.description}
+              </p>
+            </Card>
+          ))
+        }
+      </div>
+    </Section>
+
+    <section class="bg-[var(--color-surface)]">
+      <div
+        class="mx-auto grid w-full max-w-[var(--container-width)] gap-8 px-6 py-[var(--section-spacing)] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]"
+      >
+        <div>
+          <p
+            class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-primary)]"
+          >
+            Available services
+          </p>
+          <h2
+            class="mt-3 text-2xl font-semibold text-[var(--color-text)] sm:text-3xl"
+          >
+            Orange City launch services
+          </h2>
+          <p
+            class="mt-3 text-sm leading-7 text-[var(--color-text-muted)] sm:text-base"
+          >
+            Each service page explains a different concrete-focused request.
+            Choose the closest fit, or describe multiple surfaces on the quote
+            form.
+          </p>
+        </div>
+
+        <div class="grid gap-4">
+          {
+            services.map((service) => (
+              <a
+                href={`/${service.slug}`}
+                class="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-4 transition-colors hover:border-[var(--color-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+              >
+                <span class="block text-sm font-semibold text-[var(--color-text)]">
+                  {service.name}
+                </span>
+                <span class="mt-2 block text-sm leading-7 text-[var(--color-text-muted)]">
+                  {service.summary}
+                </span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <Section
+      eyebrow="Quote guidance"
+      title="What to include in an Orange City concrete cleaning request"
+      description="The best quote request is specific about the surface, condition, and access instead of asking for broad exterior cleaning."
+    >
+      <ul class="grid gap-3 md:grid-cols-3">
+        {
+          quoteNotes.map((item) => (
+            <li class="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-4 text-sm leading-7 text-[var(--color-text-muted)]">
+              {item}
+            </li>
+          ))
+        }
+      </ul>
+    </Section>
+
+    <Section
+      eyebrow="Nearby active areas"
+      title="Other active service-area pages"
+      description="Review nearby active pages if the property is outside Orange City or the request covers another Central Florida area."
+      class="border-y border-[var(--color-border)] bg-[var(--color-surface)]"
+    >
+      <div class="grid gap-3 sm:grid-cols-2">
+        {
+          otherAreas.map((otherArea) => (
+            <a
+              href={`/service-areas/${otherArea.slug}`}
+              class="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-4 text-sm font-semibold text-[var(--color-text)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+            >
+              {otherArea.name}
+            </a>
+          ))
+        }
+      </div>
+    </Section>
+
+    <Section eyebrow="FAQ" title="Orange City service-area questions">
+      <div class="grid gap-4 md:grid-cols-3">
+        {
+          faqs.map((faq) => (
+            <Card class="bg-white">
+              <h2 class="text-base font-semibold text-[var(--color-text)]">
+                {faq.question}
+              </h2>
+              <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
+                {faq.answer}
+              </p>
+            </Card>
+          ))
+        }
+      </div>
+    </Section>
+
+    <section class="px-6 py-[var(--section-spacing)]">
+      <div
+        class="mx-auto max-w-[var(--container-width)] rounded-[var(--radius-lg)] bg-[var(--color-primary)] px-6 py-12 text-center text-white sm:px-10"
+      >
+        <h2 class="mx-auto max-w-2xl text-3xl font-semibold sm:text-4xl">
+          Request an Orange City concrete cleaning quote.
+        </h2>
+        <p class="mx-auto mt-4 max-w-2xl text-base leading-8 text-white/85">
+          Share the Orange City surface details and whether the request is for a
+          driveway, walkway, sidewalk, entry area, or other concrete surface.
+        </p>
+        <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+          <Button
+            href="/request-quote"
+            variant="secondary"
+            class="bg-white text-[var(--color-primary)] hover:bg-[var(--color-surface)]"
+            data-cta="quote"
+            data-cta-location={`service-area-${area.slug}-final`}
+          >
+            Request a Quote
+          </Button>
+          <Button
+            href={`mailto:${site.email}`}
+            variant="ghost"
+            class="text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
+            data-cta="email"
+            data-cta-location={`service-area-${area.slug}-final`}
+          >
+            Email CFL Wash Co.
+          </Button>
+        </div>
+      </div>
+    </section>
   </main>
 </Layout>

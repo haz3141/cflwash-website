@@ -9,18 +9,18 @@ export const serviceAreas: ServiceArea[] = [
     slug: 'deltona',
     name: 'Deltona',
     description:
-      'Primary service coverage for residential pressure washing projects.',
+      'Driveway, sidewalk, walkway, and concrete cleaning for Deltona homeowners.',
   },
   {
     slug: 'orange-city',
     name: 'Orange City',
     description:
-      'Local service for homes and properties needing exterior cleaning.',
+      'Concrete-focused curb appeal cleaning for Orange City homes and entry areas.',
   },
   {
     slug: 'debary',
     name: 'DeBary',
     description:
-      'Service coverage for driveway, sidewalk, and concrete cleaning.',
+      'Driveway, walkway, sidewalk, and concrete cleaning for DeBary residential properties.',
   },
 ]
