@@ -17,6 +17,7 @@ Never hardcode these values in source files.
 - Do not assume preview secrets are identical to production secrets.
 - Rotate preview and production credentials independently when needed.
 - Verify the preview environment points to the correct preview recipient address before testing end-to-end delivery.
+- Before promoting the quote-form release to `main`, confirm production has `TURNSTILE_SECRET_KEY`, `RESEND_API_KEY`, `QUOTE_NOTIFICATION_EMAIL`, and `QUOTE_FROM_EMAIL` configured with production-appropriate values.
 
 ## Local Development
 
@@ -79,5 +80,7 @@ Never log:
 - Validate the function locally with Wrangler before pushing.
 - Verify end-to-end submission and email delivery in a Cloudflare preview deployment.
 - Confirm Turnstile hostname and action checks succeed in preview before promoting to production.
+- Confirm production Cloudflare Pages variables are present before merging the release to `main`.
+- After production deployment, repeat a real submission test with production Turnstile and Resend configuration.
 
 Secrets must never enter Git, screenshots, PR text, support tickets, or analytics.

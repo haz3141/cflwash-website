@@ -2,9 +2,9 @@
 
 ## Purpose
 
-Freeze the first working quote form contract for CFL Wash Co. This document defines the UI, API, backend, analytics, and privacy rules that later implementation work must follow.
+Freeze the first working quote form contract for CFL Wash Co. This document defines the UI, API, backend, analytics, and privacy rules for the integrated quote-form release candidate.
 
-This is architecture and product specification only. It does not implement the form, backend, email delivery, or spam protection.
+The implementation exists on `dev` and has been tested through the `preview/quote-form-mvp` Cloudflare preview deployment. It is not live in production until promoted to `main` and verified after production deployment.
 
 ## MVP Architecture
 
@@ -194,7 +194,7 @@ The backend must not expose provider responses, secrets, stack traces, or intern
 
 ## Backend Requirements
 
-The future backend must:
+The backend must:
 
 - Accept `POST` only
 - Reject unsupported content types

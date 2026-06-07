@@ -61,12 +61,14 @@ Keep the DNS verification TXT record in Cloudflare after verification succeeds.
 
 ## Current Conversion Path
 
-The site currently uses a quote-first, contact-based MVP path:
+The current production site on `main` uses a quote-first, contact-based MVP path:
 
 - Primary quote route: `/request-quote`
 - Active contact method: email-based quote request path
 - Phone CTAs remain conditional and should only appear after a real phone number is confirmed
-- No form backend, booking, scheduling, payments, account system, or quote estimator exists yet
+- No booking, scheduling, payments, account system, CRM, or quote estimator exists in production
+
+The integrated quote-form MVP exists on `dev` as a release candidate and has been tested through the `preview/quote-form-mvp` Cloudflare preview deployment. It should not be described as live in production until promoted to `main` and verified after production deployment.
 
 ## Still Deferred
 
@@ -77,7 +79,7 @@ Do not add these until the underlying business details or workflows are ready:
 - Final SEO/city copy expansion
 - New city pages beyond current supported routes
 - Project pages before real jobs/photos/permission
-- Quote backend or guided estimator
+- Guided quote estimator
 - Online booking, scheduling, payment, account, CRM, or marketplace flows
 - Insurance, licensing, same-day, review, rating, or guarantee claims without proof
 
@@ -86,6 +88,6 @@ Do not add these until the underlying business details or workflows are ready:
 1. Confirm Search Console Domain property and sitemap submission.
 2. Confirm GA4 realtime data after production deployment.
 3. Decide the real phone/contact path.
-4. Add basic CTA event tracking only after the base analytics tag is confirmed.
+4. Promote the quote-form release candidate only after production secrets and release checks are ready.
 5. Start small design/content polish branches.
 6. Expand service/city content only when there is real operational intent and useful page value.

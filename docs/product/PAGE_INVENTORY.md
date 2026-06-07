@@ -2,17 +2,17 @@
 
 ## Current Routes
 
-| Route                        | Purpose                  | Status           | Notes                                     |
-| ---------------------------- | ------------------------ | ---------------- | ----------------------------------------- |
-| `/`                          | Homepage                 | Live             | Lead-gen entry point and primary CTA hub  |
-| `/request-quote`             | Quote destination        | Live placeholder | No form yet; acts as a stable destination |
-| `/thank-you`                 | Post-submit confirmation | Live             | `noindex`, not a public content page      |
-| `/driveway-pressure-washing` | Service page             | Live             | Primary service page                      |
-| `/sidewalk-walkway-cleaning` | Service page             | Live             | Primary service page                      |
-| `/concrete-cleaning`         | Service page             | Live             | Primary service page                      |
-| `/service-areas/deltona`     | Service-area page        | Live             | Primary area page                         |
-| `/service-areas/orange-city` | Service-area page        | Live             | Primary area page                         |
-| `/service-areas/debary`      | Service-area page        | Live             | Primary area page                         |
+| Route                        | Purpose                  | Status            | Notes                                                                                   |
+| ---------------------------- | ------------------------ | ----------------- | --------------------------------------------------------------------------------------- |
+| `/`                          | Homepage                 | Live              | Lead-gen entry point and primary CTA hub                                                |
+| `/request-quote`             | Quote destination        | Release candidate | Form MVP exists on `dev`/preview; production `main` remains contact-based until release |
+| `/thank-you`                 | Post-submit confirmation | Live              | `noindex`, not a public content page                                                    |
+| `/driveway-pressure-washing` | Service page             | Live              | Primary service page                                                                    |
+| `/sidewalk-walkway-cleaning` | Service page             | Live              | Primary service page                                                                    |
+| `/concrete-cleaning`         | Service page             | Live              | Primary service page                                                                    |
+| `/service-areas/deltona`     | Service-area page        | Live              | Primary area page                                                                       |
+| `/service-areas/orange-city` | Service-area page        | Live              | Primary area page                                                                       |
+| `/service-areas/debary`      | Service-area page        | Live              | Primary area page                                                                       |
 
 ## Planned Primary Service Areas
 

@@ -6,7 +6,7 @@ Provide a staged quote workflow that starts simple and can evolve without changi
 
 ## Phase 1: Contact-Based MVP
 
-Status: current/near-term
+Status: current production on `main`
 
 Characteristics:
 
@@ -24,7 +24,7 @@ Requirements:
 
 ## Phase 2: Quote Page With Form UI
 
-Status: planned
+Status: integrated release candidate on `dev`
 
 Characteristics:
 
@@ -48,7 +48,7 @@ Requirements:
 
 ## Phase 3: Working Backend
 
-Status: later implementation
+Status: integrated release candidate on `dev`
 
 Characteristics:
 
@@ -81,6 +81,7 @@ Requirements:
 
 ## Current Implementation Notes
 
-- The repo currently has a quote destination route, but not a form backend.
-- The site should keep using quote-first language until the later phases exist.
-- Do not add a quote backend as part of documentation work.
+- `main` remains the current production release with a contact-based quote path.
+- `dev` contains the integrated quote-form release candidate with form UI, `POST /api/quote`, Turnstile verification, and Resend notification delivery.
+- `preview/quote-form-mvp` represents the tested Cloudflare preview deployment.
+- The site should keep using quote-first language because a submitted request does not confirm scheduling or pricing.

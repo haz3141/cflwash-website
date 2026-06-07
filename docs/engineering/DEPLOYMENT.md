@@ -28,8 +28,15 @@ Local commands:
 - Cloudflare Pages production URL: `https://cflwash-website.pages.dev`
 - Production branch: `main`
 - Active integration branch: `dev`
+- Tested quote-form preview branch: `preview/quote-form-mvp`
 
-`main` and `dev` were synchronized after the first production release.
+Current branch roles:
+
+- `main` is the current production release.
+- `dev` is the integrated quote-form release candidate.
+- `preview/quote-form-mvp` represents the tested Cloudflare preview deployment for the quote-form MVP.
+
+Do not treat the quote form as live in production until the release candidate is promoted from `dev` to `main` and the production deployment is verified.
 
 The `www` hostname permanently redirects to the apex domain with a 301 while preserving path suffixes and query strings.
 
@@ -39,7 +46,7 @@ The Astro config sets the production site URL and preserves `trailingSlash: 'nev
 
 Production deployments are triggered from `main`.
 
-Preview deployments may be limited by branch-control rules. The initial production-readiness test used a `preview/*` branch before promoting `dev` to `main`.
+Preview deployments may be limited by branch-control rules. The quote-form MVP has been tested on the `preview/quote-form-mvp` preview branch without modifying `main`.
 
 Custom domains attached to the Pages project:
 
@@ -111,6 +118,8 @@ Before a release, confirm:
 
 - `pnpm check` passes.
 - Production build passes.
+- The quote-form release candidate on `dev` has been validated locally and in Cloudflare preview.
+- Production Cloudflare Pages has quote-form secrets configured separately from preview.
 - Canonical URLs resolve to the production domain.
 - Sitemap output exists in production.
 - Robots file points at the live sitemap.

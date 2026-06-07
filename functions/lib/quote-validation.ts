@@ -80,7 +80,7 @@ export function validateQuoteRequestBody(
     }
   }
 
-  const fieldErrors: QuoteFieldErrors = {}
+  const fieldErrors = Object.create(null) as QuoteFieldErrors
 
   for (const key of Object.keys(parsed)) {
     if (!EXPECTED_FIELDS.includes(key as QuoteField)) {

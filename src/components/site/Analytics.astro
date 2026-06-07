@@ -6,7 +6,9 @@ const ga4ConfigScript = ga4MeasurementId
   ? `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', '${ga4MeasurementId}');`
+gtag('config', '${ga4MeasurementId}', {
+  page_location: window.location.origin + window.location.pathname,
+});`
   : undefined
 const ga4CtaTrackingScript = ga4MeasurementId
   ? `(() => {

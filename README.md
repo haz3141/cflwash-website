@@ -196,13 +196,13 @@ docs/engineering/PROJECT_RULES.md
 
 ## Current Status
 
-The first production foundation is live:
+The current production foundation is live from `main`:
 
 - Production site available at `https://cflwash.com`
 - `www` redirects to the apex domain with a permanent redirect
 - Cloudflare Pages production deployment
 - Claim-safe homepage and static service/service-area routes
-- Contact-based quote request MVP
+- Contact-based quote request path in production
 - Canonical URL handling
 - Sitemap and robots output live
 - `/thank-you` protected with `noindex, follow`
@@ -210,14 +210,15 @@ The first production foundation is live:
 - GA4 installed through Cloudflare Pages environment configuration
 - Product, deployment, SEO, analytics, and launch documentation in place
 
+The `dev` branch is the integrated quote-form release candidate. The tested Cloudflare preview deployment is represented by `preview/quote-form-mvp`. Do not describe the quote form as live in production until the release candidate is promoted to `main` and the production deployment is verified.
+
 Current next priorities:
 
 - Confirm Search Console Domain property and sitemap submission
 - Confirm GA4 realtime data
 - Decide the real phone/contact path
-- Add lightweight CTA event tracking
+- Promote and verify the quote-form release candidate when production secrets are ready
 - Continue design and content polish through small focused branches
-- Build the quote backend only after the intake workflow is defined
 
 See the current live status in:
 

@@ -1,4 +1,4 @@
-/* global Headers, Request, Response, TextEncoder, URL, URLSearchParams, console, crypto, fetch */
+/* global Headers, Request, Response, TextDecoder, URL, URLSearchParams, console, crypto, fetch */
 
 import {
   sendQuoteNotificationEmail,
@@ -88,15 +88,15 @@ export async function onRequest(context: EventContext): Promise<Response> {
       })
     }
 
-    const rawBody = await request.text()
-    if (getUtf8ByteLength(rawBody) > MAX_REQUEST_BYTES) {
+    const rawBodyResult = await readRequestBody(request)
+    if (!rawBodyResult.ok) {
       return respondError(requestId, timestamp, 413, 'invalid_request', {
         ok: false,
         code: 'invalid_request',
       })
     }
 
-    const validationResult = validateQuoteRequestBody(rawBody)
+    const validationResult = validateQuoteRequestBody(rawBodyResult.body)
     if (!validationResult.ok) {
       if (validationResult.code === 'invalid_request') {
         return respondError(requestId, timestamp, 400, 'invalid_request', {
@@ -215,8 +215,55 @@ function isDeclaredContentLengthTooLarge(
   return Number.isFinite(contentLength) && contentLength > MAX_REQUEST_BYTES
 }
 
-function getUtf8ByteLength(value: string): number {
-  return new TextEncoder().encode(value).length
+async function readRequestBody(
+  request: Request,
+): Promise<{ ok: true; body: string } | { ok: false }> {
+  if (request.body === null) {
+    return {
+      ok: true,
+      body: '',
+    }
+  }
+
+  const reader = request.body.getReader()
+  const chunks: Uint8Array[] = []
+  let totalBytes = 0
+
+  try {
+    while (true) {
+      const { done, value } = await reader.read()
+
+      if (done) {
+        break
+      }
+
+      totalBytes += value.byteLength
+
+      if (totalBytes > MAX_REQUEST_BYTES) {
+        await reader.cancel().catch(() => undefined)
+        return {
+          ok: false,
+        }
+      }
+
+      chunks.push(value)
+    }
+  } finally {
+    reader.releaseLock()
+  }
+
+  const bodyBytes = new Uint8Array(totalBytes)
+  let offset = 0
+
+  for (const chunk of chunks) {
+    bodyBytes.set(chunk, offset)
+    offset += chunk.byteLength
+  }
+
+  return {
+    ok: true,
+    body: new TextDecoder().decode(bodyBytes),
+  }
 }
 
 function getEmailConfig(env: Env): QuoteEmailConfig {
