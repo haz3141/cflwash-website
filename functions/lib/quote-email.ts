@@ -95,14 +95,15 @@ function buildQuoteEmailContent({
   text: string
 } {
   const phone = submission.phone ?? 'Not provided'
-  const serviceLine = `${submission.service.name} (${submission.service.slug})`
+  const serviceLine = submission.service.name
+  const submittedAtLocal = formatSubmittedAt(submittedAt)
   const subject = `CFL Wash Co. Quote Request ${requestId.slice(0, 8)}`
 
   const text = [
     'New quote request',
     '',
     `Request ID: ${requestId}`,
-    `Submitted At: ${submittedAt}`,
+    `Submitted: ${submittedAtLocal}`,
     `Source Page: ${sourcePage}`,
     '',
     `Name: ${submission.name}`,
@@ -123,7 +124,7 @@ function buildQuoteEmailContent({
     '<h1 style="margin:0 0 16px;font-size:24px;line-height:1.2;">New quote request</h1>',
     '<table style="width:100%;border-collapse:collapse;">',
     tableRow('Request ID', requestId),
-    tableRow('Submitted At', submittedAt),
+    tableRow('Submitted', submittedAtLocal),
     tableRow('Source Page', sourcePage),
     tableRow('Name', submission.name),
     tableRow('Email', submission.email),
@@ -145,6 +146,25 @@ function buildQuoteEmailContent({
     html,
     text,
   }
+}
+
+function formatSubmittedAt(value: string): string {
+  const date = new Date(value)
+
+  if (Number.isNaN(date.getTime())) {
+    return value
+  }
+
+  return new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York',
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    timeZoneName: 'short',
+  }).format(date)
 }
 
 function tableRow(label: string, value: string): string {
