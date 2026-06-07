@@ -29,7 +29,7 @@ const localContexts = [
   {
     title: 'Scope before scheduling',
     description:
-      'A quote-first process helps separate surfaces that fit the launch offer from work that is not currently offered, such as roof cleaning or house washing.',
+      'A quote-first process helps connect the requested driveway, walkway, sidewalk, curb, or entry-area cleaning to the right concrete-focused scope.',
   },
 ]
 
@@ -46,9 +46,9 @@ const faqs = [
       'You can request a quote for driveway pressure washing, sidewalk and walkway cleaning, and other appropriate concrete cleaning such as entry slabs, curbs, pads, and aprons.',
   },
   {
-    question: 'Does CFL Wash Co. offer house washing in Orange City?',
+    question: 'How specific should my Orange City quote request be?',
     answer:
-      'No. The launch offer is focused on driveways, sidewalks, walkways, curbs, entry areas, and other appropriate concrete surfaces.',
+      'List each concrete surface you want reviewed, mention access or drainage concerns, and note any staining or HOA notice details that matter.',
   },
   {
     question: 'Can I include several small concrete areas in one quote?',
@@ -112,9 +112,9 @@ const faqs = [
         {
           localContexts.map((item) => (
             <Card class="bg-white">
-              <h2 class="text-base font-semibold text-[var(--color-text)]">
+              <h3 class="text-base font-semibold text-[var(--color-text)]">
                 {item.title}
-              </h2>
+              </h3>
               <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
                 {item.description}
               </p>
@@ -209,9 +209,9 @@ const faqs = [
         {
           faqs.map((faq) => (
             <Card class="bg-white">
-              <h2 class="text-base font-semibold text-[var(--color-text)]">
+              <h3 class="text-base font-semibold text-[var(--color-text)]">
                 {faq.question}
-              </h2>
+              </h3>
               <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
                 {faq.answer}
               </p>

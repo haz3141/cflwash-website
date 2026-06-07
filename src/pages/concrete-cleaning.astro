@@ -49,7 +49,7 @@ const prepItems = [
   'Clear furniture, grills, storage bins, planters, mats, and loose items from the concrete area.',
   'Share gate, hose access, drainage, or pet details when requesting the quote.',
   'Point out fragile edges, previous coatings, painted concrete, cracks, or areas that should be avoided.',
-  'Describe any priority stains, but expect the quote to avoid promises of complete stain removal.',
+  'Describe any priority stains so the quote can account for surface condition, age, staining, drainage, and prior treatment.',
 ]
 
 const processSteps = [
@@ -66,7 +66,7 @@ const processSteps = [
   {
     title: 'Clean appropriate areas',
     description:
-      'The work focuses on cleaner-looking concrete surfaces, not sealing, resurfacing, repair, or restoration.',
+      'The work focuses on cleaner-looking concrete surfaces with expectations tied to the condition and staining involved.',
   },
 ]
 
@@ -111,8 +111,8 @@ const faqs = [
       >
         Not every concrete surface is a driveway or sidewalk. This broader
         service helps homeowners request a quote for appropriate concrete areas
-        around the property while keeping the offer clear: cleaning only, not
-        sealing, repair, resurfacing, or restoration.
+        around the property while keeping the offer centered on cleaning and
+        realistic surface expectations.
       </p>
 
       <div class="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -244,9 +244,9 @@ const faqs = [
     >
       <div class="grid gap-8 lg:grid-cols-2">
         <div>
-          <h2 class="text-lg font-semibold text-[var(--color-text)]">
+          <h3 class="text-lg font-semibold text-[var(--color-text)]">
             Related services
-          </h2>
+          </h3>
           <div class="mt-4 grid gap-3">
             {
               relatedServices.map((item) => (
@@ -262,9 +262,9 @@ const faqs = [
         </div>
 
         <div>
-          <h2 class="text-lg font-semibold text-[var(--color-text)]">
+          <h3 class="text-lg font-semibold text-[var(--color-text)]">
             Active service areas
-          </h2>
+          </h3>
           <div class="mt-4 grid gap-3">
             {
               serviceAreas.map((area) => (
@@ -290,9 +290,9 @@ const faqs = [
         {
           faqs.map((faq) => (
             <Card class="bg-white">
-              <h2 class="text-base font-semibold text-[var(--color-text)]">
+              <h3 class="text-base font-semibold text-[var(--color-text)]">
                 {faq.question}
-              </h2>
+              </h3>
               <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
                 {faq.answer}
               </p>
