@@ -153,6 +153,20 @@ Rules:
 - Make graphics usable across shirts, signs, social, and web.
 - Avoid overly beachy, tourist, mascot, or generic pressure-washer clip art.
 
+## Current Brand Asset Implementation
+
+The launch site currently uses approved raster draft assets under `public/images/brand/`:
+
+- `logo-primary.png` for the header and footer identity.
+- `logo-mark.png` as the compact mark source for app icon exports.
+- `badge-illustrated.jpg` as a secondary storytelling asset for future use.
+- `hero-homepage.jpg` for the homepage hero visual.
+- `og-default.jpg` for default Open Graph and social sharing metadata.
+
+The favicon and app icons use a simplified derived `CFL` treatment for small-size browser legibility. These website assets are acceptable for the current launch integration, but they are not final SVG/vector logo masters. Future brand cleanup should recreate the primary logo, compact mark, reversed variants, favicon source, and badge artwork as production vector assets before broader print, apparel, signage, or long-term brand use.
+
+Rendered page images should keep intrinsic dimensions or stable aspect ratios, use empty alt text when decorative, and avoid treating generated artwork as proof of completed project work.
+
 ## What To Avoid
 
 - Fake reviews or invented customer quotes

@@ -1,0 +1,69 @@
+---
+type ImageAsset = {
+  src: string
+  alt: string
+  width: number
+  height: number
+}
+
+type Props = {
+  before: ImageAsset
+  after: ImageAsset
+  beforeLabel?: string
+  afterLabel?: string
+  caption?: string
+}
+
+const {
+  before,
+  after,
+  beforeLabel = 'Before',
+  afterLabel = 'After',
+  caption,
+} = Astro.props
+---
+
+<figure class="grid gap-3">
+  <div class="grid gap-3 md:grid-cols-2">
+    <div
+      class="overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white"
+    >
+      <img
+        src={before.src}
+        alt={before.alt}
+        width={before.width}
+        height={before.height}
+        class="aspect-[4/3] w-full object-cover"
+        loading="lazy"
+        decoding="async"
+      />
+      <p class="px-4 py-3 text-sm font-semibold text-[var(--color-text)]">
+        {beforeLabel}
+      </p>
+    </div>
+
+    <div
+      class="overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white"
+    >
+      <img
+        src={after.src}
+        alt={after.alt}
+        width={after.width}
+        height={after.height}
+        class="aspect-[4/3] w-full object-cover"
+        loading="lazy"
+        decoding="async"
+      />
+      <p class="px-4 py-3 text-sm font-semibold text-[var(--color-text)]">
+        {afterLabel}
+      </p>
+    </div>
+  </div>
+  {
+    caption && (
+      <figcaption class="text-sm text-[var(--color-text-muted)]">
+        {caption}
+      </figcaption>
+    )
+  }
+</figure>

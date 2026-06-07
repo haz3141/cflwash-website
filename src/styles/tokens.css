@@ -1,14 +1,20 @@
 :root {
+  --color-brand-navy: #062b5f;
+  --color-brand-blue: #1578cf;
+  --color-brand-green: #206b3a;
+  --color-brand-gold: #e0aa3a;
+  --color-brand-cream: #f6f1e6;
+
   --color-background: #ffffff;
   --color-surface: #f8fbfc;
-  --color-surface-warm: #f6f1e6;
+  --color-surface-warm: var(--color-brand-cream);
   --color-text: #0a1b2e;
   --color-text-muted: #5b6673;
   --color-border: #d9e2ea;
   --color-primary: #1f5dbe;
   --color-primary-hover: #174a99;
-  --color-secondary: #206b3a;
-  --color-accent: #e0aa3a;
+  --color-secondary: var(--color-brand-green);
+  --color-accent: var(--color-brand-gold);
   --color-focus-ring: #1f5dbe;
 
   --radius-sm: 0.375rem;

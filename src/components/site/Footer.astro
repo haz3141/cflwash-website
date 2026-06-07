@@ -11,9 +11,21 @@ const unlinkedServiceAreas = ['DeLand', 'Sanford', 'Lake Mary']
     class="mx-auto grid w-full max-w-[var(--container-width)] gap-8 px-6 py-10 md:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)_minmax(0,0.8fr)]"
   >
     <div>
-      <p class="text-base font-semibold text-[var(--color-primary)]">
-        {site.name}
-      </p>
+      <a
+        href="/"
+        aria-label={`${site.name} home`}
+        class="inline-flex focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+      >
+        <img
+          src="/images/brand/logo-primary.png"
+          alt=""
+          width="1280"
+          height="500"
+          class="h-14 w-auto max-w-[14rem] object-contain"
+          loading="lazy"
+          decoding="async"
+        />
+      </a>
       <p class="mt-3 max-w-sm text-sm leading-6 text-[var(--color-text-muted)]">
         Driveway, sidewalk, walkway, and concrete cleaning for Central Florida
         curb appeal.
