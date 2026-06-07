@@ -43,7 +43,7 @@ const considerations = [
   {
     title: 'Staining',
     description:
-      'Rust, irrigation staining, oil, tire marks, and deep organic stains can improve with cleaning, but complete removal is not promised.',
+      'Results depend on the surface condition, age, staining, drainage, and prior treatment.',
   },
 ]
 
@@ -114,7 +114,8 @@ const faqs = [
         Driveways collect tire marks, organic buildup, irrigation staining,
         tracked-in dirt, and everyday grime. CFL Wash Co. focuses this service
         on concrete driveway cleaning that can help the front of the home look
-        cleaner without implying repair, sealing, or complete stain removal.
+        cleaner while keeping the quote tied to the surface condition and
+        staining involved.
       </p>
 
       <div class="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -173,10 +174,10 @@ const faqs = [
           <p
             class="mt-3 text-sm leading-7 text-[var(--color-text-muted)] sm:text-base"
           >
-            Driveway cleaning is not a one-size-fits-all promise. The starting
-            condition of the concrete, how water moves across the driveway, and
-            what type of staining is present can affect both the process and the
-            visible outcome.
+            Driveway cleaning starts with the actual surface. The condition of
+            the concrete, how water moves across the driveway, and what type of
+            staining is present can affect both the process and the visible
+            outcome.
           </p>
         </div>
 
@@ -247,9 +248,9 @@ const faqs = [
     >
       <div class="grid gap-8 lg:grid-cols-2">
         <div>
-          <h2 class="text-lg font-semibold text-[var(--color-text)]">
+          <h3 class="text-lg font-semibold text-[var(--color-text)]">
             Related services
-          </h2>
+          </h3>
           <div class="mt-4 grid gap-3">
             {
               relatedServices.map((item) => (
@@ -265,9 +266,9 @@ const faqs = [
         </div>
 
         <div>
-          <h2 class="text-lg font-semibold text-[var(--color-text)]">
+          <h3 class="text-lg font-semibold text-[var(--color-text)]">
             Active service areas
-          </h2>
+          </h3>
           <div class="mt-4 grid gap-3">
             {
               serviceAreas.map((area) => (
@@ -293,9 +294,9 @@ const faqs = [
         {
           faqs.map((faq) => (
             <Card class="bg-white">
-              <h2 class="text-base font-semibold text-[var(--color-text)]">
+              <h3 class="text-base font-semibold text-[var(--color-text)]">
                 {faq.question}
-              </h2>
+              </h3>
               <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
                 {faq.answer}
               </p>

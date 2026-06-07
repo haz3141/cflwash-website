@@ -36,7 +36,7 @@ const localContexts = [
 const hoaNotes = [
   'Include the exact surface named in any HOA notice, such as driveway, sidewalk, curb, or entry path.',
   'Share whether the notice points to staining, dark buildup, organic growth, or general curb appeal.',
-  'Do not wait for a quote to assume every stain can be removed; older rust, oil, and irrigation marks may remain visible.',
+  'Describe priority stains clearly because results depend on surface condition, age, staining, drainage, and prior treatment.',
 ]
 
 const faqs = [
@@ -51,9 +51,9 @@ const faqs = [
       'CFL Wash Co. can quote concrete-focused cleanup when the notice involves driveways, sidewalks, walkways, curbs, or similar visible surfaces. Include the notice details in the request.',
   },
   {
-    question: 'Do you claim to be affiliated with Deltona?',
+    question: 'What should I include in a Deltona quote request?',
     answer:
-      'No. This page describes service availability for Deltona homeowners and does not imply a city endorsement or affiliation.',
+      'Include the concrete surfaces involved, visible staining or buildup, access details, and whether an HOA notice or curb-appeal concern is driving the request.',
   },
 ]
 ---
@@ -113,9 +113,9 @@ const faqs = [
         {
           localContexts.map((item) => (
             <Card class="bg-white">
-              <h2 class="text-base font-semibold text-[var(--color-text)]">
+              <h3 class="text-base font-semibold text-[var(--color-text)]">
                 {item.title}
-              </h2>
+              </h3>
               <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
                 {item.description}
               </p>
@@ -144,8 +144,8 @@ const faqs = [
             class="mt-3 text-sm leading-7 text-[var(--color-text-muted)] sm:text-base"
           >
             Current service pages stay centered on concrete cleaning. They do
-            not include roof cleaning, house washing, sealing, repair, or fleet
-            washing.
+            include driveway pressure washing, sidewalk and walkway cleaning,
+            and concrete cleaning for appropriate residential surfaces.
           </p>
         </div>
 
@@ -210,9 +210,9 @@ const faqs = [
         {
           faqs.map((faq) => (
             <Card class="bg-white">
-              <h2 class="text-base font-semibold text-[var(--color-text)]">
+              <h3 class="text-base font-semibold text-[var(--color-text)]">
                 {faq.question}
-              </h2>
+              </h3>
               <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
                 {faq.answer}
               </p>

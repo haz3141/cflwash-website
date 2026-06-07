@@ -36,7 +36,7 @@ const localContexts = [
 const homeownerNotes = [
   'Name the highest-priority surface first, such as driveway, front walk, sidewalk, curb, or patio slab.',
   'Describe staining honestly: oil, rust, irrigation marks, leaf stains, dark buildup, or general grime.',
-  'If an HOA notice is involved, include the deadline and wording without assuming the cleaning result can satisfy every condition.',
+  'If an HOA notice is involved, include the deadline and wording so the quote can account for the surface condition and visible staining.',
 ]
 
 const faqs = [
@@ -112,9 +112,9 @@ const faqs = [
         {
           localContexts.map((item) => (
             <Card class="bg-white">
-              <h2 class="text-base font-semibold text-[var(--color-text)]">
+              <h3 class="text-base font-semibold text-[var(--color-text)]">
                 {item.title}
-              </h2>
+              </h3>
               <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
                 {item.description}
               </p>
@@ -209,9 +209,9 @@ const faqs = [
         {
           faqs.map((faq) => (
             <Card class="bg-white">
-              <h2 class="text-base font-semibold text-[var(--color-text)]">
+              <h3 class="text-base font-semibold text-[var(--color-text)]">
                 {faq.question}
-              </h2>
+              </h3>
               <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
                 {faq.answer}
               </p>
