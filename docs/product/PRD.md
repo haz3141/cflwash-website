@@ -60,11 +60,11 @@ Supportive language may mention HOA notice cleanup and curb appeal cleanup, but 
 
 ## Quote Strategy
 
-The quote experience should progress through these phases:
+The quote experience progresses through these phases:
 
-1. Contact-based MVP
-2. Quote page with a form UI
-3. Working backend submission flow
+1. Contact-based MVP in the current production release on `main`
+2. Quote page with a form UI in the integrated release candidate on `dev`
+3. Working backend submission flow in the integrated release candidate on `dev`
 4. Guided quote estimator
 
 See `docs/product/QUOTE_SYSTEM.md` for the phase detail.
@@ -85,7 +85,7 @@ The repo already has:
 - Astro + Cloudflare Pages foundation
 - Service pages
 - Service-area pages for Deltona, Orange City, and DeBary
-- Quote placeholder route at `/request-quote`
+- Quote-form MVP release candidate at `/request-quote` on `dev` and preview
 - Noindexed confirmation route at `/thank-you`
 - Metadata/canonical hooks in the shared layout
 - Optional GA4 and Cloudflare Web Analytics hooks
@@ -98,4 +98,4 @@ The foundation is successful when:
 - The quote path is obvious and honest
 - Indexing rules are explicit
 - Claim safety is preserved
-- Future quote backend work can be added without reworking the site architecture
+- Future quote storage, CRM, or estimator work can be added without reworking the site architecture

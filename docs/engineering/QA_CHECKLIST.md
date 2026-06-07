@@ -1,31 +1,68 @@
 # QA Checklist
 
+## Branch And Environment State
+
+- [ ] `main` is treated as the current production release.
+- [ ] `dev` is treated as the integrated quote-form release candidate.
+- [ ] `preview/quote-form-mvp` is treated as the tested Cloudflare preview deployment.
+- [ ] No readiness work modifies `main` directly.
+- [ ] Preview and production secrets remain separate in Cloudflare Pages.
+
 ## Before Merge
 
-- [ ] `pnpm check` passes
-- [ ] No app code was changed when the task is docs-only
-- [ ] New docs match current repo state
-- [ ] No unsupported claims were added
-- [ ] Quote flow description still reflects a quote-first MVP
+- [ ] `pnpm check` passes.
+- [ ] `git diff --check` passes.
+- [ ] No unsupported claims were added.
+- [ ] No credentials, API keys, Turnstile secrets, or Resend keys were committed.
+- [ ] New docs match the current repo state and do not claim the quote form is live in production before release.
 
-## Content And Route Checks
+## Built Output Checks
 
-- [ ] Homepage, service pages, and service-area pages are all listed correctly
-- [ ] `/request-quote` is described as a destination, not a backend
-- [ ] `/thank-you` remains noindex and utility-only
-- [ ] Planned pages are clearly labeled as planned
-- [ ] No thin city/service pages are introduced
+- [ ] `pnpm build` generates `/request-quote`, `/privacy`, and `/thank-you`.
+- [ ] `/thank-you` remains `noindex, follow` and stays out of sitemap output.
+- [ ] `/request-quote` includes an email fallback and privacy notice link.
+- [ ] Without `PUBLIC_TURNSTILE_SITE_KEY`, the online form does not render as functional.
+- [ ] With a fake `PUBLIC_TURNSTILE_SITE_KEY`, the quote form renders and references `POST /api/quote`.
+- [ ] Turnstile client script appears only once on the quote page.
+- [ ] Without `PUBLIC_GA4_MEASUREMENT_ID`, Google Analytics scripts are absent.
 
-## SEO Checks
+## Quote Form Checks
 
-- [ ] Canonical URLs are documented as production-domain only
-- [ ] Technical SEO is separated from content SEO
-- [ ] Sitemap and robots requirements are explicit
-- [ ] Analytics are treated as optional and configuration-driven
+- [ ] Required fields and maximum lengths match `functions/lib/quote-validation.ts`.
+- [ ] Service options match slugs from `src/data/services.ts`.
+- [ ] Native and server validation errors are visible, accessible, and focusable.
+- [ ] Turnstile expiration, timeout, errors, and failed submissions clear the token.
+- [ ] Pending submissions cannot be submitted twice.
+- [ ] Form values remain after validation, verification, or delivery failure.
+- [ ] Successful submission redirects to `/thank-you` only after backend confirmation.
+- [ ] Delivery failure makes the email fallback prominent.
 
-## Quote Flow Checks
+## Backend Smoke Checks
 
-- [ ] Contact-based MVP is documented first
-- [ ] Form UI is documented as a later phase
-- [ ] Backend submission is documented as a later phase
-- [ ] Guided estimator is documented as a future phase
+- [ ] `GET /api/quote` returns `405` with `Allow: POST`.
+- [ ] Non-JSON requests return `415 invalid_request`.
+- [ ] Malformed JSON returns `400 invalid_request`.
+- [ ] Empty or invalid fields return `400 validation_error`.
+- [ ] Unknown fields are rejected.
+- [ ] Invalid service slugs return `400 validation_error`.
+- [ ] Filled honeypot submissions return `400 verification_failed`.
+- [ ] Fake Turnstile tokens return `400 verification_failed`.
+- [ ] Mismatched `Origin` is rejected.
+- [ ] Oversized bodies return `413 invalid_request`.
+
+## Analytics And Privacy
+
+- [ ] `quote_submit` fires only after confirmed backend success.
+- [ ] Direct visits to `/thank-you` do not fire `quote_submit`.
+- [ ] Quote submission analytics send only `page_path` and `service_slug`.
+- [ ] GA4 events do not include submitted PII, request IDs, Turnstile tokens, full URLs, or mailto/tel destinations.
+- [ ] Preview deployments omit analytics unless intentionally configured.
+- [ ] `/privacy` reflects Cloudflare hosting, Turnstile, Resend delivery, GA4, and optional Cloudflare Web Analytics.
+
+## Release Checks
+
+- [ ] Cloudflare preview deployment is tested before promotion to production.
+- [ ] Preview routes return `X-Robots-Tag: noindex` where applicable.
+- [ ] Preview end-to-end submission verifies Turnstile, Resend delivery, Email Routing, Reply-To, and `/thank-you` redirect.
+- [ ] Production environment variables are configured before merging the quote-form release to `main`.
+- [ ] Production release is verified after deployment without using preview secrets.

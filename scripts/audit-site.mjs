@@ -50,6 +50,37 @@ const assetExtensions = new Set([
   '.woff2',
   '.xml',
 ])
+const textExtensions = new Set([
+  '.css',
+  '.html',
+  '.js',
+  '.json',
+  '.svg',
+  '.txt',
+  '.webmanifest',
+  '.xml',
+])
+const publicTurnstileSiteKey =
+  process.env.PUBLIC_TURNSTILE_SITE_KEY?.trim() ?? ''
+const ga4MeasurementId = process.env.PUBLIC_GA4_MEASUREMENT_ID?.trim() ?? ''
+const secretPatterns = [
+  {
+    label: 'Resend API key',
+    pattern: /re_[A-Za-z0-9]{10,}/,
+  },
+  {
+    label: 'Resend API key variable assignment',
+    pattern: /RESEND_API_KEY\s*=/,
+  },
+  {
+    label: 'Turnstile secret key variable assignment',
+    pattern: /TURNSTILE_SECRET_KEY\s*=/,
+  },
+  {
+    label: 'Bearer credential',
+    pattern: /Bearer\s+[A-Za-z0-9._-]{10,}/,
+  },
+]
 
 async function walkFiles(dir, prefix = '') {
   const entries = await readdir(dir, { withFileTypes: true })
@@ -164,6 +195,32 @@ function listInternalHrefs(html) {
   return hrefs
 }
 
+function countOccurrences(value, search) {
+  if (search === '') {
+    return 0
+  }
+
+  return value.split(search).length - 1
+}
+
+function hasSanitizedGa4PageLocation(html) {
+  return (
+    html.includes('page_location') &&
+    html.includes('window.location.origin') &&
+    html.includes('window.location.pathname')
+  )
+}
+
+function hasForbiddenGa4LocationTerm(html) {
+  return (
+    html.includes('window.location.href') ||
+    html.includes('window.location.search') ||
+    html.includes('window.location.hash') ||
+    html.includes('send_page_view:false') ||
+    /send_page_view\s*:\s*false/.test(html)
+  )
+}
+
 function isIndexablePage(html) {
   const robotsContent = findMetaContent(html, 'robots').toLowerCase()
   return !robotsContent.includes('noindex')
@@ -229,7 +286,9 @@ async function main() {
     'favicon.ico',
     'favicon.svg',
     'index.html',
+    'privacy.html',
     'robots.txt',
+    'request-quote.html',
     'site.webmanifest',
     'sitemap-index.xml',
     'thank-you.html',
@@ -289,6 +348,20 @@ async function main() {
   )
 
   if (ga4ConfiguredHtml.length > 0) {
+    for (const { file, html } of ga4ConfiguredHtml) {
+      if (!hasSanitizedGa4PageLocation(html)) {
+        failures.push(
+          `Built HTML with GA4 configured must override \`page_location\` using \`window.location.origin\` plus \`window.location.pathname\` in \`dist/${file}\`.`,
+        )
+      }
+
+      if (hasForbiddenGa4LocationTerm(html)) {
+        failures.push(
+          `Built HTML with GA4 configured must not use full URLs, query strings, fragments, or disabled page views in \`dist/${file}\`.`,
+        )
+      }
+    }
+
     const ctaTrackingTerms = [
       'quote_click',
       'email_click',
@@ -316,6 +389,10 @@ async function main() {
   const thankYouPage = htmlContents.find(
     ({ file }) => file === 'thank-you.html',
   )
+  const privacyPage = htmlContents.find(({ file }) => file === 'privacy.html')
+  const quotePage = htmlContents.find(
+    ({ file }) => file === 'request-quote.html',
+  )
 
   if (
     !thankYouPage ||
@@ -324,6 +401,107 @@ async function main() {
     failures.push(
       '`dist/thank-you.html` must include a `noindex, follow` robots meta tag.',
     )
+  }
+
+  if (!privacyPage) {
+    failures.push('`dist/privacy.html` must exist for the privacy notice.')
+  }
+
+  if (!quotePage) {
+    failures.push('`dist/request-quote.html` must exist for quote requests.')
+  } else {
+    if (!quotePage.html.includes('mailto:')) {
+      failures.push(
+        '`dist/request-quote.html` must include an email fallback for quote requests.',
+      )
+    }
+
+    if (!quotePage.html.includes('href="/privacy"')) {
+      failures.push(
+        '`dist/request-quote.html` must link to the privacy notice.',
+      )
+    }
+
+    const turnstileScriptCount = countOccurrences(
+      quotePage.html,
+      'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit',
+    )
+
+    if (turnstileScriptCount > 1) {
+      failures.push(
+        '`dist/request-quote.html` must not include duplicate Turnstile client scripts.',
+      )
+    }
+
+    if (publicTurnstileSiteKey) {
+      if (!quotePage.html.includes('data-quote-form')) {
+        failures.push(
+          '`dist/request-quote.html` must render the quote form when `PUBLIC_TURNSTILE_SITE_KEY` is configured.',
+        )
+      }
+
+      if (!quotePage.html.includes("fetch('/api/quote'")) {
+        failures.push(
+          '`dist/request-quote.html` must reference `POST /api/quote` when `PUBLIC_TURNSTILE_SITE_KEY` is configured.',
+        )
+      }
+
+      if (turnstileScriptCount !== 1) {
+        failures.push(
+          '`dist/request-quote.html` must include exactly one Turnstile client script when `PUBLIC_TURNSTILE_SITE_KEY` is configured.',
+        )
+      }
+    } else {
+      if (quotePage.html.includes('data-quote-form')) {
+        failures.push(
+          '`dist/request-quote.html` must not render a functional quote form when `PUBLIC_TURNSTILE_SITE_KEY` is absent.',
+        )
+      }
+
+      if (turnstileScriptCount !== 0) {
+        failures.push(
+          '`dist/request-quote.html` must not include the Turnstile client script when `PUBLIC_TURNSTILE_SITE_KEY` is absent.',
+        )
+      }
+    }
+  }
+
+  if (
+    thankYouPage &&
+    !thankYouPage.html.includes('href="/privacy"') &&
+    !thankYouPage.html.includes('href=/privacy')
+  ) {
+    failures.push('`dist/thank-you.html` must link to the privacy notice.')
+  }
+
+  const ga4ScriptHtml = htmlContents.filter(({ html }) =>
+    html.includes('googletagmanager.com/gtag/js'),
+  )
+
+  if (!ga4MeasurementId && ga4ScriptHtml.length > 0) {
+    failures.push(
+      'Built HTML must not include Google Analytics scripts when `PUBLIC_GA4_MEASUREMENT_ID` is absent.',
+    )
+  }
+
+  const textDistFiles = distFiles.filter((file) =>
+    textExtensions.has(path.posix.extname(file).toLowerCase()),
+  )
+  const textDistContents = await Promise.all(
+    textDistFiles.map(async (file) => ({
+      file,
+      content: await readText(file),
+    })),
+  )
+
+  for (const { file, content } of textDistContents) {
+    for (const { label, pattern } of secretPatterns) {
+      if (pattern.test(content)) {
+        failures.push(
+          `Potential ${label} leaked into built output: \`dist/${file}\`.`,
+        )
+      }
+    }
   }
 
   for (const { file, route, html } of htmlContents) {
