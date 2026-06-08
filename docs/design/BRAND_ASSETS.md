@@ -25,19 +25,19 @@ Do not add letters, taglines, skyline details, birds, badge borders, or other sm
 
 ## Active Flow Crest Assets
 
-| File | Purpose |
-| --- | --- |
-| `public/images/brand/logo-icon.svg` | Default Flow Crest source for light surfaces |
-| `public/images/brand/logo-icon-dark.svg` | Explicit light-surface source variant |
-| `public/images/brand/logo-icon-light.svg` | Reversed source variant for dark surfaces |
-| `public/images/brand/flow-crest-adaptive.svg` | Adaptive SVG favicon for light and dark browser themes |
-| `public/images/brand/flow-crest.ico` | ICO fallback with 16, 32, and 48 pixel artwork |
-| `public/images/brand/flow-crest-16.png` | 16 pixel PNG favicon |
-| `public/images/brand/flow-crest-32.png` | 32 pixel PNG favicon |
-| `public/images/brand/flow-crest-apple-touch.png` | 180 pixel Apple touch icon |
-| `public/images/brand/flow-crest-192.png` | 192 pixel installed-app icon |
-| `public/images/brand/flow-crest-512.png` | 512 pixel installed-app icon |
-| `public/site.webmanifest` | Manifest wired to the Flow Crest app icons |
+| File                                             | Purpose                                                |
+| ------------------------------------------------ | ------------------------------------------------------ |
+| `public/images/brand/logo-icon.svg`              | Default Flow Crest source for light surfaces           |
+| `public/images/brand/logo-icon-dark.svg`         | Explicit light-surface source variant                  |
+| `public/images/brand/logo-icon-light.svg`        | Reversed source variant for dark surfaces              |
+| `public/images/brand/flow-crest-adaptive.svg`    | Adaptive SVG favicon for light and dark browser themes |
+| `public/images/brand/flow-crest.ico`             | ICO fallback with 16, 32, and 48 pixel artwork         |
+| `public/images/brand/flow-crest-16.png`          | 16 pixel PNG favicon                                   |
+| `public/images/brand/flow-crest-32.png`          | 32 pixel PNG favicon                                   |
+| `public/images/brand/flow-crest-apple-touch.png` | 180 pixel Apple touch icon                             |
+| `public/images/brand/flow-crest-192.png`         | 192 pixel installed-app icon                           |
+| `public/images/brand/flow-crest-512.png`         | 512 pixel installed-app icon                           |
+| `public/site.webmanifest`                        | Manifest wired to the Flow Crest app icons             |
 
 The PNG and ICO browser icons use the light-surface mark. Apple touch and installed-app icons use the reversed mark on an intentional deep navy square.
 
@@ -54,17 +54,17 @@ Do not substitute the illustrated badge or compact monogram for Flow Crest in fa
 
 ## Other Public Assets
 
-| File | Recommended use | Notes |
-| --- | --- | --- |
-| `public/images/brand/logo-primary.png` | Primary wordmark appearance reference | Use on white or intentionally matched light surfaces. |
-| `public/images/brand/logo-primary-transparent.png` | Header candidate | Use only when visually faithful to the original. |
-| `public/images/brand/logo-primary-reversed.png` | Dark-surface candidate | Raster conversion; requires visual approval. |
-| `public/images/brand/logo-mark.png` | Legacy compact monogram | Too detailed for favicon use. |
-| `public/images/brand/logo-mark-transparent.png` | Medium compact-mark use | Keep out of tiny contexts. |
-| `public/images/brand/logo-mark-reversed.png` | Medium compact-mark use on dark surfaces | Raster derivative. |
-| `public/images/brand/badge-illustrated.png` | Secondary storytelling | Do not treat as proof of completed work. |
-| `public/images/brand/hero-homepage.webp` | Homepage hero artwork | Decorative page artwork. |
-| `public/images/brand/og-default.png` | Open Graph and social sharing | Keep on-brand and claim-safe. |
+| File                                               | Recommended use                          | Notes                                                 |
+| -------------------------------------------------- | ---------------------------------------- | ----------------------------------------------------- |
+| `public/images/brand/logo-primary.png`             | Primary wordmark appearance reference    | Use on white or intentionally matched light surfaces. |
+| `public/images/brand/logo-primary-transparent.png` | Header candidate                         | Use only when visually faithful to the original.      |
+| `public/images/brand/logo-primary-reversed.png`    | Dark-surface candidate                   | Raster conversion; requires visual approval.          |
+| `public/images/brand/logo-mark.png`                | Legacy compact monogram                  | Too detailed for favicon use.                         |
+| `public/images/brand/logo-mark-transparent.png`    | Medium compact-mark use                  | Keep out of tiny contexts.                            |
+| `public/images/brand/logo-mark-reversed.png`       | Medium compact-mark use on dark surfaces | Raster derivative.                                    |
+| `public/images/brand/badge-illustrated.png`        | Secondary storytelling                   | Do not treat as proof of completed work.              |
+| `public/images/brand/hero-homepage.webp`           | Homepage hero artwork                    | Decorative page artwork.                              |
+| `public/images/brand/og-default.png`               | Open Graph and social sharing            | Keep on-brand and claim-safe.                         |
 
 ## Usage Rules
 
