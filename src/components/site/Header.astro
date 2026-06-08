@@ -2,7 +2,7 @@
 import Button from '../ui/Button.astro'
 import Container from '../ui/Container.astro'
 import { site } from '../../data/site'
-import { ClipboardList } from '@lucide/astro'
+import { ClipboardList, Phone } from '@lucide/astro'
 
 const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
 ---
@@ -63,6 +63,12 @@ const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
             data-cta-location="header"
             class="hidden md:inline-flex"
           >
+            <Phone
+              slot="startIcon"
+              class="h-5 w-5"
+              aria-hidden="true"
+              stroke-width="1.8"
+            />
             Call
           </Button>
         )

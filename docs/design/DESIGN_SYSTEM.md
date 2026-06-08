@@ -6,6 +6,7 @@ It complements:
 
 - [DESIGN.md](./DESIGN.md) for brand direction and UX intent
 - [BRAND_ASSETS.md](./BRAND_ASSETS.md) for logo and image inventory
+- [ANALYTICS_TRACKING_PLAN.md](../seo/ANALYTICS_TRACKING_PLAN.md) for CTA tracking conventions
 - [CLAIMS.md](../strategy/CLAIMS.md) for claim-safe copy rules
 
 ## Principles
@@ -351,6 +352,21 @@ Rules:
 - Do not call a raster logo a vector master.
 
 See [BRAND_ASSETS.md](./BRAND_ASSETS.md) for the inventory and limitations.
+
+## Contact Data
+
+- `src/data/site.ts` is the single source of truth for the public phone number and site email.
+- Use `phoneDisplay` for visible UI labels.
+- Use `phoneE164` for structured data and machine-readable contact values.
+- Use `phoneHref` for `tel:` links.
+- Request a Quote remains the primary action; Call is the preferred secondary action when configured; Email stays available as a supporting fallback.
+- Do not duplicate raw digits in page templates when the centralized site data already supplies the value.
+
+## Structured Data
+
+- Generate site-wide `Organization` JSON-LD from centralized site data.
+- Use the verified site name, URL, email, logo, phone number, and service area only.
+- Defer `LocalBusiness` until a verified public address and address strategy are established.
 
 ## Accessibility
 

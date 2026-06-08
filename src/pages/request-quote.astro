@@ -4,7 +4,7 @@ import QuoteForm from '../components/quote/QuoteForm.astro'
 import Section from '../components/ui/Section.astro'
 import Layout from '../layouts/Layout.astro'
 import { site } from '../data/site'
-import { Mail } from '@lucide/astro'
+import { Mail, Phone } from '@lucide/astro'
 
 const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
 const quoteEmailSubject = 'Quote request for exterior cleaning'
@@ -39,9 +39,30 @@ const quoteEmailHref = `mailto:${site.email}?subject=${encodeURIComponent(quoteE
         </p>
 
         <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          {
+            hasPhone && (
+              <Button
+                href={site.phoneHref!}
+                variant="secondary"
+                size="lg"
+                fullWidth
+                data-cta="call"
+                data-cta-location="request-quote-hero"
+                class="sm:w-auto"
+              >
+                <Phone
+                  slot="startIcon"
+                  class="h-5 w-5"
+                  aria-hidden="true"
+                  stroke-width="1.8"
+                />
+                Call {site.phoneDisplay}
+              </Button>
+            )
+          }
           <Button
             href={quoteEmailHref}
-            variant="secondary"
+            variant="ghost"
             size="lg"
             fullWidth
             data-cta="email"
@@ -58,7 +79,7 @@ const quoteEmailHref = `mailto:${site.email}?subject=${encodeURIComponent(quoteE
           </Button>
           <Button
             href="/#services"
-            variant="secondary"
+            variant="ghost"
             size="lg"
             fullWidth
             data-cta="services"
@@ -67,21 +88,6 @@ const quoteEmailHref = `mailto:${site.email}?subject=${encodeURIComponent(quoteE
           >
             View Services
           </Button>
-          {
-            hasPhone && (
-              <Button
-                href={site.phoneHref!}
-                variant="ghost"
-                size="lg"
-                fullWidth
-                data-cta="call"
-                data-cta-location="request-quote-hero"
-                class="sm:w-auto"
-              >
-                Call {site.phoneDisplay}
-              </Button>
-            )
-          }
         </div>
       </div>
     </Section>

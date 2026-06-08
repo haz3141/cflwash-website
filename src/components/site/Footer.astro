@@ -1,7 +1,7 @@
 ---
 import Button from '../ui/Button.astro'
 import Container from '../ui/Container.astro'
-import { Mail, MapPin, ClipboardList } from '@lucide/astro'
+import { Mail, MapPin, ClipboardList, Phone } from '@lucide/astro'
 import { serviceAreas } from '../../data/serviceAreas'
 import { services } from '../../data/services'
 import { site } from '../../data/site'
@@ -37,6 +37,15 @@ const unlinkedServiceAreas = ['DeLand', 'Sanford', 'Lake Mary']
         curb appeal.
       </p>
       <div class="space-y-3 text-sm">
+        <a
+          href={site.phoneHref}
+          data-cta="call"
+          data-cta-location="footer"
+          class="inline-flex items-center gap-2 transition-colors duration-[var(--duration-fast)] hover:text-white focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring-inverse)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface-inverse)]"
+        >
+          <Phone class="h-4 w-4" aria-hidden="true" stroke-width="1.8" />
+          {site.phoneDisplay}
+        </a>
         <a
           href={`mailto:${site.email}`}
           data-cta="email"

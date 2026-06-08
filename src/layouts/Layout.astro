@@ -4,6 +4,7 @@ import { site } from '../data/site'
 import Analytics from '../components/site/Analytics.astro'
 import Footer from '../components/site/Footer.astro'
 import Header from '../components/site/Header.astro'
+import OrganizationSchema from '../components/site/OrganizationSchema.astro'
 import MobileStickyCTA from '../components/site/MobileStickyCTA.astro'
 
 type Props = {
@@ -94,6 +95,7 @@ const ogImageUrl = ogImage
         />
       )
     }
+    <OrganizationSchema />
   </head>
 
   <body class="bg-[var(--color-page)] text-[var(--color-text)] antialiased">

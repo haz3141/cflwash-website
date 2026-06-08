@@ -16,6 +16,7 @@ import {
   Mail,
   MapPin,
   MessageSquareText,
+  Phone,
   Sparkles,
 } from '@lucide/astro'
 
@@ -391,7 +392,14 @@ const serviceIcons = {
             data-cta-location="home-final"
           >
             {
-              !hasPhone && (
+              hasPhone ? (
+                <Phone
+                  slot="startIcon"
+                  class="h-5 w-5"
+                  aria-hidden="true"
+                  stroke-width="1.8"
+                />
+              ) : (
                 <Mail
                   slot="startIcon"
                   class="h-5 w-5"
