@@ -1,10 +1,14 @@
 ---
-type Variant = 'primary' | 'secondary' | 'ghost'
+type Variant = 'primary' | 'secondary' | 'ghost' | 'inverse'
+type Size = 'sm' | 'md' | 'lg'
 type ButtonType = 'button' | 'submit' | 'reset'
 
 type Props = {
   href?: string
   variant?: Variant
+  size?: Size
+  fullWidth?: boolean
+  disabled?: boolean
   type?: ButtonType
   class?: string
 }
@@ -12,33 +16,68 @@ type Props = {
 const {
   href,
   variant = 'primary',
+  size = 'md',
+  fullWidth = false,
+  disabled = false,
   type = 'button',
   class: className = '',
   ...attrs
 } = Astro.props as Props
 
 const base =
-  'inline-flex min-h-11 items-center justify-center rounded-[var(--radius-md)] px-5 py-2.5 text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]'
+  'inline-flex min-h-11 items-center justify-center gap-2 rounded-[var(--radius-md)] font-semibold transition-colors duration-[var(--duration-normal)] ease-[var(--ease-standard)] focus-visible:outline-none focus-visible:ring-2'
+
+const sizeClasses: Record<Size, string> = {
+  sm: 'min-h-11 px-4 py-2 text-sm',
+  md: 'min-h-11 px-5 py-3 text-sm',
+  lg: 'min-h-12 px-6 py-3.5 text-base',
+}
 
 const variants: Record<Variant, string> = {
   primary:
-    'bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]',
+    'bg-[var(--color-action)] text-white hover:bg-[var(--color-action-hover)] active:bg-[var(--color-action-active)]',
   secondary:
-    'bg-[var(--color-background)] text-[var(--color-text)] ring-1 ring-inset ring-[var(--color-border)] hover:bg-[var(--color-surface)]',
-  ghost: 'text-[var(--color-text)] hover:bg-[var(--color-surface)]',
+    'bg-[var(--color-page)] text-[var(--color-text)] ring-1 ring-inset ring-[var(--color-border)] hover:bg-[var(--color-surface)] active:bg-[var(--color-surface-soft)]',
+  ghost:
+    'text-[var(--color-text)] hover:bg-[var(--color-surface)] active:bg-[var(--color-surface-soft)]',
+  inverse:
+    'bg-[var(--color-surface-inverse)] text-[var(--color-text-inverse)] ring-1 ring-inset ring-white/15 hover:bg-[var(--color-surface-inverse-hover)] active:bg-[var(--color-surface-inverse-active)]',
 }
 
-const classes = `${base} ${variants[variant]} ${className}`.trim()
+const disabledClasses = disabled ? 'cursor-not-allowed opacity-50' : ''
+const widthClass = fullWidth ? 'w-full' : ''
+const ringOffsetClass =
+  variant === 'inverse'
+    ? 'focus-visible:ring-offset-[var(--color-surface-inverse)]'
+    : 'focus-visible:ring-offset-[var(--color-page)]'
+const ringColorClass =
+  variant === 'inverse'
+    ? 'focus-visible:ring-[var(--color-focus-ring-inverse)]'
+    : 'focus-visible:ring-[var(--color-focus-ring)]'
+const classes =
+  `${base} ${ringColorClass} ${ringOffsetClass} ${sizeClasses[size]} ${variants[variant]} ${widthClass} ${disabledClasses} ${className}`.trim()
+const startIcon = Astro.slots.has('startIcon')
+const endIcon = Astro.slots.has('endIcon')
 ---
 
 {
   href ? (
-    <a href={href} class={classes} {...attrs}>
+    <a
+      href={disabled ? undefined : href}
+      class={classes}
+      aria-disabled={disabled ? 'true' : undefined}
+      tabindex={disabled ? '-1' : undefined}
+      {...attrs}
+    >
+      {startIcon && <slot name="startIcon" />}
       <slot />
+      {endIcon && <slot name="endIcon" />}
     </a>
   ) : (
-    <button type={type} class={classes} {...attrs}>
+    <button type={type} class={classes} disabled={disabled} {...attrs}>
+      {startIcon && <slot name="startIcon" />}
       <slot />
+      {endIcon && <slot name="endIcon" />}
     </button>
   )
 }

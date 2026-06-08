@@ -1,11 +1,23 @@
 ---
 import Button from '../components/ui/Button.astro'
 import Card from '../components/ui/Card.astro'
+import IconBadge from '../components/ui/IconBadge.astro'
 import Section from '../components/ui/Section.astro'
 import Layout from '../layouts/Layout.astro'
 import { services } from '../data/services'
 import { serviceAreas } from '../data/serviceAreas'
 import { site } from '../data/site'
+import {
+  Blocks,
+  CarFront,
+  ClipboardCheck,
+  ClipboardList,
+  Footprints,
+  Mail,
+  MapPin,
+  MessageSquareText,
+  Sparkles,
+} from '@lucide/astro'
 
 const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
 const secondaryHeroHref = hasPhone ? site.phoneHref : `mailto:${site.email}`
@@ -15,18 +27,22 @@ const secondaryHeroLabel = hasPhone
 
 const trustCues = [
   {
+    icon: MapPin,
     label: 'Central Florida based',
     detail: 'Serving homeowners across the local area',
   },
   {
+    icon: Blocks,
     label: 'Driveways, sidewalks, and concrete',
     detail: 'Focused curb appeal cleaning for hard surfaces',
   },
   {
+    icon: ClipboardCheck,
     label: 'HOA notice cleanup',
     detail: 'Quote-first help for visible concrete buildup',
   },
   {
+    icon: MessageSquareText,
     label: 'Simple quote path',
     detail: 'Request a quote before any work is scheduled',
   },
@@ -34,16 +50,19 @@ const trustCues = [
 
 const processSteps = [
   {
+    icon: ClipboardList,
     title: 'Request a quote',
     description:
       'Share the surface, city, and a few details about the driveway, sidewalk, walkway, or concrete area.',
   },
   {
+    icon: MessageSquareText,
     title: 'Confirm the scope',
     description:
       'CFL Wash Co. reviews the job details and confirms the best cleaning plan before work begins.',
   },
   {
+    icon: Sparkles,
     title: 'Clean the concrete',
     description:
       'The work stays focused on cleaner-looking concrete and practical curb appeal for the property.',
@@ -51,6 +70,12 @@ const processSteps = [
 ]
 
 const unlinkedServiceAreas = ['DeLand', 'Sanford', 'Lake Mary']
+
+const serviceIcons = {
+  'driveway-pressure-washing': CarFront,
+  'sidewalk-walkway-cleaning': Footprints,
+  'concrete-cleaning': Blocks,
+} as const
 ---
 
 <Layout
@@ -61,22 +86,16 @@ const unlinkedServiceAreas = ['DeLand', 'Sanford', 'Lake Mary']
   <main>
     <section class="overflow-hidden bg-[var(--color-surface)]">
       <div
-        class="mx-auto grid w-full max-w-[var(--container-width)] gap-12 px-6 py-16 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,0.92fr)] lg:items-center lg:py-24"
+        class="mx-auto grid w-full max-w-[var(--container-width)] gap-12 px-[var(--container-gutter)] py-[var(--section-space)] lg:grid-cols-[minmax(0,1fr)_minmax(22rem,0.92fr)] lg:items-center lg:py-[var(--section-space-spacious)]"
       >
         <div>
-          <p
-            class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-primary)]"
-          >
+          <p class="text-eyebrow text-[var(--color-action)]">
             Serving Central Florida
           </p>
-          <h1
-            class="mt-4 max-w-3xl text-4xl font-semibold leading-tight text-[var(--color-text)] sm:text-5xl lg:text-6xl"
-          >
+          <h1 class="measure-copy mt-4 text-display text-[var(--color-text)]">
             Driveway, Sidewalk, and Concrete Cleaning in Central Florida
           </h1>
-          <p
-            class="mt-5 max-w-2xl text-base leading-8 text-[var(--color-text-muted)] sm:text-lg"
-          >
+          <p class="measure-copy mt-5 text-lead text-[var(--color-text-muted)]">
             Simple quotes for driveway, walkway, sidewalk, and concrete cleaning
             across Central Florida. Built for curb appeal, HOA notices, and
             cleaner-looking concrete.
@@ -85,9 +104,18 @@ const unlinkedServiceAreas = ['DeLand', 'Sanford', 'Lake Mary']
           <div class="mt-8 flex flex-col gap-3 sm:flex-row">
             <Button
               href="/request-quote"
+              size="lg"
+              fullWidth
               data-cta="quote"
               data-cta-location="home-hero"
+              class="sm:w-auto"
             >
+              <ClipboardList
+                slot="startIcon"
+                class="h-5 w-5"
+                aria-hidden="true"
+                stroke-width="1.8"
+              />
               Request a Quote
             </Button>
             {
@@ -95,9 +123,20 @@ const unlinkedServiceAreas = ['DeLand', 'Sanford', 'Lake Mary']
                 <Button
                   href={secondaryHeroHref}
                   variant="secondary"
+                  size="lg"
+                  fullWidth
                   data-cta={hasPhone ? 'call' : 'email'}
                   data-cta-location="home-hero"
+                  class="sm:w-auto"
                 >
+                  {!hasPhone && (
+                    <Mail
+                      slot="startIcon"
+                      class="h-5 w-5"
+                      aria-hidden="true"
+                      stroke-width="1.8"
+                    />
+                  )}
                   {secondaryHeroLabel}
                 </Button>
               )
@@ -106,7 +145,7 @@ const unlinkedServiceAreas = ['DeLand', 'Sanford', 'Lake Mary']
         </div>
 
         <div
-          class="relative aspect-[16/13] overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white shadow-sm sm:aspect-[16/10] lg:aspect-[11/12]"
+          class="relative aspect-[16/13] overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white shadow-[var(--shadow-media)] sm:aspect-[16/10] lg:aspect-[11/12]"
           aria-hidden="true"
         >
           <img
@@ -123,14 +162,16 @@ const unlinkedServiceAreas = ['DeLand', 'Sanford', 'Lake Mary']
       </div>
     </section>
 
-    <section class="border-y border-[var(--color-border)] bg-white">
+    <section
+      class="border-y border-[var(--color-border)] bg-[var(--color-page)]"
+    >
       <div
-        class="mx-auto grid w-full max-w-[var(--container-width)] gap-4 px-6 py-6 sm:grid-cols-2 lg:grid-cols-4"
+        class="mx-auto grid w-full max-w-[var(--container-width)] gap-4 px-[var(--container-gutter)] py-6 sm:grid-cols-2 lg:grid-cols-4"
       >
         {
           trustCues.map((cue) => (
-            <div class="flex gap-3">
-              <span class="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-[var(--color-secondary)]" />
+            <Card tone="soft" padding="sm" class="flex gap-3">
+              <IconBadge icon={cue.icon} tone="warm" size="sm" />
               <div>
                 <p class="text-sm font-semibold text-[var(--color-text)]">
                   {cue.label}
@@ -139,7 +180,7 @@ const unlinkedServiceAreas = ['DeLand', 'Sanford', 'Lake Mary']
                   {cue.detail}
                 </p>
               </div>
-            </div>
+            </Card>
           ))
         }
       </div>
@@ -150,14 +191,24 @@ const unlinkedServiceAreas = ['DeLand', 'Sanford', 'Lake Mary']
       eyebrow="Services"
       title="Concrete-focused exterior cleaning"
       description="Start with the surfaces homeowners notice first: driveways, sidewalks, walkways, and concrete around the property."
+      tone="soft"
       class="scroll-mt-24"
     >
       <div class="grid gap-4 md:grid-cols-3">
         {
           services.map((service) => (
-            <Card class="flex h-full flex-col bg-white">
-              <div class="mb-5 h-10 w-10 rounded-[var(--radius-md)] bg-[var(--color-primary)]/10 ring-1 ring-[var(--color-primary)]/15" />
-              <h3 class="text-lg font-semibold text-[var(--color-text)]">
+            <Card
+              tone="default"
+              padding="lg"
+              elevated
+              class="flex h-full flex-col"
+            >
+              <IconBadge
+                icon={serviceIcons[service.slug]}
+                tone="soft"
+                size="lg"
+              />
+              <h3 class="mt-5 text-section-subtitle text-[var(--color-text)]">
                 {service.name}
               </h3>
               <p class="mt-3 flex-1 text-sm leading-7 text-[var(--color-text-muted)]">
@@ -165,7 +216,7 @@ const unlinkedServiceAreas = ['DeLand', 'Sanford', 'Lake Mary']
               </p>
               <a
                 href={`/${service.slug}`}
-                class="mt-6 inline-flex text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+                class="mt-6 inline-flex text-sm font-semibold text-[var(--color-action)] transition-colors duration-[var(--duration-fast)] hover:text-[var(--color-action-hover)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-page)]"
               >
                 View service
               </a>
@@ -177,20 +228,16 @@ const unlinkedServiceAreas = ['DeLand', 'Sanford', 'Lake Mary']
 
     <section class="bg-[var(--color-surface)]">
       <div
-        class="mx-auto grid w-full max-w-[var(--container-width)] gap-8 px-6 py-[var(--section-spacing)] lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-center"
+        class="mx-auto grid w-full max-w-[var(--container-width)] gap-8 px-[var(--container-gutter)] py-[var(--section-space)] lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-center"
       >
         <div>
-          <p
-            class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-primary)]"
-          >
+          <p class="text-eyebrow text-[var(--color-action)]">
             HOA and curb appeal
           </p>
-          <h2
-            class="mt-3 text-3xl font-semibold leading-tight text-[var(--color-text)] sm:text-4xl"
-          >
+          <h2 class="mt-3 text-section-title text-[var(--color-text)]">
             A practical cleanup path for visible concrete.
           </h2>
-          <p class="mt-4 text-base leading-8 text-[var(--color-text-muted)]">
+          <p class="mt-4 text-lead text-[var(--color-text-muted)]">
             HOA notices and curb appeal projects usually start with the surfaces
             closest to the street. CFL Wash Co. keeps the service focus on
             driveway, walkway, sidewalk, and concrete cleaning so the quote
@@ -199,9 +246,16 @@ const unlinkedServiceAreas = ['DeLand', 'Sanford', 'Lake Mary']
           <div class="mt-7">
             <Button
               href="/request-quote"
+              size="lg"
               data-cta="quote"
               data-cta-location="home-hoa"
             >
+              <ClipboardList
+                slot="startIcon"
+                class="h-5 w-5"
+                aria-hidden="true"
+                stroke-width="1.8"
+              />
               Request a Quote
             </Button>
           </div>
@@ -215,7 +269,7 @@ const unlinkedServiceAreas = ['DeLand', 'Sanford', 'Lake Mary']
               'Concrete patios, pads, aprons, and entry areas',
               'Quote-first scope before work is scheduled',
             ].map((item) => (
-              <div class="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white p-5">
+              <div class="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-page)] p-5">
                 <span class="block h-1 w-10 rounded-full bg-[var(--color-accent)]" />
                 <p class="mt-4 text-sm font-semibold leading-6 text-[var(--color-text)]">
                   {item}
@@ -235,15 +289,16 @@ const unlinkedServiceAreas = ['DeLand', 'Sanford', 'Lake Mary']
       <div class="grid gap-4 md:grid-cols-3">
         {
           processSteps.map((step, index) => (
-            <Card class="bg-white">
+            <Card tone="soft" padding="lg" class="flex h-full flex-col">
               <div class="flex items-center gap-4">
-                <span class="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-primary)] text-sm font-semibold text-white">
+                <IconBadge icon={step.icon} tone="warm" size="md" />
+                <span class="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-action)] text-sm font-semibold text-white">
                   {index + 1}
                 </span>
-                <h3 class="text-base font-semibold text-[var(--color-text)]">
-                  {step.title}
-                </h3>
               </div>
+              <h3 class="mt-5 text-section-subtitle text-[var(--color-text)]">
+                {step.title}
+              </h3>
               <p class="mt-4 text-sm leading-7 text-[var(--color-text-muted)]">
                 {step.description}
               </p>
@@ -258,22 +313,14 @@ const unlinkedServiceAreas = ['DeLand', 'Sanford', 'Lake Mary']
       class="scroll-mt-24 border-y border-[var(--color-border)] bg-[var(--color-surface)]"
     >
       <div
-        class="mx-auto grid w-full max-w-[var(--container-width)] gap-8 px-6 py-[var(--section-spacing)] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]"
+        class="mx-auto grid w-full max-w-[var(--container-width)] gap-8 px-[var(--container-gutter)] py-[var(--section-space)] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]"
       >
         <div>
-          <p
-            class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-primary)]"
-          >
-            Service areas
-          </p>
-          <h2
-            class="mt-3 text-2xl font-semibold text-[var(--color-text)] sm:text-3xl"
-          >
+          <p class="text-eyebrow text-[var(--color-action)]">Service areas</p>
+          <h2 class="mt-3 text-section-title text-[var(--color-text)]">
             Serving Central Florida homeowners.
           </h2>
-          <p
-            class="mt-3 text-sm leading-7 text-[var(--color-text-muted)] sm:text-base"
-          >
+          <p class="mt-3 text-lead text-[var(--color-text-muted)]">
             Explore the current service area pages below. Additional nearby
             cities are listed as part of the broader Central Florida service
             area.
@@ -285,7 +332,7 @@ const unlinkedServiceAreas = ['DeLand', 'Sanford', 'Lake Mary']
             serviceAreas.map((area) => (
               <a
                 href={`/service-areas/${area.slug}`}
-                class="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-4 text-sm font-semibold text-[var(--color-text)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+                class="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-page)] p-4 text-sm font-semibold text-[var(--color-text)] transition-colors duration-[var(--duration-fast)] hover:border-[var(--color-action)] hover:text-[var(--color-action)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-page)]"
               >
                 {area.name}
               </a>
@@ -293,7 +340,7 @@ const unlinkedServiceAreas = ['DeLand', 'Sanford', 'Lake Mary']
           }
           {
             unlinkedServiceAreas.map((area) => (
-              <p class="rounded-[var(--radius-md)] border border-dashed border-[var(--color-border)] bg-white/70 p-4 text-sm font-semibold text-[var(--color-text-muted)]">
+              <p class="rounded-[var(--radius-md)] border border-dashed border-[var(--color-border)] bg-[var(--color-page)]/70 p-4 text-sm font-semibold text-[var(--color-text-muted)]">
                 {area}
               </p>
             ))
@@ -302,19 +349,17 @@ const unlinkedServiceAreas = ['DeLand', 'Sanford', 'Lake Mary']
       </div>
     </section>
 
-    <section class="px-6 py-[var(--section-spacing)]">
+    <section class="px-[var(--container-gutter)] py-[var(--section-space)]">
       <div
-        class="mx-auto max-w-[var(--container-width)] overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-primary)] px-6 py-12 text-center text-white shadow-sm sm:px-10"
+        class="mx-auto max-w-[var(--container-width)] overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-action)] px-[var(--container-gutter)] py-[var(--space-12)] text-center text-white shadow-[var(--shadow-sm)] sm:px-[var(--space-10)]"
       >
-        <p
-          class="text-sm font-semibold uppercase tracking-[0.18em] text-white/75"
-        >
+        <p class="text-eyebrow text-white/75">
           Ready for a cleaner-looking driveway?
         </p>
-        <h2 class="mx-auto mt-3 max-w-2xl text-3xl font-semibold sm:text-4xl">
+        <h2 class="mx-auto mt-3 max-w-2xl text-section-title text-white">
           Request a simple Central Florida concrete cleaning quote.
         </h2>
-        <p class="mx-auto mt-4 max-w-2xl text-base leading-8 text-white/85">
+        <p class="mx-auto mt-4 max-w-2xl text-lead text-white/85">
           Tell CFL Wash Co. what needs attention and get a clear next step for
           driveway, walkway, sidewalk, or concrete cleaning.
         </p>
@@ -322,19 +367,39 @@ const unlinkedServiceAreas = ['DeLand', 'Sanford', 'Lake Mary']
           <Button
             href="/request-quote"
             variant="secondary"
-            class="bg-white text-[var(--color-primary)] hover:bg-[var(--color-surface)]"
+            size="lg"
+            fullWidth
+            class="bg-white text-[var(--color-action)] hover:bg-[var(--color-surface)] sm:w-auto"
             data-cta="quote"
             data-cta-location="home-final"
           >
+            <ClipboardList
+              slot="startIcon"
+              class="h-5 w-5"
+              aria-hidden="true"
+              stroke-width="1.8"
+            />
             Request a Quote
           </Button>
           <Button
             href={secondaryHeroHref}
             variant="ghost"
-            class="text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
+            size="lg"
+            fullWidth
+            class="text-white ring-1 ring-inset ring-white/35 hover:bg-white/10 sm:w-auto"
             data-cta={hasPhone ? 'call' : 'email'}
             data-cta-location="home-final"
           >
+            {
+              !hasPhone && (
+                <Mail
+                  slot="startIcon"
+                  class="h-5 w-5"
+                  aria-hidden="true"
+                  stroke-width="1.8"
+                />
+              )
+            }
             {secondaryHeroLabel}
           </Button>
         </div>

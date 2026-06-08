@@ -4,6 +4,7 @@ import QuoteForm from '../components/quote/QuoteForm.astro'
 import Section from '../components/ui/Section.astro'
 import Layout from '../layouts/Layout.astro'
 import { site } from '../data/site'
+import { Mail } from '@lucide/astro'
 
 const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
 const quoteEmailSubject = 'Quote request for exterior cleaning'
@@ -25,19 +26,13 @@ const quoteEmailHref = `mailto:${site.email}?subject=${encodeURIComponent(quoteE
   <main>
     <Section spacing="none" class="py-20">
       <div class="max-w-3xl">
-        <p
-          class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-text-muted)]"
-        >
+        <p class="text-eyebrow text-[var(--color-text-muted)]">
           Request a Quote
         </p>
-        <h1
-          class="mt-4 text-4xl font-semibold text-[var(--color-text)] sm:text-5xl"
-        >
+        <h1 class="measure-copy mt-4 text-display text-[var(--color-text)]">
           Request a quote for your cleaning project.
         </h1>
-        <p
-          class="mt-5 max-w-2xl text-base leading-8 text-[var(--color-text-muted)] sm:text-lg"
-        >
+        <p class="measure-copy mt-5 text-lead text-[var(--color-text-muted)]">
           Share your city, service, and project details to request a quote for
           driveway, sidewalk, walkway, and concrete cleaning. Email is still
           available if you prefer not to use the online form.
@@ -46,16 +41,29 @@ const quoteEmailHref = `mailto:${site.email}?subject=${encodeURIComponent(quoteE
         <div class="mt-8 flex flex-col gap-3 sm:flex-row">
           <Button
             href={quoteEmailHref}
+            variant="secondary"
+            size="lg"
+            fullWidth
             data-cta="email"
             data-cta-location="request-quote-hero"
+            class="sm:w-auto"
           >
+            <Mail
+              slot="startIcon"
+              class="h-5 w-5"
+              aria-hidden="true"
+              stroke-width="1.8"
+            />
             Prefer Email?
           </Button>
           <Button
             href="/#services"
             variant="secondary"
+            size="lg"
+            fullWidth
             data-cta="services"
             data-cta-location="request-quote-hero"
+            class="sm:w-auto"
           >
             View Services
           </Button>
@@ -64,8 +72,11 @@ const quoteEmailHref = `mailto:${site.email}?subject=${encodeURIComponent(quoteE
               <Button
                 href={site.phoneHref!}
                 variant="ghost"
+                size="lg"
+                fullWidth
                 data-cta="call"
                 data-cta-location="request-quote-hero"
+                class="sm:w-auto"
               >
                 Call {site.phoneDisplay}
               </Button>

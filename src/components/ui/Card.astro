@@ -1,12 +1,39 @@
 ---
+type Tone = 'default' | 'soft' | 'warm' | 'inverse'
+type Padding = 'sm' | 'md' | 'lg'
+
 type Props = {
+  tone?: Tone
+  padding?: Padding
+  elevated?: boolean
   class?: string
 }
 
-const { class: className = '' } = Astro.props as Props
+const {
+  tone = 'default',
+  padding = 'md',
+  elevated = false,
+  class: className = '',
+} = Astro.props as Props
 
+const toneClasses: Record<Tone, string> = {
+  default:
+    'bg-[var(--color-page)] text-[var(--color-text)] border-[var(--color-border)]',
+  soft: 'bg-[var(--color-surface)] text-[var(--color-text)] border-[var(--color-border)]',
+  warm: 'bg-[var(--color-surface-warm)] text-[var(--color-text)] border-[var(--color-border)]',
+  inverse:
+    'bg-[var(--color-surface-inverse)] text-[var(--color-text-inverse)] border-white/10',
+}
+
+const paddingClasses: Record<Padding, string> = {
+  sm: 'p-4 sm:p-5',
+  md: 'p-6',
+  lg: 'p-7 sm:p-8',
+}
+
+const shadowClass = elevated ? 'shadow-[var(--shadow-xs)]' : ''
 const classes =
-  `rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-background)] p-5 ${className}`.trim()
+  `rounded-[var(--radius-lg)] border ${toneClasses[tone]} ${paddingClasses[padding]} ${shadowClass} ${className}`.trim()
 ---
 
 <article class={classes}>

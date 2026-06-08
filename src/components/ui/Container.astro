@@ -1,0 +1,17 @@
+---
+type ElementTag = 'div' | 'section' | 'header' | 'footer' | 'nav'
+
+type Props = {
+  as?: ElementTag
+  class?: string
+}
+
+const { as: Tag = 'div', class: className = '' } = Astro.props as Props
+
+const classes =
+  `mx-auto w-full max-w-[var(--container-width)] px-[var(--container-gutter)] ${className}`.trim()
+---
+
+<Tag class={classes}>
+  <slot />
+</Tag>

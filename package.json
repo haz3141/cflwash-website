@@ -18,6 +18,8 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
+    "@fontsource-variable/manrope": "^5.2.8",
+    "@lucide/astro": "^1.17.0",
     "@tailwindcss/vite": "^4.3.0",
     "astro": "^6.4.2",
     "tailwindcss": "^4.3.0"
