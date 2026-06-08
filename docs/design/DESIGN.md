@@ -153,6 +153,14 @@ Rules:
 - Make graphics usable across shirts, signs, social, and web.
 - Avoid overly beachy, tourist, mascot, or generic pressure-washer clip art.
 
+## Current Brand Asset Implementation
+
+The launch site uses approved raster brand assets under `public/images/brand/` and related favicon outputs. The canonical mapping and asset notes now live in [BRAND_ASSETS.md](./BRAND_ASSETS.md).
+
+These website assets are acceptable for the current launch integration, but they are not final SVG/vector logo masters. Future brand cleanup should recreate the primary logo, compact mark, reversed variants, favicon source, and badge artwork as production vector assets before broader print, apparel, signage, or long-term brand use.
+
+Rendered page images should keep intrinsic dimensions or stable aspect ratios, use empty alt text when decorative, and avoid treating generated artwork as proof of completed project work.
+
 ## What To Avoid
 
 - Fake reviews or invented customer quotes
