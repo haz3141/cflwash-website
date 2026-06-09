@@ -137,6 +137,8 @@ Indexing:
 
 Add schema only after verified business details are ready.
 
+The current site-wide structured data approach uses `Organization` markup with verified contact and identity details only. Do not switch to `LocalBusiness` until a verified public address and address strategy are ready.
+
 LocalBusiness schema should include:
 
 - Business name

@@ -1,5 +1,10 @@
 ---
-type Spacing = 'default' | 'compact' | 'none'
+import Container from './Container.astro'
+import SectionHeader from './SectionHeader.astro'
+
+type Spacing = 'compact' | 'default' | 'spacious' | 'none'
+type Tone = 'default' | 'soft' | 'warm' | 'inverse'
+type ContentWidth = 'narrow' | 'default' | 'wide' | 'full'
 
 type Props = {
   id?: string
@@ -7,6 +12,8 @@ type Props = {
   title?: string
   description?: string
   spacing?: Spacing
+  tone?: Tone
+  contentWidth?: ContentWidth
   class?: string
 }
 
@@ -16,44 +23,56 @@ const {
   title,
   description,
   spacing = 'default',
+  tone = 'default',
+  contentWidth = 'full',
   class: className = '',
 } = Astro.props as Props
 
 const hasHeader = Boolean(eyebrow || title || description)
+
 const spacingClasses: Record<Spacing, string> = {
-  default: 'py-[var(--section-spacing)]',
-  compact: 'py-[var(--section-spacing-compact)]',
+  compact: 'py-[var(--section-space-compact)]',
+  default: 'py-[var(--section-space)]',
+  spacious: 'py-[var(--section-space-spacious)]',
   none: '',
 }
+
+const toneClasses: Record<Tone, string> = {
+  default: '',
+  soft: 'bg-[var(--color-surface)]',
+  warm: 'bg-[var(--color-surface-warm)]',
+  inverse: 'bg-[var(--color-surface-inverse)] text-[var(--color-text-inverse)]',
+}
+
+const widthClasses: Record<ContentWidth, string> = {
+  narrow: 'max-w-[var(--container-content-narrow)]',
+  default: 'max-w-[var(--container-content-default)]',
+  wide: 'max-w-[var(--container-content-wide)]',
+  full: 'max-w-none',
+}
+
+const sectionClasses = `${toneClasses[tone]} ${className}`.trim()
 ---
 
-<section
-  id={id}
-  class={`mx-auto w-full max-w-[var(--container-width)] px-6 ${spacingClasses[spacing]} ${className}`.trim()}
->
-  {
-    hasHeader && (
-      <div class="max-w-2xl">
-        {eyebrow && (
-          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
-            {eyebrow}
-          </p>
-        )}
-        {title && (
-          <h2 class="mt-3 text-2xl font-semibold text-[var(--color-text)] sm:text-3xl">
-            {title}
-          </h2>
-        )}
-        {description && (
-          <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)] sm:text-base">
-            {description}
-          </p>
-        )}
-      </div>
-    )
-  }
+<section id={id} class={sectionClasses}>
+  <Container class={spacingClasses[spacing]}>
+    {
+      hasHeader && (
+        <SectionHeader
+          eyebrow={eyebrow}
+          title={title}
+          description={description}
+          tone={tone === 'inverse' ? 'inverse' : 'default'}
+        />
+      )
+    }
 
-  <div class={hasHeader ? 'mt-8' : undefined}>
-    <slot />
-  </div>
+    <div
+      class={hasHeader
+        ? `mt-[var(--section-header-gap)] ${widthClasses[contentWidth]}`
+        : widthClasses[contentWidth]}
+    >
+      <slot />
+    </div>
+  </Container>
 </section>

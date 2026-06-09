@@ -4,6 +4,7 @@ import { site } from '../data/site'
 import Analytics from '../components/site/Analytics.astro'
 import Footer from '../components/site/Footer.astro'
 import Header from '../components/site/Header.astro'
+import OrganizationSchema from '../components/site/OrganizationSchema.astro'
 import MobileStickyCTA from '../components/site/MobileStickyCTA.astro'
 
 type Props = {
@@ -52,13 +53,31 @@ const ogImageUrl = ogImage
     <meta name="description" content={description} />
     <meta name="robots" content={robotsContent} />
     <link rel="canonical" href={canonicalUrl} />
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
-    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <link rel="icon" href="/images/brand/flow-crest.ico" sizes="any" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/images/brand/flow-crest-adaptive.svg"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="/images/brand/flow-crest-32.png"
+      sizes="32x32"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="/images/brand/flow-crest-16.png"
+      sizes="16x16"
+    />
+    <link
+      rel="apple-touch-icon"
+      href="/images/brand/flow-crest-apple-touch.png"
+      sizes="180x180"
+    />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#062b5f" />
+    <meta name="theme-color" content="#0a1b2e" />
     <meta name="format-detection" content="telephone=no" />
 
     <meta property="og:type" content="website" />
@@ -94,11 +113,10 @@ const ogImageUrl = ogImage
         />
       )
     }
+    <OrganizationSchema />
   </head>
 
-  <body
-    class="bg-[var(--color-background)] text-[var(--color-text)] antialiased"
-  >
+  <body class="bg-[var(--color-page)] text-[var(--color-text)] antialiased">
     <div class="min-h-screen pb-20 sm:pb-0">
       <Header />
       <slot />

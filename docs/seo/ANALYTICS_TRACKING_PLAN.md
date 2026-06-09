@@ -31,6 +31,8 @@ The layout can load either or both of:
 
 CTA elements already include practical `data-cta` and `data-cta-location` attributes where appropriate. A document-level click listener now uses those hooks for lightweight GA4 event tracking.
 
+Telephone actions should use `data-cta="call"` with a specific location value such as `header`, `home-hero`, `mobile-sticky`, `footer`, `request-quote-hero`, `service-driveway-pressure-washing-final`, or `area-deltona-final`. Use the centralized `site.phoneHref` value for `tel:` links and keep the visible number in `site.phoneDisplay`.
+
 GA4 automatic page views remain enabled. The site bootstrap overrides `page_location` with `window.location.origin + window.location.pathname` so query strings and URL fragments are excluded from the page location sent by this site. Custom CTA and quote-submission events should send only approved low-risk parameters.
 
 ## Event Model

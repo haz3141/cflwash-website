@@ -11,13 +11,19 @@ type Props = {
 const { title, description, href } = Astro.props as Props
 ---
 
-<Card class="flex h-full flex-col">
-  <h3 class="text-base font-semibold text-[var(--color-text)]">{title}</h3>
+<Card tone="soft" padding="lg" elevated class="flex h-full flex-col">
+  <h3 class="text-section-subtitle text-[var(--color-text)]">{title}</h3>
   <p class="mt-2 text-sm leading-6 text-[var(--color-text-muted)]">
     {description}
   </p>
   <div class="mt-5">
-    <Button href={href} variant="secondary" class="w-full sm:w-auto">
+    <Button
+      href={href}
+      variant="secondary"
+      size="sm"
+      fullWidth
+      class="sm:w-auto"
+    >
       View service
     </Button>
   </div>

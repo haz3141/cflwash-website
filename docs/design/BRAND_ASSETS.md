@@ -1,60 +1,96 @@
 # Brand Assets
 
-This document records the current launch-ready raster assets and their source mapping. These are website assets, not final vector masters.
+This file inventories CFL Wash Co.'s public brand assets and their intended use.
 
-## Public Assets
+See [DESIGN.md](./DESIGN.md) for brand direction and [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md) for implementation rules.
 
-- `public/images/brand/logo-primary.png`
-  - Purpose: primary header/footer brand lockup.
-  - Source: `.tmp/brand-source/01-primary-logo-source.png`
-  - Format: PNG
-  - Background: white background on the current web asset.
-  - Alt text guidance: decorative when used inside a linked brand area with an accessible label on the link.
+## Source of Truth
 
-- `public/images/brand/logo-mark.png`
-  - Purpose: compact brand mark for small-size use and icon derivation.
-  - Source: `.tmp/brand-source/02-compact-mark-source.png`
-  - Format: PNG
-  - Background: white background.
-  - Alt text guidance: decorative for favicon/app icon derivatives.
+`public/images/brand/logo-primary.png` remains the visual appearance source of truth for the primary wordmark. Any transparent or reversed derivative must preserve its proportions, colors, line quality, and visual weight.
 
-- `public/images/brand/badge-illustrated.png`
-  - Purpose: secondary storytelling badge for future selective use.
-  - Source: `.tmp/brand-source/03-illustrated-badge-source.png`
-  - Format: PNG
-  - Background: flattened to white to remove the baked-in checkerboard look from the source file.
-  - Alt text guidance: informative only when used as content, otherwise decorative.
+The current primary-logo derivatives are raster conversions, not vector masters. If a conversion visibly degrades the artwork, use the original logo on an intentional matching light or cream surface rather than forcing a poor transparent or reversed treatment.
 
-- `public/images/brand/hero-homepage.webp`
-  - Purpose: homepage hero artwork.
-  - Source: `.tmp/brand-source/04-homepage-hero-source.png`
-  - Format: WebP
-  - Background: image content only; the lower promotional banner was cropped out.
-  - Alt text guidance: decorative on the homepage hero block.
+## Flow Crest Singular Icon
 
-- `public/images/brand/og-default.png`
-  - Purpose: default Open Graph and social sharing image.
-  - Source material: `.tmp/brand-source/05-og-social-source.png` plus approved brand crop work from the hero and logo sources.
-  - Format: PNG
-  - Dimensions: 1200 x 630
-  - Background: off-white with a right-side hero image panel.
-  - Alt text guidance: use the same neutral brand description in OG/Twitter metadata.
+Flow Crest is the approved small-format brand mark. It is derived from the sweeping water language in the baseline CFL Wash Co. logo and uses the approved palette:
 
-## Icon Outputs
+- Deep navy: `#0A1B2E`
+- Water blue: `#1F5DBE`
+- Warm gold: `#E0AA3A`
+- Warm cream for reversed artwork: `#F6F1E6`
 
-- `public/favicon.ico`
-- `public/favicon-16x16.png`
-- `public/favicon-32x32.png`
-- `public/apple-touch-icon.png`
-- `public/favicon.svg`
-- `public/icon-192.png`
-- `public/icon-512.png`
-- `public/site.webmanifest`
+Use Flow Crest for browser favicons, Apple touch and installed-app icons, social avatars, tiny equipment or print placements, and other contexts where the full wordmark or monogram becomes illegible.
 
-These are derived from the compact mark source and optimized for small-size browser and mobile use.
+Do not add letters, taglines, skyline details, birds, badge borders, or other small details to the favicon version.
 
-## Notes
+## Active Flow Crest Assets
 
-- The `.tmp/brand-source/**` files are source inputs only and remain uncommitted.
-- The raster assets above are acceptable for launch but should be recreated as clean SVG/vector masters later if the brand system expands into print, signage, or apparel.
-- No supported claim text was added beyond the approved brand wording and `cflwash.com`.
+| File                                             | Purpose                                                |
+| ------------------------------------------------ | ------------------------------------------------------ |
+| `public/images/brand/logo-icon.svg`              | Default Flow Crest source for light surfaces           |
+| `public/images/brand/logo-icon-dark.svg`         | Explicit light-surface source variant                  |
+| `public/images/brand/logo-icon-light.svg`        | Reversed source variant for dark surfaces              |
+| `public/images/brand/flow-crest-adaptive.svg`    | Adaptive SVG favicon for light and dark browser themes |
+| `public/images/brand/flow-crest.ico`             | ICO fallback with 16, 32, and 48 pixel artwork         |
+| `public/images/brand/flow-crest-16.png`          | 16 pixel PNG favicon                                   |
+| `public/images/brand/flow-crest-32.png`          | 32 pixel PNG favicon                                   |
+| `public/images/brand/flow-crest-apple-touch.png` | 180 pixel Apple touch icon                             |
+| `public/images/brand/flow-crest-192.png`         | 192 pixel installed-app icon                           |
+| `public/images/brand/flow-crest-512.png`         | 512 pixel installed-app icon                           |
+| `public/site.webmanifest`                        | Manifest wired to the Flow Crest app icons             |
+
+The PNG and ICO browser icons use the light-surface mark. Apple touch and installed-app icons use the reversed mark on an intentional deep navy square.
+
+Legacy root favicon and app-icon files remain in the repository for compatibility but are no longer referenced by the layout or manifest.
+
+## Brand Asset Hierarchy
+
+1. **Primary wordmark:** header, footer, truck, signage, and major identity placements.
+2. **Flow Crest singular icon:** favicon, app icon, avatar, and tiny placements.
+3. **CFL monogram:** medium-size secondary brand contexts.
+4. **Illustrated badge:** storytelling, campaign, and promotional artwork.
+
+Do not substitute the illustrated badge or compact monogram for Flow Crest in favicon-sized contexts.
+
+## Other Public Assets
+
+| File                                               | Recommended use                          | Notes                                                 |
+| -------------------------------------------------- | ---------------------------------------- | ----------------------------------------------------- |
+| `public/images/brand/logo-primary.png`             | Primary wordmark appearance reference    | Use on white or intentionally matched light surfaces. |
+| `public/images/brand/logo-primary-transparent.png` | Header candidate                         | Use only when visually faithful to the original.      |
+| `public/images/brand/logo-primary-reversed.png`    | Dark-surface candidate                   | Raster conversion; requires visual approval.          |
+| `public/images/brand/logo-mark.png`                | Legacy compact monogram                  | Too detailed for favicon use.                         |
+| `public/images/brand/logo-mark-transparent.png`    | Medium compact-mark use                  | Keep out of tiny contexts.                            |
+| `public/images/brand/logo-mark-reversed.png`       | Medium compact-mark use on dark surfaces | Raster derivative.                                    |
+| `public/images/brand/badge-illustrated.png`        | Secondary storytelling                   | Do not treat as proof of completed work.              |
+| `public/images/brand/hero-homepage.webp`           | Homepage hero artwork                    | Decorative page artwork.                              |
+| `public/images/brand/og-default.png`               | Open Graph and social sharing            | Keep on-brand and claim-safe.                         |
+
+## Header-Specific Wordmark
+
+`public/images/brand/logo-primary-header-transparent.png` is the approved header-specific wordmark derivative.
+
+- It uses the shorter CFL WASH CO. artwork.
+- It is transparent.
+- It is intended for the light header surface.
+- `public/images/brand/logo-primary.png` remains the broader primary appearance reference.
+- The header-specific asset should not automatically replace the footer logo.
+- Flow Crest remains the favicon and app icon system only.
+
+## Usage Rules
+
+- Preserve the original primary logo's appearance.
+- Use the primary wordmark for header and footer identity, not Flow Crest alone.
+- Use Flow Crest only where a singular compact mark is appropriate.
+- Never publish checkerboard backgrounds or accidental white rectangles.
+- Do not describe raster derivatives as vector masters.
+- Keep rendered image dimensions stable to avoid layout shift.
+- Use empty alt text for decorative logo images inside an already labeled home link.
+- Check all logo and icon variants on both light and dark backgrounds before release.
+
+## Known Limitations
+
+- The primary wordmark and monogram assets remain raster-only.
+- Existing transparent and reversed wordmark files are raster conversions and require visual approval.
+- Flow Crest is a true standalone SVG system, but it does not replace the need for a professionally recreated vector wordmark and monogram.
+- A complete vector identity master remains recommended for print, signage, apparel, and long-term brand governance.

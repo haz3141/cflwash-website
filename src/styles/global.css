@@ -1,19 +1,95 @@
+@import '@fontsource-variable/manrope';
 @import './tokens.css';
 @import 'tailwindcss';
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
-    background: var(--color-background);
+    background: var(--color-page);
     color: var(--color-text);
-    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-sans);
     line-height: 1.5;
+    min-height: 100vh;
   }
 
   a {
     text-underline-offset: 0.15em;
+  }
+
+  img,
+  svg,
+  video,
+  canvas {
+    display: block;
+    max-width: 100%;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-action) 18%, white);
+    color: var(--color-text);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer utilities {
+  .text-display {
+    font-size: var(--text-display);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-display);
+    font-weight: 600;
+  }
+
+  .text-section-title {
+    font-size: var(--text-h2);
+    line-height: var(--leading-h2);
+    letter-spacing: var(--tracking-h2);
+    font-weight: 600;
+  }
+
+  .text-section-subtitle {
+    font-size: var(--text-h3);
+    line-height: var(--leading-h3);
+    font-weight: 600;
+  }
+
+  .text-lead {
+    font-size: var(--text-lead);
+    line-height: var(--leading-lead);
+  }
+
+  .text-body {
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+  }
+
+  .text-small {
+    font-size: var(--text-small);
+    line-height: 1.5;
+  }
+
+  .text-eyebrow {
+    font-size: var(--text-eyebrow);
+    line-height: 1;
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .measure-copy {
+    max-width: var(--measure-copy);
+  }
+
+  .measure-card {
+    max-width: var(--measure-card);
   }
 }

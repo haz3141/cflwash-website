@@ -6,9 +6,11 @@ import Layout from '../../layouts/Layout.astro'
 import { site } from '../../data/site'
 import { serviceAreas } from '../../data/serviceAreas'
 import { services } from '../../data/services'
+import { Mail, Phone } from '@lucide/astro'
 
 const area = serviceAreas.find((item) => item.slug === 'debary')!
 const otherAreas = serviceAreas.filter((item) => item.slug !== area.slug)
+const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
 
 const seoTitle =
   'DeBary Driveway, Sidewalk, and Concrete Cleaning | CFL Wash Co.'
@@ -242,15 +244,41 @@ const faqs = [
           >
             Request a Quote
           </Button>
-          <Button
-            href={`mailto:${site.email}`}
-            variant="ghost"
-            class="text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
-            data-cta="email"
-            data-cta-location={`service-area-${area.slug}-final`}
-          >
-            Email CFL Wash Co.
-          </Button>
+          {
+            hasPhone ? (
+              <Button
+                href={site.phoneHref!}
+                variant="ghost"
+                class="text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
+                data-cta="call"
+                data-cta-location={`service-area-${area.slug}-final`}
+              >
+                <Phone
+                  slot="startIcon"
+                  class="h-5 w-5"
+                  aria-hidden="true"
+                  stroke-width="1.8"
+                />
+                Call {site.phoneDisplay}
+              </Button>
+            ) : (
+              <Button
+                href={`mailto:${site.email}`}
+                variant="ghost"
+                class="text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
+                data-cta="email"
+                data-cta-location={`service-area-${area.slug}-final`}
+              >
+                <Mail
+                  slot="startIcon"
+                  class="h-5 w-5"
+                  aria-hidden="true"
+                  stroke-width="1.8"
+                />
+                Email CFL Wash Co.
+              </Button>
+            )
+          }
         </div>
       </div>
     </section>

@@ -1,0 +1,31 @@
+---
+import { site } from '../../data/site'
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: site.name,
+  legalName: site.legalName,
+  url: site.url,
+  description: site.description,
+  telephone: site.phoneE164,
+  email: site.email,
+  logo: `${site.url}/images/brand/logo-primary-header-transparent.png`,
+  areaServed: {
+    '@type': 'AdministrativeArea',
+    name: 'Central Florida',
+  },
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'Customer Service',
+    telephone: site.phoneE164,
+    email: site.email,
+    areaServed: 'US-FL',
+    availableLanguage: 'English',
+  },
+}
+
+const jsonLd = JSON.stringify(schema).replace(/</g, '\\u003c')
+---
+
+<script type="application/ld+json" set:html={jsonLd} />

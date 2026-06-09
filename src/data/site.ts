@@ -9,8 +9,9 @@ export const site = {
   description:
     'Driveway, sidewalk, walkway, and concrete cleaning in Central Florida.',
 
-  phoneDisplay: null,
-  phoneHref: null,
+  phoneDisplay: '(407) 431-0856',
+  phoneE164: '+14074310856',
+  phoneHref: 'tel:+14074310856',
   email: 'hello@cflwash.com',
 
   serviceArea: 'Central Florida',

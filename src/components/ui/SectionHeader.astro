@@ -1,0 +1,54 @@
+---
+type Align = 'left' | 'center'
+type Tone = 'default' | 'inverse'
+
+type Props = {
+  eyebrow?: string
+  title?: string
+  description?: string
+  align?: Align
+  tone?: Tone
+  class?: string
+}
+
+const {
+  eyebrow,
+  title,
+  description,
+  align = 'left',
+  tone = 'default',
+  class: className = '',
+} = Astro.props as Props
+
+const textAlign = align === 'center' ? 'text-center items-center mx-auto' : ''
+const isInverse = tone === 'inverse'
+const eyebrowClasses = [
+  'text-eyebrow',
+  isInverse ? 'text-white/75' : 'text-[var(--color-text-muted)]',
+  align === 'center' ? 'justify-center' : '',
+].join(' ')
+---
+
+<div
+  class={`flex max-w-[var(--container-content-default)] flex-col gap-0.5 ${textAlign} ${className}`.trim()}
+>
+  {eyebrow && <p class={eyebrowClasses}>{eyebrow}</p>}
+  {
+    title && (
+      <h2
+        class={`text-section-title ${isInverse ? 'text-[var(--color-text-inverse)]' : 'text-[var(--color-text)]'}`}
+      >
+        {title}
+      </h2>
+    )
+  }
+  {
+    description && (
+      <p
+        class={`measure-copy text-lead ${isInverse ? 'text-white/82' : 'text-[var(--color-text-muted)]'}`}
+      >
+        {description}
+      </p>
+    )
+  }
+</div>

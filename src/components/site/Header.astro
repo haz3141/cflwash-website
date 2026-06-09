@@ -1,27 +1,30 @@
 ---
 import Button from '../ui/Button.astro'
+import Container from '../ui/Container.astro'
 import { site } from '../../data/site'
+import { ClipboardList, Phone } from '@lucide/astro'
 
 const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
 ---
 
 <header
-  class="sticky top-0 z-30 border-b border-[var(--color-border)] bg-[var(--color-background)]/95 backdrop-blur"
+  class="sticky top-0 z-30 border-b border-[var(--color-border)] bg-[var(--color-page)]/95 shadow-[var(--shadow-xs)] backdrop-blur supports-[backdrop-filter]:bg-[var(--color-page)]/90"
 >
-  <div
-    class="mx-auto flex w-full max-w-[var(--container-width)] items-center justify-between gap-4 px-6 py-3"
+  <Container
+    as="div"
+    class="flex items-center justify-between gap-4 py-3 sm:py-4"
   >
     <a
       href="/"
       aria-label={`${site.name} home`}
-      class="block shrink-0 focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+      class="block shrink-0 rounded-[var(--radius-sm)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-page)]"
     >
       <img
-        src="/images/brand/logo-primary.png"
+        src="/images/brand/logo-primary-header-transparent.png"
         alt=""
-        width="1280"
-        height="500"
-        class="h-11 w-auto max-w-[12rem] object-contain sm:h-12 sm:max-w-[13.5rem]"
+        width="1419"
+        height="648"
+        class="h-12 w-auto max-w-[10.5rem] object-contain sm:h-[3.25rem] sm:max-w-[12.5rem] lg:h-[3.375rem] lg:max-w-[13.5rem]"
         decoding="async"
         fetchpriority="high"
       />
@@ -32,44 +35,58 @@ const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
     >
       <a
         href="/#services"
-        class="hover:text-[var(--color-text)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+        class="transition-colors duration-[var(--duration-fast)] hover:text-[var(--color-text)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-page)]"
         >Services</a
       >
       <a
         href="/#service-areas"
-        class="hover:text-[var(--color-text)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+        class="transition-colors duration-[var(--duration-fast)] hover:text-[var(--color-text)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-page)]"
         >Service Areas</a
       >
       <a
         href="/request-quote"
         data-cta="quote"
         data-cta-location="header-nav"
-        class="hover:text-[var(--color-text)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+        class="transition-colors duration-[var(--duration-fast)] hover:text-[var(--color-text)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-page)]"
         >Request Quote</a
       >
     </nav>
 
-    <div class="hidden items-center gap-3 md:flex">
+    <div class="flex items-center gap-3">
       {
         hasPhone && (
           <Button
             href={site.phoneHref}
             variant="secondary"
+            size="sm"
             data-cta="call"
             data-cta-location="header"
+            class="hidden md:inline-flex"
           >
+            <Phone
+              slot="startIcon"
+              class="h-5 w-5"
+              aria-hidden="true"
+              stroke-width="1.8"
+            />
             Call
           </Button>
         )
       }
       <Button
         href="/request-quote"
-        variant="primary"
+        size="sm"
         data-cta="quote"
         data-cta-location="header"
       >
+        <ClipboardList
+          slot="startIcon"
+          class="h-5 w-5"
+          aria-hidden="true"
+          stroke-width="1.8"
+        />
         Request a Quote
       </Button>
     </div>
-  </div>
+  </Container>
 </header>
