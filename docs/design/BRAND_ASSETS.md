@@ -66,6 +66,17 @@ Do not substitute the illustrated badge or compact monogram for Flow Crest in fa
 | `public/images/brand/hero-homepage.webp`           | Homepage hero artwork                    | Decorative page artwork.                              |
 | `public/images/brand/og-default.png`               | Open Graph and social sharing            | Keep on-brand and claim-safe.                         |
 
+## Header-Specific Wordmark
+
+`public/images/brand/logo-primary-header-transparent.png` is the approved header-specific wordmark derivative.
+
+- It uses the shorter CFL WASH CO. artwork.
+- It is transparent.
+- It is intended for the light header surface.
+- `public/images/brand/logo-primary.png` remains the broader primary appearance reference.
+- The header-specific asset should not automatically replace the footer logo.
+- Flow Crest remains the favicon and app icon system only.
+
 ## Usage Rules
 
 - Preserve the original primary logo's appearance.
