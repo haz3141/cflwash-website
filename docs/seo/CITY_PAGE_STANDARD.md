@@ -33,7 +33,7 @@ Each benchmark city page must include:
 - Four to six city-specific FAQs.
 - Nearby active-area links without a giant service-area list.
 - Request a Quote and Call CTAs using existing `data-cta` analytics attributes.
-- A project-proof placeholder or conditional area that clearly says real project proof will be added only after publishable work exists.
+- Real project proof only when publishable work exists; omit the section rather than adding a placeholder or coming-soon block.
 - Conditional wording for pavers, painted concrete, sealed surfaces, decorative finishes, exposed aggregate, and coated surfaces.
 
 ## Design And Implementation

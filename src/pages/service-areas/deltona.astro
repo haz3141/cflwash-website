@@ -6,14 +6,7 @@ import Layout from '../../layouts/Layout.astro'
 import { site } from '../../data/site'
 import { serviceAreas } from '../../data/serviceAreas'
 import { services } from '../../data/services'
-import {
-  ClipboardCheck,
-  Droplets,
-  FileText,
-  MapPinned,
-  Phone,
-  ShieldQuestion,
-} from '@lucide/astro'
+import { ClipboardCheck, FileText, MapPinned, Phone } from '@lucide/astro'
 
 const area = serviceAreas.find((item) => item.slug === 'deltona')!
 const nearbyAreas = serviceAreas.filter((item) =>
@@ -33,19 +26,19 @@ const serviceLinks = services.map((service) => ({
 
 const deltonaContexts = [
   {
-    title: 'Driveway-first lot layouts',
+    title: 'Driveway-first layouts',
     description:
-      'Deltona grew from a large planned-lot residential pattern, so many quote requests start with the driveway, apron, front walk, and the concrete seen from the street.',
+      'Many Deltona homes present the driveway, apron, and front walk as the main visible concrete. Include the surfaces that matter from the street or front entry.',
   },
   {
-    title: 'Sidewalks vary by street',
+    title: 'Sidewalk coverage varies',
     description:
-      'Some homes have public sidewalk panels near the frontage while others mainly have a driveway and entry walk. Tell us which surfaces are actually present.',
+      'Some streets have sidewalk panels at the frontage and others do not. Tell us exactly which concrete areas are present so the review starts on the right scope.',
   },
   {
-    title: 'Drainage details matter',
+    title: 'Drainage still matters',
     description:
-      'Swales, slopes, low spots, door-adjacent concrete, and nearby storm drains can change how a concrete cleaning quote should be reviewed.',
+      'Swales, slopes, low spots, and nearby drains can affect how a concrete cleaning request is reviewed and what details belong in the quote.',
   },
 ]
 
@@ -53,67 +46,66 @@ const homeownerScenarios = [
   {
     title: 'HOA notice names a concrete surface',
     description:
-      'Share the notice wording, deadline, and whether it names the driveway, sidewalk, curb, entry path, or another visible concrete area.',
+      'Share the wording, deadline, and the named surface if the notice points to driveway, sidewalk, curb, or entry concrete.',
   },
   {
     title: 'Driveway and front walk need to match',
     description:
-      'If the driveway, apron, and entry walk read as one front-of-home view, describe them together so the quote can cover the connected scope.',
+      'If the driveway, apron, and entry walk read as one front-of-home view, describe them together so the request reflects the connected area.',
   },
   {
     title: 'Sidewalk panels are part of the request',
     description:
-      'If your Deltona frontage includes sidewalk panels, note the number of panels, nearby curb areas, and whether vehicles or bins block access.',
+      'If your frontage includes sidewalk panels, note how many you want reviewed and anything that blocks access.',
   },
   {
-    title: 'Listing, move-in, or curb-appeal cleanup',
+    title: 'Move-in or curb-appeal cleanup',
     description:
-      'For sale preparation or new-owner cleanup, include photos from the street and closeups of visible buildup, stains, and edges.',
+      'For sale prep or a fresh start, include photos from the street and closeups of visible buildup, stains, and edges.',
   },
 ]
 
 const quoteDetails = [
-  'Surface type: poured concrete, pavers, exposed aggregate, painted, sealed, decorative, or previously coated.',
+  'Surface type: tell us whether the area is plain concrete or a non-standard surface such as paver, sealed, painted, decorative, or exposed aggregate.',
   'Approximate scope: driveway only, driveway plus front walk, sidewalk panels, curb, apron, entry, pad, or patio slab.',
-  'Photos: one wide photo for context and closer photos of staining, buildup, edges, and any non-standard surface.',
+  'Photos: one wide photo for layout and close photos for staining, buildup, edges, and any surface condition that stands out.',
   'Access: gates, locked areas, vehicles, trailers, planters, trash bins, furniture, or tight side yards.',
   'Condition: oil, rust or irrigation marks, leaf staining, tire marks, dark buildup, worn concrete, cracks, or prior coatings.',
   'Water movement: slope, swale, drainage, low spots, door thresholds, nearby storm drains, or runoff concerns.',
-  'Notice details: HOA wording, deadline, named surface, and whether photos or reinspection are required.',
+  'Notice details: wording, deadline, and the named surface if an HOA notice is involved.',
 ]
 
 const faqs = [
   {
     question: 'Do all Deltona homes have sidewalk panels to clean?',
     answer:
-      'No. Sidewalk availability can vary by street and side of street. If your home has sidewalk panels, include them in the quote request; if not, focus on the driveway, apron, front walk, entry concrete, or other surfaces present.',
+      'No. Sidewalk coverage varies by street. Include only the surfaces present at your home.',
   },
   {
     question:
       'Can I request driveway pressure washing and walkway cleaning together?',
     answer:
-      'Yes. A Deltona quote can include connected concrete surfaces such as the driveway, apron, front walk, sidewalk panels, curb, and entry area when they fit the current launch scope.',
+      'Yes. If the driveway, apron, and front walk are all part of the request, send them together so the scope is clear.',
   },
   {
     question: 'Can CFL Wash Co. help with a Deltona HOA notice?',
     answer:
-      'CFL Wash Co. can review concrete-focused HOA notice cleanup requests when the notice involves driveways, sidewalks, walkways, curbs, or entry concrete. This does not imply HOA affiliation, approval, or knowledge of private rules.',
+      'Yes. Send the wording and deadline, and mention the driveway, sidewalk, curb, or entry concrete named in the notice.',
   },
   {
     question: 'What if my driveway is paver, sealed, painted, or decorative?',
     answer:
-      'Not every driveway is plain poured concrete. Include the surface type and photos so CFL Wash Co. can confirm whether the area fits the current service scope before quoting.',
+      'Include the surface type and photos. Pavers, sealed, painted, decorative, exposed aggregate, and previously coated surfaces are reviewed separately from plain poured concrete.',
   },
   {
     question: 'Is power washing the same request as pressure washing here?',
     answer:
-      'Homeowners often use both terms. For this Deltona page, the active scope is residential pressure washing for appropriate driveway, sidewalk, walkway, and concrete surfaces.',
+      'Homeowners often use both terms. The request still comes down to the concrete surfaces you want cleaned.',
   },
   {
-    question:
-      'What if the property is near Orange City, DeBary, Enterprise, or Osteen?',
+    question: 'What if the property is near Orange City or DeBary?',
     answer:
-      'Use the quote request to provide the service address or nearest cross streets. Nearby names and mailing addresses can be useful context, but the actual property location is what determines the service-area review.',
+      'Use the actual service address or nearest cross streets so the request lands on the right city page.',
   },
 ]
 ---
@@ -143,10 +135,10 @@ const faqs = [
           <p
             class="mt-5 max-w-3xl text-base leading-8 text-[var(--color-text-muted)] sm:text-lg"
           >
-            CFL Wash Co. serves Deltona homeowners with quote-first concrete
-            cleaning for the surfaces that shape curb appeal: driveways,
-            sidewalk panels, front walks, curbs, aprons, entry areas, and other
-            appropriate residential concrete.
+            CFL Wash Co. serves Deltona homeowners with concrete cleaning for
+            the surfaces that shape curb appeal: driveways, sidewalk panels,
+            front walks, curbs, aprons, entry areas, and other appropriate
+            residential concrete.
           </p>
 
           <div class="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -202,14 +194,13 @@ const faqs = [
               />
             </span>
             <h2 class="text-lg font-semibold text-[var(--color-text)]">
-              Best fit for Deltona requests
+              Start with the concrete that is actually visible
             </h2>
           </div>
           <p class="mt-4 text-sm leading-7 text-[var(--color-text-muted)]">
-            Start with the concrete you can identify from the street or entry:
-            driveway, apron, front walk, sidewalk panels, curb, and entry area.
-            Add photos and any notice wording so the quote review starts with
-            the actual surface, not a generic exterior-cleaning package.
+            Send the surfaces you can see from the street or front entry, plus
+            photos and any notice wording. That gives the review the right
+            layout from the start.
           </p>
         </aside>
       </div>
@@ -217,8 +208,8 @@ const faqs = [
 
     <Section
       eyebrow="Residential context"
-      title="Deltona concrete cleaning starts with the surface layout"
-      description="The home-market page is intentionally more specific than a swapped city page: it accounts for Deltona's residential lot pattern, variable sidewalk coverage, and drainage details homeowners should mention."
+      title="Deltona homes often present different front-of-home concrete layouts"
+      description="Some properties have sidewalk panels, others do not. Drainage, swales, and the way the driveway meets the front walk can change what needs to be included in the quote."
       class="border-t border-[var(--color-border)]"
     >
       <div class="grid gap-4 md:grid-cols-3">
@@ -239,39 +230,57 @@ const faqs = [
 
     <section class="bg-[var(--color-surface)]">
       <div
-        class="mx-auto grid w-full max-w-[var(--container-width)] gap-10 px-6 py-[var(--section-spacing)] lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)]"
+        class="mx-auto grid w-full max-w-[var(--container-width)] gap-10 px-6 py-[var(--section-spacing)] lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]"
       >
         <div>
           <p
             class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-primary)]"
           >
-            Homeowner scenarios
+            Services and situations
           </p>
           <h2
             class="mt-3 text-2xl font-semibold text-[var(--color-text)] sm:text-3xl"
           >
-            Useful Deltona requests are specific before they are large
+            Available services and common Deltona quote requests
           </h2>
           <p
             class="mt-4 text-sm leading-7 text-[var(--color-text-muted)] sm:text-base"
           >
-            A strong quote request explains why the concrete matters: an HOA
-            notice, a driveway and front-walk bundle, sidewalk panels along the
-            frontage, or curb appeal before listing or moving in.
+            Use the service links below for the available concrete-focused
+            services, then describe how the surfaces are laid out at your
+            property.
           </p>
+
+          <div class="mt-6 grid gap-4">
+            {
+              serviceLinks.map((service) => (
+                <a
+                  href={service.href}
+                  class="group rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-5 transition-colors hover:border-[var(--color-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+                >
+                  <span class="block text-base font-semibold text-[var(--color-text)] group-hover:text-[var(--color-primary)]">
+                    {service.name}
+                  </span>
+                  <span class="mt-3 block text-sm leading-7 text-[var(--color-text-muted)]">
+                    {service.summary}
+                  </span>
+                </a>
+              ))
+            }
+          </div>
         </div>
 
         <div class="grid gap-4 sm:grid-cols-2">
           {
             homeownerScenarios.map((item) => (
-              <article class="border-l-4 border-[var(--color-primary)] bg-white p-5">
+              <Card class="bg-white">
                 <h3 class="text-base font-semibold text-[var(--color-text)]">
                   {item.title}
                 </h3>
                 <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
                   {item.description}
                 </p>
-              </article>
+              </Card>
             ))
           }
         </div>
@@ -279,84 +288,34 @@ const faqs = [
     </section>
 
     <Section
-      eyebrow="Available services"
-      title="Concrete-focused launch services in Deltona"
-      description="CFL Wash Co. is not presenting a broad exterior-cleaning menu on this page. These are the active service pages for Deltona quote requests."
-    >
-      <div class="grid gap-4 lg:grid-cols-3">
-        {
-          serviceLinks.map((service) => (
-            <a
-              href={service.href}
-              class="group rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-5 transition-colors hover:border-[var(--color-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
-            >
-              <span class="block text-base font-semibold text-[var(--color-text)] group-hover:text-[var(--color-primary)]">
-                {service.name}
-              </span>
-              <span class="mt-3 block text-sm leading-7 text-[var(--color-text-muted)]">
-                {service.summary}
-              </span>
-            </a>
-          ))
-        }
-      </div>
-    </Section>
-
-    <Section
-      eyebrow="HOA notice support"
-      title="When the notice points to driveway, sidewalk, curb, or entry concrete"
-      description="CFL Wash Co. can review concrete-focused cleanup requests, but the homeowner remains the source for notice wording, deadlines, and private community requirements."
+      eyebrow="HOA notice guidance"
+      title="When a notice names driveway, sidewalk, curb, or entry concrete"
+      description="Send the wording and deadline. CFL Wash Co. reviews the named concrete scope, and you provide the notice requirements."
       tone="warm"
     >
-      <div
-        class="grid gap-6 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1fr)] lg:items-start"
-      >
-        <Card class="bg-white">
-          <div class="flex items-center gap-3">
-            <ClipboardCheck
-              class="h-6 w-6 text-[var(--color-primary)]"
-              aria-hidden="true"
-              stroke-width="1.8"
-            />
-            <h3 class="text-lg font-semibold text-[var(--color-text)]">
-              Include the notice details
-            </h3>
-          </div>
-          <p class="mt-4 text-sm leading-7 text-[var(--color-text-muted)]">
-            Send the wording, due date, named surface, and any photos the notice
-            includes. That keeps the quote focused on the visible concrete issue
-            without implying CFL Wash Co. knows or approves private HOA rules.
-          </p>
-        </Card>
-
-        <div class="grid gap-3">
-          <div class="rounded-[var(--radius-md)] bg-white p-4">
-            <h3 class="text-sm font-semibold text-[var(--color-text)]">
-              Good fit to ask about
-            </h3>
-            <p class="mt-2 text-sm leading-7 text-[var(--color-text-muted)]">
-              Driveways, front walks, sidewalk panels, curbs, aprons, entry
-              paths, and similar appropriate concrete surfaces.
-            </p>
-          </div>
-          <div class="rounded-[var(--radius-md)] bg-white p-4">
-            <h3 class="text-sm font-semibold text-[var(--color-text)]">
-              Keep separate for review
-            </h3>
-            <p class="mt-2 text-sm leading-7 text-[var(--color-text-muted)]">
-              Pavers, sealed surfaces, painted concrete, decorative finishes,
-              exposed aggregate, and previously coated surfaces may require a
-              different approach.
-            </p>
-          </div>
+      <Card class="bg-white">
+        <div class="flex items-center gap-3">
+          <ClipboardCheck
+            class="h-6 w-6 text-[var(--color-primary)]"
+            aria-hidden="true"
+            stroke-width="1.8"
+          />
+          <h3 class="text-lg font-semibold text-[var(--color-text)]">
+            What to include
+          </h3>
         </div>
-      </div>
+        <p class="mt-4 text-sm leading-7 text-[var(--color-text-muted)]">
+          Share the wording, due date, named surface, and any photos or
+          attachments. That keeps the review focused on the concrete that needs
+          attention.
+        </p>
+      </Card>
     </Section>
 
     <Section
       eyebrow="Quote preparation"
       title="What to send with a Deltona concrete cleaning request"
-      description="Clear details help avoid overpromising and give CFL Wash Co. enough context to confirm whether the surface fits the current scope."
+      description="Short, specific details help confirm whether the surface fits the available scope and let CFL Wash Co. review the right layout."
       class="border-y border-[var(--color-border)]"
     >
       <div class="grid gap-6 lg:grid-cols-[minmax(260px,0.55fr)_minmax(0,1fr)]">
@@ -367,9 +326,9 @@ const faqs = [
           <h3 class="mt-4 text-xl font-semibold">Photos matter most</h3>
           <p class="mt-3 text-sm leading-7 text-white/85">
             One wide photo shows the layout. Close photos show staining,
-            coatings, edges, drainage, and surface type. Together, they make the
-            quote request more useful than a short message that says "driveway
-            cleaning."
+            buildup, edges, drainage, and surface type. If the surface is paver,
+            sealed, painted, decorative, or exposed aggregate, include that in
+            the photo set so it can be reviewed correctly.
           </p>
         </div>
 
@@ -382,97 +341,6 @@ const faqs = [
             ))
           }
         </ul>
-      </div>
-    </Section>
-
-    <Section
-      eyebrow="Non-standard surfaces"
-      title="Pavers, coated concrete, and decorative finishes need confirmation"
-      description="The current Deltona launch page stays centered on appropriate concrete cleaning and quote review."
-    >
-      <div
-        class="grid gap-5 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white p-6 lg:grid-cols-[auto_minmax(0,1fr)]"
-      >
-        <ShieldQuestion
-          class="h-8 w-8 text-[var(--color-primary)]"
-          aria-hidden="true"
-          stroke-width="1.8"
-        />
-        <p
-          class="text-sm leading-7 text-[var(--color-text-muted)] sm:text-base"
-        >
-          Not every driveway is plain poured concrete. Pavers, sealed surfaces,
-          painted concrete, decorative finishes, exposed aggregate, and
-          previously coated surfaces may require a different approach. Include
-          the surface type and photos with the quote request so CFL Wash Co. can
-          confirm whether the area fits the current service scope.
-        </p>
-      </div>
-    </Section>
-
-    <Section
-      eyebrow="Boundary notes"
-      title="Near Deltona's edges, send the actual service address"
-      description="Nearby names can be useful, but the quote review should start with where the work is and which surfaces need attention."
-      tone="soft"
-    >
-      <div
-        class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.55fr)] lg:items-start"
-      >
-        <div class="prose prose-sm max-w-none text-[var(--color-text-muted)]">
-          <p class="leading-7">
-            Deltona sits near other West Volusia communities and municipalities,
-            including Orange City and DeBary. If a property is near a boundary,
-            or if nearby names such as Enterprise or Osteen appear in the
-            address context, include the full service address or nearest cross
-            streets in the quote request.
-          </p>
-          <p class="mt-4 leading-7">
-            The goal is practical coverage review, not a giant city list. For
-            active nearby pages, use the links here when the property is outside
-            Deltona or the request belongs to another current service-area page.
-          </p>
-        </div>
-
-        <div class="grid gap-3">
-          {
-            nearbyAreas.map((nearbyArea) => (
-              <a
-                href={`/service-areas/${nearbyArea.slug}`}
-                class="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-4 text-sm font-semibold text-[var(--color-text)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
-              >
-                {nearbyArea.name}
-              </a>
-            ))
-          }
-        </div>
-      </div>
-    </Section>
-
-    <Section
-      eyebrow="Project proof"
-      title="Deltona project proof will be added only after real work is publishable"
-      description="This page reserves room for local proof without inventing completed jobs, photos, reviews, or customer outcomes."
-    >
-      <div
-        class="grid gap-5 rounded-[var(--radius-lg)] border border-dashed border-[var(--color-border)] bg-[var(--color-surface)] p-6 sm:grid-cols-[auto_minmax(0,1fr)]"
-      >
-        <Droplets
-          class="h-8 w-8 text-[var(--color-primary)]"
-          aria-hidden="true"
-          stroke-width="1.8"
-        />
-        <div>
-          <h3 class="text-lg font-semibold text-[var(--color-text)]">
-            Future Deltona project examples
-          </h3>
-          <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
-            Before-and-after photos, project notes, and customer-derived
-            examples can be added after CFL Wash Co. has real Deltona work,
-            permission to publish, and enough detail to describe the surface
-            honestly.
-          </p>
-        </div>
       </div>
     </Section>
 
@@ -490,6 +358,38 @@ const faqs = [
             </Card>
           ))
         }
+      </div>
+    </Section>
+
+    <Section
+      eyebrow="Nearby active areas"
+      title="If the property is closer to another current service area, use the matching page"
+      description="Use the actual service address or nearest cross streets when the home sits near a city boundary."
+      tone="soft"
+    >
+      <div
+        class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.55fr)] lg:items-start"
+      >
+        <div class="prose prose-sm max-w-none text-[var(--color-text-muted)]">
+          <p class="leading-7">
+            Deltona sits near other West Volusia service areas. If the address
+            is closer to Orange City or DeBary, use the matching page so the
+            request lands in the right place.
+          </p>
+        </div>
+
+        <div class="grid gap-3">
+          {
+            nearbyAreas.map((nearbyArea) => (
+              <a
+                href={`/service-areas/${nearbyArea.slug}`}
+                class="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-4 text-sm font-semibold text-[var(--color-text)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+              >
+                {nearbyArea.name}
+              </a>
+            ))
+          }
+        </div>
       </div>
     </Section>
 
