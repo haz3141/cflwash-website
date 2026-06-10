@@ -71,17 +71,12 @@ const processSteps = [
   },
 ]
 
-const unlinkedServiceAreas = ['DeLand', 'Sanford', 'Lake Mary']
-const serviceAreaLinks = [
-  ...serviceAreas.map((area) => ({
-    label: area.name,
-    href: `/service-areas/${area.slug}`,
-  })),
-  ...unlinkedServiceAreas.map((area) => ({
-    label: area,
-    status: 'inactive' as const,
-  })),
-]
+const broaderServiceAreas = ['DeLand', 'Sanford', 'Lake Mary']
+const serviceAreaLinks = serviceAreas.map((area) => ({
+  label: area.name,
+  href: `/service-areas/${area.slug}`,
+  description: 'View city page',
+}))
 
 const serviceIcons = {
   'driveway-pressure-washing': CarFront,
@@ -292,13 +287,22 @@ const serviceIcons = {
             Serving Central Florida homeowners.
           </h2>
           <p class="mt-3 text-lead text-[var(--color-text-muted)]">
-            Explore the current service area pages below. Additional nearby
-            cities are listed as part of the broader Central Florida service
-            area.
+            Explore the current city pages below. Broader Central Florida
+            coverage extends beyond the published city pages.
+          </p>
+          <p class="mt-4 text-sm leading-7 text-[var(--color-text-muted)]">
+            Also serving nearby areas such as {broaderServiceAreas.join(', ')}.
+            Those cities are part of the service area, even when a dedicated
+            city page is not published yet.
           </p>
         </div>
 
-        <LinkGrid items={serviceAreaLinks} variant="cards" columns="two" />
+        <LinkGrid
+          items={serviceAreaLinks}
+          variant="cards"
+          columns="two"
+          density="comfortable"
+        />
       </div>
     </section>
 
