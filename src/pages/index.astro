@@ -33,41 +33,39 @@ const secondaryHeroLabel = hasPhone
 const trustCues = [
   {
     icon: MapPin,
-    label: 'Central Florida based',
-    detail: 'Serving homeowners across the local area',
-  },
-  {
-    icon: Blocks,
-    label: 'Driveways, sidewalks, and concrete',
-    detail: 'Focused curb appeal cleaning for hard surfaces',
-  },
-  {
-    icon: ClipboardCheck,
-    label: 'HOA notice cleanup',
-    detail: 'Quote-first help for visible concrete buildup',
+    label: 'Local service area',
+    detail:
+      'Focused on Central Florida homes, starting with published city pages',
   },
   {
     icon: MessageSquareText,
-    label: 'Simple quote path',
-    detail: 'Request a quote before any work is scheduled',
+    label: 'Quote before scheduling',
+    detail:
+      'Share the city, surface, and job notes so the request can be reviewed',
+  },
+  {
+    icon: ClipboardCheck,
+    label: 'Concrete-first scope',
+    detail:
+      'Built around driveways, sidewalks, walkways, and similar hard surfaces',
   },
 ]
 
 const processSteps = [
   {
-    title: 'Request a quote',
+    title: 'Send the basics',
     description:
-      'Share the surface, city, and a few details about the driveway, sidewalk, walkway, or concrete area.',
+      'Include the city, surface type, and what prompted the cleanup, such as buildup, curb appeal, or an HOA notice.',
   },
   {
-    title: 'Confirm the scope',
+    title: 'Review the request',
     description:
-      'CFL Wash Co. reviews the job details and confirms the best cleaning plan before work begins.',
+      'CFL Wash Co. reviews the details before scheduling so the scope stays clear for the property.',
   },
   {
-    title: 'Clean the concrete',
+    title: 'Plan the cleaning',
     description:
-      'The work stays focused on cleaner-looking concrete and practical curb appeal for the property.',
+      'If the job is a fit, the next step is focused concrete cleaning for the agreed surfaces.',
   },
 ]
 
@@ -83,6 +81,15 @@ const serviceIcons = {
   'sidewalk-walkway-cleaning': Footprints,
   'concrete-cleaning': Blocks,
 } as const
+
+const serviceHighlights = {
+  'driveway-pressure-washing':
+    'Best fit when the front approach is the first thing visitors or neighbors notice.',
+  'sidewalk-walkway-cleaning':
+    'Best fit for pedestrian paths, entry walks, and neighborhood-facing concrete.',
+  'concrete-cleaning':
+    'Best fit for patios, pads, aprons, curbs, and other appropriate hard surfaces.',
+} as const
 ---
 
 <Layout
@@ -94,9 +101,9 @@ const serviceIcons = {
     <HeroSection
       variant="split"
       tone="soft"
-      eyebrow="Serving Central Florida"
-      title="Driveway, Sidewalk, and Concrete Cleaning in Central Florida"
-      description="Simple quotes for driveway, walkway, sidewalk, and concrete cleaning across Central Florida. Built for curb appeal, HOA notices, and cleaner-looking concrete."
+      eyebrow="Driveway, sidewalk, walkway, and concrete cleaning"
+      title="Central Florida concrete cleaning starts with a clear quote."
+      description="CFL Wash Co. helps homeowners handle visible buildup on driveways, sidewalks, walkways, and similar concrete surfaces. Send the city, surface, and job notes; requests are reviewed before scheduling."
     >
       <Fragment slot="actions">
         <Button
@@ -162,7 +169,7 @@ const serviceIcons = {
       class="border-y border-[var(--color-border)] bg-[var(--color-page)]"
     >
       <div
-        class="mx-auto grid w-full max-w-[var(--container-width)] gap-4 px-[var(--container-gutter)] py-6 sm:grid-cols-2 lg:grid-cols-4"
+        class="mx-auto grid w-full max-w-[var(--container-width)] gap-4 px-[var(--container-gutter)] py-6 md:grid-cols-3"
       >
         {
           trustCues.map((cue) => (
@@ -185,8 +192,8 @@ const serviceIcons = {
     <Section
       id="services"
       eyebrow="Services"
-      title="Concrete-focused exterior cleaning"
-      description="Start with the surfaces homeowners notice first: driveways, sidewalks, walkways, and concrete around the property."
+      title="Choose the surface that needs attention"
+      description="The launch offer stays focused on the hard surfaces that shape curb appeal and everyday arrival."
       tone="soft"
       class="scroll-mt-24"
     >
@@ -208,13 +215,14 @@ const serviceIcons = {
                 {service.name}
               </h3>
               <p class="mt-3 flex-1 text-sm leading-7 text-[var(--color-text-muted)]">
-                {service.summary}
+                {serviceHighlights[service.slug]}
               </p>
               <a
                 href={`/${service.slug}`}
+                aria-label={`View ${service.name}`}
                 class="mt-6 inline-flex text-sm font-semibold text-[var(--color-action)] transition-colors duration-[var(--duration-fast)] hover:text-[var(--color-action-hover)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-page)]"
               >
-                View service
+                View {service.name}
               </a>
             </Card>
           ))
@@ -224,8 +232,8 @@ const serviceIcons = {
 
     <SplitFeature
       eyebrow="HOA and curb appeal"
-      title="A practical cleanup path for visible concrete."
-      description="HOA notices and curb appeal projects usually start with the surfaces closest to the street. CFL Wash Co. keeps the service focus on driveway, walkway, sidewalk, and concrete cleaning so the quote stays clear."
+      title="When the front approach needs attention."
+      description="Some requests start with an HOA notice. Others start with a driveway, entry path, or sidewalk that no longer matches the rest of the home. Either way, the first step is describing the surface and the reason for the cleanup."
       columns="media-heavy"
       align="center"
       titleSize="section"
@@ -250,10 +258,10 @@ const serviceIcons = {
       <div class="grid gap-3 sm:grid-cols-2">
         {
           [
-            'Driveway and front walk refreshes',
-            'Sidewalk cleaning for neighborhood presentation',
-            'Concrete patios, pads, aprons, and entry areas',
-            'Quote-first scope before work is scheduled',
+            'Driveway and front-walk areas that shape the first impression',
+            'Sidewalk panels and entry paths affected by everyday buildup',
+            'Concrete patios, pads, aprons, curbs, and entry areas',
+            'Quote details reviewed before any scheduling step',
           ].map((item) => (
             <div class="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-page)] p-5">
               <span class="block h-1 w-10 rounded-full bg-[var(--color-accent)]" />
@@ -268,8 +276,8 @@ const serviceIcons = {
 
     <Section
       eyebrow="Process"
-      title="Simple quote-first process"
-      description="Request a quote, confirm the scope, and move forward with the concrete cleaning that fits the property."
+      title="What happens after you reach out"
+      description="The request starts a review of the surface, location, and job details before any scheduling step."
     >
       <ProcessSteps steps={processSteps} variant="featured" cardTone="soft" />
     </Section>
@@ -287,13 +295,13 @@ const serviceIcons = {
             Serving Central Florida homeowners.
           </h2>
           <p class="mt-3 text-lead text-[var(--color-text-muted)]">
-            Explore the current city pages below. Broader Central Florida
-            coverage extends beyond the published city pages.
+            Explore the current city pages below. These are the published local
+            pages available now.
           </p>
           <p class="mt-4 text-sm leading-7 text-[var(--color-text-muted)]">
-            Also serving nearby areas such as {broaderServiceAreas.join(', ')}.
-            Those cities are part of the service area, even when a dedicated
-            city page is not published yet.
+            The broader Central Florida service plan also includes nearby areas
+            such as {broaderServiceAreas.join(', ')}, with dedicated pages
+            planned as the site expands.
           </p>
         </div>
 
@@ -307,10 +315,11 @@ const serviceIcons = {
     </section>
 
     <CTASection
-      eyebrow="Ready for a cleaner-looking driveway?"
-      title="Request a simple Central Florida concrete cleaning quote."
-      description="Tell CFL Wash Co. what needs attention and get a clear next step for driveway, walkway, sidewalk, or concrete cleaning."
+      eyebrow="Ready to start the quote?"
+      title="Send the details for your Central Florida concrete cleaning request."
+      description="Include the city, the surface that needs attention, and any useful notes about buildup, staining, curb appeal, or an HOA notice."
       surface="elevated"
+      titleWidth="wide"
     >
       <Fragment slot="actions">
         <Button
