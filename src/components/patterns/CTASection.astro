@@ -1,0 +1,52 @@
+---
+import Container from '../ui/Container.astro'
+
+type Props = {
+  eyebrow?: string
+  title: string
+  description?: string
+  surface?: 'default' | 'elevated'
+  titleWidth?: 'default' | 'wide'
+}
+
+const {
+  eyebrow,
+  title,
+  description,
+  surface = 'default',
+  titleWidth = 'default',
+} = Astro.props as Props
+
+const titleClass =
+  titleWidth === 'wide'
+    ? 'mx-auto max-w-3xl text-3xl font-semibold sm:text-4xl'
+    : 'mx-auto max-w-2xl text-3xl font-semibold sm:text-4xl'
+
+const panelClass =
+  surface === 'elevated' ? 'overflow-hidden shadow-[var(--shadow-sm)]' : ''
+---
+
+<section class="py-[var(--section-space)]">
+  <Container>
+    <div
+      class={`rounded-[var(--radius-lg)] bg-[var(--color-action)] px-6 py-[var(--space-12)] text-center text-white sm:px-10 ${panelClass}`.trim()}
+    >
+      {eyebrow && <p class="text-eyebrow text-white/75">{eyebrow}</p>}
+      <h2
+        class={`${titleClass} ${eyebrow ? 'mt-3 text-section-title text-white' : ''}`.trim()}
+      >
+        {title}
+      </h2>
+      {
+        description && (
+          <p class="mx-auto mt-4 max-w-2xl text-base leading-8 text-white/85">
+            {description}
+          </p>
+        )
+      }
+      <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+        <slot name="actions" />
+      </div>
+    </div>
+  </Container>
+</section>

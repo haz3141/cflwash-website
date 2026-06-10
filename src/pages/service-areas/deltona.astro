@@ -1,6 +1,10 @@
 ---
 import Button from '../../components/ui/Button.astro'
+import CTASection from '../../components/patterns/CTASection.astro'
 import Card from '../../components/ui/Card.astro'
+import FAQList from '../../components/patterns/FAQList.astro'
+import HeroSection from '../../components/patterns/HeroSection.astro'
+import LinkGrid from '../../components/patterns/LinkGrid.astro'
 import Section from '../../components/ui/Section.astro'
 import Layout from '../../layouts/Layout.astro'
 import { site } from '../../data/site'
@@ -20,8 +24,13 @@ const seoDescription =
   'Deltona residential pressure washing quotes for driveways, sidewalks, walkways, curbs, aprons, entry concrete, and HOA-notice cleanup support.'
 
 const serviceLinks = services.map((service) => ({
-  ...service,
+  label: service.name,
   href: `/${service.slug}`,
+  description: service.summary,
+}))
+const nearbyAreaLinks = nearbyAreas.map((nearbyArea) => ({
+  label: nearbyArea.name,
+  href: `/service-areas/${nearbyArea.slug}`,
 }))
 
 const deltonaContexts = [
@@ -116,95 +125,70 @@ const faqs = [
   canonicalPath="/service-areas/deltona"
 >
   <main>
-    <Section spacing="none" class="py-16 sm:py-20">
-      <div
-        class="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.7fr)] lg:items-end"
-      >
-        <div>
-          <p
-            class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-primary)]"
-          >
-            Deltona service area
-          </p>
-          <h1
-            class="mt-4 max-w-4xl text-4xl font-semibold leading-tight text-[var(--color-text)] sm:text-5xl"
-          >
-            Residential pressure washing in Deltona for driveways, sidewalks,
-            walkways, and concrete
-          </h1>
-          <p
-            class="mt-5 max-w-3xl text-base leading-8 text-[var(--color-text-muted)] sm:text-lg"
-          >
-            CFL Wash Co. serves Deltona homeowners with concrete cleaning for
-            the surfaces that shape curb appeal: driveways, sidewalk panels,
-            front walks, curbs, aprons, entry areas, and other appropriate
-            residential concrete.
-          </p>
-
-          <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+    <HeroSection
+      eyebrow="Deltona service area"
+      title="Residential pressure washing in Deltona for driveways, sidewalks, walkways, and concrete"
+      description="CFL Wash Co. serves Deltona homeowners with concrete cleaning for the surfaces that shape curb appeal: driveways, sidewalk panels, front walks, curbs, aprons, entry areas, and other appropriate residential concrete."
+    >
+      <Fragment slot="actions">
+        <Button
+          href="/request-quote"
+          data-cta="quote"
+          data-cta-location={`service-area-${area.slug}`}
+        >
+          Request a Quote
+        </Button>
+        {
+          hasPhone ? (
             <Button
-              href="/request-quote"
-              data-cta="quote"
+              href={site.phoneHref!}
+              variant="secondary"
+              data-cta="call"
               data-cta-location={`service-area-${area.slug}`}
             >
-              Request a Quote
-            </Button>
-            {
-              hasPhone ? (
-                <Button
-                  href={site.phoneHref!}
-                  variant="secondary"
-                  data-cta="call"
-                  data-cta-location={`service-area-${area.slug}`}
-                >
-                  <Phone
-                    slot="startIcon"
-                    class="h-5 w-5"
-                    aria-hidden="true"
-                    stroke-width="1.8"
-                  />
-                  Call {site.phoneDisplay}
-                </Button>
-              ) : (
-                <Button
-                  href={`mailto:${site.email}`}
-                  variant="secondary"
-                  data-cta="email"
-                  data-cta-location={`service-area-${area.slug}`}
-                >
-                  Email CFL Wash Co.
-                </Button>
-              )
-            }
-          </div>
-        </div>
-
-        <aside
-          aria-label="Deltona quote priorities"
-          class="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-6"
-        >
-          <div class="flex items-center gap-3">
-            <span
-              class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[var(--color-primary)] text-white"
-            >
-              <MapPinned
+              <Phone
+                slot="startIcon"
                 class="h-5 w-5"
                 aria-hidden="true"
                 stroke-width="1.8"
               />
-            </span>
-            <h2 class="text-lg font-semibold text-[var(--color-text)]">
-              Start with the concrete that is actually visible
-            </h2>
-          </div>
-          <p class="mt-4 text-sm leading-7 text-[var(--color-text-muted)]">
-            Send the surfaces you can see from the street or front entry, plus
-            photos and any notice wording. That gives the review the right
-            layout from the start.
-          </p>
-        </aside>
-      </div>
-    </Section>
+              Call {site.phoneDisplay}
+            </Button>
+          ) : (
+            <Button
+              href={`mailto:${site.email}`}
+              variant="secondary"
+              data-cta="email"
+              data-cta-location={`service-area-${area.slug}`}
+            >
+              Email CFL Wash Co.
+            </Button>
+          )
+        }
+      </Fragment>
+
+      <aside
+        slot="aside"
+        aria-label="Deltona quote priorities"
+        class="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-6"
+      >
+        <div class="flex items-center gap-3">
+          <span
+            class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[var(--color-primary)] text-white"
+          >
+            <MapPinned class="h-5 w-5" aria-hidden="true" stroke-width="1.8" />
+          </span>
+          <h2 class="text-lg font-semibold text-[var(--color-text)]">
+            Start with the concrete that is actually visible
+          </h2>
+        </div>
+        <p class="mt-4 text-sm leading-7 text-[var(--color-text-muted)]">
+          Send the surfaces you can see from the street or front entry, plus
+          photos and any notice wording. That gives the review the right layout
+          from the start.
+        </p>
+      </aside>
+    </HeroSection>
 
     <Section
       eyebrow="Residential context"
@@ -228,61 +212,48 @@ const faqs = [
       </div>
     </Section>
 
-    <section class="bg-[var(--color-surface)]">
+    <section>
       <div
-        class="mx-auto grid w-full max-w-[var(--container-width)] gap-10 px-6 py-[var(--section-spacing)] lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]"
+        class="mx-auto w-full max-w-[var(--container-width)] px-6 py-[var(--section-space)] sm:px-10"
       >
-        <div>
-          <p
-            class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-primary)]"
-          >
-            Services and situations
-          </p>
-          <h2
-            class="mt-3 text-2xl font-semibold text-[var(--color-text)] sm:text-3xl"
-          >
-            Available services and common Deltona quote requests
-          </h2>
-          <p
-            class="mt-4 text-sm leading-7 text-[var(--color-text-muted)] sm:text-base"
-          >
-            Use the service links below for the available concrete-focused
-            services, then describe how the surfaces are laid out at your
-            property.
-          </p>
+        <div
+          class="grid gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-start"
+        >
+          <div>
+            <p class="text-eyebrow text-[var(--color-action)]">
+              Services and situations
+            </p>
+            <h2 class="mt-3 text-section-title text-[var(--color-text)]">
+              Available services and common Deltona quote requests
+            </h2>
+            <p
+              class="mt-3 text-sm leading-7 text-[var(--color-text-muted)] sm:text-base"
+            >
+              Use the service links below for the available concrete-focused
+              services, then describe how the surfaces are laid out at your
+              property.
+            </p>
+            <LinkGrid
+              items={serviceLinks}
+              density="comfortable"
+              class="mt-6 gap-4"
+            />
+          </div>
 
-          <div class="mt-6 grid gap-4">
+          <div class="grid gap-4 sm:grid-cols-2">
             {
-              serviceLinks.map((service) => (
-                <a
-                  href={service.href}
-                  class="group rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-5 transition-colors hover:border-[var(--color-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
-                >
-                  <span class="block text-base font-semibold text-[var(--color-text)] group-hover:text-[var(--color-primary)]">
-                    {service.name}
-                  </span>
-                  <span class="mt-3 block text-sm leading-7 text-[var(--color-text-muted)]">
-                    {service.summary}
-                  </span>
-                </a>
+              homeownerScenarios.map((item) => (
+                <Card class="bg-white">
+                  <h3 class="text-base font-semibold text-[var(--color-text)]">
+                    {item.title}
+                  </h3>
+                  <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
+                    {item.description}
+                  </p>
+                </Card>
               ))
             }
           </div>
-        </div>
-
-        <div class="grid gap-4 sm:grid-cols-2">
-          {
-            homeownerScenarios.map((item) => (
-              <Card class="bg-white">
-                <h3 class="text-base font-semibold text-[var(--color-text)]">
-                  {item.title}
-                </h3>
-                <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
-                  {item.description}
-                </p>
-              </Card>
-            ))
-          }
         </div>
       </div>
     </section>
@@ -345,20 +316,7 @@ const faqs = [
     </Section>
 
     <Section eyebrow="FAQ" title="Deltona pressure washing questions">
-      <div class="grid gap-4 md:grid-cols-2">
-        {
-          faqs.map((faq) => (
-            <Card class="bg-white">
-              <h3 class="text-base font-semibold text-[var(--color-text)]">
-                {faq.question}
-              </h3>
-              <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
-                {faq.answer}
-              </p>
-            </Card>
-          ))
-        }
-      </div>
+      <FAQList faqs={faqs} columns="two" />
     </Section>
 
     <Section
@@ -378,74 +336,55 @@ const faqs = [
           </p>
         </div>
 
-        <div class="grid gap-3">
-          {
-            nearbyAreas.map((nearbyArea) => (
-              <a
-                href={`/service-areas/${nearbyArea.slug}`}
-                class="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-4 text-sm font-semibold text-[var(--color-text)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
-              >
-                {nearbyArea.name}
-              </a>
-            ))
-          }
-        </div>
+        <LinkGrid items={nearbyAreaLinks} />
       </div>
     </Section>
 
-    <section class="px-6 py-[var(--section-spacing)]">
-      <div
-        class="mx-auto max-w-[var(--container-width)] rounded-[var(--radius-lg)] bg-[var(--color-primary)] px-6 py-12 text-center text-white sm:px-10"
-      >
-        <h2 class="mx-auto max-w-3xl text-3xl font-semibold sm:text-4xl">
-          Request a Deltona driveway, sidewalk, or concrete cleaning quote.
-        </h2>
-        <p class="mx-auto mt-4 max-w-2xl text-base leading-8 text-white/85">
-          Share the surface type, photos, access details, staining, drainage,
-          prior coatings, and any HOA notice wording so CFL Wash Co. can review
-          the scope.
-        </p>
-        <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-          <Button
-            href="/request-quote"
-            variant="secondary"
-            class="bg-white text-[var(--color-primary)] hover:bg-[var(--color-surface)]"
-            data-cta="quote"
-            data-cta-location={`service-area-${area.slug}-final`}
-          >
-            Request a Quote
-          </Button>
-          {
-            hasPhone ? (
-              <Button
-                href={site.phoneHref!}
-                variant="ghost"
-                class="text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
-                data-cta="call"
-                data-cta-location={`service-area-${area.slug}-final`}
-              >
-                <Phone
-                  slot="startIcon"
-                  class="h-5 w-5"
-                  aria-hidden="true"
-                  stroke-width="1.8"
-                />
-                Call {site.phoneDisplay}
-              </Button>
-            ) : (
-              <Button
-                href={`mailto:${site.email}`}
-                variant="ghost"
-                class="text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
-                data-cta="email"
-                data-cta-location={`service-area-${area.slug}-final`}
-              >
-                Email CFL Wash Co.
-              </Button>
-            )
-          }
-        </div>
-      </div>
-    </section>
+    <CTASection
+      title="Request a Deltona driveway, sidewalk, or concrete cleaning quote."
+      description="Share the surface type, photos, access details, staining, drainage, prior coatings, and any HOA notice wording so CFL Wash Co. can review the scope."
+      titleWidth="wide"
+    >
+      <Fragment slot="actions">
+        <Button
+          href="/request-quote"
+          variant="secondary"
+          class="bg-white text-[var(--color-primary)] hover:bg-[var(--color-surface)]"
+          data-cta="quote"
+          data-cta-location={`service-area-${area.slug}-final`}
+        >
+          Request a Quote
+        </Button>
+        {
+          hasPhone ? (
+            <Button
+              href={site.phoneHref!}
+              variant="ghost"
+              class="text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
+              data-cta="call"
+              data-cta-location={`service-area-${area.slug}-final`}
+            >
+              <Phone
+                slot="startIcon"
+                class="h-5 w-5"
+                aria-hidden="true"
+                stroke-width="1.8"
+              />
+              Call {site.phoneDisplay}
+            </Button>
+          ) : (
+            <Button
+              href={`mailto:${site.email}`}
+              variant="ghost"
+              class="text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
+              data-cta="email"
+              data-cta-location={`service-area-${area.slug}-final`}
+            >
+              Email CFL Wash Co.
+            </Button>
+          )
+        }
+      </Fragment>
+    </CTASection>
   </main>
 </Layout>

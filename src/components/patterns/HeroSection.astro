@@ -1,0 +1,86 @@
+---
+import Container from '../ui/Container.astro'
+
+type Variant = 'split' | 'compact'
+type Tone = 'default' | 'soft'
+
+type Props = {
+  variant?: Variant
+  tone?: Tone
+  eyebrow?: string
+  title: string
+  description?: string
+}
+
+const {
+  variant = 'compact',
+  tone = 'default',
+  eyebrow,
+  title,
+  description,
+} = Astro.props as Props
+
+const isSplit = variant === 'split'
+const toneClass = tone === 'soft' ? 'bg-[var(--color-surface)]' : ''
+---
+
+<section class={`${isSplit ? 'overflow-hidden' : ''} ${toneClass}`.trim()}>
+  <Container
+    class={isSplit
+      ? 'grid gap-12 py-[var(--section-space)] lg:grid-cols-[minmax(0,1fr)_minmax(22rem,0.92fr)] lg:items-center lg:py-[var(--section-space-spacious)]'
+      : 'py-16 sm:py-20'}
+  >
+    <div
+      class={Astro.slots.has('aside')
+        ? 'grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.7fr)] lg:items-end'
+        : undefined}
+    >
+      <div>
+        {
+          eyebrow && (
+            <p
+              class={
+                isSplit
+                  ? 'text-eyebrow text-[var(--color-action)]'
+                  : 'text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-primary)]'
+              }
+            >
+              {eyebrow}
+            </p>
+          )
+        }
+        <h1
+          class={isSplit
+            ? 'measure-copy mt-4 text-display text-[var(--color-text)]'
+            : 'mt-4 max-w-4xl text-4xl font-semibold leading-tight text-[var(--color-text)] sm:text-5xl'}
+        >
+          {title}
+        </h1>
+        {
+          description && (
+            <p
+              class={
+                isSplit
+                  ? 'measure-copy mt-5 text-lead text-[var(--color-text-muted)]'
+                  : 'mt-5 max-w-3xl text-base leading-8 text-[var(--color-text-muted)] sm:text-lg'
+              }
+            >
+              {description}
+            </p>
+          )
+        }
+        {
+          Astro.slots.has('actions') && (
+            <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+              <slot name="actions" />
+            </div>
+          )
+        }
+      </div>
+
+      {Astro.slots.has('aside') && <slot name="aside" />}
+    </div>
+
+    {isSplit && Astro.slots.has('media') && <slot name="media" />}
+  </Container>
+</section>

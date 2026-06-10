@@ -1,0 +1,78 @@
+---
+type Tone = 'default' | 'soft'
+type Columns = 'content-heavy' | 'media-heavy'
+type Align = 'start' | 'center'
+type TitleSize = 'section' | 'compact'
+type DescriptionSize = 'lead' | 'body'
+
+type Props = {
+  eyebrow?: string
+  title: string
+  description?: string
+  tone?: Tone
+  columns?: Columns
+  align?: Align
+  titleSize?: TitleSize
+  descriptionSize?: DescriptionSize
+}
+
+const {
+  eyebrow,
+  title,
+  description,
+  tone = 'soft',
+  columns = 'content-heavy',
+  align = 'start',
+  titleSize = 'compact',
+  descriptionSize = 'body',
+} = Astro.props as Props
+
+const toneClasses: Record<Tone, string> = {
+  default: 'bg-[var(--color-page)]',
+  soft: 'bg-[var(--color-surface)]',
+}
+
+const columnClasses: Record<Columns, string> = {
+  'content-heavy': 'lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]',
+  'media-heavy': 'lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]',
+}
+
+const alignClass = align === 'center' ? 'lg:items-center' : ''
+const titleClass =
+  titleSize === 'section'
+    ? 'mt-3 text-section-title text-[var(--color-text)]'
+    : 'mt-3 text-2xl font-semibold text-[var(--color-text)] sm:text-3xl'
+const descriptionClass =
+  descriptionSize === 'lead'
+    ? 'mt-4 text-lead text-[var(--color-text-muted)]'
+    : 'mt-3 text-sm leading-7 text-[var(--color-text-muted)] sm:text-base'
+---
+
+<section class={toneClasses[tone]}>
+  <div
+    class={`mx-auto w-full max-w-[var(--container-width)] px-6 py-[var(--section-space)] sm:px-10`.trim()}
+  >
+    <div class={`grid gap-8 ${columnClasses[columns]} ${alignClass}`.trim()}>
+      <div>
+        {
+          eyebrow && (
+            <p class="text-eyebrow text-[var(--color-action)]">{eyebrow}</p>
+          )
+        }
+        <h2 class={titleClass}>{title}</h2>
+        {description && <p class={descriptionClass}>{description}</p>}
+        {
+          Astro.slots.has('actions') && (
+            <div class="mt-7">
+              <slot name="actions" />
+            </div>
+          )
+        }
+      </div>
+
+      <div>
+        <slot />
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,7 +1,13 @@
 ---
 import Button from '../components/ui/Button.astro'
+import CTASection from '../components/patterns/CTASection.astro'
 import Card from '../components/ui/Card.astro'
+import FAQList from '../components/patterns/FAQList.astro'
+import HeroSection from '../components/patterns/HeroSection.astro'
+import LinkGrid from '../components/patterns/LinkGrid.astro'
+import ProcessSteps from '../components/patterns/ProcessSteps.astro'
 import Section from '../components/ui/Section.astro'
+import SplitFeature from '../components/patterns/SplitFeature.astro'
 import Layout from '../layouts/Layout.astro'
 import { serviceAreas } from '../data/serviceAreas'
 import { site } from '../data/site'
@@ -11,6 +17,14 @@ import { Mail, Phone } from '@lucide/astro'
 const service = services.find((item) => item.slug === 'concrete-cleaning')!
 
 const relatedServices = services.filter((item) => item.slug !== service.slug)
+const relatedServiceLinks = relatedServices.map((item) => ({
+  label: item.name,
+  href: `/${item.slug}`,
+}))
+const activeServiceAreaLinks = serviceAreas.map((area) => ({
+  label: area.name,
+  href: `/service-areas/${area.slug}`,
+}))
 const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
 
 const seoTitle = 'Concrete Cleaning in Central Florida | CFL Wash Co.'
@@ -97,27 +111,12 @@ const faqs = [
   canonicalPath="/concrete-cleaning"
 >
   <main>
-    <Section spacing="none" class="py-16 sm:py-20">
-      <p
-        class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-primary)]"
-      >
-        Service
-      </p>
-      <h1
-        class="mt-4 max-w-4xl text-4xl font-semibold leading-tight text-[var(--color-text)] sm:text-5xl"
-      >
-        Concrete cleaning for patios, pads, aprons, curbs, and entry areas.
-      </h1>
-      <p
-        class="mt-5 max-w-3xl text-base leading-8 text-[var(--color-text-muted)] sm:text-lg"
-      >
-        Not every concrete surface is a driveway or sidewalk. This broader
-        service helps homeowners request a quote for appropriate concrete areas
-        around the property while keeping the offer centered on cleaning and
-        realistic surface expectations.
-      </p>
-
-      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+    <HeroSection
+      eyebrow="Service"
+      title="Concrete cleaning for patios, pads, aprons, curbs, and entry areas."
+      description="Not every concrete surface is a driveway or sidewalk. This broader service helps homeowners request a quote for appropriate concrete areas around the property while keeping the offer centered on cleaning and realistic surface expectations."
+    >
+      <Fragment slot="actions">
         <Button
           href="/request-quote"
           data-cta="quote"
@@ -133,8 +132,8 @@ const faqs = [
         >
           Email CFL Wash Co.
         </Button>
-      </div>
-    </Section>
+      </Fragment>
+    </HeroSection>
 
     <Section
       eyebrow="Where it fits"
@@ -155,46 +154,26 @@ const faqs = [
       </div>
     </Section>
 
-    <section class="bg-[var(--color-surface)]">
-      <div
-        class="mx-auto grid w-full max-w-[var(--container-width)] gap-8 px-6 py-[var(--section-spacing)] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]"
-      >
-        <div>
-          <p
-            class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-primary)]"
-          >
-            Quote considerations
-          </p>
-          <h2
-            class="mt-3 text-2xl font-semibold text-[var(--color-text)] sm:text-3xl"
-          >
-            Different concrete areas need different expectations.
-          </h2>
-          <p
-            class="mt-3 text-sm leading-7 text-[var(--color-text-muted)] sm:text-base"
-          >
-            A patio slab, curb edge, driveway apron, and utility pad can all
-            behave differently. The quote should account for surface condition,
-            water flow, access, and the type of staining before work is planned.
-          </p>
-        </div>
-
-        <div class="grid gap-4 sm:grid-cols-2">
-          {
-            considerations.map((item) => (
-              <Card class="bg-white">
-                <h3 class="text-base font-semibold text-[var(--color-text)]">
-                  {item.title}
-                </h3>
-                <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
-                  {item.description}
-                </p>
-              </Card>
-            ))
-          }
-        </div>
+    <SplitFeature
+      eyebrow="Quote considerations"
+      title="Different concrete areas need different expectations."
+      description="A patio slab, curb edge, driveway apron, and utility pad can all behave differently. The quote should account for surface condition, water flow, access, and the type of staining before work is planned."
+    >
+      <div class="grid gap-4 sm:grid-cols-2">
+        {
+          considerations.map((item) => (
+            <Card class="bg-white">
+              <h3 class="text-base font-semibold text-[var(--color-text)]">
+                {item.title}
+              </h3>
+              <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
+                {item.description}
+              </p>
+            </Card>
+          ))
+        }
       </div>
-    </section>
+    </SplitFeature>
 
     <Section
       eyebrow="Before the visit"
@@ -218,25 +197,7 @@ const faqs = [
       description="The quote request clarifies whether the surface fits the current service scope before work is scheduled."
       class="border-y border-[var(--color-border)] bg-[var(--color-surface)]"
     >
-      <div class="grid gap-4 md:grid-cols-3">
-        {
-          processSteps.map((step, index) => (
-            <Card class="bg-white">
-              <div class="flex items-center gap-4">
-                <span class="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-primary)] text-sm font-semibold text-white">
-                  {index + 1}
-                </span>
-                <h3 class="text-base font-semibold text-[var(--color-text)]">
-                  {step.title}
-                </h3>
-              </div>
-              <p class="mt-4 text-sm leading-7 text-[var(--color-text-muted)]">
-                {step.description}
-              </p>
-            </Card>
-          ))
-        }
-      </div>
+      <ProcessSteps steps={processSteps} />
     </Section>
 
     <Section
@@ -249,36 +210,14 @@ const faqs = [
           <h3 class="text-lg font-semibold text-[var(--color-text)]">
             Related services
           </h3>
-          <div class="mt-4 grid gap-3">
-            {
-              relatedServices.map((item) => (
-                <a
-                  href={`/${item.slug}`}
-                  class="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-4 text-sm font-semibold text-[var(--color-text)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
-                >
-                  {item.name}
-                </a>
-              ))
-            }
-          </div>
+          <LinkGrid items={relatedServiceLinks} class="mt-4" />
         </div>
 
         <div>
           <h3 class="text-lg font-semibold text-[var(--color-text)]">
             Active service areas
           </h3>
-          <div class="mt-4 grid gap-3">
-            {
-              serviceAreas.map((area) => (
-                <a
-                  href={`/service-areas/${area.slug}`}
-                  class="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-4 text-sm font-semibold text-[var(--color-text)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
-                >
-                  {area.name}
-                </a>
-              ))
-            }
-          </div>
+          <LinkGrid items={activeServiceAreaLinks} class="mt-4" />
         </div>
       </div>
     </Section>
@@ -288,80 +227,59 @@ const faqs = [
       title="Concrete cleaning questions"
       class="border-y border-[var(--color-border)] bg-[var(--color-surface)]"
     >
-      <div class="grid gap-4 md:grid-cols-3">
-        {
-          faqs.map((faq) => (
-            <Card class="bg-white">
-              <h3 class="text-base font-semibold text-[var(--color-text)]">
-                {faq.question}
-              </h3>
-              <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
-                {faq.answer}
-              </p>
-            </Card>
-          ))
-        }
-      </div>
+      <FAQList faqs={faqs} />
     </Section>
 
-    <section class="px-6 py-[var(--section-spacing)]">
-      <div
-        class="mx-auto max-w-[var(--container-width)] rounded-[var(--radius-lg)] bg-[var(--color-primary)] px-6 py-12 text-center text-white sm:px-10"
-      >
-        <h2 class="mx-auto max-w-2xl text-3xl font-semibold sm:text-4xl">
-          Request a concrete cleaning quote.
-        </h2>
-        <p class="mx-auto mt-4 max-w-2xl text-base leading-8 text-white/85">
-          Share the surface type, location, access details, and visible buildup
-          so CFL Wash Co. can review whether it fits the launch services.
-        </p>
-        <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-          <Button
-            href="/request-quote"
-            variant="secondary"
-            class="bg-white text-[var(--color-primary)] hover:bg-[var(--color-surface)]"
-            data-cta="quote"
-            data-cta-location={`service-${service.slug}-final`}
-          >
-            Request a Quote
-          </Button>
-          {
-            hasPhone ? (
-              <Button
-                href={site.phoneHref!}
-                variant="ghost"
-                class="text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
-                data-cta="call"
-                data-cta-location={`service-${service.slug}-final`}
-              >
-                <Phone
-                  slot="startIcon"
-                  class="h-5 w-5"
-                  aria-hidden="true"
-                  stroke-width="1.8"
-                />
-                Call {site.phoneDisplay}
-              </Button>
-            ) : (
-              <Button
-                href={`mailto:${site.email}`}
-                variant="ghost"
-                class="text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
-                data-cta="email"
-                data-cta-location={`service-${service.slug}-final`}
-              >
-                <Mail
-                  slot="startIcon"
-                  class="h-5 w-5"
-                  aria-hidden="true"
-                  stroke-width="1.8"
-                />
-                Email CFL Wash Co.
-              </Button>
-            )
-          }
-        </div>
-      </div>
-    </section>
+    <CTASection
+      title="Request a concrete cleaning quote."
+      description="Share the surface type, location, access details, and visible buildup so CFL Wash Co. can review whether it fits the launch services."
+    >
+      <Fragment slot="actions">
+        <Button
+          href="/request-quote"
+          variant="secondary"
+          class="bg-white text-[var(--color-primary)] hover:bg-[var(--color-surface)]"
+          data-cta="quote"
+          data-cta-location={`service-${service.slug}-final`}
+        >
+          Request a Quote
+        </Button>
+        {
+          hasPhone ? (
+            <Button
+              href={site.phoneHref!}
+              variant="ghost"
+              class="text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
+              data-cta="call"
+              data-cta-location={`service-${service.slug}-final`}
+            >
+              <Phone
+                slot="startIcon"
+                class="h-5 w-5"
+                aria-hidden="true"
+                stroke-width="1.8"
+              />
+              Call {site.phoneDisplay}
+            </Button>
+          ) : (
+            <Button
+              href={`mailto:${site.email}`}
+              variant="ghost"
+              class="text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
+              data-cta="email"
+              data-cta-location={`service-${service.slug}-final`}
+            >
+              <Mail
+                slot="startIcon"
+                class="h-5 w-5"
+                aria-hidden="true"
+                stroke-width="1.8"
+              />
+              Email CFL Wash Co.
+            </Button>
+          )
+        }
+      </Fragment>
+    </CTASection>
   </main>
 </Layout>
