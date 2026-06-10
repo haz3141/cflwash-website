@@ -66,6 +66,21 @@ Do not substitute the illustrated badge or compact monogram for Flow Crest in fa
 | `public/images/brand/hero-homepage.webp`           | Homepage hero artwork                    | Decorative page artwork.                              |
 | `public/images/brand/og-default.png`               | Open Graph and social sharing            | Keep on-brand and claim-safe.                         |
 
+## Responsive Delivery Derivatives
+
+These files are resized delivery derivatives created from the approved raster sources. They are not new brand masters.
+
+| File                                                                     | Source asset                                              | Purpose                                       |
+| ------------------------------------------------------------------------ | --------------------------------------------------------- | --------------------------------------------- |
+| `public/images/brand/responsive/hero-homepage-480.webp`                  | `public/images/brand/hero-homepage.webp`                  | Mobile homepage hero candidate                |
+| `public/images/brand/responsive/hero-homepage-768.webp`                  | `public/images/brand/hero-homepage.webp`                  | Mobile high-density and tablet hero candidate |
+| `public/images/brand/responsive/hero-homepage-1024.webp`                 | `public/images/brand/hero-homepage.webp`                  | Desktop homepage hero candidate               |
+| `public/images/brand/responsive/hero-homepage-1280.webp`                 | `public/images/brand/hero-homepage.webp`                  | High-density desktop hero candidate           |
+| `public/images/brand/responsive/logo-primary-header-transparent-320.png` | `public/images/brand/logo-primary-header-transparent.png` | Header wordmark candidate                     |
+| `public/images/brand/responsive/logo-primary-header-transparent-480.png` | `public/images/brand/logo-primary-header-transparent.png` | High-density header wordmark candidate        |
+| `public/images/brand/responsive/logo-primary-reversed-320.png`           | `public/images/brand/logo-primary-reversed.png`           | Footer wordmark candidate                     |
+| `public/images/brand/responsive/logo-primary-reversed-480.png`           | `public/images/brand/logo-primary-reversed.png`           | High-density footer wordmark candidate        |
+
 ## Header-Specific Wordmark
 
 `public/images/brand/logo-primary-header-transparent.png` is the approved header-specific wordmark derivative.
