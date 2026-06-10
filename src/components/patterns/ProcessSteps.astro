@@ -1,0 +1,74 @@
+---
+import Card from '../ui/Card.astro'
+
+type Step = {
+  title: string
+  description: string
+}
+
+type Variant = 'featured' | 'compact'
+type Tone = 'default' | 'soft'
+
+type Props = {
+  steps: Step[]
+  variant?: Variant
+  cardTone?: Tone
+  class?: string
+}
+
+const {
+  steps,
+  variant = 'compact',
+  cardTone = 'default',
+  class: className = '',
+} = Astro.props as Props
+
+const listClasses =
+  `grid list-none gap-4 p-0 m-0 md:grid-cols-3 ${className}`.trim()
+const isFeatured = variant === 'featured'
+---
+
+<ol class={listClasses}>
+  {
+    steps.map((step, index) => (
+      <li class="min-w-0">
+        <Card
+          tone={cardTone}
+          padding={isFeatured ? 'lg' : 'md'}
+          class={`flex h-full flex-col ${cardTone === 'default' ? 'bg-white' : ''}`}
+        >
+          {isFeatured ? (
+            <>
+              <div class="flex items-center">
+                <span class="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--color-action)] text-base font-semibold text-white shadow-[var(--shadow-xs)] ring-4 ring-[var(--color-surface)] md:h-14 md:w-14 md:text-lg">
+                  {index + 1}
+                </span>
+              </div>
+              <h3 class="mt-5 text-section-subtitle text-[var(--color-text)]">
+                {step.title}
+              </h3>
+            </>
+          ) : (
+            <div class="flex items-center gap-4">
+              <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-primary)] text-sm font-semibold text-white">
+                {index + 1}
+              </span>
+              <h3 class="text-base font-semibold text-[var(--color-text)]">
+                {step.title}
+              </h3>
+            </div>
+          )}
+          <p
+            class={
+              isFeatured
+                ? 'mt-3 text-sm leading-7 text-[var(--color-text-muted)]'
+                : 'mt-4 text-sm leading-7 text-[var(--color-text-muted)]'
+            }
+          >
+            {step.description}
+          </p>
+        </Card>
+      </li>
+    ))
+  }
+</ol>

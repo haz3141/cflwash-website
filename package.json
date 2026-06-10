@@ -9,12 +9,13 @@
     "dev": "astro dev",
     "build": "astro build",
     "audit:site": "node scripts/audit-site.mjs",
+    "audit:patterns": "node scripts/audit-patterns.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint .",
-    "check": "pnpm format:check && pnpm lint && pnpm build && pnpm audit:site"
+    "check": "pnpm format:check && pnpm lint && pnpm build && pnpm audit:patterns && pnpm audit:site"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",

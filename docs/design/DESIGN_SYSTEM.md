@@ -239,6 +239,163 @@ Key expectations:
 
 ## Component APIs
 
+### Page Pattern Components
+
+The component hierarchy is intentionally layered:
+
+- `src/components/ui/` contains low-level primitives: `Button`, `Card`, `Container`, `IconBadge`, `Section`, and `SectionHeader`.
+- `src/components/patterns/` contains reusable page compositions that own common responsive structure while pages still own copy, SEO, content order, and page-specific slots.
+- `src/components/site/` remains reserved for global chrome such as the header, footer, analytics, schema, and mobile sticky CTA.
+
+Use page patterns when at least two current pages share the same structure. Do not create speculative variants for future page ideas.
+
+#### HeroSection
+
+Purpose: page-opening structure for the homepage split hero and compact service/city heroes.
+
+Allowed variants:
+
+- `split`: homepage-style copy plus media slot, stacked on mobile and two-column on desktop.
+- `compact`: service/city page intro with optional aside slot.
+
+Allowed tones:
+
+- `default`
+- `soft`
+
+Slots:
+
+- `actions` for page-owned CTA buttons and analytics attributes.
+- `media` for split-hero visual media.
+- `aside` for compact supporting panels such as Deltona quote priorities.
+
+Rules:
+
+- Keep the visible H1 copy page-owned and claim-safe.
+- Do not add `centered`, `full-bleed`, or `editorial` variants until real current pages require them.
+- Do not hide CTA fallback logic inside the component.
+
+#### SplitFeature
+
+Purpose: recurring two-column sections with a text column and flexible secondary content.
+
+Allowed options:
+
+- `tone`: `default` or `soft`.
+- `columns`: `content-heavy` or `media-heavy`.
+- `align`: `start` or `center`.
+- `titleSize`: `compact` for service/city sections or `section` for homepage-scale sections.
+- `descriptionSize`: `body` or `lead`.
+
+Slots:
+
+- Default slot for the secondary content column.
+- `actions` for buttons or closely related content beneath the text.
+
+Rules:
+
+- Use it for real split sections, not for every card grid.
+- Keep local examples, cards, lists, and links in page-owned slot content.
+- Preserve the current fixed page gutters used by split sections; do not normalize them to container gutters unless the page itself is being redesigned.
+
+#### ProcessSteps
+
+Purpose: accessible numbered process lists.
+
+Allowed variants:
+
+- `compact`: inline number marker and title for service pages.
+- `featured`: larger number-led cards for the homepage process.
+
+Allowed `cardTone` values:
+
+- `default`
+- `soft`
+
+Semantics:
+
+- Renders an ordered list.
+- Uses visible numeric markers as the primary visual system.
+
+Rules:
+
+- Do not add icon support until a current page requires it.
+- Keep the process to clear, short steps.
+
+#### LinkGrid
+
+Purpose: repeated link groups such as active service areas, related services, nearby cities, and service links.
+
+Allowed variants:
+
+- `compact`: white linked cards.
+- `cards`: page-surface linked cards for broader grids.
+
+Allowed item state:
+
+- `inactive`: non-link item, used for future service areas that should not imply a published route.
+
+Rules:
+
+- Inactive items must not render as anchors.
+- Linked items are the default behavior when an `href` is present.
+- Use descriptions only when the current page already has supporting summary text.
+
+#### CTASection
+
+Purpose: final conversion sections on homepage, service pages, and service-area pages.
+
+Allowed surfaces:
+
+- `default`: majority service/city appearance with fixed horizontal padding, no shadow, and no overflow clipping.
+- `elevated`: homepage treatment with subtle elevation.
+
+Allowed title widths:
+
+- `default`
+- `wide`
+
+Slots:
+
+- `actions` for page-owned `Button` components.
+
+Rules:
+
+- Preserve `data-cta` and `data-cta-location` on the Button instances.
+- Do not centralize phone/email fallback logic in the pattern.
+- Use the strong branded panel sparingly, usually once near the end of a page.
+- Keep the default panel restrained; reserve elevation for the homepage or another current page that explicitly needs it.
+
+#### FAQList
+
+Purpose: static accessible FAQ lists for service and city pages.
+
+Allowed columns:
+
+- `two`: deeper FAQ sets such as Deltona.
+- `three`: shorter service/city FAQ sets.
+
+Rules:
+
+- Render static content; do not build an accordion until a real content need requires it.
+- Keep each question and answer page-owned.
+
+### Page Rhythm Rules
+
+- Use a background-tone change or a border as the primary separator, usually not both.
+- Avoid more than two consecutive card-grid sections.
+- Avoid repeating the same three-column card pattern multiple times on one page.
+- Use strong branded CTA sections sparingly.
+- Let page-specific content choose section order and tone.
+- Keep cards for selectable, scannable, or truly distinct items.
+- Prefer lists, timelines, split features, or editorial layouts when cards add no value.
+
+### Supporting Patterns Held Back
+
+- `TrustStrip` should wait until another current page shares the homepage trust-row need.
+- `FeatureList` should wait until bullets, prep notes, and scenario lists converge on one clear API.
+- `MediaPanel` should wait until real photography creates repeated media-frame behavior beyond the homepage hero.
+
 ### Button
 
 Props:

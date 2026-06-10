@@ -1,0 +1,77 @@
+---
+type Item = {
+  label: string
+  href?: string
+  description?: string
+  status?: 'inactive'
+}
+
+type Variant = 'cards' | 'compact'
+type Columns = 'one' | 'two'
+type Density = 'compact' | 'comfortable'
+
+type Props = {
+  items: Item[]
+  variant?: Variant
+  columns?: Columns
+  density?: Density
+  class?: string
+}
+
+const {
+  items,
+  variant = 'compact',
+  columns = 'one',
+  density = 'compact',
+  class: className = '',
+} = Astro.props as Props
+
+const gridClass = columns === 'two' ? 'grid gap-3 sm:grid-cols-2' : 'grid gap-3'
+const paddingClass = density === 'comfortable' ? 'p-5' : 'p-4'
+const labelClass =
+  density === 'comfortable'
+    ? 'text-base font-semibold'
+    : 'text-sm font-semibold'
+const itemBase =
+  variant === 'cards'
+    ? `rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-page)] ${paddingClass} text-[var(--color-text)]`
+    : `rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white ${paddingClass} text-[var(--color-text)]`
+const linkClass = `${itemBase} transition-colors duration-[var(--duration-fast)] hover:border-[var(--color-action)] hover:text-[var(--color-action)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2`
+const inactiveClass = `${itemBase} border-dashed bg-[var(--color-page)]/70 text-[var(--color-text-muted)]`
+---
+
+<ul class={`${gridClass} ${className}`.trim()}>
+  {
+    items.map((item) => (
+      <li>
+        {item.href && item.status !== 'inactive' ? (
+          <a href={item.href} class={linkClass}>
+            <span
+              class={`${labelClass} ${item.description ? 'block' : ''}`.trim()}
+            >
+              {item.label}
+            </span>
+            {item.description && (
+              <span class="mt-3 block text-sm font-normal leading-7 text-[var(--color-text-muted)]">
+                {item.description}
+              </span>
+            )}
+          </a>
+        ) : (
+          <p class={inactiveClass}>
+            <span
+              class={`${labelClass} ${item.description ? 'block' : ''}`.trim()}
+            >
+              {item.label}
+            </span>
+            {item.description && (
+              <span class="mt-3 block text-sm font-normal leading-7 text-[var(--color-text-muted)]">
+                {item.description}
+              </span>
+            )}
+          </p>
+        )}
+      </li>
+    ))
+  }
+</ul>
