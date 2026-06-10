@@ -2,7 +2,7 @@
 import Button from '../ui/Button.astro'
 import Container from '../ui/Container.astro'
 import { site } from '../../data/site'
-import { ClipboardList, Phone } from '@lucide/astro'
+import { ClipboardList, Menu, Phone, X } from '@lucide/astro'
 
 const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
 ---
@@ -12,7 +12,7 @@ const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
 >
   <Container
     as="div"
-    class="flex items-center justify-between gap-4 py-3 sm:py-4"
+    class="relative flex items-center justify-between gap-4 py-3 sm:py-4"
   >
     <a
       href="/"
@@ -29,6 +29,97 @@ const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
         fetchpriority="high"
       />
     </a>
+
+    <details class="group relative shrink-0 lg:hidden">
+      <summary
+        aria-controls="mobile-navigation-panel"
+        data-mobile-nav-trigger
+        class="flex h-11 w-11 list-none items-center justify-center rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-page)] text-[var(--color-text)] shadow-[var(--shadow-xs)] transition-colors duration-[var(--duration-fast)] hover:bg-[var(--color-surface)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-page)] [&::-webkit-details-marker]:hidden"
+      >
+        <Menu
+          class="h-5 w-5 group-open:hidden"
+          aria-hidden="true"
+          stroke-width="1.8"
+        />
+        <X
+          class="hidden h-5 w-5 group-open:block"
+          aria-hidden="true"
+          stroke-width="1.8"
+        />
+        <span class="sr-only group-open:hidden">Open navigation menu</span>
+        <span class="sr-only hidden group-open:inline"
+          >Close navigation menu</span
+        >
+      </summary>
+
+      <div
+        class="absolute right-0 top-full z-40 pt-3 w-[calc(100vw-1.5rem)] max-w-sm"
+      >
+        <div
+          id="mobile-navigation-panel"
+          data-mobile-nav-panel
+          class="overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-page)] shadow-[var(--shadow-sm)]"
+        >
+          <nav
+            aria-label="Mobile navigation"
+            class="divide-y divide-[var(--color-border)]"
+          >
+            <a
+              href="/#services"
+              class="flex min-h-11 items-center px-4 py-3 text-sm font-medium text-[var(--color-text)] transition-colors duration-[var(--duration-fast)] hover:bg-[var(--color-surface)] focus:outline-none focus-visible:bg-[var(--color-surface)] focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--color-focus-ring)]"
+              >Services</a
+            >
+            <a
+              href="/#service-areas"
+              class="flex min-h-11 items-center px-4 py-3 text-sm font-medium text-[var(--color-text)] transition-colors duration-[var(--duration-fast)] hover:bg-[var(--color-surface)] focus:outline-none focus-visible:bg-[var(--color-surface)] focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--color-focus-ring)]"
+              >Service Areas</a
+            >
+          </nav>
+
+          <div class="border-t border-[var(--color-border)] p-2">
+            <div class="grid gap-2">
+              <Button
+                href="/request-quote"
+                size="sm"
+                fullWidth
+                data-cta="quote"
+                data-cta-location="mobile-header-menu"
+              >
+                <ClipboardList
+                  slot="startIcon"
+                  class="h-5 w-5"
+                  aria-hidden="true"
+                  stroke-width="1.8"
+                />
+                Request a Quote
+              </Button>
+
+              {
+                hasPhone && (
+                  <Button
+                    href={site.phoneHref}
+                    variant="secondary"
+                    size="sm"
+                    fullWidth
+                    data-cta="call"
+                    data-cta-location="mobile-header-menu"
+                    class="whitespace-nowrap"
+                  >
+                    <Phone
+                      slot="startIcon"
+                      class="h-5 w-5"
+                      aria-hidden="true"
+                      stroke-width="1.8"
+                    />
+                    Call {site.phoneDisplay}
+                  </Button>
+                )
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </details>
 
     <nav
       class="hidden items-center gap-6 text-sm font-medium text-[var(--color-text-muted)] lg:flex"
@@ -52,7 +143,7 @@ const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
       >
     </nav>
 
-    <div class="flex items-center gap-3">
+    <div class="hidden items-center gap-3 lg:flex">
       {
         hasPhone && (
           <Button
@@ -61,7 +152,7 @@ const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
             size="sm"
             data-cta="call"
             data-cta-location="header"
-            class="hidden md:inline-flex"
+            aria-label={`Call ${site.phoneDisplay}`}
           >
             <Phone
               slot="startIcon"
@@ -90,3 +181,47 @@ const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
     </div>
   </Container>
 </header>
+
+<script is:inline>
+  const mobileNav = document
+    .querySelector('[data-mobile-nav-trigger]')
+    ?.closest('details')
+
+  if (mobileNav instanceof HTMLDetailsElement) {
+    const trigger = mobileNav.querySelector('[data-mobile-nav-trigger]')
+    const panel = mobileNav.querySelector('[data-mobile-nav-panel]')
+
+    const closeMenu = (focusTrigger = false) => {
+      mobileNav.open = false
+
+      if (focusTrigger && trigger instanceof HTMLElement) {
+        trigger.focus()
+      }
+    }
+
+    panel?.addEventListener('click', (event) => {
+      const target = event.target
+
+      if (target instanceof Element && target.closest('a')) {
+        closeMenu()
+      }
+    })
+
+    document.addEventListener('pointerdown', (event) => {
+      if (!mobileNav.open) return
+
+      const target = event.target
+
+      if (target instanceof Node && !mobileNav.contains(target)) {
+        closeMenu()
+      }
+    })
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape' || !mobileNav.open) return
+
+      event.preventDefault()
+      closeMenu(true)
+    })
+  }
+</script>

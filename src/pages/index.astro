@@ -17,7 +17,6 @@ import {
   MapPin,
   MessageSquareText,
   Phone,
-  Sparkles,
 } from '@lucide/astro'
 
 const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
@@ -51,19 +50,16 @@ const trustCues = [
 
 const processSteps = [
   {
-    icon: ClipboardList,
     title: 'Request a quote',
     description:
       'Share the surface, city, and a few details about the driveway, sidewalk, walkway, or concrete area.',
   },
   {
-    icon: MessageSquareText,
     title: 'Confirm the scope',
     description:
       'CFL Wash Co. reviews the job details and confirms the best cleaning plan before work begins.',
   },
   {
-    icon: Sparkles,
     title: 'Clean the concrete',
     description:
       'The work stays focused on cleaner-looking concrete and practical curb appeal for the property.',
@@ -287,26 +283,27 @@ const serviceIcons = {
       title="Simple quote-first process"
       description="Request a quote, confirm the scope, and move forward with the concrete cleaning that fits the property."
     >
-      <div class="grid gap-4 md:grid-cols-3">
+      <ol class="grid list-none gap-4 p-0 m-0 md:grid-cols-3">
         {
           processSteps.map((step, index) => (
-            <Card tone="soft" padding="lg" class="flex h-full flex-col">
-              <div class="flex items-center gap-4">
-                <IconBadge icon={step.icon} tone="warm" size="md" />
-                <span class="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-action)] text-sm font-semibold text-white">
-                  {index + 1}
-                </span>
-              </div>
-              <h3 class="mt-5 text-section-subtitle text-[var(--color-text)]">
-                {step.title}
-              </h3>
-              <p class="mt-4 text-sm leading-7 text-[var(--color-text-muted)]">
-                {step.description}
-              </p>
-            </Card>
+            <li class="min-w-0">
+              <Card tone="soft" padding="lg" class="flex h-full flex-col">
+                <div class="flex items-center">
+                  <span class="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--color-action)] text-base font-semibold text-white shadow-[var(--shadow-xs)] ring-4 ring-[var(--color-surface)] md:h-14 md:w-14 md:text-lg">
+                    {index + 1}
+                  </span>
+                </div>
+                <h3 class="mt-5 text-section-subtitle text-[var(--color-text)]">
+                  {step.title}
+                </h3>
+                <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
+                  {step.description}
+                </p>
+              </Card>
+            </li>
           ))
         }
-      </div>
+      </ol>
     </Section>
 
     <section
