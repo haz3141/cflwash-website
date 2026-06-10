@@ -2,11 +2,11 @@
 
 Read these files before making changes:
 
-- `PROJECT_RULES.md`
-- `docs/DESIGN.md`
-- `docs/LAUNCH.md`
-- `docs/SEO.md`
-- `docs/CLAIMS.md`
+- `docs/engineering/PROJECT_RULES.md`
+- `docs/design/DESIGN.md`
+- `docs/strategy/LAUNCH.md`
+- `docs/strategy/SEO.md`
+- `docs/strategy/CLAIMS.md`
 
 ## Git workflow
 
@@ -51,6 +51,13 @@ Current priorities:
 - Preserve the quote backend, header, footer, homepage composition, and shared design system unless the assigned task requires changing them.
 - Avoid unrelated refactors.
 - Reuse existing components and data structures before creating new abstractions.
+- For issue-specific work, read only the files named in the issue first and do not reread unrelated documentation unless the issue explicitly requires it.
+
+## Model routing
+
+- Use the smallest model likely to complete the task correctly.
+- Use a mini model for bounded mechanical edits, docs, tests, and straightforward fixes.
+- Use a frontier model for visual judgment, architecture, security-sensitive changes, difficult debugging, or broad multi-file reasoning.
 
 ## Validation
 

@@ -36,8 +36,8 @@ const labelClass =
     : 'text-sm font-semibold'
 const itemBase =
   variant === 'cards'
-    ? `block h-full rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-page)] ${paddingClass} text-[var(--color-text)]`
-    : `block h-full rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white ${paddingClass} text-[var(--color-text)]`
+    ? `block h-full w-full rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-page)] ${paddingClass} text-[var(--color-text)]`
+    : `block h-full w-full rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white ${paddingClass} text-[var(--color-text)]`
 const linkClass = `${itemBase} transition-colors duration-[var(--duration-fast)] hover:border-[var(--color-action)] hover:text-[var(--color-action)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2`
 const inactiveClass = `${itemBase} border-dashed bg-[var(--color-page)]/70 text-[var(--color-text-muted)]`
 ---
