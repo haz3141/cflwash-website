@@ -49,6 +49,40 @@ record_template:
     - 'Do not use city seals, government logos, license plates, house numbers, or other sensitive details.'
 
 city_image_records:
+  - city: Sanford
+    intended_page: /service-areas/sanford
+    subject: Downtown Sanford riverfront civic context; fallback historic public architecture or City Hall frontage
+    photographer_or_owner: CFL Wash Co. owner photography preferred
+    original_source_url_or_owner_record: https://sanfordfl.gov/visitors/riverwalk/
+    license_or_permission_basis: Candidate-only planning note; official Sanford pages verify recognizability but do not grant reuse rights
+    commercial_website_use_allowed: pending
+    derivatives_cropping_allowed: pending
+    attribution_required: pending
+    attribution_text: null
+    date_acquired_or_verified: '2026-06-11'
+    reviewer: Codex
+    approval_status: candidate-only
+    local_asset_path: null
+    notes:
+      - 'Prefer owner-shot photography from a public vantage point that signals Sanford through riverfront or historic civic context.'
+      - 'Avoid city seals, marina branding as the focal point, crowds, children, readable plates, house numbers, and any framing that implies endorsement or completed work.'
+  - city: Lake Mary
+    intended_page: /service-areas/lake-mary
+    subject: Central Park at City Hall civic-core context; fallback Trailhead Park gateway fountain and Rinehart Trail context
+    photographer_or_owner: CFL Wash Co. owner photography preferred
+    original_source_url_or_owner_record: https://www.lakemaryfl.com/facilities/facility/details/Central-Park-at-City-Hall-1
+    license_or_permission_basis: Candidate-only planning note; official Lake Mary pages verify recognizability but do not grant reuse rights
+    commercial_website_use_allowed: pending
+    derivatives_cropping_allowed: pending
+    attribution_required: pending
+    attribution_text: null
+    date_acquired_or_verified: '2026-06-11'
+    reviewer: Codex
+    approval_status: candidate-only
+    local_asset_path: null
+    notes:
+      - 'Prefer owner-shot public-vantage imagery of the City Hall civic core or Trailhead Park gateway context.'
+      - 'Avoid city seals, private faces as the focal point, children, readable plates, concession branding, and any composition that implies endorsement or project proof.'
   - city: Deltona
     intended_page: /service-areas/deltona
     subject: Deltona City Hall exterior or another recognizable public civic setting

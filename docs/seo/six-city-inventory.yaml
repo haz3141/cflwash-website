@@ -160,24 +160,24 @@ cities:
     municipality_status: municipal
     operational_priority: planned
     research_brief_path: docs/seo/cities/sanford.md
-    research_status: not-started
+    research_status: verified
     current_route_status: missing
     current_page_quality_status: missing
     index_status: not-ready
     sitemap_status: not-ready
     navigation_status: not-linked
-    image_status: not-started
-    image_subject_candidate: null
-    image_rights_status: not-started
-    image_source_or_owner: null
+    image_status: candidate-only
+    image_subject_candidate: Downtown Sanford riverfront civic context, with historic public architecture or City Hall frontage as fallback
+    image_rights_status: candidate-only
+    image_source_or_owner: Owner photography preferred; third-party civic or riverfront imagery requires separate permission or commercial license review
     attribution_requirement: null
     completed_jobs_count: null
     publishable_projects_count: null
     qualified_leads_count: null
     last_reviewed_date: '2026-06-11'
     blocking_decisions:
-      - 'Research brief creation must happen before page implementation.'
-      - 'No public city image may be added until a manifest record is approved.'
+      - 'Route creation and service-area data entry require a separate implementation issue.'
+      - 'No public Sanford image may be added until a manifest record is approved.'
 
   - city: Lake Mary
     slug: lake-mary
@@ -185,21 +185,21 @@ cities:
     municipality_status: municipal
     operational_priority: planned
     research_brief_path: docs/seo/cities/lake-mary.md
-    research_status: not-started
+    research_status: verified
     current_route_status: missing
     current_page_quality_status: missing
     index_status: not-ready
     sitemap_status: not-ready
     navigation_status: not-linked
-    image_status: not-started
-    image_subject_candidate: null
-    image_rights_status: not-started
-    image_source_or_owner: null
+    image_status: candidate-only
+    image_subject_candidate: Central Park at City Hall as primary, with Trailhead Park gateway context as fallback
+    image_rights_status: candidate-only
+    image_source_or_owner: Owner photography preferred; third-party civic or gateway imagery requires separate permission or commercial license review
     attribution_requirement: null
     completed_jobs_count: null
     publishable_projects_count: null
     qualified_leads_count: null
     last_reviewed_date: '2026-06-11'
     blocking_decisions:
-      - 'Research brief creation must happen before page implementation.'
-      - 'No public city image may be added until a manifest record is approved.'
+      - 'Route creation and service-area data entry require a separate implementation issue.'
+      - 'No public Lake Mary image may be added until a manifest record is approved.'
