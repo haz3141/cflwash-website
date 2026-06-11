@@ -1,0 +1,205 @@
+inventory_name: 'CFL Wash Co. six-city launch inventory'
+inventory_scope: 'Internal source of truth before additional research, image selection, or page implementation'
+last_updated: '2026-06-11'
+
+field_controls:
+  municipality_status:
+    - municipal
+    - unincorporated
+  operational_priority:
+    - primary-live
+    - secondary-live
+    - planned
+  research_status:
+    - not-started
+    - in-progress
+    - verified
+    - needs-revision
+  current_route_status:
+    - live
+    - missing
+  current_page_quality_status:
+    - missing
+    - existing-needs-audit
+    - draft
+    - implemented
+    - index-approved
+    - noindex-revise
+    - not-ready
+  index_status:
+    - index-approved
+    - noindex-revise
+    - not-ready
+  sitemap_status:
+    - included
+    - excluded
+    - not-ready
+  navigation_status:
+    - linked
+    - not-linked
+    - not-ready
+  image_status:
+    - not-started
+    - candidate-only
+    - owner-photo-needed
+    - license-review
+    - approved
+    - rejected
+  image_rights_status:
+    - not-started
+    - candidate-only
+    - owner-photo-needed
+    - license-review
+    - approved
+    - rejected
+
+cities:
+  - city: Deltona
+    slug: deltona
+    county: Volusia County
+    municipality_status: municipal
+    operational_priority: primary-live
+    research_brief_path: docs/seo/cities/deltona.md
+    research_status: verified
+    current_route_status: live
+    current_page_quality_status: implemented
+    index_status: index-approved
+    sitemap_status: included
+    navigation_status: linked
+    image_status: not-started
+    image_subject_candidate: null
+    image_rights_status: not-started
+    image_source_or_owner: null
+    attribution_requirement: null
+    completed_jobs_count: null
+    publishable_projects_count: null
+    qualified_leads_count: null
+    last_reviewed_date: '2026-06-11'
+    blocking_decisions:
+      - 'No public city image may be added until a manifest record is approved.'
+      - 'Project proof stays internal until real jobs, approval, and publication permission exist.'
+
+  - city: Orange City
+    slug: orange-city
+    county: Volusia County
+    municipality_status: municipal
+    operational_priority: secondary-live
+    research_brief_path: docs/seo/cities/orange-city.md
+    research_status: not-started
+    current_route_status: live
+    current_page_quality_status: existing-needs-audit
+    index_status: index-approved
+    sitemap_status: included
+    navigation_status: linked
+    image_status: not-started
+    image_subject_candidate: null
+    image_rights_status: not-started
+    image_source_or_owner: null
+    attribution_requirement: null
+    completed_jobs_count: null
+    publishable_projects_count: null
+    qualified_leads_count: null
+    last_reviewed_date: '2026-06-11'
+    blocking_decisions:
+      - 'A research brief must exist before any additional city-specific research or page revision work begins.'
+      - 'No public city image may be added until a manifest record is approved.'
+
+  - city: DeBary
+    slug: debary
+    county: Volusia County
+    municipality_status: municipal
+    operational_priority: secondary-live
+    research_brief_path: docs/seo/cities/debary.md
+    research_status: not-started
+    current_route_status: live
+    current_page_quality_status: existing-needs-audit
+    index_status: index-approved
+    sitemap_status: included
+    navigation_status: linked
+    image_status: not-started
+    image_subject_candidate: null
+    image_rights_status: not-started
+    image_source_or_owner: null
+    attribution_requirement: null
+    completed_jobs_count: null
+    publishable_projects_count: null
+    qualified_leads_count: null
+    last_reviewed_date: '2026-06-11'
+    blocking_decisions:
+      - 'A research brief must exist before any additional city-specific research or page revision work begins.'
+      - 'No public city image may be added until a manifest record is approved.'
+
+  - city: DeLand
+    slug: deland
+    county: Volusia County
+    municipality_status: municipal
+    operational_priority: planned
+    research_brief_path: docs/seo/cities/deland.md
+    research_status: not-started
+    current_route_status: missing
+    current_page_quality_status: missing
+    index_status: not-ready
+    sitemap_status: not-ready
+    navigation_status: not-linked
+    image_status: not-started
+    image_subject_candidate: null
+    image_rights_status: not-started
+    image_source_or_owner: null
+    attribution_requirement: null
+    completed_jobs_count: null
+    publishable_projects_count: null
+    qualified_leads_count: null
+    last_reviewed_date: '2026-06-11'
+    blocking_decisions:
+      - 'Research brief creation must happen before page implementation.'
+      - 'No public city image may be added until a manifest record is approved.'
+
+  - city: Sanford
+    slug: sanford
+    county: Seminole County
+    municipality_status: municipal
+    operational_priority: planned
+    research_brief_path: docs/seo/cities/sanford.md
+    research_status: not-started
+    current_route_status: missing
+    current_page_quality_status: missing
+    index_status: not-ready
+    sitemap_status: not-ready
+    navigation_status: not-linked
+    image_status: not-started
+    image_subject_candidate: null
+    image_rights_status: not-started
+    image_source_or_owner: null
+    attribution_requirement: null
+    completed_jobs_count: null
+    publishable_projects_count: null
+    qualified_leads_count: null
+    last_reviewed_date: '2026-06-11'
+    blocking_decisions:
+      - 'Research brief creation must happen before page implementation.'
+      - 'No public city image may be added until a manifest record is approved.'
+
+  - city: Lake Mary
+    slug: lake-mary
+    county: Seminole County
+    municipality_status: municipal
+    operational_priority: planned
+    research_brief_path: docs/seo/cities/lake-mary.md
+    research_status: not-started
+    current_route_status: missing
+    current_page_quality_status: missing
+    index_status: not-ready
+    sitemap_status: not-ready
+    navigation_status: not-linked
+    image_status: not-started
+    image_subject_candidate: null
+    image_rights_status: not-started
+    image_source_or_owner: null
+    attribution_requirement: null
+    completed_jobs_count: null
+    publishable_projects_count: null
+    qualified_leads_count: null
+    last_reviewed_date: '2026-06-11'
+    blocking_decisions:
+      - 'Research brief creation must happen before page implementation.'
+      - 'No public city image may be added until a manifest record is approved.'
