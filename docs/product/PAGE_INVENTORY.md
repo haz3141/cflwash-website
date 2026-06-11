@@ -26,7 +26,9 @@ These are named in strategy docs and should only be added when the site is ready
 
 Add only when the operational proof exists:
 
-- `/projects/[slug]` project pages
+- `/projects/[slug]` project pages, after the architecture in
+  [ADR 0006: Real Project Publishing System](../adr/0006-real-project-publishing-system.md)
+  is approved and real verification plus permission records exist
 - FAQ expansions tied to actual customer questions
 - Service-area expansions with unique local content
 
