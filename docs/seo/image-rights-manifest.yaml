@@ -44,110 +44,191 @@ record_template:
   reviewer: null
   approval_status: candidate-only
   local_asset_path: null
+  source_dimensions: null
+  public_derivative_paths: []
+  public_derivative_details: []
   notes:
     - 'Do not treat a public web image as reusable without a separate rights check.'
     - 'Do not use city seals, government logos, license plates, house numbers, or other sensitive details.'
 
 city_image_records:
-  - city: Sanford
-    intended_page: /service-areas/sanford
-    subject: Downtown Sanford riverfront civic context; fallback historic public architecture or City Hall frontage
-    photographer_or_owner: CFL Wash Co. owner photography preferred
-    original_source_url_or_owner_record: https://sanfordfl.gov/visitors/riverwalk/
-    license_or_permission_basis: Candidate-only planning note; official Sanford pages verify recognizability but do not grant reuse rights
-    commercial_website_use_allowed: pending
-    derivatives_cropping_allowed: pending
-    attribution_required: pending
-    attribution_text: null
-    date_acquired_or_verified: '2026-06-11'
-    reviewer: Codex
-    approval_status: candidate-only
-    local_asset_path: null
-    notes:
-      - 'Prefer owner-shot photography from a public vantage point that signals Sanford through riverfront or historic civic context.'
-      - 'Avoid city seals, marina branding as the focal point, crowds, children, readable plates, house numbers, and any framing that implies endorsement or completed work.'
-  - city: Lake Mary
-    intended_page: /service-areas/lake-mary
-    subject: Central Park at City Hall civic-core context; fallback Trailhead Park gateway fountain and Rinehart Trail context
-    photographer_or_owner: CFL Wash Co. owner photography preferred
-    original_source_url_or_owner_record: https://www.lakemaryfl.com/facilities/facility/details/Central-Park-at-City-Hall-1
-    license_or_permission_basis: Candidate-only planning note; official Lake Mary pages verify recognizability but do not grant reuse rights
-    commercial_website_use_allowed: pending
-    derivatives_cropping_allowed: pending
-    attribution_required: pending
-    attribution_text: null
-    date_acquired_or_verified: '2026-06-11'
-    reviewer: Codex
-    approval_status: candidate-only
-    local_asset_path: null
-    notes:
-      - 'Prefer owner-shot public-vantage imagery of the City Hall civic core or Trailhead Park gateway context.'
-      - 'Avoid city seals, private faces as the focal point, children, readable plates, concession branding, and any composition that implies endorsement or project proof.'
   - city: Deltona
     intended_page: /service-areas/deltona
-    subject: Deltona City Hall exterior or another recognizable public civic setting
-    photographer_or_owner: CFL Wash Co. owner photography preferred
-    original_source_url_or_owner_record: null
-    license_or_permission_basis: Candidate-only planning note; no rights approval yet
-    commercial_website_use_allowed: pending
-    derivatives_cropping_allowed: pending
-    attribution_required: pending
-    attribution_text: null
+    subject: Deltona City Hall
+    photographer_or_owner: Connor J. Williams
+    original_source_url_or_owner_record: https://commons.wikimedia.org/wiki/File:Deltona_city_hall_deltona_florida.jpg
+    license_or_permission_basis: Creative Commons Attribution 3.0 Unported license; commercial reuse and derivatives are permitted with attribution
+    commercial_website_use_allowed: yes
+    derivatives_cropping_allowed: yes
+    attribution_required: yes
+    attribution_text: 'Photo: Connor J. Williams, CC BY 3.0, via Wikimedia Commons. Resized for web delivery.'
     date_acquired_or_verified: '2026-06-11'
     reviewer: Codex
-    approval_status: candidate-only
-    local_asset_path: null
+    approval_status: approved
+    local_asset_path: docs/design/city-image-candidates/originals/deltona-city-hall.jpg
+    source_dimensions: 5712x4284
+    public_derivative_paths:
+      - public/images/city-context/deltona-city-hall-640.jpg
+      - public/images/city-context/deltona-city-hall-1280.jpg
+    public_derivative_details:
+      - path: public/images/city-context/deltona-city-hall-640.jpg
+        width: 640
+        height: 480
+        file_size_bytes: 64415
+      - path: public/images/city-context/deltona-city-hall-1280.jpg
+        width: 1280
+        height: 960
+        file_size_bytes: 245791
     notes:
-      - 'Use a wide civic establishing shot from a public vantage point.'
-      - 'Do not use city seals, government logos, readable plates, house numbers, children, or framing that implies endorsement.'
+      - 'Full-frame civic establishing shot from a public vantage point.'
+      - 'No city seal, plate, children, or private-property detail appears in the public derivative.'
   - city: Orange City
     intended_page: /service-areas/orange-city
-    subject: Graves Avenue historic-core civic streetscape; fallback Oak Avenue historic-district context
-    photographer_or_owner: CFL Wash Co. owner photography preferred
-    original_source_url_or_owner_record: https://www.orangecityfl.gov/departments/development-services/boards-commissions/historic-preservation-board/
-    license_or_permission_basis: Candidate-only planning note; city-hosted context sources verify recognizability but do not grant reuse rights
-    commercial_website_use_allowed: pending
-    derivatives_cropping_allowed: pending
-    attribution_required: pending
-    attribution_text: null
+    subject: Orange City Town Hall
+    photographer_or_owner: Connor J. Williams
+    original_source_url_or_owner_record: https://commons.wikimedia.org/wiki/File:Orange_city_town_hall_orange_city_florida.jpg
+    license_or_permission_basis: Creative Commons Attribution 3.0 Unported license; commercial reuse and derivatives are permitted with attribution
+    commercial_website_use_allowed: yes
+    derivatives_cropping_allowed: yes
+    attribution_required: yes
+    attribution_text: 'Photo: Connor J. Williams, CC BY 3.0, via Wikimedia Commons. Resized for web delivery.'
     date_acquired_or_verified: '2026-06-11'
     reviewer: Codex
-    approval_status: candidate-only
-    local_asset_path: null
+    approval_status: approved
+    local_asset_path: docs/design/city-image-candidates/originals/orange-city-town-hall.jpg
+    source_dimensions: 5712x4284
+    public_derivative_paths:
+      - public/images/city-context/orange-city-town-hall-640.jpg
+      - public/images/city-context/orange-city-town-hall-1280.jpg
+    public_derivative_details:
+      - path: public/images/city-context/orange-city-town-hall-640.jpg
+        width: 640
+        height: 480
+        file_size_bytes: 96413
+      - path: public/images/city-context/orange-city-town-hall-1280.jpg
+        width: 1280
+        height: 960
+        file_size_bytes: 373733
     notes:
-      - 'Primary direction is a public-vantage Graves Avenue streetscape tied to the historic core; fallback is Oak Avenue historic-district context.'
-      - 'Avoid city seals, event signage, private homes as the focal point, readable plates, children, and any framing that implies city endorsement or completed work.'
+      - 'Full-frame civic establishing shot from a public vantage point.'
+      - 'No city seal, plate, children, or private-property detail appears in the public derivative.'
   - city: DeBary
     intended_page: /service-areas/debary
-    subject: DeBary Hall Historic Site exterior; fallback DeBary Main Street or trail/TOD civic context
-    photographer_or_owner: CFL Wash Co. owner photography preferred
-    original_source_url_or_owner_record: https://www.debary.org/Facilities/Facility/Details/DeBary-Hall-Historic-Site-11
-    license_or_permission_basis: Candidate-only planning note; official city and county landmark references verify recognizability but do not grant reuse rights
-    commercial_website_use_allowed: pending
-    derivatives_cropping_allowed: pending
-    attribution_required: pending
-    attribution_text: null
+    subject: DeBary Hall
+    photographer_or_owner: Ebyabe / John Bradley
+    original_source_url_or_owner_record: https://commons.wikimedia.org/wiki/File:DeBary_Hall1.jpg
+    license_or_permission_basis: Creative Commons Attribution-Share Alike 3.0 Unported license; commercial reuse and derivatives are permitted with attribution and share-alike continuity
+    commercial_website_use_allowed: yes
+    derivatives_cropping_allowed: yes
+    attribution_required: yes
+    attribution_text: 'Photo: Ebyabe (John Bradley), CC BY-SA 3.0, via Wikimedia Commons. Resized for web delivery.'
     date_acquired_or_verified: '2026-06-11'
     reviewer: Codex
-    approval_status: candidate-only
-    local_asset_path: null
+    approval_status: approved
+    local_asset_path: docs/design/city-image-candidates/originals/debary-hall.jpg
+    source_dimensions: 3264x2448
+    public_derivative_paths:
+      - public/images/city-context/debary-hall-640.jpg
+      - public/images/city-context/debary-hall-1280.jpg
+    public_derivative_details:
+      - path: public/images/city-context/debary-hall-640.jpg
+        width: 640
+        height: 480
+        file_size_bytes: 73839
+      - path: public/images/city-context/debary-hall-1280.jpg
+        width: 1280
+        height: 960
+        file_size_bytes: 266632
     notes:
-      - 'Prefer owner-shot landmark photography from a public vantage point; fallback can use trail/TOD context only after a separate rights review.'
-      - 'Avoid visitors, readable plates, county or city seals, construction-only framing, and any composition that implies municipal endorsement or finished project proof.'
+      - 'Full-frame civic landmark from a public vantage point.'
+      - 'Public derivative strips metadata and does not include sensitive private details.'
   - city: DeLand
     intended_page: /service-areas/deland
-    subject: Volusia County Courthouse civic streetscape; fallback downtown historic-district streetscape
-    photographer_or_owner: CFL Wash Co. owner photography preferred
-    original_source_url_or_owner_record: https://www.deland.org/611/Photo-Credits
-    license_or_permission_basis: Candidate-only planning note; official city photo-credit and design-guideline pages verify recognizability but do not grant reuse rights
-    commercial_website_use_allowed: pending
-    derivatives_cropping_allowed: pending
-    attribution_required: pending
-    attribution_text: null
+    subject: Athens Theatre, Downtown DeLand Historic District
+    photographer_or_owner: Ebyabe / John Bradley
+    original_source_url_or_owner_record: https://commons.wikimedia.org/wiki/File:Downtown_DeLand_Hist_Dist_-_Athens_Theatre.jpg
+    license_or_permission_basis: Creative Commons Attribution 2.5 Generic license; commercial reuse and derivatives are permitted with attribution
+    commercial_website_use_allowed: yes
+    derivatives_cropping_allowed: yes
+    attribution_required: yes
+    attribution_text: 'Photo: Ebyabe (John Bradley), CC BY 2.5, via Wikimedia Commons. Resized for web delivery.'
     date_acquired_or_verified: '2026-06-11'
     reviewer: Codex
-    approval_status: candidate-only
-    local_asset_path: null
+    approval_status: approved
+    local_asset_path: docs/design/city-image-candidates/originals/deland-athens-theatre.jpg
+    source_dimensions: 3264x2448
+    public_derivative_paths:
+      - public/images/city-context/deland-athens-theatre-640.jpg
+      - public/images/city-context/deland-athens-theatre-1280.jpg
+    public_derivative_details:
+      - path: public/images/city-context/deland-athens-theatre-640.jpg
+        width: 640
+        height: 480
+        file_size_bytes: 90666
+      - path: public/images/city-context/deland-athens-theatre-1280.jpg
+        width: 1280
+        height: 960
+        file_size_bytes: 330689
     notes:
-      - 'Prefer owner-shot public-right-of-way photography of the courthouse or downtown historic streetscape.'
-      - 'Avoid government seals, pedestrians as primary subjects, readable plates, event setups, and any framing that implies courthouse, county, or city endorsement.'
+      - 'Full-frame civic landmark from a public vantage point.'
+      - 'Public derivative strips metadata and does not include sensitive private details.'
+  - city: Sanford
+    intended_page: /service-areas/sanford
+    subject: Sanford City Hall
+    photographer_or_owner: Connor Williams
+    original_source_url_or_owner_record: https://commons.wikimedia.org/wiki/File:Sanford_City_Hall_FL.jpg
+    license_or_permission_basis: Creative Commons Attribution 2.0 Generic license; commercial reuse and derivatives are permitted with attribution
+    commercial_website_use_allowed: yes
+    derivatives_cropping_allowed: yes
+    attribution_required: yes
+    attribution_text: 'Photo: Connor Williams, CC BY 2.0, via Wikimedia Commons. Resized for web delivery.'
+    date_acquired_or_verified: '2026-06-11'
+    reviewer: Codex
+    approval_status: approved
+    local_asset_path: docs/design/city-image-candidates/originals/sanford-city-hall.jpg
+    source_dimensions: 5712x4284
+    public_derivative_paths:
+      - public/images/city-context/sanford-city-hall-640.jpg
+      - public/images/city-context/sanford-city-hall-1280.jpg
+    public_derivative_details:
+      - path: public/images/city-context/sanford-city-hall-640.jpg
+        width: 640
+        height: 480
+        file_size_bytes: 52161
+      - path: public/images/city-context/sanford-city-hall-1280.jpg
+        width: 1280
+        height: 960
+        file_size_bytes: 192423
+    notes:
+      - 'Full-frame civic establishing shot from a public vantage point.'
+      - 'Public derivative strips metadata and does not include sensitive private details.'
+  - city: Lake Mary
+    intended_page: /service-areas/lake-mary
+    subject: Lake Mary City Hall
+    photographer_or_owner: Wikisteveb4
+    original_source_url_or_owner_record: https://commons.wikimedia.org/wiki/File:LakeMaryCityHall2026.jpg
+    license_or_permission_basis: Creative Commons Attribution 4.0 International license; commercial reuse and derivatives are permitted with attribution
+    commercial_website_use_allowed: yes
+    derivatives_cropping_allowed: yes
+    attribution_required: yes
+    attribution_text: 'Photo: Wikisteveb4, CC BY 4.0, via Wikimedia Commons. Resized for web delivery.'
+    date_acquired_or_verified: '2026-06-11'
+    reviewer: Codex
+    approval_status: approved
+    local_asset_path: docs/design/city-image-candidates/originals/lake-mary-city-hall.jpg
+    source_dimensions: 5712x4284
+    public_derivative_paths:
+      - public/images/city-context/lake-mary-city-hall-640.jpg
+      - public/images/city-context/lake-mary-city-hall-1280.jpg
+    public_derivative_details:
+      - path: public/images/city-context/lake-mary-city-hall-640.jpg
+        width: 640
+        height: 480
+        file_size_bytes: 113840
+      - path: public/images/city-context/lake-mary-city-hall-1280.jpg
+        width: 1280
+        height: 960
+        file_size_bytes: 444146
+    notes:
+      - 'Full-frame civic establishing shot from a public vantage point.'
+      - 'Public derivative strips metadata and does not include sensitive private details.'

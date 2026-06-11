@@ -1,0 +1,71 @@
+---
+type ResponsiveSource = {
+  src: string
+  width: number
+}
+
+type ImageAsset = {
+  src: string
+  alt: string
+  width: number
+  height: number
+  sources?: ResponsiveSource[]
+}
+
+type Props = {
+  image: ImageAsset
+  caption?: string
+  attribution?: string
+  loading?: 'eager' | 'lazy'
+  sizes?: string
+  class?: string
+}
+
+const {
+  image,
+  caption,
+  attribution,
+  loading = 'lazy',
+  sizes = '(min-width: 1024px) 40vw, (min-width: 768px) 50vw, 100vw',
+  class: className = '',
+} = Astro.props as Props
+
+const srcset = image.sources
+  ?.map(({ src, width }) => `${src} ${width}w`)
+  .join(', ')
+---
+
+<figure
+  class={`overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-xs)] ${className}`.trim()}
+>
+  <p
+    class="px-4 pt-4 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-action)]"
+  >
+    City context
+  </p>
+  <div class="px-4 pb-4 pt-3">
+    <div class="overflow-hidden rounded-[var(--radius-md)] bg-white">
+      <img
+        src={image.src}
+        alt={image.alt}
+        width={image.width}
+        height={image.height}
+        srcset={srcset}
+        sizes={srcset ? sizes : undefined}
+        class="aspect-[4/3] h-full w-full object-cover"
+        loading={loading}
+        decoding="async"
+      />
+    </div>
+  </div>
+  {
+    (caption || attribution) && (
+      <figcaption class="space-y-1 border-t border-[var(--color-border)] px-4 py-3 text-sm leading-6 text-[var(--color-text-muted)]">
+        {caption && (
+          <p class="font-medium text-[var(--color-text)]">{caption}</p>
+        )}
+        {attribution && <p>{attribution}</p>}
+      </figcaption>
+    )
+  }
+</figure>

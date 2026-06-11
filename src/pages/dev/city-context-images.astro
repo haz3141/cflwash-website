@@ -1,0 +1,92 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import CityContextMedia from '../../components/patterns/CityContextMedia.astro'
+import Container from '../../components/ui/Container.astro'
+import Section from '../../components/ui/Section.astro'
+import { cityContextImageList } from '../../data/cityContextImages'
+
+const title = 'City context image fixture | CFL Wash Co.'
+const description =
+  'Internal fixture for reviewing the approved city-context image set at responsive widths.'
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonicalPath="/dev/city-context-images"
+  noindex
+>
+  <main>
+    <section
+      class="border-b border-[var(--color-border)] bg-[var(--color-surface)] py-[var(--section-space)]"
+    >
+      <Container>
+        <p
+          class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-action)]"
+        >
+          Internal fixture
+        </p>
+        <h1
+          class="mt-3 max-w-3xl text-4xl font-semibold leading-tight text-[var(--color-text)] sm:text-5xl"
+        >
+          Approved city-context images
+        </h1>
+        <p
+          class="mt-4 max-w-3xl text-base leading-8 text-[var(--color-text-muted)] sm:text-lg"
+        >
+          This page is for responsive QA only. It is excluded from the sitemap
+          and should not be linked from public navigation.
+        </p>
+      </Container>
+    </section>
+
+    <Section tone="soft">
+      <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        {
+          cityContextImageList.map((record) => (
+            <CityContextMedia
+              image={record.image}
+              caption={record.caption}
+              attribution={record.attribution}
+              sizes="(min-width: 1280px) 28vw, (min-width: 768px) 42vw, 100vw"
+              class="h-full"
+            />
+          ))
+        }
+      </div>
+    </Section>
+
+    <Section eyebrow="Records" title="Source and derivative references">
+      <div class="grid gap-4 lg:grid-cols-2">
+        {
+          cityContextImageList.map((record) => (
+            <article class="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-page)] p-5 shadow-[var(--shadow-xs)]">
+              <h2 class="text-lg font-semibold text-[var(--color-text)]">
+                {record.city}
+              </h2>
+              <p class="mt-1 text-sm text-[var(--color-text-muted)]">
+                {record.subject}
+              </p>
+              <dl class="mt-4 grid gap-2 text-sm text-[var(--color-text-muted)]">
+                <div class="flex flex-wrap gap-2">
+                  <dt class="font-medium text-[var(--color-text)]">Source</dt>
+                  <dd class="break-all">{record.sourceUrl}</dd>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  <dt class="font-medium text-[var(--color-text)]">
+                    Public derivative
+                  </dt>
+                  <dd class="break-all">{record.sourcePath}</dd>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  <dt class="font-medium text-[var(--color-text)]">Alt text</dt>
+                  <dd>{record.alt}</dd>
+                </div>
+              </dl>
+            </article>
+          ))
+        }
+      </div>
+    </Section>
+  </main>
+</Layout>
