@@ -1,0 +1,39 @@
+---
+import { site } from '../../data/site'
+import StructuredData from './StructuredData.astro'
+
+type BreadcrumbItem = {
+  label: string
+  href: string
+}
+
+type Props = {
+  items: BreadcrumbItem[]
+}
+
+const { items } = Astro.props as Props
+
+const normalizedItems = items.map((item, index) => {
+  const path =
+    item.href === '/'
+      ? ''
+      : item.href.startsWith('/')
+        ? item.href
+        : `/${item.href}`
+
+  return {
+    '@type': 'ListItem',
+    position: index + 1,
+    name: item.label,
+    item: `${site.url}${path}`,
+  }
+})
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: normalizedItems,
+}
+---
+
+<StructuredData value={schema} />

@@ -6,6 +6,7 @@ import HeroSection from '../components/patterns/HeroSection.astro'
 import IconBadge from '../components/ui/IconBadge.astro'
 import LinkGrid from '../components/patterns/LinkGrid.astro'
 import ProcessSteps from '../components/patterns/ProcessSteps.astro'
+import OrganizationSchema from '../components/site/OrganizationSchema.astro'
 import Section from '../components/ui/Section.astro'
 import SplitFeature from '../components/patterns/SplitFeature.astro'
 import Layout from '../layouts/Layout.astro'
@@ -97,6 +98,7 @@ const serviceHighlights = {
   description="Request a simple quote for driveway, walkway, sidewalk, and concrete cleaning across Central Florida."
   canonicalPath="/"
 >
+  <OrganizationSchema slot="head" />
   <main>
     <HeroSection
       variant="split"

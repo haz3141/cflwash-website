@@ -1,5 +1,7 @@
 ---
 import Button from '../components/ui/Button.astro'
+import BreadcrumbSchema from '../components/site/BreadcrumbSchema.astro'
+import Breadcrumbs from '../components/site/Breadcrumbs.astro'
 import CTASection from '../components/patterns/CTASection.astro'
 import Card from '../components/ui/Card.astro'
 import FAQList from '../components/patterns/FAQList.astro'
@@ -19,6 +21,10 @@ const service = services.find(
 )!
 
 const relatedServices = services.filter((item) => item.slug !== service.slug)
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: service.name, href: `/${service.slug}` },
+]
 const relatedServiceLinks = relatedServices.map((item) => ({
   label: item.name,
   href: `/${item.slug}`,
@@ -114,7 +120,10 @@ const faqs = [
   description={seoDescription}
   canonicalPath="/sidewalk-walkway-cleaning"
 >
+  <BreadcrumbSchema slot="head" items={breadcrumbs} />
   <main>
+    <Breadcrumbs items={breadcrumbs} />
+
     <HeroSection
       eyebrow="Service"
       title="Sidewalk and walkway cleaning for the paths people notice."

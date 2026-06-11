@@ -1,0 +1,12 @@
+---
+type JsonLdNode = Record<string, unknown>
+
+type Props = {
+  value: JsonLdNode | JsonLdNode[]
+}
+
+const { value } = Astro.props as Props
+const jsonLd = JSON.stringify(value).replace(/</g, '\\u003c')
+---
+
+<script type="application/ld+json" set:html={jsonLd} />

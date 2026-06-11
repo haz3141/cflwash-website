@@ -1,0 +1,52 @@
+---
+import Container from '../ui/Container.astro'
+
+type BreadcrumbItem = {
+  label: string
+  href?: string
+}
+
+type Props = {
+  items: BreadcrumbItem[]
+  class?: string
+}
+
+const { items, class: className = '' } = Astro.props as Props
+---
+
+<nav aria-label="Breadcrumb" class={className}>
+  <Container>
+    <ol
+      class="flex flex-wrap items-center gap-x-2 gap-y-1 py-6 text-sm text-[var(--color-text-muted)]"
+    >
+      {
+        items.map((item, index) => (
+          <>
+            <li>
+              {item.href ? (
+                <a
+                  href={item.href}
+                  class="transition-colors duration-[var(--duration-fast)] hover:text-[var(--color-text)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-page)]"
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <span
+                  aria-current="page"
+                  class="font-medium text-[var(--color-text)]"
+                >
+                  {item.label}
+                </span>
+              )}
+            </li>
+            {index < items.length - 1 && (
+              <li aria-hidden="true" class="text-[var(--color-border-strong)]">
+                /
+              </li>
+            )}
+          </>
+        ))
+      }
+    </ol>
+  </Container>
+</nav>
