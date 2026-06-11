@@ -225,6 +225,10 @@ function listInternalHrefs(html) {
   return hrefs
 }
 
+function listAnchorAttributes(html) {
+  return getTags(html, 'a').map((tag) => parseAttributes(tag))
+}
+
 function countOccurrences(value, search) {
   if (search === '') {
     return 0
@@ -721,6 +725,44 @@ async function main() {
         failures.push(
           `Internal href \`${href}\` in \`dist/${file}\` does not match a generated route or known asset.`,
         )
+      }
+    }
+
+    for (const attributes of listAnchorAttributes(html)) {
+      const href = attributes.href ?? ''
+      const cta = attributes['data-cta'] ?? ''
+      const ctaLocation = attributes['data-cta-location'] ?? ''
+
+      if (href.startsWith('mailto:')) {
+        if (cta !== 'email' || !ctaLocation.trim()) {
+          failures.push(
+            `Email contact link \`${href}\` in \`dist/${file}\` must include \`data-cta="email"\` and a non-empty \`data-cta-location\`.`,
+          )
+        }
+      }
+
+      if (href.startsWith('tel:')) {
+        if (cta !== 'call' || !ctaLocation.trim()) {
+          failures.push(
+            `Phone contact link \`${href}\` in \`dist/${file}\` must include \`data-cta="call"\` and a non-empty \`data-cta-location\`.`,
+          )
+        }
+      }
+
+      if (cta === 'quote') {
+        if (!ctaLocation.trim()) {
+          failures.push(
+            `Quote CTA \`${href}\` in \`dist/${file}\` must include a non-empty \`data-cta-location\`.`,
+          )
+        }
+
+        const ctaUrl = new URL(href, productionOrigin)
+
+        if (normalizeRoute(ctaUrl.pathname) !== '/request-quote') {
+          failures.push(
+            `Quote CTA \`${href}\` in \`dist/${file}\` must link to \`/request-quote\`.`,
+          )
+        }
       }
     }
   }
