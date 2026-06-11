@@ -17,6 +17,17 @@ Examples for this repo:
 
 Keep each commit focused on one coherent change. Use feature branches for meaningful work.
 
+## Pull Requests And Issue Closure
+
+- Feature branches target `dev`; production release PRs promote `dev` to `main`.
+- Every issue implementation PR must include `Closes #<issue>` in the PR body for traceability.
+- The repository default branch is `main`. A closing keyword in a PR merged into `dev` does not reliably close the linked issue.
+- Immediately after merging a PR into `dev`, the merge operator must verify the linked issue state.
+- If the issue remains open and the delivered work satisfies it, close it manually with reason `completed`.
+- If work is superseded or intentionally abandoned, close it with reason `not planned` and leave a concise explanation when the reason is not obvious.
+- Never mark unimplemented work as completed.
+- Delete the merged feature branch and confirm that no stale remote branch remains.
+
 ## Validation
 
 Before committing, run the available checks:

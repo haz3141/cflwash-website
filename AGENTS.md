@@ -15,6 +15,11 @@ Read these files before making changes:
 - Do not deploy production unless explicitly instructed.
 - Keep commits focused and use conventional commit messages.
 - Do not merge or commit unless explicitly instructed.
+- The repository default branch is `main`, so GitHub closing keywords in PRs merged into `dev` do not reliably close issues.
+- Every PR into `dev` must name its linked issue with `Closes #<issue>` for traceability.
+- Immediately after a PR merges into `dev`, verify the linked issue state and manually close it when GitHub did not do so automatically.
+- Close delivered work as `completed`; close superseded or intentionally abandoned work as `not planned`. Never mark unimplemented work as completed.
+- Delete the merged feature branch and verify that no stale remote branch remains.
 
 ## Current development stage
 
