@@ -9,14 +9,14 @@ or municipal endorsement.
 
 ## Candidate overview
 
-| City | Candidate subject | Rights status |
-|---|---|---|
-| Deltona | Deltona City Hall | Exact Commons license review pending |
-| Orange City | Orange City Town Hall | CC BY 3.0 verified; human visual approval pending |
-| DeBary | DeBary Hall | CC BY-SA 3.0 selected; human visual approval pending |
-| DeLand | Athens Theatre, Downtown DeLand Historic District | CC BY 2.5 candidate selection; human visual approval pending |
-| Sanford | Sanford City Hall | Exact Commons license review pending |
-| Lake Mary | Lake Mary City Hall | Exact Commons license review pending |
+| City        | Candidate subject                                 | Rights status                                                |
+| ----------- | ------------------------------------------------- | ------------------------------------------------------------ |
+| Deltona     | Deltona City Hall                                 | Exact Commons license review pending                         |
+| Orange City | Orange City Town Hall                             | CC BY 3.0 verified; human visual approval pending            |
+| DeBary      | DeBary Hall                                       | CC BY-SA 3.0 selected; human visual approval pending         |
+| DeLand      | Athens Theatre, Downtown DeLand Historic District | CC BY 2.5 candidate selection; human visual approval pending |
+| Sanford     | Sanford City Hall                                 | Exact Commons license review pending                         |
+| Lake Mary   | Lake Mary City Hall                               | Exact Commons license review pending                         |
 
 ## 1. Deltona — Deltona City Hall
 

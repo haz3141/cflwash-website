@@ -14,7 +14,9 @@ export default defineConfig({
   integrations: [
     sitemap({
       filter: (page) =>
-        !page.endsWith('/thank-you') && !page.endsWith('/thank-you/'),
+        !page.includes('/dev/') &&
+        !page.endsWith('/thank-you') &&
+        !page.endsWith('/thank-you/'),
     }),
   ],
   vite: {

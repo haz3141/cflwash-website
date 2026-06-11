@@ -20,7 +20,7 @@ candidates:
     author: Connor J. Williams
     license: CC BY 3.0
     license_url: https://creativecommons.org/licenses/by/3.0/
-    attribution: "Photo: Connor J. Williams, CC BY 3.0, via Wikimedia Commons. Cropped and optimized."
+    attribution: 'Photo: Connor J. Williams, CC BY 3.0, via Wikimedia Commons. Cropped and optimized.'
     rights_status: license-verified-candidate
     human_approval: pending
 
@@ -33,7 +33,7 @@ candidates:
     author: Ebyabe / John Bradley
     license: CC BY-SA 3.0
     license_url: https://creativecommons.org/licenses/by-sa/3.0/
-    attribution: "Photo: Ebyabe (John Bradley), CC BY-SA 3.0, via Wikimedia Commons. Cropped and optimized."
+    attribution: 'Photo: Ebyabe (John Bradley), CC BY-SA 3.0, via Wikimedia Commons. Cropped and optimized.'
     rights_status: license-verified-candidate
     human_approval: pending
 
@@ -46,7 +46,7 @@ candidates:
     author: Ebyabe / John Bradley
     license: CC BY 2.5
     license_url: https://creativecommons.org/licenses/by/2.5/
-    attribution: "Photo: Ebyabe (John Bradley), CC BY 2.5, via Wikimedia Commons. Cropped and optimized."
+    attribution: 'Photo: Ebyabe (John Bradley), CC BY 2.5, via Wikimedia Commons. Cropped and optimized.'
     rights_status: license-verified-candidate
     human_approval: pending
 
