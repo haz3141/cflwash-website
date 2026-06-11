@@ -102,6 +102,16 @@ const routeContentExpectations = {
       'Photo: Ebyabe (John Bradley), CC BY-SA 3.0, via Wikimedia Commons. Resized for web delivery.',
     ],
   },
+  '/service-areas/deland': {
+    snippets: [
+      'downtown historic district',
+      'school-link sidewalks',
+      '/images/city-context/deland-athens-theatre-640.jpg 640w',
+      '/images/city-context/deland-athens-theatre-1280.jpg 1280w',
+      'The Athens Theatre facade in downtown DeLand with the marquee visible.',
+      'Photo: Ebyabe (John Bradley), CC BY 2.5, via Wikimedia Commons. Resized for web delivery.',
+    ],
+  },
 }
 
 async function walkFiles(dir, prefix = '') {
@@ -804,6 +814,14 @@ async function main() {
   const indexablePages = htmlContents.filter(({ html }) =>
     isIndexablePage(html),
   )
+  for (const route of Object.keys(routeContentExpectations)) {
+    if (!routeSet.has(route)) {
+      failures.push(
+        `Expected city-page route \`${route}\` is missing from the generated site output.`,
+      )
+    }
+  }
+
   const titleToRoutes = new Map()
   const descriptionToRoutes = new Map()
 

@@ -133,26 +133,26 @@ cities:
     slug: deland
     county: Volusia County
     municipality_status: municipal
-    operational_priority: planned
+    operational_priority: primary-live
     research_brief_path: docs/seo/cities/deland.md
     research_status: verified
-    current_route_status: missing
-    current_page_quality_status: missing
-    index_status: not-ready
-    sitemap_status: not-ready
-    navigation_status: not-linked
-    image_status: candidate-only
+    current_route_status: live
+    current_page_quality_status: implemented
+    index_status: index-approved
+    sitemap_status: included
+    navigation_status: linked
+    image_status: approved
     image_subject_candidate: Volusia County Courthouse civic streetscape, with downtown historic-district context as fallback
-    image_rights_status: candidate-only
-    image_source_or_owner: Owner photography preferred; third-party downtown or courthouse imagery requires separate permission or license review
-    attribution_requirement: null
+    image_rights_status: approved
+    image_source_or_owner: Wikimedia Commons image by Ebyabe (John Bradley); approved derivative and rights record in docs/seo/image-rights-manifest.yaml
+    attribution_requirement: 'Photo: Ebyabe (John Bradley), CC BY 2.5, via Wikimedia Commons. Resized for web delivery.'
     completed_jobs_count: null
     publishable_projects_count: null
     qualified_leads_count: null
     last_reviewed_date: '2026-06-11'
     blocking_decisions:
-      - 'A future DeLand page route and data entry need a separate implementation issue.'
-      - 'No public city image may be added until a manifest record is approved.'
+      - 'Project proof stays internal until real jobs, approval, and publication permission exist.'
+      - 'Any future index-status change requires a separate review rather than a content-page assumption.'
 
   - city: Sanford
     slug: sanford

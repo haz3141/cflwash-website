@@ -23,4 +23,10 @@ export const serviceAreas: ServiceArea[] = [
     description:
       'Driveway, walkway, and entry concrete cleaning for DeBary homeowners.',
   },
+  {
+    slug: 'deland',
+    name: 'DeLand',
+    description:
+      'Driveway, walkway, and entry concrete cleaning for DeLand homeowners.',
+  },
 ]
