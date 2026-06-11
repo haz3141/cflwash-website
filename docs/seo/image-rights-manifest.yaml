@@ -66,3 +66,54 @@ city_image_records:
     notes:
       - 'Use a wide civic establishing shot from a public vantage point.'
       - 'Do not use city seals, government logos, readable plates, house numbers, children, or framing that implies endorsement.'
+  - city: Orange City
+    intended_page: /service-areas/orange-city
+    subject: Graves Avenue historic-core civic streetscape; fallback Oak Avenue historic-district context
+    photographer_or_owner: CFL Wash Co. owner photography preferred
+    original_source_url_or_owner_record: https://www.orangecityfl.gov/departments/development-services/boards-commissions/historic-preservation-board/
+    license_or_permission_basis: Candidate-only planning note; city-hosted context sources verify recognizability but do not grant reuse rights
+    commercial_website_use_allowed: pending
+    derivatives_cropping_allowed: pending
+    attribution_required: pending
+    attribution_text: null
+    date_acquired_or_verified: '2026-06-11'
+    reviewer: Codex
+    approval_status: candidate-only
+    local_asset_path: null
+    notes:
+      - 'Primary direction is a public-vantage Graves Avenue streetscape tied to the historic core; fallback is Oak Avenue historic-district context.'
+      - 'Avoid city seals, event signage, private homes as the focal point, readable plates, children, and any framing that implies city endorsement or completed work.'
+  - city: DeBary
+    intended_page: /service-areas/debary
+    subject: DeBary Hall Historic Site exterior; fallback DeBary Main Street or trail/TOD civic context
+    photographer_or_owner: CFL Wash Co. owner photography preferred
+    original_source_url_or_owner_record: https://www.debary.org/Facilities/Facility/Details/DeBary-Hall-Historic-Site-11
+    license_or_permission_basis: Candidate-only planning note; official city and county landmark references verify recognizability but do not grant reuse rights
+    commercial_website_use_allowed: pending
+    derivatives_cropping_allowed: pending
+    attribution_required: pending
+    attribution_text: null
+    date_acquired_or_verified: '2026-06-11'
+    reviewer: Codex
+    approval_status: candidate-only
+    local_asset_path: null
+    notes:
+      - 'Prefer owner-shot landmark photography from a public vantage point; fallback can use trail/TOD context only after a separate rights review.'
+      - 'Avoid visitors, readable plates, county or city seals, construction-only framing, and any composition that implies municipal endorsement or finished project proof.'
+  - city: DeLand
+    intended_page: /service-areas/deland
+    subject: Volusia County Courthouse civic streetscape; fallback downtown historic-district streetscape
+    photographer_or_owner: CFL Wash Co. owner photography preferred
+    original_source_url_or_owner_record: https://www.deland.org/611/Photo-Credits
+    license_or_permission_basis: Candidate-only planning note; official city photo-credit and design-guideline pages verify recognizability but do not grant reuse rights
+    commercial_website_use_allowed: pending
+    derivatives_cropping_allowed: pending
+    attribution_required: pending
+    attribution_text: null
+    date_acquired_or_verified: '2026-06-11'
+    reviewer: Codex
+    approval_status: candidate-only
+    local_asset_path: null
+    notes:
+      - 'Prefer owner-shot public-right-of-way photography of the courthouse or downtown historic streetscape.'
+      - 'Avoid government seals, pedestrians as primary subjects, readable plates, event setups, and any framing that implies courthouse, county, or city endorsement.'
