@@ -79,6 +79,21 @@ Requirements:
 - Do not add complexity before the basic quote flow works
 - Preserve the same destination and analytics model used by earlier phases
 
+## Future Photo-Assisted Quote Architecture
+
+Status: proposed architecture only
+
+ADR: [ADR 0005: Secure Photo-Assisted Quote Workflow](../adr/0005-secure-photo-assisted-quote-workflow.md)
+
+Photo uploads remain out of scope for the frozen quote backend. The proposed
+future architecture keeps the current text quote request as the reliable path
+and handles optional private photos through a separate post-submission upload
+workflow tied to a quote request identifier.
+
+Quote-photo submission is private quote support only. It does not grant
+permission to publish project photos, before-and-after proof, reviews, or
+testimonials.
+
 ## Current Implementation Notes
 
 - `main` remains the current production release with a contact-based quote path.
