@@ -66,17 +66,17 @@ cities:
     index_status: index-approved
     sitemap_status: included
     navigation_status: linked
-    image_status: not-started
-    image_subject_candidate: null
-    image_rights_status: not-started
-    image_source_or_owner: null
+    image_status: candidate-only
+    image_subject_candidate: Deltona City Hall exterior or another recognizable public civic setting
+    image_rights_status: candidate-only
+    image_source_or_owner: Owner photography preferred; no approved source yet
     attribution_requirement: null
     completed_jobs_count: null
     publishable_projects_count: null
     qualified_leads_count: null
     last_reviewed_date: '2026-06-11'
     blocking_decisions:
-      - 'No public city image may be added until a manifest record is approved.'
+      - 'Deltona image planning stays candidate-only until a manifest record is approved.'
       - 'Project proof stays internal until real jobs, approval, and publication permission exist.'
 
   - city: Orange City
