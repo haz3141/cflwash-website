@@ -1,8 +1,11 @@
 ---
 import Button from '../components/ui/Button.astro'
+import Breadcrumbs from '../components/site/Breadcrumbs.astro'
 import Section from '../components/ui/Section.astro'
 import Layout from '../layouts/Layout.astro'
 import { site } from '../data/site'
+
+const breadcrumbs = [{ label: 'Home', href: '/' }, { label: 'Thank You' }]
 ---
 
 <Layout
@@ -12,6 +15,8 @@ import { site } from '../data/site'
   noindex={true}
 >
   <main>
+    <Breadcrumbs items={breadcrumbs} />
+
     <Section spacing="none" class="py-20">
       <p
         class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-text-muted)]"

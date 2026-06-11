@@ -1,5 +1,6 @@
 ---
 import { site } from '../../data/site'
+import StructuredData from './StructuredData.astro'
 
 const schema = {
   '@context': 'https://schema.org',
@@ -21,11 +22,9 @@ const schema = {
     telephone: site.phoneE164,
     email: site.email,
     areaServed: 'US-FL',
-    availableLanguage: 'English',
+    availableLanguage: 'en',
   },
 }
-
-const jsonLd = JSON.stringify(schema).replace(/</g, '\\u003c')
 ---
 
-<script type="application/ld+json" set:html={jsonLd} />
+<StructuredData value={schema} />

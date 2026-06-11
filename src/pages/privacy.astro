@@ -1,7 +1,14 @@
 ---
 import Section from '../components/ui/Section.astro'
+import BreadcrumbSchema from '../components/site/BreadcrumbSchema.astro'
+import Breadcrumbs from '../components/site/Breadcrumbs.astro'
 import Layout from '../layouts/Layout.astro'
 import { site } from '../data/site'
+
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'Privacy Notice', href: '/privacy' },
+]
 ---
 
 <Layout
@@ -9,7 +16,10 @@ import { site } from '../data/site'
   description="Privacy notice for quote requests, analytics, and operational providers used by CFL Wash Co."
   canonicalPath="/privacy"
 >
+  <BreadcrumbSchema slot="head" items={breadcrumbs} />
   <main>
+    <Breadcrumbs items={breadcrumbs} />
+
     <Section spacing="none" class="py-20">
       <div class="max-w-3xl">
         <p

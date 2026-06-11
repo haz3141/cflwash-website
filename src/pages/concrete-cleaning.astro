@@ -1,5 +1,7 @@
 ---
 import Button from '../components/ui/Button.astro'
+import BreadcrumbSchema from '../components/site/BreadcrumbSchema.astro'
+import Breadcrumbs from '../components/site/Breadcrumbs.astro'
 import CTASection from '../components/patterns/CTASection.astro'
 import Card from '../components/ui/Card.astro'
 import FAQList from '../components/patterns/FAQList.astro'
@@ -17,6 +19,10 @@ import { Mail, Phone } from '@lucide/astro'
 const service = services.find((item) => item.slug === 'concrete-cleaning')!
 
 const relatedServices = services.filter((item) => item.slug !== service.slug)
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: service.name, href: `/${service.slug}` },
+]
 const relatedServiceLinks = relatedServices.map((item) => ({
   label: item.name,
   href: `/${item.slug}`,
@@ -110,7 +116,10 @@ const faqs = [
   description={seoDescription}
   canonicalPath="/concrete-cleaning"
 >
+  <BreadcrumbSchema slot="head" items={breadcrumbs} />
   <main>
+    <Breadcrumbs items={breadcrumbs} />
+
     <HeroSection
       eyebrow="Service"
       title="Concrete cleaning for patios, pads, aprons, curbs, and entry areas."

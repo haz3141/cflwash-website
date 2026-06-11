@@ -1,12 +1,31 @@
 ---
 import Button from '../components/ui/Button.astro'
+import BreadcrumbSchema from '../components/site/BreadcrumbSchema.astro'
+import Breadcrumbs from '../components/site/Breadcrumbs.astro'
+import LinkGrid from '../components/patterns/LinkGrid.astro'
 import QuoteForm from '../components/quote/QuoteForm.astro'
 import Section from '../components/ui/Section.astro'
 import Layout from '../layouts/Layout.astro'
+import { serviceAreas } from '../data/serviceAreas'
+import { services } from '../data/services'
 import { site } from '../data/site'
 import { Mail, Phone } from '@lucide/astro'
 
 const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'Request a Quote', href: '/request-quote' },
+]
+const serviceLinks = services.map((service) => ({
+  label: service.name,
+  href: `/${service.slug}`,
+  description: service.summary,
+}))
+const serviceAreaLinks = serviceAreas.map((area) => ({
+  label: area.name,
+  href: `/service-areas/${area.slug}`,
+  description: area.description,
+}))
 const quoteEmailSubject = 'Quote request for exterior cleaning'
 const quoteEmailBody = [
   'Name:',
@@ -23,7 +42,10 @@ const quoteEmailHref = `mailto:${site.email}?subject=${encodeURIComponent(quoteE
   description="Request a quote from CFL Wash Co. for driveway, sidewalk, walkway, and concrete cleaning in Central Florida."
   canonicalPath="/request-quote"
 >
+  <BreadcrumbSchema slot="head" items={breadcrumbs} />
   <main>
+    <Breadcrumbs items={breadcrumbs} />
+
     <Section spacing="none" class="py-20">
       <div class="max-w-3xl">
         <p class="text-eyebrow text-[var(--color-text-muted)]">
@@ -94,6 +116,29 @@ const quoteEmailHref = `mailto:${site.email}?subject=${encodeURIComponent(quoteE
 
     <Section spacing="compact" class="pb-20">
       <QuoteForm />
+    </Section>
+
+    <Section
+      eyebrow="Explore current coverage"
+      title="Review the live service and city pages"
+      description="These pages show the current launch services and published service-area coverage if you want to confirm the fit before sending details."
+      tone="soft"
+      class="border-t border-[var(--color-border)]"
+    >
+      <div class="grid gap-8 lg:grid-cols-2">
+        <div>
+          <h2 class="text-xl font-semibold text-[var(--color-text)]">
+            Service pages
+          </h2>
+          <LinkGrid items={serviceLinks} columns="one" class="mt-4" />
+        </div>
+        <div>
+          <h2 class="text-xl font-semibold text-[var(--color-text)]">
+            Published city pages
+          </h2>
+          <LinkGrid items={serviceAreaLinks} columns="one" class="mt-4" />
+        </div>
+      </div>
     </Section>
   </main>
 </Layout>

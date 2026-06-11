@@ -154,28 +154,58 @@ function normalizeRoute(route) {
 }
 
 function findMetaContent(html, metaName) {
+  return findMetaContents(html, metaName)[0] ?? ''
+}
+
+function findMetaContents(html, metaName) {
+  const contents = []
+
   for (const tag of getTags(html, 'meta')) {
     const attributes = parseAttributes(tag)
 
     if (attributes.name?.toLowerCase() === metaName) {
-      return attributes.content ?? ''
+      contents.push(attributes.content ?? '')
     }
   }
 
-  return ''
+  return contents
+}
+
+function findMetaPropertyContent(html, propertyName) {
+  return findMetaPropertyContents(html, propertyName)[0] ?? ''
+}
+
+function findMetaPropertyContents(html, propertyName) {
+  const contents = []
+
+  for (const tag of getTags(html, 'meta')) {
+    const attributes = parseAttributes(tag)
+
+    if (attributes.property?.toLowerCase() === propertyName) {
+      contents.push(attributes.content ?? '')
+    }
+  }
+
+  return contents
 }
 
 function findCanonicalHref(html) {
+  return findCanonicalHrefs(html)[0] ?? ''
+}
+
+function findCanonicalHrefs(html) {
+  const hrefs = []
+
   for (const tag of getTags(html, 'link')) {
     const attributes = parseAttributes(tag)
     const relValue = attributes.rel?.toLowerCase().split(/\s+/) ?? []
 
     if (relValue.includes('canonical')) {
-      return attributes.href ?? ''
+      hrefs.push(attributes.href ?? '')
     }
   }
 
-  return ''
+  return hrefs
 }
 
 function listInternalHrefs(html) {
@@ -201,6 +231,28 @@ function countOccurrences(value, search) {
   }
 
   return value.split(search).length - 1
+}
+
+function findTitle(html) {
+  const titleMatch = html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)
+  return titleMatch?.[1].replace(/\s+/g, ' ').trim() ?? ''
+}
+
+function extractJsonLdBlocks(html) {
+  const pattern =
+    /<script\b[^>]*type=(?:"application\/ld\+json"|'application\/ld\+json')[^>]*>([\s\S]*?)<\/script>/gi
+
+  return [...html.matchAll(pattern)].map((match) => match[1]?.trim() ?? '')
+}
+
+function parseSitemapUrls(xml) {
+  const urls = []
+
+  for (const match of xml.matchAll(/<loc>([^<]+)<\/loc>/gi)) {
+    urls.push(match[1]?.trim() ?? '')
+  }
+
+  return urls
 }
 
 function hasSanitizedGa4PageLocation(html) {
@@ -506,6 +558,11 @@ async function main() {
 
   for (const { file, route, html } of htmlContents) {
     const normalizedHtml = html.toLowerCase()
+    const title = findTitle(html)
+    const description = findMetaContent(html, 'description').trim()
+    const robotsContents = findMetaContents(html, 'robots')
+    const canonicalHrefs = findCanonicalHrefs(html)
+    const jsonLdBlocks = extractJsonLdBlocks(html)
 
     for (const phrase of bannedClaimPhrases) {
       if (normalizedHtml.includes(phrase)) {
@@ -525,11 +582,52 @@ async function main() {
       }
     }
 
+    if (robotsContents.length !== 1) {
+      failures.push(
+        `Page \`${route}\` must include exactly one \`<meta name="robots">\` tag in \`dist/${file}\`.`,
+      )
+    }
+
+    if (canonicalHrefs.length !== 1) {
+      failures.push(
+        `Page \`${route}\` must include exactly one canonical link in \`dist/${file}\`.`,
+      )
+    }
+
+    for (const [index, block] of jsonLdBlocks.entries()) {
+      if (!block) {
+        failures.push(
+          `JSON-LD script ${index + 1} in \`dist/${file}\` must not be empty.`,
+        )
+        continue
+      }
+
+      try {
+        JSON.parse(block)
+      } catch {
+        failures.push(
+          `JSON-LD script ${index + 1} in \`dist/${file}\` must contain valid JSON.`,
+        )
+      }
+    }
+
     if (isIndexablePage(html)) {
-      const titleMatch = html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)
-      const title = titleMatch?.[1].replace(/\s+/g, ' ').trim() ?? ''
-      const description = findMetaContent(html, 'description').trim()
       const canonicalHref = findCanonicalHref(html).trim()
+      const ogUrl = findMetaPropertyContent(html, 'og:url').trim()
+      const ogTitle = findMetaPropertyContent(html, 'og:title').trim()
+      const ogDescription = findMetaPropertyContent(
+        html,
+        'og:description',
+      ).trim()
+      const ogImage = findMetaPropertyContent(html, 'og:image').trim()
+      const ogImageAlt = findMetaPropertyContent(html, 'og:image:alt').trim()
+      const twitterTitle = findMetaContent(html, 'twitter:title').trim()
+      const twitterDescription = findMetaContent(
+        html,
+        'twitter:description',
+      ).trim()
+      const twitterImage = findMetaContent(html, 'twitter:image').trim()
+      const twitterImageAlt = findMetaContent(html, 'twitter:image:alt').trim()
 
       if (!title) {
         failures.push(
@@ -562,11 +660,51 @@ async function main() {
               `Canonical URL for \`${route}\` must not use \`${bannedCanonicalHost}\`, found \`${canonicalHref}\`.`,
             )
           }
+
+          if (normalizeRoute(canonicalUrl.pathname) !== route) {
+            failures.push(
+              `Canonical URL for \`${route}\` must self-reference the route path, found \`${canonicalHref}\`.`,
+            )
+          }
         } catch {
           failures.push(
             `Canonical URL for \`${route}\` must be a valid absolute URL, found \`${canonicalHref}\`.`,
           )
         }
+      }
+
+      if (!ogUrl) {
+        failures.push(
+          `Indexable page \`${route}\` is missing \`og:url\` in \`dist/${file}\`.`,
+        )
+      } else if (canonicalHref && ogUrl !== canonicalHref) {
+        failures.push(
+          `Indexable page \`${route}\` must keep \`og:url\` aligned with the canonical URL in \`dist/${file}\`.`,
+        )
+      }
+
+      if (!ogTitle || !ogDescription) {
+        failures.push(
+          `Indexable page \`${route}\` must include \`og:title\` and \`og:description\` in \`dist/${file}\`.`,
+        )
+      }
+
+      if (!twitterTitle || !twitterDescription) {
+        failures.push(
+          `Indexable page \`${route}\` must include \`twitter:title\` and \`twitter:description\` in \`dist/${file}\`.`,
+        )
+      }
+
+      if (ogImage && !ogImageAlt) {
+        failures.push(
+          `Indexable page \`${route}\` must include \`og:image:alt\` when \`og:image\` is present in \`dist/${file}\`.`,
+        )
+      }
+
+      if (twitterImage && !twitterImageAlt) {
+        failures.push(
+          `Indexable page \`${route}\` must include \`twitter:image:alt\` when \`twitter:image\` is present in \`dist/${file}\`.`,
+        )
       }
     }
 
@@ -584,6 +722,89 @@ async function main() {
           `Internal href \`${href}\` in \`dist/${file}\` does not match a generated route or known asset.`,
         )
       }
+    }
+  }
+
+  const indexablePages = htmlContents.filter(({ html }) =>
+    isIndexablePage(html),
+  )
+  const titleToRoutes = new Map()
+  const descriptionToRoutes = new Map()
+
+  for (const { route, html } of indexablePages) {
+    const title = findTitle(html)
+    const description = findMetaContent(html, 'description').trim()
+
+    if (title) {
+      const routes = titleToRoutes.get(title) ?? []
+      routes.push(route)
+      titleToRoutes.set(title, routes)
+    }
+
+    if (description) {
+      const routes = descriptionToRoutes.get(description) ?? []
+      routes.push(route)
+      descriptionToRoutes.set(description, routes)
+    }
+  }
+
+  for (const [title, routes] of titleToRoutes) {
+    if (routes.length > 1) {
+      failures.push(
+        `Indexable pages must not share duplicate titles. \`${title}\` appears on: ${routes.join(', ')}.`,
+      )
+    }
+  }
+
+  for (const [description, routes] of descriptionToRoutes) {
+    if (routes.length > 1) {
+      failures.push(
+        `Indexable pages must not share duplicate meta descriptions. \`${description}\` appears on: ${routes.join(', ')}.`,
+      )
+    }
+  }
+
+  const sitemapRoutes = new Set()
+
+  for (const { file, content } of urlsetFiles) {
+    for (const urlString of parseSitemapUrls(content)) {
+      let url
+
+      try {
+        url = new URL(urlString)
+      } catch {
+        failures.push(
+          `Sitemap URL in \`dist/${file}\` must be a valid absolute URL, found \`${urlString}\`.`,
+        )
+        continue
+      }
+
+      if (url.origin !== productionOrigin) {
+        failures.push(
+          `Sitemap URL in \`dist/${file}\` must use \`${productionOrigin}\`, found \`${urlString}\`.`,
+        )
+        continue
+      }
+
+      sitemapRoutes.add(normalizeRoute(url.pathname))
+    }
+  }
+
+  const indexableRoutes = new Set(indexablePages.map(({ route }) => route))
+
+  for (const route of indexableRoutes) {
+    if (!sitemapRoutes.has(route)) {
+      failures.push(
+        `Indexable route \`${route}\` is missing from sitemap output.`,
+      )
+    }
+  }
+
+  for (const route of sitemapRoutes) {
+    if (!indexableRoutes.has(route)) {
+      failures.push(
+        `Sitemap output includes non-indexable or unknown route \`${route}\`.`,
+      )
     }
   }
 
