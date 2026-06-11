@@ -1,0 +1,69 @@
+# Machine-readable candidate manifest for issue #57.
+# Status values here do not constitute production approval.
+
+candidates:
+  - city: Deltona
+    slug: deltona
+    subject: Deltona City Hall
+    commons_page: https://commons.wikimedia.org/wiki/File:Deltona_city_hall_deltona_florida.jpg
+    download_url: https://commons.wikimedia.org/wiki/Special:Redirect/file/Deltona_city_hall_deltona_florida.jpg
+    reference_filename: deltona-city-hall.jpg
+    rights_status: license-review
+    human_approval: pending
+
+  - city: Orange City
+    slug: orange-city
+    subject: Orange City Town Hall
+    commons_page: https://commons.wikimedia.org/wiki/File:Orange_city_town_hall_orange_city_florida.jpg
+    download_url: https://commons.wikimedia.org/wiki/Special:Redirect/file/Orange_city_town_hall_orange_city_florida.jpg
+    reference_filename: orange-city-town-hall.jpg
+    author: Connor J. Williams
+    license: CC BY 3.0
+    license_url: https://creativecommons.org/licenses/by/3.0/
+    attribution: "Photo: Connor J. Williams, CC BY 3.0, via Wikimedia Commons. Cropped and optimized."
+    rights_status: license-verified-candidate
+    human_approval: pending
+
+  - city: DeBary
+    slug: debary
+    subject: DeBary Hall
+    commons_page: https://commons.wikimedia.org/wiki/File:DeBary_Hall1.jpg
+    download_url: https://commons.wikimedia.org/wiki/Special:Redirect/file/DeBary_Hall1.jpg
+    reference_filename: debary-hall.jpg
+    author: Ebyabe / John Bradley
+    license: CC BY-SA 3.0
+    license_url: https://creativecommons.org/licenses/by-sa/3.0/
+    attribution: "Photo: Ebyabe (John Bradley), CC BY-SA 3.0, via Wikimedia Commons. Cropped and optimized."
+    rights_status: license-verified-candidate
+    human_approval: pending
+
+  - city: DeLand
+    slug: deland
+    subject: Athens Theatre, Downtown DeLand Historic District
+    commons_page: https://commons.wikimedia.org/wiki/File:Downtown_DeLand_Hist_Dist_-_Athens_Theatre.jpg
+    download_url: https://commons.wikimedia.org/wiki/Special:Redirect/file/Downtown_DeLand_Hist_Dist_-_Athens_Theatre.jpg
+    reference_filename: deland-athens-theatre.jpg
+    author: Ebyabe / John Bradley
+    license: CC BY 2.5
+    license_url: https://creativecommons.org/licenses/by/2.5/
+    attribution: "Photo: Ebyabe (John Bradley), CC BY 2.5, via Wikimedia Commons. Cropped and optimized."
+    rights_status: license-verified-candidate
+    human_approval: pending
+
+  - city: Sanford
+    slug: sanford
+    subject: Sanford City Hall
+    commons_page: https://commons.wikimedia.org/wiki/File:Sanford_City_Hall_FL.jpg
+    download_url: https://commons.wikimedia.org/wiki/Special:Redirect/file/Sanford_City_Hall_FL.jpg
+    reference_filename: sanford-city-hall.jpg
+    rights_status: license-review
+    human_approval: pending
+
+  - city: Lake Mary
+    slug: lake-mary
+    subject: Lake Mary City Hall
+    commons_page: https://commons.wikimedia.org/wiki/File:LakeMaryCityHall2026.jpg
+    download_url: https://commons.wikimedia.org/wiki/Special:Redirect/file/LakeMaryCityHall2026.jpg
+    reference_filename: lake-mary-city-hall.jpg
+    rights_status: license-review
+    human_approval: pending
