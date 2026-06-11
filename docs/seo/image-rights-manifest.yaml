@@ -1,0 +1,51 @@
+manifest_name: 'CFL Wash Co. city image rights manifest'
+manifest_scope: 'Internal record for candidate or approved city-context images'
+last_updated: '2026-06-11'
+
+publication_rules:
+  - 'Own photography is preferred.'
+  - 'A web-visible image is not automatically licensed for reuse.'
+  - 'Municipal website images cannot be copied unless their usage rights explicitly allow it or written permission is obtained.'
+  - 'City seals and government logos are not city-context imagery and should not be used.'
+  - 'City-context images must not imply endorsement, affiliation, completed work, or project proof.'
+  - 'AI-generated civic landmarks must not be represented as the real city.'
+  - 'Every public city image requires an approved manifest record before integration.'
+
+field_controls:
+  approval_status:
+    - candidate-only
+    - approved
+    - rejected
+  commercial_website_use_allowed:
+    - yes
+    - no
+    - pending
+  derivatives_cropping_allowed:
+    - yes
+    - no
+    - pending
+  attribution_required:
+    - yes
+    - no
+    - pending
+
+record_template:
+  city: null
+  intended_page: null
+  subject: null
+  photographer_or_owner: null
+  original_source_url_or_owner_record: null
+  license_or_permission_basis: null
+  commercial_website_use_allowed: null
+  derivatives_cropping_allowed: null
+  attribution_required: null
+  attribution_text: null
+  date_acquired_or_verified: null
+  reviewer: null
+  approval_status: candidate-only
+  local_asset_path: null
+  notes:
+    - 'Do not treat a public web image as reusable without a separate rights check.'
+    - 'Do not use city seals, government logos, license plates, house numbers, or other sensitive details.'
+
+city_image_records: []
