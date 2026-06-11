@@ -87,22 +87,22 @@ cities:
     research_brief_path: docs/seo/cities/orange-city.md
     research_status: verified
     current_route_status: live
-    current_page_quality_status: existing-needs-audit
+    current_page_quality_status: implemented
     index_status: index-approved
     sitemap_status: included
     navigation_status: linked
-    image_status: candidate-only
-    image_subject_candidate: Graves Avenue historic-core civic streetscape, with Oak Avenue historic-district context as fallback
-    image_rights_status: candidate-only
-    image_source_or_owner: Owner photography preferred; third-party civic imagery requires separate permission or license review
-    attribution_requirement: null
+    image_status: approved
+    image_subject_candidate: Orange City Town Hall exterior
+    image_rights_status: approved
+    image_source_or_owner: Wikimedia Commons image by Connor J. Williams; approved derivative and rights record in docs/seo/image-rights-manifest.yaml
+    attribution_requirement: 'Photo: Connor J. Williams, CC BY 3.0, via Wikimedia Commons. Resized for web delivery.'
     completed_jobs_count: null
     publishable_projects_count: null
     qualified_leads_count: null
     last_reviewed_date: '2026-06-11'
     blocking_decisions:
-      - 'Future public page copy should be rebuilt from the verified brief rather than the current generic page language.'
-      - 'No public city image may be added until a manifest record is approved.'
+      - 'Project proof stays internal until real jobs, approval, and publication permission exist.'
+      - 'Any future index-status change requires a separate review rather than a content-page assumption.'
 
   - city: DeBary
     slug: debary
@@ -112,22 +112,22 @@ cities:
     research_brief_path: docs/seo/cities/debary.md
     research_status: verified
     current_route_status: live
-    current_page_quality_status: existing-needs-audit
+    current_page_quality_status: implemented
     index_status: index-approved
     sitemap_status: included
     navigation_status: linked
-    image_status: candidate-only
-    image_subject_candidate: DeBary Hall Historic Site exterior, with DeBary Main Street and trail/TOD context as fallback
-    image_rights_status: candidate-only
-    image_source_or_owner: Owner photography preferred; third-party landmark or TOD imagery requires separate permission or license review
-    attribution_requirement: null
+    image_status: approved
+    image_subject_candidate: DeBary Hall Historic Site exterior
+    image_rights_status: approved
+    image_source_or_owner: Wikimedia Commons image by Ebyabe (John Bradley); approved derivative and rights record in docs/seo/image-rights-manifest.yaml
+    attribution_requirement: 'Photo: Ebyabe (John Bradley), CC BY-SA 3.0, via Wikimedia Commons. Resized for web delivery.'
     completed_jobs_count: null
     publishable_projects_count: null
     qualified_leads_count: null
     last_reviewed_date: '2026-06-11'
     blocking_decisions:
-      - 'Future public page copy should be rebuilt from the verified brief rather than the current generic page language.'
-      - 'No public city image may be added until a manifest record is approved.'
+      - 'Project proof stays internal until real jobs, approval, and publication permission exist.'
+      - 'Any future index-status change requires a separate review rather than a content-page assumption.'
 
   - city: DeLand
     slug: deland

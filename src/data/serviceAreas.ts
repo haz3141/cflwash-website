@@ -15,12 +15,12 @@ export const serviceAreas: ServiceArea[] = [
     slug: 'orange-city',
     name: 'Orange City',
     description:
-      'Concrete-focused curb appeal cleaning for Orange City homes and entry areas.',
+      'Historic-core, driveway, and entry concrete cleaning for Orange City homeowners.',
   },
   {
     slug: 'debary',
     name: 'DeBary',
     description:
-      'Driveway, walkway, sidewalk, and concrete cleaning for DeBary residential properties.',
+      'Driveway, walkway, and entry concrete cleaning for DeBary homeowners.',
   },
 ]
