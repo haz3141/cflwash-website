@@ -48,4 +48,21 @@ record_template:
     - 'Do not treat a public web image as reusable without a separate rights check.'
     - 'Do not use city seals, government logos, license plates, house numbers, or other sensitive details.'
 
-city_image_records: []
+city_image_records:
+  - city: Deltona
+    intended_page: /service-areas/deltona
+    subject: Deltona City Hall exterior or another recognizable public civic setting
+    photographer_or_owner: CFL Wash Co. owner photography preferred
+    original_source_url_or_owner_record: null
+    license_or_permission_basis: Candidate-only planning note; no rights approval yet
+    commercial_website_use_allowed: pending
+    derivatives_cropping_allowed: pending
+    attribution_required: pending
+    attribution_text: null
+    date_acquired_or_verified: '2026-06-11'
+    reviewer: Codex
+    approval_status: candidate-only
+    local_asset_path: null
+    notes:
+      - 'Use a wide civic establishing shot from a public vantage point.'
+      - 'Do not use city seals, government logos, readable plates, house numbers, children, or framing that implies endorsement.'
