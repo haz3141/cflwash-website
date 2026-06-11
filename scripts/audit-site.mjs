@@ -81,6 +81,28 @@ const secretPatterns = [
     pattern: /Bearer\s+[A-Za-z0-9._-]{10,}/,
   },
 ]
+const routeContentExpectations = {
+  '/service-areas/orange-city': {
+    snippets: [
+      'Graves Avenue',
+      'Rhode Island',
+      '/images/city-context/orange-city-town-hall-640.jpg 640w',
+      '/images/city-context/orange-city-town-hall-1280.jpg 1280w',
+      'Orange City Town Hall framed by trees and lawn under a clear sky.',
+      'Photo: Connor J. Williams, CC BY 3.0, via Wikimedia Commons. Resized for web delivery.',
+    ],
+  },
+  '/service-areas/debary': {
+    snippets: [
+      'DeBary Main Street',
+      'SunRail',
+      '/images/city-context/debary-hall-640.jpg 640w',
+      '/images/city-context/debary-hall-1280.jpg 1280w',
+      'DeBary Hall, a white historic building with wraparound porches and palm trees.',
+      'Photo: Ebyabe (John Bradley), CC BY-SA 3.0, via Wikimedia Commons. Resized for web delivery.',
+    ],
+  },
+}
 
 async function walkFiles(dir, prefix = '') {
   const entries = await readdir(dir, { withFileTypes: true })
@@ -761,6 +783,18 @@ async function main() {
         if (normalizeRoute(ctaUrl.pathname) !== '/request-quote') {
           failures.push(
             `Quote CTA \`${href}\` in \`dist/${file}\` must link to \`/request-quote\`.`,
+          )
+        }
+      }
+    }
+
+    const routeExpectation = routeContentExpectations[route]
+
+    if (routeExpectation) {
+      for (const snippet of routeExpectation.snippets) {
+        if (!html.includes(snippet)) {
+          failures.push(
+            `Route \`${route}\` is missing required city-page content snippet \`${snippet}\` in \`dist/${file}\`.`,
           )
         }
       }
