@@ -112,6 +112,16 @@ const routeContentExpectations = {
       'Photo: Ebyabe (John Bradley), CC BY 2.5, via Wikimedia Commons. Resized for web delivery.',
     ],
   },
+  '/service-areas/sanford': {
+    snippets: [
+      'Georgetown',
+      'Park Avenue corridor',
+      '/images/city-context/sanford-city-hall-640.jpg 640w',
+      '/images/city-context/sanford-city-hall-1280.jpg 1280w',
+      'Sanford City Hall with a curved facade, flags, and palm trees near the entrance.',
+      'Photo: Connor Williams, CC BY 2.0, via Wikimedia Commons. Resized for web delivery.',
+    ],
+  },
 }
 
 async function walkFiles(dir, prefix = '') {
