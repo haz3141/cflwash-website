@@ -11,16 +11,16 @@
 | `/driveway-pressure-washing` | Service page             | Live              | Primary service page                                                                    |
 | `/sidewalk-walkway-cleaning` | Service page             | Live              | Primary service page                                                                    |
 | `/concrete-cleaning`         | Service page             | Live              | Primary service page                                                                    |
-| `/service-areas/deltona`     | Service-area page        | Live              | Primary area page                                                                       |
-| `/service-areas/orange-city` | Service-area page        | Live              | Primary area page                                                                       |
-| `/service-areas/debary`      | Service-area page        | Live              | Primary area page                                                                       |
-| `/service-areas/deland`      | Service-area page        | Live              | Primary area page                                                                       |
-| `/service-areas/sanford`     | Service-area page        | Live              | Seminole County service-area page                                                       |
-| `/service-areas/lake-mary`   | Service-area page        | Live              | Seminole County service-area page                                                       |
+| `/service-areas/deltona`     | Service-area page        | Index approved    | Approved for launch indexing in #63                                                     |
+| `/service-areas/orange-city` | Service-area page        | Index approved    | Approved for launch indexing in #63                                                     |
+| `/service-areas/debary`      | Service-area page        | Index approved    | Approved for launch indexing in #63                                                     |
+| `/service-areas/deland`      | Service-area page        | Index approved    | Approved for launch indexing in #63                                                     |
+| `/service-areas/sanford`     | Service-area page        | Index approved    | Approved for launch indexing in #63                                                     |
+| `/service-areas/lake-mary`   | Service-area page        | Index approved    | Approved for launch indexing in #63                                                     |
 
 ## Planned Primary Service Areas
 
-All currently approved primary service-area routes are live. Add more only when the site is ready to support them as real service-area pages.
+All currently approved primary service-area routes are live and index-approved for launch: Deltona, Orange City, DeBary, DeLand, Sanford, and Lake Mary. Add more only when separate research and implementation issues can support them as real service-area pages.
 
 ## Planned Content Types
 
