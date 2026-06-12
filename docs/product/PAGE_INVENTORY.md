@@ -15,12 +15,11 @@
 | `/service-areas/debary`      | Service-area page        | Live              | Primary area page                                                                       |
 | `/service-areas/deland`      | Service-area page        | Live              | Primary area page                                                                       |
 | `/service-areas/sanford`     | Service-area page        | Live              | Seminole County service-area page                                                       |
+| `/service-areas/lake-mary`   | Service-area page        | Live              | Seminole County service-area page                                                       |
 
 ## Planned Primary Service Areas
 
-These are named in strategy docs and should only be added when the site is ready to support them as real service-area pages:
-
-- `/service-areas/lake-mary`
+All currently approved primary service-area routes are live. Add more only when the site is ready to support them as real service-area pages.
 
 ## Planned Content Types
 

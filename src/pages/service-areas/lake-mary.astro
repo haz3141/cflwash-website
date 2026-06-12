@@ -1,0 +1,446 @@
+---
+import Button from '../../components/ui/Button.astro'
+import BreadcrumbSchema from '../../components/site/BreadcrumbSchema.astro'
+import Breadcrumbs from '../../components/site/Breadcrumbs.astro'
+import CTASection from '../../components/patterns/CTASection.astro'
+import Card from '../../components/ui/Card.astro'
+import CityContextMedia from '../../components/patterns/CityContextMedia.astro'
+import FAQList from '../../components/patterns/FAQList.astro'
+import HeroSection from '../../components/patterns/HeroSection.astro'
+import LinkGrid from '../../components/patterns/LinkGrid.astro'
+import Section from '../../components/ui/Section.astro'
+import SplitFeature from '../../components/patterns/SplitFeature.astro'
+import Layout from '../../layouts/Layout.astro'
+import { cityContextImages } from '../../data/cityContextImages'
+import { site } from '../../data/site'
+import { serviceAreas } from '../../data/serviceAreas'
+import { services } from '../../data/services'
+import { ClipboardCheck, FileText, MapPinned, Phone } from '@lucide/astro'
+
+const area = serviceAreas.find((item) => item.slug === 'lake-mary')!
+const cityContextImage = cityContextImages['lake-mary']
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: area.name, href: `/service-areas/${area.slug}` },
+]
+const nearbyAreas = serviceAreas.filter((item) =>
+  ['sanford'].includes(item.slug),
+)
+const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
+
+const seoTitle =
+  'Pressure Washing in Lake Mary for Planned Communities and Concrete | CFL Wash Co.'
+const seoDescription =
+  'Lake Mary residential pressure washing quotes for driveways, walks, curbs, and entry concrete with planned-community, Soldiers Creek drainage, and Rinehart Road access notes.'
+
+const serviceLinks = services.map((service) => ({
+  label: service.name,
+  href: `/${service.slug}`,
+  description: service.summary,
+}))
+const nearbyAreaLinks = nearbyAreas.map((nearbyArea) => ({
+  label: nearbyArea.name,
+  href: `/service-areas/${nearbyArea.slug}`,
+}))
+
+const localContexts = [
+  {
+    title: 'Curb-and-gutter and swale frontage need different notes',
+    description:
+      'Lake Mary includes roads with curbs and gutters plus roads that drain through swales, ditch-bottom inlets, or retention edges, so the quote should identify how the concrete meets the street.',
+  },
+  {
+    title: 'Planned communities change access and surface fit',
+    description:
+      'Timacuan, Greenwood Lakes, Fountain Parke, and other planned-community layouts can add gates, guest-parking limits, decorative surfaces, or shared-drive geometry that should be described early.',
+  },
+  {
+    title:
+      'Rinehart Road and the civic core add visibility rather than historic-district language',
+    description:
+      'Downtown City Hall, Central Park, Trailhead Park, and Rinehart Road are useful cues when the frontage is highly visible, parking is tighter, or the property sits near townhome and corridor access patterns.',
+  },
+]
+
+const homeownerScenarios = [
+  {
+    title: 'Soldiers Creek and swale-sensitive frontage',
+    description:
+      'When the driveway or entry walk drains toward a swale, inlet, retention edge, or other runoff-sensitive frontage, the request should explain slope and drainage conditions instead of treating it like a generic flat slab.',
+  },
+  {
+    title:
+      'Planned-community driveway and entry concrete with gates or guest-parking limits',
+    description:
+      'A Lake Mary homeowner may need the driveway, front walk, or entry concrete reviewed with gate access, parked vehicles, decorative finishes, and HOA visibility in mind.',
+  },
+  {
+    title: 'Downtown civic-core or SunRail-corridor entry concrete',
+    description:
+      'Townhome-style entries, sidewalk-adjacent concrete, or smaller visible driveways near downtown or the SunRail area can need parking-window and shared-access notes that would not fit a broad suburban page.',
+  },
+  {
+    title: 'Rinehart Road or boulevard-visible curb appeal cleanup',
+    description:
+      'Some Lake Mary requests start with concrete that is highly visible from a community entrance, major corridor, or HOA-inspected approach, so timing, vehicles, and specialty-surface details matter more than generic curb-appeal language.',
+  },
+]
+
+const quoteDetails = [
+  'Surface type: say whether the request covers plain concrete, sidewalk panels, curbs, aprons, patio slabs, exposed aggregate, decorative concrete, or a painted, sealed, coated, widened, or paver-adjacent surface.',
+  'Scope: list the driveway, front walk, curb edge, apron, entry pad, patio slab, sidewalk panels, or community-entry-adjacent concrete on the homeowner property.',
+  'Photos: send one wide photo that shows the full frontage plus close photos of buildup, edges, drains, widened hardscape, and any specialty finish.',
+  'Access: mention gates, guest parking rules, shared drives, townhome access limits, vehicles, bins, furniture, or tight side-yard clearance.',
+  'Drainage notes: include whether the frontage uses curbs and gutters or a roadside swale, plus any drain inlets, retention edges, Soldiers Creek proximity, ponding, or slope concerns.',
+  'Condition notes: call out dark organic buildup, leaf staining, tire marks, rust or mineral staining, oil, or older discoloration that keeps returning.',
+  'HOA or property-maintenance notice details: share the exact wording, deadline, named surface, and whether decorative or sealed concrete changes the request.',
+]
+
+const faqs = [
+  {
+    question:
+      'What should a Lake Mary homeowner share if the driveway or walkway drains toward a swale, inlet, or retention area?',
+    answer:
+      'Include whether the frontage uses curbs and gutters or a roadside swale, plus any inlet locations, slope notes, ponding, or retention-edge conditions that affect the concrete.',
+  },
+  {
+    question:
+      'Can CFL Wash Co. review driveway and walkway cleaning for homes in Lake Mary planned communities or gated neighborhoods?',
+    answer:
+      'Yes, as long as the request identifies the actual concrete surfaces, gate or parking limits, and whether decorative, sealed, or other specialty finishes are involved.',
+  },
+  {
+    question:
+      'What if the concrete is decorative, sealed, widened, or part of a larger hardscape layout?',
+    answer:
+      'Say that up front. Decorative finishes, widened slabs, paver-adjacent areas, and previously coated concrete should be identified before the quote is reviewed.',
+  },
+  {
+    question:
+      'Does the Lake Mary page cover downtown-area homes, townhomes, or properties near the SunRail and Rinehart corridors?',
+    answer:
+      'Yes. Those locations can still fit the current concrete-focused scope when the request explains parking, shared access, and which visible surfaces belong to the homeowner.',
+  },
+  {
+    question:
+      'Can a Lake Mary quote help with an HOA notice about driveway, sidewalk, or entry concrete without implying HOA approval?',
+    answer:
+      'Yes. Send the exact notice wording, due date, named surface, and current photos so the request stays document-based without implying HOA approval or private-rule expertise.',
+  },
+  {
+    question:
+      'How can I confirm whether the property is inside Lake Mary and not just using a Lake Mary mailing address?',
+    answer:
+      'Use the exact service address or nearest cross streets in the quote request, especially near city edges or shared corridors, so the location can be reviewed against the actual jurisdiction.',
+  },
+]
+---
+
+<Layout
+  title={seoTitle}
+  description={seoDescription}
+  canonicalPath="/service-areas/lake-mary"
+>
+  <BreadcrumbSchema slot="head" items={breadcrumbs} />
+  <main>
+    <Breadcrumbs items={breadcrumbs} />
+
+    <HeroSection
+      variant="split"
+      eyebrow="Lake Mary service area"
+      title="Pressure washing in Lake Mary for planned-community driveways, drainage-sensitive walks, and visible concrete"
+      description="CFL Wash Co. serves Lake Mary homeowners with concrete-focused quotes for driveways, front walks, sidewalk panels, curbs, aprons, entry pads, patio slabs, and other appropriate residential concrete where planned-community layout, drainage conditions, and corridor access can change the scope."
+    >
+      <Fragment slot="actions">
+        <Button
+          href="/request-quote"
+          data-cta="quote"
+          data-cta-location={`service-area-${area.slug}`}
+        >
+          Request a Quote
+        </Button>
+        {
+          hasPhone ? (
+            <Button
+              href={site.phoneHref!}
+              variant="secondary"
+              data-cta="call"
+              data-cta-location={`service-area-${area.slug}`}
+            >
+              <Phone
+                slot="startIcon"
+                class="h-5 w-5"
+                aria-hidden="true"
+                stroke-width="1.8"
+              />
+              Call {site.phoneDisplay}
+            </Button>
+          ) : (
+            <Button
+              href={`mailto:${site.email}`}
+              variant="secondary"
+              data-cta="email"
+              data-cta-location={`service-area-${area.slug}`}
+            >
+              Email CFL Wash Co.
+            </Button>
+          )
+        }
+      </Fragment>
+
+      <Fragment slot="media">
+        <CityContextMedia
+          image={{ ...cityContextImage.image, alt: cityContextImage.alt }}
+          caption={cityContextImage.caption}
+          attribution={cityContextImage.attribution}
+          loading="eager"
+          class="max-w-xl justify-self-end"
+        />
+      </Fragment>
+    </HeroSection>
+
+    <Section
+      eyebrow="Property context"
+      title="Lake Mary quote prep changes when the frontage sits in a planned community, near Soldiers Creek, or along the civic and corridor network"
+      description="The practical value here is not generic suburb language. It is the combination of structured neighborhoods, stormwater infrastructure, and visible corridor access that changes how concrete should be described."
+      class="border-t border-[var(--color-border)]"
+      contentWidth="full"
+    >
+      <div
+        class="grid gap-8 lg:grid-cols-[minmax(0,0.84fr)_minmax(0,1.16fr)] lg:items-start"
+      >
+        <Card tone="soft" padding="lg">
+          <div class="flex items-center gap-3">
+            <span
+              class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[var(--color-primary)] text-white"
+            >
+              <MapPinned
+                class="h-5 w-5"
+                aria-hidden="true"
+                stroke-width="1.8"
+              />
+            </span>
+            <h2 class="text-lg font-semibold text-[var(--color-text)]">
+              Three Lake Mary details worth putting in the first message
+            </h2>
+          </div>
+          <p class="mt-4 text-sm leading-7 text-[var(--color-text-muted)]">
+            Mention whether the frontage uses curbs and gutters or a swale, if
+            gates or guest-parking rules affect access, and whether the home
+            sits closer to Longwood-Lake Mary Road, South Country Club Road, or
+            Rinehart Road where visibility and approach details change.
+          </p>
+        </Card>
+
+        <div class="grid gap-4 md:grid-cols-3">
+          {
+            localContexts.map((item) => (
+              <Card class="bg-white">
+                <h3 class="text-base font-semibold text-[var(--color-text)]">
+                  {item.title}
+                </h3>
+                <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
+                  {item.description}
+                </p>
+              </Card>
+            ))
+          }
+        </div>
+      </div>
+    </Section>
+
+    <SplitFeature
+      eyebrow="Situations and services"
+      title="Lake Mary requests should read like planned-community and drainage-aware homeowner notes, not a Sanford rewrite"
+      description="These are the concrete-cleaning situations that justify a dedicated Lake Mary page, with the current launch services linked separately so the city copy stays local."
+      columns="content-heavy"
+      titleSize="section"
+      descriptionSize="lead"
+    >
+      <div class="grid gap-4">
+        {
+          homeownerScenarios.map((item) => (
+            <Card class="bg-white">
+              <h3 class="text-lg font-semibold text-[var(--color-text)]">
+                {item.title}
+              </h3>
+              <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
+                {item.description}
+              </p>
+            </Card>
+          ))
+        }
+      </div>
+
+      <div class="grid gap-4">
+        <Card tone="soft" class="border-dashed">
+          <h3 class="text-base font-semibold text-[var(--color-text)]">
+            Active concrete-focused services
+          </h3>
+          <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
+            Use the closest fit below, then add the Lake Mary-specific layout,
+            access, and drainage notes that belong with the request.
+          </p>
+        </Card>
+        <LinkGrid items={serviceLinks} density="comfortable" class="gap-4" />
+      </div>
+    </SplitFeature>
+
+    <Section
+      eyebrow="Quote preparation"
+      title="What to send with a Lake Mary quote for driveways, walks, curbs, and entry concrete"
+      description="A better Lake Mary request starts with the actual frontage type and access rules, then adds drainage and specialty-surface details where they matter."
+      class="border-y border-[var(--color-border)]"
+    >
+      <div class="grid gap-6 lg:grid-cols-[minmax(260px,0.52fr)_minmax(0,1fr)]">
+        <div
+          class="rounded-[var(--radius-lg)] bg-[var(--color-primary)] p-6 text-white"
+        >
+          <FileText class="h-7 w-7" aria-hidden="true" stroke-width="1.8" />
+          <h3 class="mt-4 text-xl font-semibold">
+            Lake Mary photos should show frontage type, drainage path, and
+            access limits
+          </h3>
+          <p class="mt-3 text-sm leading-7 text-white/85">
+            One wide photo should show how the concrete meets the street or
+            entry. Close photos should capture drains, swales, widened
+            hardscape, decorative finishes, gate conditions, and any buildup
+            that returns near inlets or retention edges.
+          </p>
+        </div>
+
+        <ul class="grid gap-3 sm:grid-cols-2">
+          {
+            quoteDetails.map((item) => (
+              <li class="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-4 text-sm leading-7 text-[var(--color-text-muted)]">
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </Section>
+
+    <Section
+      eyebrow="HOA and boundaries"
+      title="Keep HOA requests practical, keep specialty surfaces conditional, and confirm the actual Lake Mary service address"
+      description="The page can support HOA-notice cleanup and planned-community quote prep without implying HOA approval, private-rule expertise, or certainty about mailing-name edge cases."
+      tone="warm"
+      contentWidth="full"
+    >
+      <div
+        class="grid gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(260px,0.75fr)] lg:items-start"
+      >
+        <div class="grid gap-4">
+          <Card class="bg-white">
+            <div class="flex items-center gap-3">
+              <ClipboardCheck
+                class="h-6 w-6 text-[var(--color-primary)]"
+                aria-hidden="true"
+                stroke-width="1.8"
+              />
+              <h3 class="text-lg font-semibold text-[var(--color-text)]">
+                HOA notice support stays document-based
+              </h3>
+            </div>
+            <p class="mt-4 text-sm leading-7 text-[var(--color-text-muted)]">
+              Send the exact wording, deadline, named surface, and current
+              photos. A Lake Mary request can also mention gates, guest-parking
+              limits, or decorative surfaces without implying HOA approval or
+              preferred-vendor status.
+            </p>
+          </Card>
+
+          <Card class="bg-white">
+            <h3 class="text-lg font-semibold text-[var(--color-text)]">
+              Decorative, sealed, or widened hardscape should be called out
+              early
+            </h3>
+            <p class="mt-4 text-sm leading-7 text-[var(--color-text-muted)]">
+              Lake Mary planning guidance explicitly treats concrete as an
+              impervious material, so the page can ask about widened slabs and
+              upgraded hardscape without implying zoning advice or fit for every
+              specialty surface.
+            </p>
+          </Card>
+
+          <Card class="bg-white">
+            <h3 class="text-lg font-semibold text-[var(--color-text)]">
+              Mailing labels do not replace the actual service address
+            </h3>
+            <p class="mt-4 text-sm leading-7 text-[var(--color-text-muted)]">
+              Use the full address or nearest cross streets when the property
+              sits near a shared corridor or city edge so the request stays tied
+              to the actual jurisdiction rather than the mailing name alone.
+            </p>
+          </Card>
+        </div>
+
+        <div class="grid gap-4">
+          <Card tone="soft" class="border-dashed">
+            <h3 class="text-base font-semibold text-[var(--color-text)]">
+              Nearby active area
+            </h3>
+            <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
+              Sanford is the nearest active Seminole benchmark when the address
+              lands outside Lake Mary city limits but still fits that side of
+              the service area map.
+            </p>
+          </Card>
+          <LinkGrid items={nearbyAreaLinks} class="gap-4" />
+        </div>
+      </div>
+    </Section>
+
+    <Section eyebrow="FAQ" title="Lake Mary pressure washing questions">
+      <FAQList faqs={faqs} columns="two" />
+    </Section>
+
+    <CTASection
+      title="Request a Lake Mary driveway, walkway, or concrete cleaning quote."
+      description="Share the surface type, photos, frontage and drainage details, access notes, and any HOA notice wording so the Lake Mary request can be reviewed on the right scope."
+      titleWidth="wide"
+    >
+      <Fragment slot="actions">
+        <Button
+          href="/request-quote"
+          variant="secondary"
+          class="bg-white text-[var(--color-primary)] hover:bg-[var(--color-surface)]"
+          data-cta="quote"
+          data-cta-location={`service-area-${area.slug}-final`}
+        >
+          Request a Quote
+        </Button>
+        {
+          hasPhone ? (
+            <Button
+              href={site.phoneHref!}
+              variant="ghost"
+              class="text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
+              data-cta="call"
+              data-cta-location={`service-area-${area.slug}-final`}
+            >
+              <Phone
+                slot="startIcon"
+                class="h-5 w-5"
+                aria-hidden="true"
+                stroke-width="1.8"
+              />
+              Call {site.phoneDisplay}
+            </Button>
+          ) : (
+            <Button
+              href={`mailto:${site.email}`}
+              variant="ghost"
+              class="text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
+              data-cta="email"
+              data-cta-location={`service-area-${area.slug}-final`}
+            >
+              Email CFL Wash Co.
+            </Button>
+          )
+        }
+      </Fragment>
+    </CTASection>
+  </main>
+</Layout>

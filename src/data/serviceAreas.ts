@@ -35,4 +35,10 @@ export const serviceAreas: ServiceArea[] = [
     description:
       'Historic-frontage, driveway, walkway, and entry concrete cleaning for Sanford homeowners.',
   },
+  {
+    slug: 'lake-mary',
+    name: 'Lake Mary',
+    description:
+      'Planned-community, driveway, walkway, and entry concrete cleaning for Lake Mary homeowners.',
+  },
 ]
