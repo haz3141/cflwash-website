@@ -13,12 +13,12 @@
 | `/service-areas/deltona`     | Service-area page        | Live              | Primary area page                                                                       |
 | `/service-areas/orange-city` | Service-area page        | Live              | Primary area page                                                                       |
 | `/service-areas/debary`      | Service-area page        | Live              | Primary area page                                                                       |
+| `/service-areas/deland`      | Service-area page        | Live              | Primary area page                                                                       |
 
 ## Planned Primary Service Areas
 
 These are named in strategy docs and should only be added when the site is ready to support them as real service-area pages:
 
-- `/service-areas/deland`
 - `/service-areas/sanford`
 - `/service-areas/lake-mary`
 
