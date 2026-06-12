@@ -161,23 +161,23 @@ cities:
     operational_priority: planned
     research_brief_path: docs/seo/cities/sanford.md
     research_status: verified
-    current_route_status: missing
-    current_page_quality_status: missing
+    current_route_status: live
+    current_page_quality_status: implemented
     index_status: not-ready
     sitemap_status: not-ready
-    navigation_status: not-linked
-    image_status: candidate-only
+    navigation_status: linked
+    image_status: approved
     image_subject_candidate: Downtown Sanford riverfront civic context, with historic public architecture or City Hall frontage as fallback
-    image_rights_status: candidate-only
-    image_source_or_owner: Owner photography preferred; third-party civic or riverfront imagery requires separate permission or commercial license review
-    attribution_requirement: null
+    image_rights_status: approved
+    image_source_or_owner: Wikimedia Commons image by Connor Williams; approved derivative and rights record in docs/seo/image-rights-manifest.yaml
+    attribution_requirement: 'Photo: Connor Williams, CC BY 2.0, via Wikimedia Commons. Resized for web delivery.'
     completed_jobs_count: null
     publishable_projects_count: null
     qualified_leads_count: null
-    last_reviewed_date: '2026-06-11'
+    last_reviewed_date: '2026-06-12'
     blocking_decisions:
-      - 'Route creation and service-area data entry require a separate implementation issue.'
-      - 'No public Sanford image may be added until a manifest record is approved.'
+      - 'Final sitemap and index approval remain part of the later launch gate.'
+      - 'Project proof stays internal until real jobs, approval, and publication permission exist.'
 
   - city: Lake Mary
     slug: lake-mary
