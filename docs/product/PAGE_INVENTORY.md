@@ -5,6 +5,7 @@
 | Route                        | Purpose                  | Status            | Notes                                                                                   |
 | ---------------------------- | ------------------------ | ----------------- | --------------------------------------------------------------------------------------- |
 | `/`                          | Homepage                 | Live              | Lead-gen entry point and primary CTA hub                                                |
+| `/privacy`                   | Legal page               | Live              | Public privacy policy                                                                   |
 | `/request-quote`             | Quote destination        | Release candidate | Form MVP exists on `dev`/preview; production `main` remains contact-based until release |
 | `/thank-you`                 | Post-submit confirmation | Live              | `noindex`, not a public content page                                                    |
 | `/driveway-pressure-washing` | Service page             | Live              | Primary service page                                                                    |
@@ -35,5 +36,6 @@ Add only when the operational proof exists:
 
 - Every indexable page needs a unique title and description.
 - Utility pages such as `/thank-you` should stay out of the sitemap.
+- Dev-only QA routes such as `/dev/city-context-images` are excluded from this public route inventory and the sitemap.
 - Do not create thin city/service combinations.
 - Do not add a route unless it has a clear user purpose.

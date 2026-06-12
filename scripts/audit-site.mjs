@@ -1,4 +1,5 @@
 import console from 'node:console'
+import { Buffer } from 'node:buffer'
 import { readFile, readdir } from 'node:fs/promises'
 import path from 'node:path'
 import process from 'node:process'
@@ -63,6 +64,97 @@ const textExtensions = new Set([
 const publicTurnstileSiteKey =
   process.env.PUBLIC_TURNSTILE_SITE_KEY?.trim() ?? ''
 const ga4MeasurementId = process.env.PUBLIC_GA4_MEASUREMENT_ID?.trim() ?? ''
+const serviceAreasPath = 'src/data/serviceAreas.ts'
+const pageInventoryPath = 'docs/product/PAGE_INVENTORY.md'
+const sixCityInventoryPath = 'docs/seo/six-city-inventory.yaml'
+const imageRightsManifestPath = 'docs/seo/image-rights-manifest.yaml'
+const expectedCityPages = [
+  {
+    city: 'Deltona',
+    slug: 'deltona',
+    route: '/service-areas/deltona',
+    imageSrc: '/images/city-context/deltona-city-hall-1280.jpg',
+    imageSources: [
+      '/images/city-context/deltona-city-hall-640.jpg 640w',
+      '/images/city-context/deltona-city-hall-1280.jpg 1280w',
+    ],
+    alt: 'Deltona City Hall with flags and landscaping beneath a broad blue sky.',
+    attribution:
+      'Photo: Connor J. Williams, CC BY 3.0, via Wikimedia Commons. Resized for web delivery.',
+    snippets: ['Sidewalk coverage varies', 'Deltona City Hall civic context.'],
+  },
+  {
+    city: 'Orange City',
+    slug: 'orange-city',
+    route: '/service-areas/orange-city',
+    imageSrc: '/images/city-context/orange-city-town-hall-1280.jpg',
+    imageSources: [
+      '/images/city-context/orange-city-town-hall-640.jpg 640w',
+      '/images/city-context/orange-city-town-hall-1280.jpg 1280w',
+    ],
+    alt: 'Orange City Town Hall framed by trees and lawn under a clear sky.',
+    attribution:
+      'Photo: Connor J. Williams, CC BY 3.0, via Wikimedia Commons. Resized for web delivery.',
+    snippets: ['Graves Avenue', 'Rhode Island'],
+  },
+  {
+    city: 'DeBary',
+    slug: 'debary',
+    route: '/service-areas/debary',
+    imageSrc: '/images/city-context/debary-hall-1280.jpg',
+    imageSources: [
+      '/images/city-context/debary-hall-640.jpg 640w',
+      '/images/city-context/debary-hall-1280.jpg 1280w',
+    ],
+    alt: 'DeBary Hall, a white historic building with wraparound porches and palm trees.',
+    attribution:
+      'Photo: Ebyabe (John Bradley), CC BY-SA 3.0, via Wikimedia Commons. Resized for web delivery.',
+    snippets: ['DeBary Main Street', 'SunRail'],
+  },
+  {
+    city: 'DeLand',
+    slug: 'deland',
+    route: '/service-areas/deland',
+    imageSrc: '/images/city-context/deland-athens-theatre-1280.jpg',
+    imageSources: [
+      '/images/city-context/deland-athens-theatre-640.jpg 640w',
+      '/images/city-context/deland-athens-theatre-1280.jpg 1280w',
+    ],
+    alt: 'The Athens Theatre facade in downtown DeLand with the marquee visible.',
+    attribution:
+      'Photo: Ebyabe (John Bradley), CC BY 2.5, via Wikimedia Commons. Resized for web delivery.',
+    snippets: ['downtown historic district', 'school-link sidewalks'],
+  },
+  {
+    city: 'Sanford',
+    slug: 'sanford',
+    route: '/service-areas/sanford',
+    imageSrc: '/images/city-context/sanford-city-hall-1280.jpg',
+    imageSources: [
+      '/images/city-context/sanford-city-hall-640.jpg 640w',
+      '/images/city-context/sanford-city-hall-1280.jpg 1280w',
+    ],
+    alt: 'Sanford City Hall with a curved facade, flags, and palm trees near the entrance.',
+    attribution:
+      'Photo: Connor Williams, CC BY 2.0, via Wikimedia Commons. Resized for web delivery.',
+    snippets: ['Georgetown', 'Park Avenue corridor'],
+  },
+  {
+    city: 'Lake Mary',
+    slug: 'lake-mary',
+    route: '/service-areas/lake-mary',
+    imageSrc: '/images/city-context/lake-mary-city-hall-1280.jpg',
+    imageSources: [
+      '/images/city-context/lake-mary-city-hall-640.jpg 640w',
+      '/images/city-context/lake-mary-city-hall-1280.jpg 1280w',
+    ],
+    alt: 'Lake Mary City Hall sign in front of a low brick wall and trees.',
+    attribution:
+      'Photo: Wikisteveb4, CC BY 4.0, via Wikimedia Commons. Resized for web delivery.',
+    snippets: ['Soldiers Creek', 'Rinehart Road'],
+  },
+]
+const expectedCityRoutes = new Set(expectedCityPages.map(({ route }) => route))
 const secretPatterns = [
   {
     label: 'Resend API key',
@@ -81,58 +173,16 @@ const secretPatterns = [
     pattern: /Bearer\s+[A-Za-z0-9._-]{10,}/,
   },
 ]
-const routeContentExpectations = {
-  '/service-areas/orange-city': {
-    snippets: [
-      'Graves Avenue',
-      'Rhode Island',
-      '/images/city-context/orange-city-town-hall-640.jpg 640w',
-      '/images/city-context/orange-city-town-hall-1280.jpg 1280w',
-      'Orange City Town Hall framed by trees and lawn under a clear sky.',
-      'Photo: Connor J. Williams, CC BY 3.0, via Wikimedia Commons. Resized for web delivery.',
+const routeContentExpectations = Object.fromEntries(
+  expectedCityPages.map(
+    ({ route, snippets, imageSources, alt, attribution }) => [
+      route,
+      {
+        snippets: [...snippets, ...imageSources, alt, attribution],
+      },
     ],
-  },
-  '/service-areas/debary': {
-    snippets: [
-      'DeBary Main Street',
-      'SunRail',
-      '/images/city-context/debary-hall-640.jpg 640w',
-      '/images/city-context/debary-hall-1280.jpg 1280w',
-      'DeBary Hall, a white historic building with wraparound porches and palm trees.',
-      'Photo: Ebyabe (John Bradley), CC BY-SA 3.0, via Wikimedia Commons. Resized for web delivery.',
-    ],
-  },
-  '/service-areas/deland': {
-    snippets: [
-      'downtown historic district',
-      'school-link sidewalks',
-      '/images/city-context/deland-athens-theatre-640.jpg 640w',
-      '/images/city-context/deland-athens-theatre-1280.jpg 1280w',
-      'The Athens Theatre facade in downtown DeLand with the marquee visible.',
-      'Photo: Ebyabe (John Bradley), CC BY 2.5, via Wikimedia Commons. Resized for web delivery.',
-    ],
-  },
-  '/service-areas/sanford': {
-    snippets: [
-      'Georgetown',
-      'Park Avenue corridor',
-      '/images/city-context/sanford-city-hall-640.jpg 640w',
-      '/images/city-context/sanford-city-hall-1280.jpg 1280w',
-      'Sanford City Hall with a curved facade, flags, and palm trees near the entrance.',
-      'Photo: Connor Williams, CC BY 2.0, via Wikimedia Commons. Resized for web delivery.',
-    ],
-  },
-  '/service-areas/lake-mary': {
-    snippets: [
-      'Soldiers Creek',
-      'Rinehart Road',
-      '/images/city-context/lake-mary-city-hall-640.jpg 640w',
-      '/images/city-context/lake-mary-city-hall-1280.jpg 1280w',
-      'Lake Mary City Hall sign in front of a low brick wall and trees.',
-      'Photo: Wikisteveb4, CC BY 4.0, via Wikimedia Commons. Resized for web delivery.',
-    ],
-  },
-}
+  ),
+)
 
 async function walkFiles(dir, prefix = '') {
   const entries = await readdir(dir, { withFileTypes: true })
@@ -157,6 +207,10 @@ async function walkFiles(dir, prefix = '') {
 
 async function readText(relativePath) {
   return readFile(path.join(distDir, relativePath), 'utf8')
+}
+
+async function readRepoText(relativePath) {
+  return readFile(path.join(repoRoot, relativePath), 'utf8')
 }
 
 function parseAttributes(tag) {
@@ -294,6 +348,21 @@ function findTitle(html) {
   return titleMatch?.[1].replace(/\s+/g, ' ').trim() ?? ''
 }
 
+function stripHtml(value) {
+  return value
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+function findHeading(html, level) {
+  const headingMatch = html.match(
+    new RegExp(`<h${level}\\b[^>]*>([\\s\\S]*?)<\\/h${level}>`, 'i'),
+  )
+
+  return headingMatch ? stripHtml(headingMatch[1]) : ''
+}
+
 function extractJsonLdBlocks(html) {
   const pattern =
     /<script\b[^>]*type=(?:"application\/ld\+json"|'application\/ld\+json')[^>]*>([\s\S]*?)<\/script>/gi
@@ -309,6 +378,127 @@ function parseSitemapUrls(xml) {
   }
 
   return urls
+}
+
+function parseStructuredData(html) {
+  const values = []
+
+  for (const block of extractJsonLdBlocks(html)) {
+    try {
+      const value = JSON.parse(block)
+
+      if (Array.isArray(value)) {
+        values.push(...value)
+        continue
+      }
+
+      if (
+        value &&
+        typeof value === 'object' &&
+        '@graph' in value &&
+        Array.isArray(value['@graph'])
+      ) {
+        values.push(...value['@graph'])
+        continue
+      }
+
+      values.push(value)
+    } catch {
+      continue
+    }
+  }
+
+  return values
+}
+
+function parseServiceAreas(source) {
+  return [
+    ...source.matchAll(/\{\s*slug:\s*'([^']+)'\s*,\s*name:\s*'([^']+)'/g),
+  ].map(([, slug, name]) => ({ slug, name }))
+}
+
+function normalizeYamlScalar(value) {
+  const trimmed = value.trim()
+
+  if (trimmed === 'null') {
+    return ''
+  }
+
+  if (
+    (trimmed.startsWith("'") && trimmed.endsWith("'")) ||
+    (trimmed.startsWith('"') && trimmed.endsWith('"'))
+  ) {
+    return trimmed.slice(1, -1)
+  }
+
+  return trimmed
+}
+
+function parseYamlCityBlocks(source, sectionName) {
+  const marker = `${sectionName}:\n`
+  const startIndex = source.indexOf(marker)
+
+  if (startIndex === -1) {
+    return []
+  }
+
+  const section = source.slice(startIndex + marker.length)
+  return section
+    .split(/\n(?= {2}- city: )/g)
+    .filter((block) => block.trimStart().startsWith('- city:'))
+}
+
+function readYamlScalar(block, field) {
+  const match = block.match(
+    new RegExp(`^\\s*(?:-\\s*)?${field}:\\s*(.+)$`, 'm'),
+  )
+  return match ? normalizeYamlScalar(match[1]) : ''
+}
+
+function parseSixCityInventory(source) {
+  return parseYamlCityBlocks(source, 'cities').map((block) => ({
+    city: readYamlScalar(block, 'city'),
+    slug: readYamlScalar(block, 'slug'),
+    operationalPriority: readYamlScalar(block, 'operational_priority'),
+    currentRouteStatus: readYamlScalar(block, 'current_route_status'),
+    sitemapStatus: readYamlScalar(block, 'sitemap_status'),
+    navigationStatus: readYamlScalar(block, 'navigation_status'),
+    imageStatus: readYamlScalar(block, 'image_status'),
+    imageRightsStatus: readYamlScalar(block, 'image_rights_status'),
+  }))
+}
+
+function parseImageRightsManifest(source) {
+  return parseYamlCityBlocks(source, 'city_image_records').map((block) => ({
+    city: readYamlScalar(block, 'city'),
+    intendedPage: readYamlScalar(block, 'intended_page'),
+    approvalStatus: readYamlScalar(block, 'approval_status'),
+    attributionText: readYamlScalar(block, 'attribution_text'),
+  }))
+}
+
+function parsePageInventoryRoutes(source) {
+  return [...source.matchAll(/^\|\s*`([^`]+)`\s*\|/gm)].map(([, route]) =>
+    route.trim(),
+  )
+}
+
+function getUniqueValueRoutes(records, getValue) {
+  const valueToRoutes = new Map()
+
+  for (const record of records) {
+    const value = getValue(record)
+
+    if (!value) {
+      continue
+    }
+
+    const routes = valueToRoutes.get(value) ?? []
+    routes.push(record.route)
+    valueToRoutes.set(value, routes)
+  }
+
+  return valueToRoutes
 }
 
 function hasSanitizedGa4PageLocation(html) {
@@ -450,6 +640,240 @@ async function main() {
       html: await readText(file),
     })),
   )
+  const htmlByRoute = new Map(
+    htmlContents.map((record) => [record.route, record]),
+  )
+  const [
+    serviceAreasSource,
+    pageInventorySource,
+    sixCityInventorySource,
+    imageRightsManifestSource,
+  ] = await Promise.all([
+    readRepoText(serviceAreasPath),
+    readRepoText(pageInventoryPath),
+    readRepoText(sixCityInventoryPath),
+    readRepoText(imageRightsManifestPath),
+  ])
+  const serviceAreaEntries = parseServiceAreas(serviceAreasSource)
+  const pageInventoryRoutes = parsePageInventoryRoutes(pageInventorySource)
+  const sixCityInventoryEntries = parseSixCityInventory(sixCityInventorySource)
+  const imageRightsEntries = parseImageRightsManifest(imageRightsManifestSource)
+  const generatedCityRoutes = [...routeSet].filter(
+    (route) => route.startsWith('/service-areas/') && !route.endsWith('/'),
+  )
+  const publicGeneratedRoutes = [...routeSet].filter(
+    (route) =>
+      route === '/' || (!route.startsWith('/dev/') && !route.endsWith('/')),
+  )
+
+  if (!sixCityInventorySource.includes('integration_audit:')) {
+    failures.push(
+      `\`${sixCityInventoryPath}\` must record the six-city integration audit result.`,
+    )
+  }
+
+  if (!sixCityInventorySource.includes("issue: '#62'")) {
+    failures.push(
+      `\`${sixCityInventoryPath}\` must link the integration-audit note to issue \`#62\`.`,
+    )
+  }
+
+  if (
+    !sixCityInventorySource.includes(
+      'Final indexability review remains deferred to issue #63.',
+    )
+  ) {
+    failures.push(
+      `\`${sixCityInventoryPath}\` must note that final indexability review remains deferred to issue \`#63\`.`,
+    )
+  }
+
+  if (serviceAreaEntries.length !== expectedCityPages.length) {
+    failures.push(
+      `\`${serviceAreasPath}\` must contain exactly ${expectedCityPages.length} service-area entries, found ${serviceAreaEntries.length}.`,
+    )
+  }
+
+  const serviceAreaSlugSet = new Set()
+  const serviceAreaNameSet = new Set()
+  const serviceAreaRouteSet = new Set()
+
+  for (const { slug, name } of serviceAreaEntries) {
+    if (serviceAreaSlugSet.has(slug)) {
+      failures.push(
+        `Duplicate city slug \`${slug}\` found in \`${serviceAreasPath}\`.`,
+      )
+    }
+
+    if (serviceAreaNameSet.has(name)) {
+      failures.push(
+        `Duplicate city name \`${name}\` found in \`${serviceAreasPath}\`.`,
+      )
+    }
+
+    serviceAreaSlugSet.add(slug)
+    serviceAreaNameSet.add(name)
+    serviceAreaRouteSet.add(`/service-areas/${slug}`)
+  }
+
+  for (const expectedCity of expectedCityPages) {
+    if (!serviceAreaSlugSet.has(expectedCity.slug)) {
+      failures.push(
+        `\`${serviceAreasPath}\` is missing the approved city slug \`${expectedCity.slug}\`.`,
+      )
+    }
+
+    if (!serviceAreaNameSet.has(expectedCity.city)) {
+      failures.push(
+        `\`${serviceAreasPath}\` is missing the approved city name \`${expectedCity.city}\`.`,
+      )
+    }
+  }
+
+  for (const route of serviceAreaRouteSet) {
+    if (!expectedCityRoutes.has(route)) {
+      failures.push(
+        `\`${serviceAreasPath}\` includes unexpected active city route \`${route}\`.`,
+      )
+    }
+  }
+
+  for (const route of generatedCityRoutes) {
+    if (!expectedCityRoutes.has(route)) {
+      failures.push(
+        `Generated output includes unexpected city route \`${route}\`.`,
+      )
+    }
+  }
+
+  for (const expectedRoute of expectedCityRoutes) {
+    if (!serviceAreaRouteSet.has(expectedRoute)) {
+      failures.push(
+        `Approved city route \`${expectedRoute}\` is missing from \`${serviceAreasPath}\`.`,
+      )
+    }
+
+    if (!generatedCityRoutes.includes(expectedRoute)) {
+      failures.push(
+        `Approved city route \`${expectedRoute}\` is missing from generated output.`,
+      )
+    }
+  }
+
+  const pageInventoryRouteSet = new Set(pageInventoryRoutes)
+  const publicGeneratedRouteSet = new Set(publicGeneratedRoutes)
+
+  for (const route of pageInventoryRouteSet) {
+    if (!publicGeneratedRouteSet.has(route)) {
+      failures.push(
+        `Route inventory entry \`${route}\` in \`${pageInventoryPath}\` does not match a generated public route.`,
+      )
+    }
+  }
+
+  for (const route of publicGeneratedRouteSet) {
+    if (!pageInventoryRouteSet.has(route)) {
+      failures.push(
+        `Generated public route \`${route}\` is missing from \`${pageInventoryPath}\`.`,
+      )
+    }
+  }
+
+  if (sixCityInventoryEntries.length !== expectedCityPages.length) {
+    failures.push(
+      `\`${sixCityInventoryPath}\` must contain exactly ${expectedCityPages.length} city records, found ${sixCityInventoryEntries.length}.`,
+    )
+  }
+
+  const sixCityInventoryBySlug = new Map(
+    sixCityInventoryEntries.map((entry) => [entry.slug, entry]),
+  )
+
+  for (const expectedCity of expectedCityPages) {
+    const inventoryEntry = sixCityInventoryBySlug.get(expectedCity.slug)
+
+    if (!inventoryEntry) {
+      failures.push(
+        `\`${sixCityInventoryPath}\` is missing the city record for \`${expectedCity.slug}\`.`,
+      )
+      continue
+    }
+
+    if (inventoryEntry.city !== expectedCity.city) {
+      failures.push(
+        `\`${sixCityInventoryPath}\` must name city \`${expectedCity.city}\` for slug \`${expectedCity.slug}\`, found \`${inventoryEntry.city}\`.`,
+      )
+    }
+
+    if (inventoryEntry.currentRouteStatus !== 'live') {
+      failures.push(
+        `\`${sixCityInventoryPath}\` must mark \`${expectedCity.slug}\` as \`live\`, found \`${inventoryEntry.currentRouteStatus || 'missing'}\`.`,
+      )
+    }
+
+    if (inventoryEntry.operationalPriority === 'planned') {
+      failures.push(
+        `\`${sixCityInventoryPath}\` must not leave active city \`${expectedCity.slug}\` marked as \`planned\`.`,
+      )
+    }
+
+    if (inventoryEntry.navigationStatus !== 'linked') {
+      failures.push(
+        `\`${sixCityInventoryPath}\` must mark \`${expectedCity.slug}\` as navigation-linked.`,
+      )
+    }
+
+    if (inventoryEntry.sitemapStatus !== 'included') {
+      failures.push(
+        `\`${sixCityInventoryPath}\` must mark \`${expectedCity.slug}\` as included in the sitemap under the current architecture.`,
+      )
+    }
+
+    if (inventoryEntry.imageStatus !== 'approved') {
+      failures.push(
+        `\`${sixCityInventoryPath}\` must mark \`${expectedCity.slug}\` image status as approved.`,
+      )
+    }
+
+    if (inventoryEntry.imageRightsStatus !== 'approved') {
+      failures.push(
+        `\`${sixCityInventoryPath}\` must mark \`${expectedCity.slug}\` image-rights status as approved.`,
+      )
+    }
+  }
+
+  const manifestEntryByCity = new Map(
+    imageRightsEntries.map((entry) => [entry.city, entry]),
+  )
+
+  for (const expectedCity of expectedCityPages) {
+    const manifestEntry = manifestEntryByCity.get(expectedCity.city)
+
+    if (!manifestEntry) {
+      failures.push(
+        `\`${imageRightsManifestPath}\` is missing the image-rights record for \`${expectedCity.city}\`.`,
+      )
+      continue
+    }
+
+    if (manifestEntry.intendedPage !== expectedCity.route) {
+      failures.push(
+        `\`${imageRightsManifestPath}\` must point \`${expectedCity.city}\` to \`${expectedCity.route}\`, found \`${manifestEntry.intendedPage || 'missing'}\`.`,
+      )
+    }
+
+    if (manifestEntry.approvalStatus !== 'approved') {
+      failures.push(
+        `\`${imageRightsManifestPath}\` must mark \`${expectedCity.city}\` as \`approved\`, found \`${manifestEntry.approvalStatus || 'missing'}\`.`,
+      )
+    }
+
+    if (manifestEntry.attributionText !== expectedCity.attribution) {
+      failures.push(
+        `\`${imageRightsManifestPath}\` attribution for \`${expectedCity.city}\` must match the approved city-page attribution text.`,
+      )
+    }
+  }
 
   const ga4ConfiguredHtml = htmlContents.filter(({ html }) =>
     html.includes("gtag('config'"),
@@ -778,6 +1202,15 @@ async function main() {
           `Internal href \`${href}\` in \`dist/${file}\` does not match a generated route or known asset.`,
         )
       }
+
+      if (
+        routePath.startsWith('/service-areas/') &&
+        !expectedCityRoutes.has(routePath)
+      ) {
+        failures.push(
+          `Internal city link \`${href}\` in \`dist/${file}\` points to a city route outside the approved six-city set.`,
+        )
+      }
     }
 
     for (const attributes of listAnchorAttributes(html)) {
@@ -834,6 +1267,190 @@ async function main() {
   const indexablePages = htmlContents.filter(({ html }) =>
     isIndexablePage(html),
   )
+
+  for (const route of routeSet) {
+    if (
+      /^\/(?:driveway-pressure-washing|sidewalk-walkway-cleaning|concrete-cleaning)\/[^/]+/.test(
+        route,
+      )
+    ) {
+      failures.push(
+        `Generated output must not create service-by-city route matrix pages, found \`${route}\`.`,
+      )
+    }
+  }
+
+  const cityPageRecords = expectedCityPages
+    .map((expectedCity) => {
+      const record = htmlByRoute.get(expectedCity.route)
+
+      if (!record) {
+        return null
+      }
+
+      return { ...expectedCity, ...record }
+    })
+    .filter(Boolean)
+
+  const cityH1ToRoutes = getUniqueValueRoutes(cityPageRecords, ({ html }) =>
+    findHeading(html, 1),
+  )
+  const cityImageSrcToRoutes = getUniqueValueRoutes(
+    cityPageRecords,
+    ({ html, imageSrc }) => {
+      const imageTag = getTags(html, 'img')
+        .map((tag) => parseAttributes(tag))
+        .find((attributes) => attributes.src === imageSrc)
+
+      return imageTag?.src ?? ''
+    },
+  )
+
+  for (const cityPage of cityPageRecords) {
+    const h1 = findHeading(cityPage.html, 1)
+    const robotsContent = findMetaContent(cityPage.html, 'robots')
+      .trim()
+      .toLowerCase()
+    const imageTag = getTags(cityPage.html, 'img')
+      .map((tag) => parseAttributes(tag))
+      .find((attributes) => attributes.src === cityPage.imageSrc)
+    const structuredData = parseStructuredData(cityPage.html)
+    const breadcrumbSchema = structuredData.find(
+      (value) =>
+        value &&
+        typeof value === 'object' &&
+        value['@type'] === 'BreadcrumbList',
+    )
+
+    if (!h1) {
+      failures.push(
+        `City page \`${cityPage.route}\` must include a non-empty \`<h1>\`.`,
+      )
+    }
+
+    if (!robotsContent.includes('index') || robotsContent.includes('noindex')) {
+      failures.push(
+        `City page \`${cityPage.route}\` must keep the current \`index, follow\` robots directive until issue #63 decides otherwise.`,
+      )
+    }
+
+    if (!cityPage.html.includes('aria-label="Breadcrumb"')) {
+      failures.push(
+        `City page \`${cityPage.route}\` must render breadcrumb UI with \`aria-label="Breadcrumb"\`.`,
+      )
+    }
+
+    if (!breadcrumbSchema || !Array.isArray(breadcrumbSchema.itemListElement)) {
+      failures.push(
+        `City page \`${cityPage.route}\` must include valid breadcrumb schema.`,
+      )
+    } else {
+      const firstItem = breadcrumbSchema.itemListElement[0]
+      const lastItem =
+        breadcrumbSchema.itemListElement[
+          breadcrumbSchema.itemListElement.length - 1
+        ]
+
+      if (firstItem?.name !== 'Home' || firstItem?.item !== productionOrigin) {
+        failures.push(
+          `City page \`${cityPage.route}\` breadcrumb schema must begin with Home at \`${productionOrigin}\`.`,
+        )
+      }
+
+      if (
+        lastItem?.name !== cityPage.city ||
+        lastItem?.item !== `${productionOrigin}${cityPage.route}`
+      ) {
+        failures.push(
+          `City page \`${cityPage.route}\` breadcrumb schema must end with \`${cityPage.city}\` at \`${productionOrigin}${cityPage.route}\`.`,
+        )
+      }
+    }
+
+    if (!imageTag) {
+      failures.push(
+        `City page \`${cityPage.route}\` must render its approved city-context image \`${cityPage.imageSrc}\`.`,
+      )
+    } else {
+      if ((imageTag.alt ?? '').trim() !== cityPage.alt) {
+        failures.push(
+          `City page \`${cityPage.route}\` must render the approved city-image alt text.`,
+        )
+      }
+
+      if (!imageTag.width || !imageTag.height) {
+        failures.push(
+          `City page \`${cityPage.route}\` must reserve width and height for its city-context image.`,
+        )
+      }
+
+      const srcset = imageTag.srcset ?? ''
+      for (const source of cityPage.imageSources) {
+        if (!srcset.includes(source)) {
+          failures.push(
+            `City page \`${cityPage.route}\` must include responsive image source \`${source}\`.`,
+          )
+        }
+      }
+
+      if (!(imageTag.sizes ?? '').trim()) {
+        failures.push(
+          `City page \`${cityPage.route}\` must include a responsive \`sizes\` attribute for its city-context image.`,
+        )
+      }
+    }
+
+    if (!cityPage.html.includes(cityPage.attribution)) {
+      failures.push(
+        `City page \`${cityPage.route}\` must render the approved city-image attribution.`,
+      )
+    }
+
+    for (const imageSource of new Set([
+      ...cityPage.imageSources,
+      cityPage.imageSrc,
+    ])) {
+      const distAssetPath = imageSource
+        .replace(/\s+\d+w$/, '')
+        .replace(/^\//, '')
+
+      if (!fileSet.has(distAssetPath)) {
+        failures.push(
+          `City image asset \`${imageSource}\` for \`${cityPage.route}\` is missing from \`dist/\`.`,
+        )
+        continue
+      }
+
+      const assetBuffer = await readFile(path.join(distDir, distAssetPath))
+      const hasExif = assetBuffer.includes(Buffer.from('Exif\u0000\u0000'))
+      const hasXmp = assetBuffer.includes(
+        Buffer.from('http://ns.adobe.com/xap/1.0/'),
+      )
+
+      if (hasExif || hasXmp) {
+        failures.push(
+          `City image asset \`dist/${distAssetPath}\` must not retain EXIF, GPS, or XMP metadata.`,
+        )
+      }
+    }
+  }
+
+  for (const [h1, routes] of cityH1ToRoutes) {
+    if (routes.length > 1) {
+      failures.push(
+        `City pages must not share duplicate H1s. \`${h1}\` appears on: ${routes.join(', ')}.`,
+      )
+    }
+  }
+
+  for (const [imageSrc, routes] of cityImageSrcToRoutes) {
+    if (routes.length > 1) {
+      failures.push(
+        `City pages must not reuse the same city-context image asset. \`${imageSrc}\` appears on: ${routes.join(', ')}.`,
+      )
+    }
+  }
+
   for (const route of Object.keys(routeContentExpectations)) {
     if (!routeSet.has(route)) {
       failures.push(

@@ -4,17 +4,20 @@ import BreadcrumbSchema from '../../components/site/BreadcrumbSchema.astro'
 import Breadcrumbs from '../../components/site/Breadcrumbs.astro'
 import CTASection from '../../components/patterns/CTASection.astro'
 import Card from '../../components/ui/Card.astro'
+import CityContextMedia from '../../components/patterns/CityContextMedia.astro'
 import FAQList from '../../components/patterns/FAQList.astro'
 import HeroSection from '../../components/patterns/HeroSection.astro'
 import LinkGrid from '../../components/patterns/LinkGrid.astro'
 import Section from '../../components/ui/Section.astro'
 import Layout from '../../layouts/Layout.astro'
+import { cityContextImages } from '../../data/cityContextImages'
 import { site } from '../../data/site'
 import { serviceAreas } from '../../data/serviceAreas'
 import { services } from '../../data/services'
 import { ClipboardCheck, FileText, MapPinned, Phone } from '@lucide/astro'
 
 const area = serviceAreas.find((item) => item.slug === 'deltona')!
+const cityContextImage = cityContextImages.deltona
 const breadcrumbs = [
   { label: 'Home', href: '/' },
   { label: area.name, href: `/service-areas/${area.slug}` },
@@ -204,20 +207,33 @@ const faqs = [
       title="Deltona homes often present different front-of-home concrete layouts"
       description="Some properties have sidewalk panels, others do not. Drainage, swales, and the way the driveway meets the front walk can change what needs to be included in the quote."
       class="border-t border-[var(--color-border)]"
+      contentWidth="full"
     >
-      <div class="grid gap-4 md:grid-cols-3">
-        {
-          deltonaContexts.map((item) => (
-            <Card class="bg-white">
-              <h3 class="text-base font-semibold text-[var(--color-text)]">
-                {item.title}
-              </h3>
-              <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
-                {item.description}
-              </p>
-            </Card>
-          ))
-        }
+      <div
+        class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.72fr)] lg:items-start"
+      >
+        <div class="grid gap-4 md:grid-cols-3">
+          {
+            deltonaContexts.map((item) => (
+              <Card class="bg-white">
+                <h3 class="text-base font-semibold text-[var(--color-text)]">
+                  {item.title}
+                </h3>
+                <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
+                  {item.description}
+                </p>
+              </Card>
+            ))
+          }
+        </div>
+
+        <CityContextMedia
+          image={{ ...cityContextImage.image, alt: cityContextImage.alt }}
+          caption={cityContextImage.caption}
+          attribution={cityContextImage.attribution}
+          loading="eager"
+          class="max-w-xl justify-self-end"
+        />
       </div>
     </Section>
 
