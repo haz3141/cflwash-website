@@ -460,7 +460,12 @@ function parseSixCityInventory(source) {
     city: readYamlScalar(block, 'city'),
     slug: readYamlScalar(block, 'slug'),
     operationalPriority: readYamlScalar(block, 'operational_priority'),
+    currentPageQualityStatus: readYamlScalar(
+      block,
+      'current_page_quality_status',
+    ),
     currentRouteStatus: readYamlScalar(block, 'current_route_status'),
+    indexStatus: readYamlScalar(block, 'index_status'),
     sitemapStatus: readYamlScalar(block, 'sitemap_status'),
     navigationStatus: readYamlScalar(block, 'navigation_status'),
     imageStatus: readYamlScalar(block, 'image_status'),
@@ -680,11 +685,33 @@ async function main() {
 
   if (
     !sixCityInventorySource.includes(
-      'Final indexability review remains deferred to issue #63.',
+      'Final indexability review is completed in issue #63.',
     )
   ) {
     failures.push(
-      `\`${sixCityInventoryPath}\` must note that final indexability review remains deferred to issue \`#63\`.`,
+      `\`${sixCityInventoryPath}\` must note that final indexability review is completed in issue \`#63\`.`,
+    )
+  }
+
+  if (!sixCityInventorySource.includes('final_indexability_gate:')) {
+    failures.push(
+      `\`${sixCityInventoryPath}\` must record the final indexability gate.`,
+    )
+  }
+
+  if (!sixCityInventorySource.includes("issue: '#63'")) {
+    failures.push(
+      `\`${sixCityInventoryPath}\` must link the final indexability gate to issue \`#63\`.`,
+    )
+  }
+
+  if (
+    !sixCityInventorySource.includes(
+      'decision_matrix_path: docs/seo/SIX_CITY_INDEXABILITY_DECISIONS.md',
+    )
+  ) {
+    failures.push(
+      `\`${sixCityInventoryPath}\` must link to the six-city indexability decision matrix.`,
     )
   }
 
@@ -808,6 +835,18 @@ async function main() {
     if (inventoryEntry.currentRouteStatus !== 'live') {
       failures.push(
         `\`${sixCityInventoryPath}\` must mark \`${expectedCity.slug}\` as \`live\`, found \`${inventoryEntry.currentRouteStatus || 'missing'}\`.`,
+      )
+    }
+
+    if (inventoryEntry.currentPageQualityStatus !== 'index-approved') {
+      failures.push(
+        `\`${sixCityInventoryPath}\` must mark \`${expectedCity.slug}\` page quality as \`index-approved\`, found \`${inventoryEntry.currentPageQualityStatus || 'missing'}\`.`,
+      )
+    }
+
+    if (inventoryEntry.indexStatus !== 'index-approved') {
+      failures.push(
+        `\`${sixCityInventoryPath}\` must mark \`${expectedCity.slug}\` index status as \`index-approved\`, found \`${inventoryEntry.indexStatus || 'missing'}\`.`,
       )
     }
 
@@ -1330,7 +1369,7 @@ async function main() {
 
     if (!robotsContent.includes('index') || robotsContent.includes('noindex')) {
       failures.push(
-        `City page \`${cityPage.route}\` must keep the current \`index, follow\` robots directive until issue #63 decides otherwise.`,
+        `City page \`${cityPage.route}\` must keep the issue #63 approved \`index, follow\` robots directive.`,
       )
     }
 

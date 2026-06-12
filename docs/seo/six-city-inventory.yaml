@@ -1,5 +1,5 @@
 inventory_name: 'CFL Wash Co. six-city launch inventory'
-inventory_scope: 'Internal source of truth before additional research, image selection, or page implementation'
+inventory_scope: 'Internal source of truth for six-city launch routes, image rights, and final indexability decisions'
 last_updated: '2026-06-12'
 
 integration_audit:
@@ -9,7 +9,25 @@ integration_audit:
   notes:
     - 'All six live city routes, service-area data entries, metadata mechanics, internal links, and city-context image assignments matched the approved launch set during the integration audit.'
     - 'Current sitemap and robots mechanics remain live under the existing architecture.'
-    - 'Final indexability review remains deferred to issue #63.'
+    - 'Final indexability review is completed in issue #63.'
+
+final_indexability_gate:
+  issue: '#63'
+  reviewed_on: '2026-06-12'
+  reviewer: Codex
+  result: passed
+  decision_matrix_path: docs/seo/SIX_CITY_INDEXABILITY_DECISIONS.md
+  approved_city_index_set:
+    - Deltona
+    - Orange City
+    - DeBary
+    - DeLand
+    - Sanford
+    - Lake Mary
+  notes:
+    - 'All six city pages are index-approved for launch.'
+    - 'All six city pages remain sitemap included and navigation linked.'
+    - 'Additional Seminole and Volusia city pages require separate research and implementation issues after launch evidence supports them.'
 
 field_controls:
   municipality_status:
@@ -71,7 +89,7 @@ cities:
     research_brief_path: docs/seo/cities/deltona.md
     research_status: verified
     current_route_status: live
-    current_page_quality_status: implemented
+    current_page_quality_status: index-approved
     index_status: index-approved
     sitemap_status: included
     navigation_status: linked
@@ -86,7 +104,7 @@ cities:
     last_reviewed_date: '2026-06-12'
     blocking_decisions:
       - 'Project proof stays internal until real jobs, approval, and publication permission exist.'
-      - 'Final indexability review remains part of issue #63 rather than the route-integration gate.'
+      - 'Index approval is limited to the verified city page; edge-address treatment still requires owner confirmation.'
 
   - city: Orange City
     slug: orange-city
@@ -96,7 +114,7 @@ cities:
     research_brief_path: docs/seo/cities/orange-city.md
     research_status: verified
     current_route_status: live
-    current_page_quality_status: implemented
+    current_page_quality_status: index-approved
     index_status: index-approved
     sitemap_status: included
     navigation_status: linked
@@ -111,7 +129,7 @@ cities:
     last_reviewed_date: '2026-06-12'
     blocking_decisions:
       - 'Project proof stays internal until real jobs, approval, and publication permission exist.'
-      - 'Any future index-status change requires a separate review rather than a content-page assumption.'
+      - 'Index approval is limited to the verified city page; edge-address treatment still requires owner confirmation.'
 
   - city: DeBary
     slug: debary
@@ -121,7 +139,7 @@ cities:
     research_brief_path: docs/seo/cities/debary.md
     research_status: verified
     current_route_status: live
-    current_page_quality_status: implemented
+    current_page_quality_status: index-approved
     index_status: index-approved
     sitemap_status: included
     navigation_status: linked
@@ -136,7 +154,7 @@ cities:
     last_reviewed_date: '2026-06-12'
     blocking_decisions:
       - 'Project proof stays internal until real jobs, approval, and publication permission exist.'
-      - 'Any future index-status change requires a separate review rather than a content-page assumption.'
+      - 'Index approval is limited to the verified city page; edge-address treatment still requires owner confirmation.'
 
   - city: DeLand
     slug: deland
@@ -146,7 +164,7 @@ cities:
     research_brief_path: docs/seo/cities/deland.md
     research_status: verified
     current_route_status: live
-    current_page_quality_status: implemented
+    current_page_quality_status: index-approved
     index_status: index-approved
     sitemap_status: included
     navigation_status: linked
@@ -161,7 +179,7 @@ cities:
     last_reviewed_date: '2026-06-12'
     blocking_decisions:
       - 'Project proof stays internal until real jobs, approval, and publication permission exist.'
-      - 'Any future index-status change requires a separate review rather than a content-page assumption.'
+      - 'Index approval is limited to the verified city page; Greater DeLand and North DeLand edge wording still require owner confirmation.'
 
   - city: Sanford
     slug: sanford
@@ -171,8 +189,8 @@ cities:
     research_brief_path: docs/seo/cities/sanford.md
     research_status: verified
     current_route_status: live
-    current_page_quality_status: implemented
-    index_status: not-ready
+    current_page_quality_status: index-approved
+    index_status: index-approved
     sitemap_status: included
     navigation_status: linked
     image_status: approved
@@ -185,8 +203,8 @@ cities:
     qualified_leads_count: null
     last_reviewed_date: '2026-06-12'
     blocking_decisions:
-      - 'Current architecture includes the route in the sitemap; final editorial and indexability approval remain part of issue #63.'
       - 'Project proof stays internal until real jobs, approval, and publication permission exist.'
+      - 'Index approval is limited to the verified city page; Midway, airport-edge, and county-pocket wording still require owner confirmation.'
 
   - city: Lake Mary
     slug: lake-mary
@@ -196,8 +214,8 @@ cities:
     research_brief_path: docs/seo/cities/lake-mary.md
     research_status: verified
     current_route_status: live
-    current_page_quality_status: implemented
-    index_status: not-ready
+    current_page_quality_status: index-approved
+    index_status: index-approved
     sitemap_status: included
     navigation_status: linked
     image_status: approved
@@ -210,5 +228,5 @@ cities:
     qualified_leads_count: null
     last_reviewed_date: '2026-06-12'
     blocking_decisions:
-      - 'Current architecture includes the route in the sitemap; final editorial and indexability approval remain part of issue #63.'
       - 'Project proof stays internal until real jobs, approval, and publication permission exist.'
+      - 'Index approval is limited to the verified city page; Heathrow-area, county-pocket, and mailing-name edge wording still require owner confirmation.'
