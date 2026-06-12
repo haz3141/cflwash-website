@@ -70,7 +70,6 @@ const processSteps = [
   },
 ]
 
-const broaderServiceAreas = ['Lake Mary']
 const serviceAreaLinks = serviceAreas.map((area) => ({
   label: area.name,
   href: `/service-areas/${area.slug}`,
@@ -322,11 +321,6 @@ const serviceHighlights = {
           <p class="mt-3 text-lead text-[var(--color-text-muted)]">
             Explore the current city pages below. These are the published local
             pages available now.
-          </p>
-          <p class="mt-4 text-sm leading-7 text-[var(--color-text-muted)]">
-            The broader Central Florida service plan also includes nearby areas
-            such as {broaderServiceAreas.join(', ')}, with dedicated pages
-            planned as the site expands.
           </p>
         </div>
 

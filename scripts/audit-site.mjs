@@ -122,6 +122,16 @@ const routeContentExpectations = {
       'Photo: Connor Williams, CC BY 2.0, via Wikimedia Commons. Resized for web delivery.',
     ],
   },
+  '/service-areas/lake-mary': {
+    snippets: [
+      'Soldiers Creek',
+      'Rinehart Road',
+      '/images/city-context/lake-mary-city-hall-640.jpg 640w',
+      '/images/city-context/lake-mary-city-hall-1280.jpg 1280w',
+      'Lake Mary City Hall sign in front of a low brick wall and trees.',
+      'Photo: Wikisteveb4, CC BY 4.0, via Wikimedia Commons. Resized for web delivery.',
+    ],
+  },
 }
 
 async function walkFiles(dir, prefix = '') {

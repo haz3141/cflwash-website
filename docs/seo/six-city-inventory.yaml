@@ -1,6 +1,6 @@
 inventory_name: 'CFL Wash Co. six-city launch inventory'
 inventory_scope: 'Internal source of truth before additional research, image selection, or page implementation'
-last_updated: '2026-06-11'
+last_updated: '2026-06-12'
 
 field_controls:
   municipality_status:
@@ -186,20 +186,20 @@ cities:
     operational_priority: planned
     research_brief_path: docs/seo/cities/lake-mary.md
     research_status: verified
-    current_route_status: missing
-    current_page_quality_status: missing
+    current_route_status: live
+    current_page_quality_status: implemented
     index_status: not-ready
     sitemap_status: not-ready
-    navigation_status: not-linked
-    image_status: candidate-only
+    navigation_status: linked
+    image_status: approved
     image_subject_candidate: Central Park at City Hall as primary, with Trailhead Park gateway context as fallback
-    image_rights_status: candidate-only
-    image_source_or_owner: Owner photography preferred; third-party civic or gateway imagery requires separate permission or commercial license review
-    attribution_requirement: null
+    image_rights_status: approved
+    image_source_or_owner: Wikimedia Commons image by Wikisteveb4; approved derivative and rights record in docs/seo/image-rights-manifest.yaml
+    attribution_requirement: 'Photo: Wikisteveb4, CC BY 4.0, via Wikimedia Commons. Resized for web delivery.'
     completed_jobs_count: null
     publishable_projects_count: null
     qualified_leads_count: null
-    last_reviewed_date: '2026-06-11'
+    last_reviewed_date: '2026-06-12'
     blocking_decisions:
-      - 'Route creation and service-area data entry require a separate implementation issue.'
-      - 'No public Lake Mary image may be added until a manifest record is approved.'
+      - 'Final sitemap and index approval remain part of the later launch gate.'
+      - 'Project proof stays internal until real jobs, approval, and publication permission exist.'
