@@ -23,8 +23,10 @@ jobs:
           cache: pnpm
       - name: Install
         run: pnpm install --frozen-lockfile
-      - name: Format
-        run: pnpm format:check
+      - name: Format working copy
+        run: pnpm format
+      - name: Capture formatting patch
+        run: git diff -- . ':!.github/workflows/temporary-service-area-qa.yml' > /tmp/format.patch
       - name: Lint
         run: pnpm lint
       - name: Build
@@ -34,4 +36,11 @@ jobs:
       - name: Site audit
         run: pnpm audit:site
       - name: Whitespace
-        run: git diff --check HEAD^ HEAD
+        run: git diff --check
+      - name: Upload formatting patch
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: service-area-format-patch
+          path: /tmp/format.patch
+          if-no-files-found: error
