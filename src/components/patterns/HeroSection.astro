@@ -12,6 +12,12 @@ type Props = {
   description?: string
 }
 
+type AutomaticMedia = {
+  src: string
+  alt: string
+  caption: string
+}
+
 const {
   variant = 'compact',
   tone = 'default',
@@ -20,8 +26,32 @@ const {
   description,
 } = Astro.props as Props
 
-const isSplit = variant === 'split'
-const toneClass = tone === 'soft' ? 'bg-[var(--color-surface)]' : ''
+const automaticMediaByPath: Record<string, AutomaticMedia> = {
+  '/driveway-pressure-washing': {
+    src: '/images/services/results/after/driveway-apron-after-wide-01-640.webp',
+    alt: 'Clean residential concrete driveway apron and curb after washing',
+    caption:
+      'A cleaned residential driveway apron and curb. Results vary with surface condition and staining.',
+  },
+  '/sidewalk-walkway-cleaning': {
+    src: '/images/services/results/after/sidewalk-after-wide-01-640.webp',
+    alt: 'Clean residential concrete sidewalk through a landscaped neighborhood',
+    caption:
+      'A cleaned residential sidewalk. Results vary with surface condition and staining.',
+  },
+  '/concrete-cleaning': {
+    src: '/images/services/results/after/curb-gutter-after-wide-01-640.webp',
+    alt: 'Clean residential concrete curb and gutter beside a landscaped street',
+    caption:
+      'A cleaned residential curb and gutter. Results vary with surface condition and staining.',
+  },
+}
+
+const automaticMedia = automaticMediaByPath[Astro.url.pathname]
+const hasMedia = Astro.slots.has('media') || Boolean(automaticMedia)
+const isSplit = variant === 'split' || Boolean(automaticMedia)
+const toneClass =
+  tone === 'soft' || automaticMedia ? 'bg-[var(--color-surface)]' : ''
 ---
 
 <section class={`${isSplit ? 'overflow-hidden' : ''} ${toneClass}`.trim()}>
@@ -81,6 +111,28 @@ const toneClass = tone === 'soft' ? 'bg-[var(--color-surface)]' : ''
       {Astro.slots.has('aside') && <slot name="aside" />}
     </div>
 
-    {isSplit && Astro.slots.has('media') && <slot name="media" />}
+    {
+      isSplit &&
+        hasMedia &&
+        (Astro.slots.has('media') ? (
+          <slot name="media" />
+        ) : automaticMedia ? (
+          <figure class="overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white shadow-sm">
+            <img
+              src={automaticMedia.src}
+              alt={automaticMedia.alt}
+              width="480"
+              height="640"
+              class="aspect-[3/4] h-full w-full object-cover"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+            />
+            <figcaption class="border-t border-[var(--color-border)] px-4 py-3 text-xs leading-5 text-[var(--color-text-muted)]">
+              {automaticMedia.caption}
+            </figcaption>
+          </figure>
+        ) : null)
+    }
   </Container>
 </section>
