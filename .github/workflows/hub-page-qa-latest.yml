@@ -24,13 +24,68 @@ jobs:
           node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - name: Format working copy
-        run: pnpm format
-      - name: Commit formatter output
+      - name: Add homepage hub links
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('src/pages/index.astro')
+          text = path.read_text()
+
+          if 'data-home-services-hub' not in text:
+              old = '''      </div>
+          </Section>
+
+          <SplitFeature'''
+              new = '''      </div>
+          <div class="mt-8">
+            <Button
+              href="/services"
+              variant="secondary"
+              size="lg"
+              data-home-services-hub
+            >
+              View All Services
+            </Button>
+          </div>
+          </Section>
+
+          <SplitFeature'''
+              if old not in text:
+                  raise SystemExit('Services section insertion point not found')
+              text = text.replace(old, new, 1)
+
+          if 'data-home-service-areas-hub' not in text:
+              old = '''          </p>
+              </div>
+
+              <LinkGrid
+                items={serviceAreaLinks}'''
+              new = '''          </p>
+              <Button
+                href="/service-areas"
+                variant="secondary"
+                class="mt-6"
+                data-home-service-areas-hub
+              >
+                Explore All Service Areas
+              </Button>
+              </div>
+
+              <LinkGrid
+                items={serviceAreaLinks}'''
+              if old not in text:
+                  raise SystemExit('Service-area section insertion point not found')
+              text = text.replace(old, new, 1)
+
+          path.write_text(text)
+          PY
+      - run: pnpm format
+      - name: Commit homepage hub links
         uses: stefanzweifel/git-auto-commit-action@v6
         with:
-          commit_message: 'style: format hub pages and audit docs [skip ci]'
-          file_pattern: 'src/pages/services.astro src/pages/service-areas.astro src/components/site/Header.astro src/components/site/Footer.astro src/components/site/Breadcrumbs.astro src/components/site/BreadcrumbSchema.astro docs/design/IMAGE_AUDIT.md docs/product/PAGE_INVENTORY.md'
+          commit_message: 'feat(navigation): link homepage sections to hubs [skip ci]'
+          file_pattern: 'src/pages/index.astro'
       - run: pnpm format:check
       - run: pnpm lint
       - run: pnpm build
