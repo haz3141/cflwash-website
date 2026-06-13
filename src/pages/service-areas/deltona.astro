@@ -2,8 +2,7 @@
 import ServiceAreaPage from '../../components/patterns/ServiceAreaPage.astro'
 import { serviceAreaPages } from '../../data/serviceAreaPages'
 
-const slug = Astro.url.pathname.split('/').filter(Boolean).at(-1)!
-const page = serviceAreaPages[slug]
+const page = serviceAreaPages.deltona
 ---
 
 <ServiceAreaPage page={page} />
