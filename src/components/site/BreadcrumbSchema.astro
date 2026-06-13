@@ -23,11 +23,7 @@ let schemaItems = items
 
 if (items.length === 2 && items[0]?.href === '/') {
   if (serviceRoutes.has(pathname)) {
-    schemaItems = [
-      items[0],
-      { label: 'Services', href: '/services' },
-      items[1],
-    ]
+    schemaItems = [items[0], { label: 'Services', href: '/services' }, items[1]]
   } else if (pathname.startsWith('/service-areas/')) {
     schemaItems = [
       items[0],

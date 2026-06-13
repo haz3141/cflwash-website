@@ -38,19 +38,19 @@ Do not imply that decorative artwork or city-context images are proof imagery.
 
 ## Route-by-route inventory
 
-| Route or category | Current visual treatment | Status | Main limitation |
-| --- | --- | --- | --- |
-| `/` | One responsive decorative hero artwork, logo assets, and interface icons | Acceptable temporary foundation | No real service or completed-work photography |
-| `/services` | Responsive decorative hero artwork plus service icons | Added as part of hub architecture | Reuses homepage artwork and does not show individual services |
-| `/driveway-pressure-washing` | Icons, cards, and layout styling only | Image gap | Needs a real driveway cleaning image or purpose-built service illustration |
-| `/sidewalk-walkway-cleaning` | Icons, cards, and layout styling only | Image gap | Needs a real walkway or sidewalk cleaning image or purpose-built service illustration |
-| `/concrete-cleaning` | Icons, cards, and layout styling only | Image gap | Needs a real patio, pad, curb, apron, or general concrete image |
-| `/service-areas` | Six responsive, attributed city-context images | Improved discovery and visual variety | Images establish place, not service quality or completed work |
-| Six city detail pages | Shared decorative hero artwork plus one unique attributed city-context image per city | Improved but temporary | Shared hero is repeated across all cities; civic image remains secondary context only |
-| `/request-quote` | Form and interface styling | No immediate image requirement | A small process or photo-upload guidance visual could help later |
-| `/privacy` | Text-only legal page | Appropriate | No image required |
-| `/thank-you` | Confirmation content | Appropriate | No image required |
-| Header and footer | Responsive wordmark derivatives | Functional, pending visual approval | Raster-only logo derivatives remain a long-term limitation |
+| Route or category            | Current visual treatment                                                              | Status                                | Main limitation                                                                       |
+| ---------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------- | ------------------------------------------------------------------------------------- |
+| `/`                          | One responsive decorative hero artwork, logo assets, and interface icons              | Acceptable temporary foundation       | No real service or completed-work photography                                         |
+| `/services`                  | Responsive decorative hero artwork plus service icons                                 | Added as part of hub architecture     | Reuses homepage artwork and does not show individual services                         |
+| `/driveway-pressure-washing` | Icons, cards, and layout styling only                                                 | Image gap                             | Needs a real driveway cleaning image or purpose-built service illustration            |
+| `/sidewalk-walkway-cleaning` | Icons, cards, and layout styling only                                                 | Image gap                             | Needs a real walkway or sidewalk cleaning image or purpose-built service illustration |
+| `/concrete-cleaning`         | Icons, cards, and layout styling only                                                 | Image gap                             | Needs a real patio, pad, curb, apron, or general concrete image                       |
+| `/service-areas`             | Six responsive, attributed city-context images                                        | Improved discovery and visual variety | Images establish place, not service quality or completed work                         |
+| Six city detail pages        | Shared decorative hero artwork plus one unique attributed city-context image per city | Improved but temporary                | Shared hero is repeated across all cities; civic image remains secondary context only |
+| `/request-quote`             | Form and interface styling                                                            | No immediate image requirement        | A small process or photo-upload guidance visual could help later                      |
+| `/privacy`                   | Text-only legal page                                                                  | Appropriate                           | No image required                                                                     |
+| `/thank-you`                 | Confirmation content                                                                  | Appropriate                           | No image required                                                                     |
+| Header and footer            | Responsive wordmark derivatives                                                       | Functional, pending visual approval   | Raster-only logo derivatives remain a long-term limitation                            |
 
 ## What the city redesign fixed
 
