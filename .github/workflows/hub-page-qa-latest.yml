@@ -6,7 +6,7 @@ on:
       - dev
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   verify:
@@ -16,6 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: feat/service-area-page-redesign
           fetch-depth: 0
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
@@ -25,26 +26,14 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: Format working copy
         run: pnpm format
-      - name: List formatter changes
-        run: git diff --name-only
+      - name: Commit formatter output
+        uses: stefanzweifel/git-auto-commit-action@v6
+        with:
+          commit_message: 'style: format hub pages and audit docs [skip ci]'
+          file_pattern: 'src/pages/services.astro src/pages/service-areas.astro src/components/site/Header.astro src/components/site/Footer.astro src/components/site/Breadcrumbs.astro src/components/site/BreadcrumbSchema.astro docs/design/IMAGE_AUDIT.md docs/product/PAGE_INVENTORY.md'
       - run: pnpm format:check
       - run: pnpm lint
       - run: pnpm build
       - run: pnpm audit:patterns
       - run: pnpm audit:site
-      - run: git diff --check
-      - name: Upload formatted files
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: formatted-hub-page-files
-          path: |
-            src/pages/services.astro
-            src/pages/service-areas.astro
-            src/components/site/Header.astro
-            src/components/site/Footer.astro
-            src/components/site/Breadcrumbs.astro
-            src/components/site/BreadcrumbSchema.astro
-            docs/design/IMAGE_AUDIT.md
-            docs/product/PAGE_INVENTORY.md
-          if-no-files-found: error
+      - run: git diff --check origin/dev...HEAD
