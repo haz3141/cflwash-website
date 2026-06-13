@@ -80,9 +80,12 @@ import { site } from '../../data/site'
     </div>
 
     <div>
-      <p class="text-sm font-semibold text-[var(--color-text-inverse)]">
+      <a
+        href="/services"
+        class="text-sm font-semibold text-[var(--color-text-inverse)] transition-colors hover:text-white focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring-inverse)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface-inverse)]"
+      >
         Services
-      </p>
+      </a>
       <ul class="mt-4 space-y-2 text-sm text-white/74">
         {
           services.map((service) => (
@@ -100,9 +103,12 @@ import { site } from '../../data/site'
     </div>
 
     <div>
-      <p class="text-sm font-semibold text-[var(--color-text-inverse)]">
+      <a
+        href="/service-areas"
+        class="text-sm font-semibold text-[var(--color-text-inverse)] transition-colors hover:text-white focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring-inverse)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface-inverse)]"
+      >
         Service Areas
-      </p>
+      </a>
       <ul class="mt-4 space-y-2 text-sm text-white/74">
         {
           serviceAreas.map((area) => (
