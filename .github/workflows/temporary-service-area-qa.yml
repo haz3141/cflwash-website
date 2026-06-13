@@ -44,3 +44,10 @@ jobs:
           name: service-area-format-patch
           path: /tmp/format.patch
           if-no-files-found: error
+      - name: Upload formatted data file
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: formatted-service-area-pages
+          path: src/data/serviceAreaPages.ts
+          if-no-files-found: error
