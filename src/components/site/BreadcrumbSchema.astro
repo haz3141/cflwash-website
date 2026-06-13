@@ -12,8 +12,32 @@ type Props = {
 }
 
 const { items } = Astro.props as Props
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/'
+const serviceRoutes = new Set([
+  '/driveway-pressure-washing',
+  '/sidewalk-walkway-cleaning',
+  '/concrete-cleaning',
+])
 
-const normalizedItems = items.map((item, index) => {
+let schemaItems = items
+
+if (items.length === 2 && items[0]?.href === '/') {
+  if (serviceRoutes.has(pathname)) {
+    schemaItems = [
+      items[0],
+      { label: 'Services', href: '/services' },
+      items[1],
+    ]
+  } else if (pathname.startsWith('/service-areas/')) {
+    schemaItems = [
+      items[0],
+      { label: 'Service Areas', href: '/service-areas' },
+      items[1],
+    ]
+  }
+}
+
+const normalizedItems = schemaItems.map((item, index) => {
   const path =
     item.href === '/'
       ? ''
