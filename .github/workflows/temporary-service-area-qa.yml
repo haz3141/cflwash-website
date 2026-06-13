@@ -4,9 +4,6 @@ on:
   pull_request:
     branches:
       - dev
-  push:
-    branches:
-      - test/service-area-page-redesign
 
 permissions:
   contents: read
@@ -18,23 +15,23 @@ jobs:
     env:
       PUBLIC_TURNSTILE_SITE_KEY: test-site-key
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: pnpm
-
-      - name: Install dependencies
+      - name: Install
         run: pnpm install --frozen-lockfile
-
-      - name: Run project checks
-        run: pnpm check
-
-      - name: Check patch whitespace
+      - name: Format
+        run: pnpm format:check
+      - name: Lint
+        run: pnpm lint
+      - name: Build
+        run: pnpm build
+      - name: Pattern audit
+        run: pnpm audit:patterns
+      - name: Site audit
+        run: pnpm audit:site
+      - name: Whitespace
         run: git diff --check HEAD^ HEAD
