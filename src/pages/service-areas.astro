@@ -1,0 +1,227 @@
+---
+import Button from '../components/ui/Button.astro'
+import BreadcrumbSchema from '../components/site/BreadcrumbSchema.astro'
+import Breadcrumbs from '../components/site/Breadcrumbs.astro'
+import CTASection from '../components/patterns/CTASection.astro'
+import HeroSection from '../components/patterns/HeroSection.astro'
+import Section from '../components/ui/Section.astro'
+import Layout from '../layouts/Layout.astro'
+import { cityContextImages } from '../data/cityContextImages'
+import { serviceAreas } from '../data/serviceAreas'
+import { services } from '../data/services'
+import { site } from '../data/site'
+import { ArrowRight, ClipboardList, MapPin, Phone } from '@lucide/astro'
+
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'Service Areas', href: '/service-areas' },
+]
+const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
+const areaCards = serviceAreas.map((area) => ({
+  ...area,
+  contextImage: cityContextImages[area.slug],
+}))
+---
+
+<Layout
+  title="Pressure Washing Service Areas in Central Florida | CFL Wash Co."
+  description="Explore CFL Wash Co. pressure washing service areas in Deltona, Orange City, DeBary, DeLand, Sanford, and Lake Mary, Florida."
+  canonicalPath="/service-areas"
+>
+  <BreadcrumbSchema slot="head" items={breadcrumbs} />
+  <main>
+    <Breadcrumbs items={breadcrumbs} />
+
+    <HeroSection
+      tone="soft"
+      eyebrow="Central Florida service areas"
+      title="Find the pressure washing page for your city."
+      description="CFL Wash Co. currently publishes local service pages for six Central Florida cities. Choose the page that matches the service address for local context, active services, quote guidance, and nearby areas."
+    >
+      <Fragment slot="actions">
+        <Button
+          href="/request-quote"
+          size="lg"
+          fullWidth
+          class="sm:w-auto"
+          data-cta="quote"
+          data-cta-location="service-areas-hub-hero"
+        >
+          <ClipboardList
+            slot="startIcon"
+            class="h-5 w-5"
+            aria-hidden="true"
+            stroke-width="1.8"
+          />
+          Request a Quote
+        </Button>
+        <Button
+          href="/services"
+          variant="secondary"
+          size="lg"
+          fullWidth
+          class="sm:w-auto"
+        >
+          View Services
+        </Button>
+      </Fragment>
+
+      <aside
+        slot="aside"
+        aria-label="Current service-area coverage"
+        class="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white p-6 shadow-[var(--shadow-xs)]"
+      >
+        <div class="flex items-center gap-3">
+          <span
+            class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[var(--color-primary)] text-white"
+          >
+            <MapPin class="h-5 w-5" aria-hidden="true" stroke-width="1.8" />
+          </span>
+          <div>
+            <p class="text-sm font-semibold text-[var(--color-text)]">
+              Published coverage
+            </p>
+            <p class="text-sm text-[var(--color-text-muted)]">
+              {serviceAreas.length} active city pages
+            </p>
+          </div>
+        </div>
+        <p class="mt-4 text-sm leading-7 text-[var(--color-text-muted)]">
+          Do not see the exact city? Send the service address or nearest cross
+          streets. CFL Wash Co. can review whether the property fits the current
+          coverage area without implying service everywhere in Central Florida.
+        </p>
+      </aside>
+    </HeroSection>
+
+    <Section
+      eyebrow="Current city pages"
+      title="Choose the service address"
+      description="Each city page is written for homeowners first and includes active service links, common reasons to request cleaning, quote preparation, FAQs, and nearby published cities."
+      class="border-t border-[var(--color-border)]"
+      contentWidth="full"
+    >
+      <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        {
+          areaCards.map((area) => {
+            const image = area.contextImage
+            const srcset = image.image.sources
+              .map(({ src, width }) => `${src} ${width}w`)
+              .join(', ')
+
+            return (
+              <article class="flex h-full flex-col overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white shadow-[var(--shadow-xs)]">
+                <div class="overflow-hidden bg-[var(--color-surface)]">
+                  <img
+                    src={image.image.src}
+                    srcset={srcset}
+                    sizes="(min-width: 1280px) 31vw, (min-width: 768px) 46vw, 100vw"
+                    alt={image.alt}
+                    width={image.image.width}
+                    height={image.image.height}
+                    class="aspect-[16/10] h-full w-full object-cover"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <div class="flex flex-1 flex-col p-6">
+                  <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-action)]">
+                    Service area
+                  </p>
+                  <h2 class="mt-2 text-section-subtitle text-[var(--color-text)]">
+                    {area.name}, Florida
+                  </h2>
+                  <p class="mt-3 flex-1 text-sm leading-7 text-[var(--color-text-muted)]">
+                    {area.description}
+                  </p>
+                  <a
+                    href={`/service-areas/${area.slug}`}
+                    class="mt-5 inline-flex min-h-11 items-center gap-2 font-semibold text-[var(--color-action)] underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-4"
+                  >
+                    View {area.name} service page
+                    <ArrowRight
+                      class="h-4 w-4"
+                      aria-hidden="true"
+                      stroke-width="1.9"
+                    />
+                  </a>
+                </div>
+                <p class="border-t border-[var(--color-border)] px-6 py-3 text-xs leading-5 text-[var(--color-text-muted)]">
+                  City context only. {image.attribution}
+                </p>
+              </article>
+            )
+          })
+        }
+      </div>
+    </Section>
+
+    <Section
+      eyebrow="Available across current city pages"
+      title="The same concrete-focused services are linked from every city"
+      description="Use a city page for local context or go directly to the service that best matches the requested surface."
+      tone="soft"
+    >
+      <div class="grid gap-4 md:grid-cols-3">
+        {
+          services.map((service) => (
+            <a
+              href={`/${service.slug}`}
+              class="group rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white p-6 shadow-[var(--shadow-xs)] transition-transform hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+            >
+              <h2 class="text-lg font-semibold text-[var(--color-text)] group-hover:text-[var(--color-action)]">
+                {service.name}
+              </h2>
+              <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
+                {service.summary}
+              </p>
+              <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-action)]">
+                View service
+                <ArrowRight class="h-4 w-4" aria-hidden="true" stroke-width="1.9" />
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </Section>
+
+    <CTASection
+      eyebrow="Property outside a listed city?"
+      title="Send the exact service address for a coverage review."
+      description="Include the requested concrete surfaces and clear photos. CFL Wash Co. will review whether the property and scope fit the current service area before scheduling."
+      surface="elevated"
+      titleWidth="wide"
+    >
+      <Fragment slot="actions">
+        <Button
+          href="/request-quote"
+          variant="secondary"
+          class="bg-white text-[var(--color-primary)] hover:bg-[var(--color-surface)]"
+          data-cta="quote"
+          data-cta-location="service-areas-hub-final"
+        >
+          Request a Quote
+        </Button>
+        {
+          hasPhone && (
+            <Button
+              href={site.phoneHref!}
+              variant="ghost"
+              class="text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
+              data-cta="call"
+              data-cta-location="service-areas-hub-final"
+            >
+              <Phone
+                slot="startIcon"
+                class="h-5 w-5"
+                aria-hidden="true"
+                stroke-width="1.8"
+              />
+              Call {site.phoneDisplay}
+            </Button>
+          )
+        }
+      </Fragment>
+    </CTASection>
+  </main>
+</Layout>
