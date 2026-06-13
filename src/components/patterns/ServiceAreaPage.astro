@@ -11,6 +11,7 @@ import ProcessSteps from './ProcessSteps.astro'
 import Section from '../ui/Section.astro'
 import Layout from '../../layouts/Layout.astro'
 import { cityContextImages } from '../../data/cityContextImages'
+import { serviceAreaFaqAdditions } from '../../data/serviceAreaFaqAdditions'
 import type { ServiceAreaPageContent } from '../../data/serviceAreaPages'
 import { serviceAreas } from '../../data/serviceAreas'
 import { services } from '../../data/services'
@@ -29,6 +30,7 @@ if (!area) {
 }
 
 const cityContextImage = cityContextImages[page.slug]
+const faqs = [...page.faqs, ...(serviceAreaFaqAdditions[page.slug] ?? [])]
 const breadcrumbs = [
   { label: 'Home', href: '/' },
   { label: area.name, href: `/service-areas/${area.slug}` },
@@ -292,7 +294,7 @@ const quoteSteps = [
       title={`${area.name} pressure washing FAQs`}
       tone="warm"
     >
-      <FAQList faqs={page.faqs} columns="two" />
+      <FAQList faqs={faqs} columns="two" />
     </Section>
 
     <Section
