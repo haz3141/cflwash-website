@@ -22,7 +22,7 @@ type Props = {
 }
 
 const { page } = Astro.props as Props
-const area = serviceAreas.find((item) => item.slug === page.slug)!
+const area = serviceAreas.find((item) => item.slug === page.slug)
 
 if (!area) {
   throw new Error(`Unknown service area: ${page.slug}`)
@@ -39,9 +39,10 @@ const serviceLinks = services.map((service) => ({
   href: `/${service.slug}`,
   description: service.summary,
 }))
-const nearbyAreas = page.nearbySlugs
-  .map((slug) => serviceAreas.find((item) => item.slug === slug))
-  .filter((item): item is NonNullable<typeof item> => Boolean(item))
+const nearbyAreas = page.nearbySlugs.flatMap((slug) => {
+  const nearbyArea = serviceAreas.find((item) => item.slug === slug)
+  return nearbyArea ? [nearbyArea] : []
+})
 
 const quoteSteps = [
   {
