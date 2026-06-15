@@ -29,26 +29,10 @@ import {
 const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
 
 const heroBenefits = [
-  {
-    icon: Sparkles,
-    title: 'Built for curb appeal',
-    description: 'Focus on the concrete people notice first.',
-  },
-  {
-    icon: House,
-    title: 'HOA notice support',
-    description: 'Share the notice wording with the quote request.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Surface-aware review',
-    description: 'Describe the material, condition, and problem areas.',
-  },
-  {
-    icon: CalendarCheck2,
-    title: 'Clear next steps',
-    description: 'Review the proposed scope before scheduling.',
-  },
+  { icon: Sparkles, title: 'Boosts curb appeal' },
+  { icon: House, title: 'HOA notice support' },
+  { icon: ShieldCheck, title: 'Surface-aware review' },
+  { icon: CalendarCheck2, title: 'Clear next steps' },
 ]
 
 const trustItems = [
@@ -65,7 +49,7 @@ const trustItems = [
   {
     icon: ClipboardCheck,
     title: 'Quote Before Scheduling',
-    description: 'The property, surfaces, photos, and notes are reviewed first.',
+    description: 'Property details, surfaces, photos, and notes are reviewed first.',
   },
   {
     icon: BadgeCheck,
@@ -77,65 +61,51 @@ const trustItems = [
 const serviceCards = [
   {
     title: 'Driveway Pressure Washing',
-    description:
-      'Address visible buildup across the driveway and front approach for a cleaner arrival.',
+    description: 'Remove visible buildup and refresh the front approach to your home.',
     href: '/driveway-pressure-washing',
-    image:
-      '/images/services/results/after/driveway-apron-after-wide-01-640.webp',
-    alt: 'Clean residential driveway apron and curb after exterior cleaning.',
+    image: '/images/generated/services/driveway-cleaning.webp',
+    alt: 'Illustrative view of a clean residential concrete driveway in Central Florida.',
     icon: CarFront,
-    label: 'Primary service',
   },
   {
     title: 'Sidewalk Cleaning',
-    description:
-      'Refresh street-facing sidewalk panels and the concrete paths used every day.',
+    description: 'Refresh street-facing sidewalk panels and everyday pedestrian paths.',
     href: '/sidewalk-walkway-cleaning',
-    image: '/images/services/results/after/sidewalk-after-wide-01-640.webp',
-    alt: 'Clean concrete sidewalk through a landscaped Central Florida neighborhood.',
+    image: '/images/generated/services/sidewalk-cleaning.webp',
+    alt: 'Illustrative view of a clean neighborhood concrete sidewalk.',
     icon: Footprints,
-    label: 'Primary service',
   },
   {
     title: 'Walkway Cleaning',
-    description:
-      'Clean entry walks and pedestrian paths that connect the driveway, door, and yard.',
+    description: 'Restore the look of entry walks and paths leading toward the home.',
     href: '/sidewalk-walkway-cleaning',
-    image: '/images/services/results/after/sidewalk-after-close-02-640.webp',
-    alt: 'Clean residential concrete walkway bordered by green grass.',
+    image: '/images/generated/services/walkway-cleaning.webp',
+    alt: 'Illustrative view of a clean paver walkway leading to a Florida home.',
     icon: Waves,
-    label: 'Primary service',
   },
   {
     title: 'Concrete Cleaning',
-    description:
-      'Request a quote for appropriate patios, pads, aprons, curbs, and entry surfaces.',
+    description: 'Clean appropriate patios, pads, aprons, curbs, and entry surfaces.',
     href: '/concrete-cleaning',
-    image: '/images/services/results/after/curb-gutter-after-wide-01-640.webp',
-    alt: 'Clean concrete curb and gutter beside a residential street.',
+    image: '/images/generated/services/concrete-cleaning.webp',
+    alt: 'Illustrative view of a clean exterior concrete surface at a Florida home.',
     icon: Blocks,
-    label: 'Primary service',
   },
   {
     title: 'HOA Notice Cleanup',
-    description:
-      'Start with the cited surface and include the notice wording so the request can be reviewed.',
+    description: 'Start with the cited surface and include the notice wording for review.',
     href: '/request-quote',
-    image: '/images/services/results/after/sidewalk-after-close-01-640.webp',
-    alt: 'Clean concrete sidewalk surface after exterior cleaning.',
+    image: '/images/generated/services/hoa-cleanup.webp',
+    alt: 'Illustrative view of a clean curb, gutter, and sidewalk in an HOA neighborhood.',
     icon: ClipboardList,
-    label: 'Common reason',
   },
   {
     title: 'Curb Appeal Cleanup',
-    description:
-      'Bundle the driveway, front walk, curb, or entry areas that shape the first impression.',
+    description: 'Bundle visible front-of-home surfaces into one focused quote request.',
     href: '/request-quote',
-    image:
-      '/images/services/results/after/curb-gutter-after-close-01-640.webp',
-    alt: 'Clean curb and gutter concrete at the edge of a residential property.',
+    image: '/images/generated/services/curb-appeal-cleaning.webp',
+    alt: 'Illustrative view of a polished Florida home exterior and clean front approach.',
     icon: Sparkles,
-    label: 'Common reason',
   },
 ]
 
@@ -146,23 +116,23 @@ const reasons = [
   'Connected surfaces can be included in one quote request',
 ]
 
-const quoteFeatures = [
+const processFeatures = [
   {
     icon: ClipboardCheck,
-    title: 'Simple Request',
-    description: 'Share the city, surfaces, and useful job notes.',
+    title: 'Send the Details',
+    description: 'Share the city, surfaces, photos, access notes, and useful context.',
   },
   {
     icon: Phone,
-    title: 'Direct Contact',
+    title: 'Review the Scope',
     description: hasPhone
-      ? `Call ${site.phoneDisplay} when a conversation is easier.`
-      : 'Use the published contact details when a conversation is easier.',
+      ? `Questions can be discussed at ${site.phoneDisplay}.`
+      : 'Questions can be discussed through the published contact details.',
   },
   {
     icon: Check,
-    title: 'Scope Review',
-    description: 'Review what is included before arranging the cleaning visit.',
+    title: 'Plan the Visit',
+    description: 'Confirm what is included before arranging the cleaning visit.',
   },
 ]
 ---
@@ -177,9 +147,7 @@ const quoteFeatures = [
   <OrganizationSchema slot="head" />
 
   <main>
-    <section
-      class="relative overflow-hidden bg-[var(--color-surface-warm)] pt-12 sm:pt-16 lg:pt-20"
-    >
+    <section class="relative overflow-hidden bg-[var(--color-surface-warm)] pt-10 sm:pt-14 lg:pt-16">
       <div
         class="pointer-events-none absolute inset-0 opacity-45"
         aria-hidden="true"
@@ -188,46 +156,36 @@ const quoteFeatures = [
       </div>
 
       <div
-        class="relative mx-auto grid w-full max-w-[var(--container-width)] items-center gap-12 px-[var(--container-gutter)] pb-8 lg:grid-cols-[minmax(0,0.94fr)_minmax(28rem,1.06fr)] lg:gap-8 lg:pb-2"
+        class="relative mx-auto grid w-full max-w-[82rem] items-center gap-9 px-[var(--container-gutter)] pb-3 lg:grid-cols-[minmax(0,0.9fr)_minmax(25rem,1.1fr)] lg:gap-6"
       >
-        <div class="relative z-10 max-w-2xl">
+        <div class="relative z-10 max-w-[42rem]">
           <p class="text-eyebrow text-[var(--color-brand-gold)]">
             Exterior cleaning made easy
           </p>
           <h1
-            class="mt-5 max-w-[11ch] text-[clamp(3.15rem,7vw,6.2rem)] font-semibold leading-[0.94] tracking-[-0.055em] text-[var(--color-text)]"
+            class="mt-4 max-w-[10ch] text-[clamp(3.2rem,6.7vw,6.35rem)] font-semibold leading-[0.93] tracking-[-0.058em] text-[var(--color-text)]"
           >
-            Curb Appeal You Can See<span
-              class="text-[var(--color-accent)]"
-              aria-hidden="true">.</span
-            >
+            Curb Appeal You Can See<span class="text-[var(--color-accent)]" aria-hidden="true">.</span>
           </h1>
-          <p
-            class="mt-6 max-w-xl text-base leading-7 text-[var(--color-text-muted)] sm:text-lg sm:leading-8"
-          >
-            Concrete cleaning for driveways, sidewalks, walkways, and
-            front-approach surfaces across Central Florida. Send the property
-            details first, then review the proposed scope before scheduling.
+          <p class="mt-6 max-w-[37rem] text-base leading-7 text-[var(--color-text-muted)] sm:text-lg sm:leading-8">
+            Exterior concrete cleaning for homes across Central Florida. Start
+            with the driveway, sidewalk, walkway, curb, or front approach that
+            needs attention most.
           </p>
 
-          <div class="mt-7 grid gap-x-6 gap-y-4 sm:grid-cols-2">
+          <div class="mt-7 grid grid-cols-2 gap-x-5 gap-y-4 lg:grid-cols-4 lg:gap-3">
             {
               heroBenefits.map((benefit) => (
-                <div class="flex items-start gap-3">
+                <div class="flex items-center gap-2.5 border-r border-[var(--color-border)] pr-2 last:border-r-0">
                   <IconBadge
                     icon={benefit.icon}
                     tone="default"
                     size="sm"
                     class="shrink-0 text-[var(--color-action)] shadow-[var(--shadow-xs)]"
                   />
-                  <div>
-                    <p class="text-sm font-semibold text-[var(--color-text)]">
-                      {benefit.title}
-                    </p>
-                    <p class="mt-1 text-xs leading-5 text-[var(--color-text-muted)]">
-                      {benefit.description}
-                    </p>
-                  </div>
+                  <p class="text-[0.72rem] font-semibold leading-4 text-[var(--color-text)]">
+                    {benefit.title}
+                  </p>
                 </div>
               ))
             }
@@ -243,12 +201,7 @@ const quoteFeatures = [
               data-cta-location="home-hero"
             >
               Get a Free Quote
-              <ArrowRight
-                slot="endIcon"
-                class="h-5 w-5"
-                aria-hidden="true"
-                stroke-width="1.8"
-              />
+              <ArrowRight slot="endIcon" class="h-5 w-5" aria-hidden="true" stroke-width="1.8" />
             </Button>
             <Button
               href="/services"
@@ -261,19 +214,13 @@ const quoteFeatures = [
             </Button>
           </div>
 
-          <p
-            class="mt-8 flex items-center gap-2 text-sm font-semibold text-[var(--color-text)]"
-          >
-            <MapPin
-              class="h-4 w-4 text-[var(--color-action)]"
-              aria-hidden="true"
-              stroke-width="1.8"
-            />
+          <p class="mt-7 flex items-center gap-2 text-sm font-semibold text-[var(--color-text)]">
+            <MapPin class="h-4 w-4 text-[var(--color-action)]" aria-hidden="true" stroke-width="1.8" />
             Proudly serving Central Florida
           </p>
         </div>
 
-        <div class="relative z-10 mx-auto w-full max-w-[39rem]">
+        <div class="relative z-10 mx-auto w-full max-w-[39rem] lg:-mb-6">
           <div
             class="absolute inset-x-[12%] bottom-[4%] top-[12%] rounded-[45%] bg-white/55 blur-3xl"
             aria-hidden="true"
@@ -287,7 +234,7 @@ const quoteFeatures = [
             loading="eager"
             decoding="async"
             fetchpriority="high"
-            class="relative mx-auto max-h-[42rem] w-full object-contain drop-shadow-[0_28px_34px_rgba(10,27,46,0.18)]"
+            class="relative mx-auto max-h-[39rem] w-full object-contain drop-shadow-[0_28px_34px_rgba(10,27,46,0.18)]"
           />
         </div>
       </div>
@@ -297,13 +244,13 @@ const quoteFeatures = [
 
     <section class="bg-[var(--color-surface-inverse)] text-white">
       <div
-        class="mx-auto grid w-full max-w-[var(--container-width)] px-[var(--container-gutter)] pb-10 pt-4 sm:grid-cols-2 lg:grid-cols-4 lg:pb-12"
+        class="mx-auto grid w-full max-w-[82rem] px-[var(--container-gutter)] pb-10 pt-1 sm:grid-cols-2 lg:grid-cols-4 lg:pb-12"
       >
         {
           trustItems.map((item, index) => (
             <article
               class:list={[
-                'flex gap-4 border-white/12 py-6 sm:px-6 lg:px-7',
+                'flex flex-col items-center border-white/12 px-5 py-6 text-center',
                 index > 0 && 'border-t sm:border-t-0',
                 index % 2 === 1 && 'sm:border-l',
                 index > 1 && 'sm:border-t lg:border-t-0',
@@ -313,78 +260,61 @@ const quoteFeatures = [
               <IconBadge
                 icon={item.icon}
                 tone="inverse"
-                size="md"
-                class="shrink-0 text-[var(--color-accent)]"
+                size="lg"
+                class="text-[var(--color-accent)]"
               />
-              <div>
-                <h2 class="text-sm font-semibold text-[var(--color-accent)]">
-                  {item.title}
-                </h2>
-                <p class="mt-2 text-xs leading-5 text-white/72">
-                  {item.description}
-                </p>
-              </div>
+              <h2 class="mt-4 text-sm font-semibold text-[var(--color-accent)]">
+                {item.title}
+              </h2>
+              <p class="mt-2 max-w-[15rem] text-xs leading-5 text-white/70">
+                {item.description}
+              </p>
             </article>
           ))
         }
       </div>
     </section>
 
-    <section id="services" class="bg-[var(--color-page)] py-[var(--section-space)]">
-      <div
-        class="mx-auto w-full max-w-[var(--container-width)] px-[var(--container-gutter)]"
-      >
+    <section id="services" class="bg-[var(--color-page)] py-16 sm:py-20">
+      <div class="mx-auto w-full max-w-[90rem] px-[var(--container-gutter)]">
         <div class="mx-auto max-w-2xl text-center">
           <p class="text-eyebrow text-[var(--color-brand-gold)]">Our services</p>
-          <h2 class="mt-4 text-section-title text-[var(--color-text)]">
-            Exterior cleaning that makes a visible difference
+          <h2 class="mt-3 text-section-title text-[var(--color-text)]">
+            Exterior cleaning that makes a difference
           </h2>
-          <p class="mt-4 text-lead text-[var(--color-text-muted)]">
-            Start with the surface or situation that most closely matches the
-            property. Completed-result photos are shown as examples; results
-            vary with surface condition and staining.
+          <p class="mt-4 text-base leading-7 text-[var(--color-text-muted)]">
+            Choose the surface or situation that best matches the property.
+            These polished images illustrate the service categories and are not
+            presented as photos of completed CFL Wash Co. projects.
           </p>
         </div>
 
-        <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {
-            serviceCards.map((card) => (
-              <HomeServiceCard {...card} />
-            ))
-          }
+        <div class="mt-10 grid grid-cols-2 gap-3 md:grid-cols-3 lg:gap-4 xl:grid-cols-6">
+          {serviceCards.map((card) => <HomeServiceCard {...card} />)}
         </div>
 
-        <div class="mt-10 flex justify-center">
+        <div class="mt-9 flex justify-center">
           <Button href="/services" variant="secondary" size="lg">
             Explore All Services
-            <ArrowRight
-              slot="endIcon"
-              class="h-5 w-5"
-              aria-hidden="true"
-              stroke-width="1.8"
-            />
+            <ArrowRight slot="endIcon" class="h-5 w-5" aria-hidden="true" stroke-width="1.8" />
           </Button>
         </div>
       </div>
     </section>
 
-    <section class="overflow-hidden bg-[var(--color-surface-inverse)] text-white">
-      <div
-        class="mx-auto grid w-full max-w-[var(--container-width)] lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)]"
-      >
-        <div
-          class="flex flex-col justify-center px-[var(--container-gutter)] py-[var(--section-space)] lg:pl-[var(--container-gutter-wide)] lg:pr-12"
-        >
+    <section id="why-cfl-wash" class="scroll-mt-20 overflow-hidden bg-[var(--color-surface-inverse)] text-white">
+      <div class="mx-auto grid w-full max-w-[90rem] lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)]">
+        <div class="flex flex-col justify-center px-[var(--container-gutter)] py-14 lg:px-12 lg:py-16 xl:px-16">
           <p class="text-eyebrow text-[var(--color-accent)]">
-            Why homeowners call us
+            Why homeowners choose us
           </p>
           <h2 class="mt-4 text-section-title text-white">
-            More than clean. It is a clearer first impression.
+            More than clean. It is confidence in the next step.
           </h2>
           <p class="mt-5 text-base leading-7 text-white/76">
-            The launch offer stays focused on visible concrete surfaces around
-            the home. Start with the areas that shape everyday arrival, curb
-            appeal, or an HOA-related cleanup request.
+            The launch offer stays focused on visible hard surfaces around the
+            home. The request is reviewed first so the proposed scope is clear
+            before scheduling.
           </p>
 
           <ul class="mt-7 space-y-3">
@@ -392,11 +322,7 @@ const quoteFeatures = [
               reasons.map((reason) => (
                 <li class="flex items-start gap-3 text-sm leading-6 text-white/84">
                   <span class="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-[var(--color-accent)] text-[var(--color-accent)]">
-                    <Check
-                      class="h-3.5 w-3.5"
-                      aria-hidden="true"
-                      stroke-width="2"
-                    />
+                    <Check class="h-3.5 w-3.5" aria-hidden="true" stroke-width="2" />
                   </span>
                   {reason}
                 </li>
@@ -416,32 +342,18 @@ const quoteFeatures = [
           </div>
         </div>
 
-        <div class="relative min-h-[26rem] lg:min-h-[38rem]">
-          <picture>
-            <source
-              media="(max-width: 639px)"
-              srcset="/images/brand/responsive/hero-homepage-480.webp 1x, /images/brand/responsive/hero-homepage-768.webp 2x"
-            />
-            <source
-              media="(max-width: 1023px)"
-              srcset="/images/brand/responsive/hero-homepage-768.webp 1x, /images/brand/responsive/hero-homepage-1024.webp 2x"
-            />
-            <source
-              media="(min-width: 1024px)"
-              srcset="/images/brand/responsive/hero-homepage-1024.webp 1x, /images/brand/responsive/hero-homepage-1280.webp 2x"
-            />
-            <img
-              src="/images/brand/responsive/hero-homepage-1024.webp"
-              alt="Illustrated Central Florida home and exterior cleaning scene"
-              width="1024"
-              height="540"
-              loading="lazy"
-              decoding="async"
-              class="absolute inset-0 h-full w-full object-cover"
-            />
-          </picture>
+        <div class="relative min-h-[25rem] lg:min-h-[37rem]">
+          <img
+            src="/images/generated/home/home-confidence-feature.webp"
+            alt="Illustrative upscale Florida home with a clean paver driveway and landscaped entry."
+            width="640"
+            height="360"
+            loading="lazy"
+            decoding="async"
+            class="absolute inset-0 h-full w-full object-cover"
+          />
           <div
-            class="absolute inset-0 bg-gradient-to-t from-[var(--color-surface-inverse)]/35 via-transparent to-transparent lg:bg-gradient-to-r lg:from-[var(--color-surface-inverse)]/25 lg:to-transparent"
+            class="absolute inset-0 bg-gradient-to-t from-[var(--color-surface-inverse)]/32 via-transparent to-transparent lg:bg-gradient-to-r lg:from-[var(--color-surface-inverse)]/20 lg:to-transparent"
             aria-hidden="true"
           >
           </div>
@@ -449,54 +361,54 @@ const quoteFeatures = [
       </div>
     </section>
 
-    <section class="bg-[var(--color-surface-warm)] py-8 sm:py-10">
+    <section class="bg-[var(--color-surface-warm)] py-7">
       <div
         class="mx-auto flex w-full max-w-[var(--container-width)] flex-wrap items-center justify-center gap-x-3 gap-y-2 px-[var(--container-gutter)] text-center"
       >
-        <MapPin
-          class="h-5 w-5 text-[var(--color-action)]"
-          aria-hidden="true"
-          stroke-width="1.8"
-        />
-        <p class="text-sm font-semibold text-[var(--color-text)]">
-          Current service areas:
-        </p>
+        <MapPin class="h-5 w-5 text-[var(--color-action)]" aria-hidden="true" stroke-width="1.8" />
+        <p class="text-sm font-semibold text-[var(--color-text)]">Current service areas:</p>
         {
           serviceAreas.map((area, index) => (
             <Fragment>
               <a
                 href={`/service-areas/${area.slug}`}
-                class="rounded-[var(--radius-sm)] text-sm font-semibold text-[var(--color-action)] hover:text-[var(--color-action-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+                class="rounded-[var(--radius-sm)] text-sm font-semibold text-[var(--color-action)] hover:text-[var(--color-action-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]"
               >
                 {area.name}
               </a>
-              {index < serviceAreas.length - 1 && (
-                <span class="text-[var(--color-border-strong)]" aria-hidden="true">
-                  / 
-                </span>
-              )}
+              {index < serviceAreas.length - 1 && <span class="text-[var(--color-border-strong)]">/</span>}
             </Fragment>
           ))
         }
       </div>
     </section>
 
-    <section class="bg-white py-[var(--section-space-compact)]">
+    <section id="our-process" class="scroll-mt-20 bg-white py-12 sm:py-14">
       <div
-        class="mx-auto grid w-full max-w-[var(--container-width)] items-center gap-10 px-[var(--container-gutter)] lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]"
+        class="mx-auto grid w-full max-w-[82rem] items-center gap-9 px-[var(--container-gutter)] lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]"
       >
         <div>
-          <p class="text-eyebrow text-[var(--color-brand-gold)]">
-            Ready for a cleaner property?
-          </p>
-          <h2 class="mt-4 text-section-title text-[var(--color-text)]">
-            Send the details for a clear quote.
-          </h2>
-          <p class="mt-4 max-w-xl text-base leading-7 text-[var(--color-text-muted)]">
+          <div class="flex items-start gap-4">
+            <IconBadge
+              icon={CalendarCheck2}
+              tone="warm"
+              size="lg"
+              class="shrink-0 text-[var(--color-brand-gold)]"
+            />
+            <div>
+              <p class="text-eyebrow text-[var(--color-brand-gold)]">
+                Ready for a cleaner property?
+              </p>
+              <h2 class="mt-2 text-3xl font-semibold leading-tight text-[var(--color-text)] sm:text-4xl">
+                A clear quote starts with a few details.
+              </h2>
+            </div>
+          </div>
+          <p class="mt-4 max-w-xl text-sm leading-6 text-[var(--color-text-muted)]">
             Include the city, surfaces, photos, access notes, and any HOA wording
             that helps explain the request.
           </p>
-          <div class="mt-7 flex flex-col gap-3 sm:flex-row">
+          <div class="mt-6 flex flex-col gap-3 sm:flex-row">
             <Button
               href="/request-quote"
               size="lg"
@@ -506,12 +418,7 @@ const quoteFeatures = [
               data-cta-location="home-final"
             >
               Get Your Free Quote
-              <ArrowRight
-                slot="endIcon"
-                class="h-5 w-5"
-                aria-hidden="true"
-                stroke-width="1.8"
-              />
+              <ArrowRight slot="endIcon" class="h-5 w-5" aria-hidden="true" stroke-width="1.8" />
             </Button>
             {
               hasPhone && (
@@ -533,7 +440,7 @@ const quoteFeatures = [
 
         <div class="grid gap-5 sm:grid-cols-3">
           {
-            quoteFeatures.map((feature) => (
+            processFeatures.map((feature) => (
               <article class="border-t border-[var(--color-border)] pt-5 sm:border-l sm:border-t-0 sm:pl-5 sm:pt-0">
                 <IconBadge
                   icon={feature.icon}
