@@ -55,16 +55,23 @@ const navigation = [
           stroke-width="1.8"
         />
         <span class="sr-only group-open:hidden">Open navigation menu</span>
-        <span class="sr-only hidden group-open:inline">Close navigation menu</span>
+        <span class="sr-only hidden group-open:inline"
+          >Close navigation menu</span
+        >
       </summary>
 
-      <div class="absolute right-0 top-full z-40 w-[calc(100vw-2rem)] max-w-sm pt-3">
+      <div
+        class="absolute right-0 top-full z-40 w-[calc(100vw-2rem)] max-w-sm pt-3"
+      >
         <div
           id="mobile-navigation-panel"
           data-mobile-nav-panel
           class="overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white text-[var(--color-text)] shadow-[var(--shadow-sm)]"
         >
-          <nav aria-label="Mobile navigation" class="divide-y divide-[var(--color-border)]">
+          <nav
+            aria-label="Mobile navigation"
+            class="divide-y divide-[var(--color-border)]"
+          >
             {
               navigation.map((item) => (
                 <a

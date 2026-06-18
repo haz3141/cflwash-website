@@ -20,17 +20,17 @@ These photos show cleaned concrete examples. They are not labeled as matched bef
 
 ## Route inventory
 
-| Route | Current treatment | Status |
-| --- | --- | --- |
-| `/` | Illustrated hero, water-wave divider, icons, and result-photo cards | Improved; some cards reuse approved source photos |
-| `/services` | Decorative hero and service icons | Functional |
-| `/driveway-pressure-washing` | Result photo in hero | Improved |
-| `/sidewalk-walkway-cleaning` | Result photo in hero | Improved |
-| `/concrete-cleaning` | Result photo in hero | Improved; stronger dedicated concrete photo can replace it later |
-| `/service-areas` | Six attributed city images | Improved |
-| Six city pages | Shared decorative artwork and one city image per page | Improved but temporary |
-| `/request-quote` | Form and interface styling | Appropriate |
-| Header and footer | Responsive wordmarks | Functional |
+| Route                        | Current treatment                                                   | Status                                                           |
+| ---------------------------- | ------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `/`                          | Illustrated hero, water-wave divider, icons, and result-photo cards | Improved; some cards reuse approved source photos                |
+| `/services`                  | Decorative hero and service icons                                   | Functional                                                       |
+| `/driveway-pressure-washing` | Result photo in hero                                                | Improved                                                         |
+| `/sidewalk-walkway-cleaning` | Result photo in hero                                                | Improved                                                         |
+| `/concrete-cleaning`         | Result photo in hero                                                | Improved; stronger dedicated concrete photo can replace it later |
+| `/service-areas`             | Six attributed city images                                          | Improved                                                         |
+| Six city pages               | Shared decorative artwork and one city image per page               | Improved but temporary                                           |
+| `/request-quote`             | Form and interface styling                                          | Appropriate                                                      |
+| Header and footer            | Responsive wordmarks                                                | Functional                                                       |
 
 ## Publishing rules
 
