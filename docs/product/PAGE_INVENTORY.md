@@ -5,6 +5,8 @@
 | Route                        | Purpose                  | Status            | Notes                                                                                   |
 | ---------------------------- | ------------------------ | ----------------- | --------------------------------------------------------------------------------------- |
 | `/`                          | Homepage                 | Live              | Lead-gen entry point and primary CTA hub                                                |
+| `/services`                  | Services hub             | Release candidate | Organizes all active service pages and helps homeowners choose the closest service fit  |
+| `/service-areas`             | Service-area hub         | Release candidate | Organizes all six approved city pages with attributed city-context imagery              |
 | `/privacy`                   | Legal page               | Live              | Public privacy policy                                                                   |
 | `/request-quote`             | Quote destination        | Release candidate | Form MVP exists on `dev`/preview; production `main` remains contact-based until release |
 | `/thank-you`                 | Post-submit confirmation | Live              | `noindex`, not a public content page                                                    |

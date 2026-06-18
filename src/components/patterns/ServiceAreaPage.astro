@@ -1,0 +1,370 @@
+---
+import Button from '../ui/Button.astro'
+import BreadcrumbSchema from '../site/BreadcrumbSchema.astro'
+import Breadcrumbs from '../site/Breadcrumbs.astro'
+import CTASection from './CTASection.astro'
+import CityContextMedia from './CityContextMedia.astro'
+import FAQList from './FAQList.astro'
+import HeroSection from './HeroSection.astro'
+import LinkGrid from './LinkGrid.astro'
+import ProcessSteps from './ProcessSteps.astro'
+import Section from '../ui/Section.astro'
+import Layout from '../../layouts/Layout.astro'
+import { cityContextImages } from '../../data/cityContextImages'
+import { serviceAreaFaqAdditions } from '../../data/serviceAreaFaqAdditions'
+import type { ServiceAreaPageContent } from '../../data/serviceAreaPages'
+import { serviceAreas } from '../../data/serviceAreas'
+import { services } from '../../data/services'
+import { site } from '../../data/site'
+import { ArrowRight, ClipboardList, Phone } from '@lucide/astro'
+
+type Props = {
+  page: ServiceAreaPageContent
+}
+
+const { page } = Astro.props as Props
+const area = serviceAreas.find((item) => item.slug === page.slug)
+
+if (!area) {
+  throw new Error(`Unknown service area: ${page.slug}`)
+}
+
+const cityContextImage = cityContextImages[page.slug]
+const faqs = [...page.faqs, ...(serviceAreaFaqAdditions[page.slug] ?? [])]
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: area.name, href: `/service-areas/${area.slug}` },
+]
+const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
+const serviceLinks = services.map((service) => ({
+  label: service.name,
+  href: `/${service.slug}`,
+  description: service.summary,
+}))
+const nearbyAreas = page.nearbySlugs.flatMap((slug) => {
+  const nearbyArea = serviceAreas.find((item) => item.slug === slug)
+  return nearbyArea ? [nearbyArea] : []
+})
+
+const quoteSteps = [
+  {
+    title: 'Share the property and surfaces',
+    description:
+      'Send the service address or city, the concrete areas you want cleaned, and what prompted the request.',
+  },
+  {
+    title: 'Add clear photos and details',
+    description:
+      'Include one wide photo, close photos of buildup or staining, and notes about access or specialty surfaces.',
+  },
+  {
+    title: 'Review the quote before scheduling',
+    description:
+      'CFL Wash Co. reviews the request so the proposed scope is clear before a cleaning visit is scheduled.',
+  },
+]
+---
+
+<Layout
+  title={page.seoTitle}
+  description={page.seoDescription}
+  canonicalPath={`/service-areas/${area.slug}`}
+>
+  <BreadcrumbSchema slot="head" items={breadcrumbs} />
+  <main>
+    <Breadcrumbs items={breadcrumbs} />
+
+    <HeroSection
+      variant="split"
+      tone="soft"
+      eyebrow={`${area.name}, Florida service area`}
+      title={`Pressure washing in ${area.name}, FL`}
+      description={page.heroDescription}
+    >
+      <Fragment slot="actions">
+        <Button
+          href="/request-quote"
+          size="lg"
+          fullWidth
+          class="sm:w-auto"
+          data-cta="quote"
+          data-cta-location={`service-area-${area.slug}-hero`}
+        >
+          <ClipboardList
+            slot="startIcon"
+            class="h-5 w-5"
+            aria-hidden="true"
+            stroke-width="1.8"
+          />
+          Request a Quote
+        </Button>
+        {
+          hasPhone ? (
+            <Button
+              href={site.phoneHref!}
+              variant="secondary"
+              size="lg"
+              fullWidth
+              class="sm:w-auto"
+              data-cta="call"
+              data-cta-location={`service-area-${area.slug}-hero`}
+            >
+              <Phone
+                slot="startIcon"
+                class="h-5 w-5"
+                aria-hidden="true"
+                stroke-width="1.8"
+              />
+              Call {site.phoneDisplay}
+            </Button>
+          ) : (
+            <Button
+              href={`mailto:${site.email}`}
+              variant="secondary"
+              size="lg"
+              fullWidth
+              class="sm:w-auto"
+              data-cta="email"
+              data-cta-location={`service-area-${area.slug}-hero`}
+            >
+              Email CFL Wash Co.
+            </Button>
+          )
+        }
+      </Fragment>
+
+      <div
+        slot="media"
+        class="relative aspect-[16/10] overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white shadow-[var(--shadow-media)] lg:aspect-[11/10]"
+        aria-hidden="true"
+      >
+        <picture>
+          <source
+            media="(max-width: 639px)"
+            srcset="
+              /images/brand/responsive/hero-homepage-480.webp 1x,
+              /images/brand/responsive/hero-homepage-768.webp 2x
+            "
+          />
+          <source
+            media="(max-width: 1023px)"
+            srcset="
+              /images/brand/responsive/hero-homepage-768.webp 1x,
+              /images/brand/responsive/hero-homepage-1024.webp 2x
+            "
+          />
+          <source
+            media="(min-width: 1024px)"
+            srcset="
+              /images/brand/responsive/hero-homepage-1024.webp 1x,
+              /images/brand/responsive/hero-homepage-1280.webp 2x
+            "
+          />
+          <img
+            src="/images/brand/responsive/hero-homepage-1024.webp"
+            alt=""
+            width="1024"
+            height="540"
+            class="h-full w-full object-cover object-center"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </picture>
+      </div>
+    </HeroSection>
+
+    <section class="border-y border-[var(--color-border)] bg-white">
+      <div
+        class="mx-auto grid w-full max-w-[var(--container-width)] divide-y divide-[var(--color-border)] px-[var(--container-gutter)] md:grid-cols-3 md:divide-x md:divide-y-0"
+      >
+        <div class="py-5 md:pr-6">
+          <p class="text-sm font-semibold text-[var(--color-text)]">
+            Concrete-focused services
+          </p>
+          <p class="mt-1 text-sm leading-6 text-[var(--color-text-muted)]">
+            Driveways, sidewalks, walkways, entries, and similar hard surfaces.
+          </p>
+        </div>
+        <div class="py-5 md:px-6">
+          <p class="text-sm font-semibold text-[var(--color-text)]">
+            Quote before scheduling
+          </p>
+          <p class="mt-1 text-sm leading-6 text-[var(--color-text-muted)]">
+            Share the property, surface, photos, and job notes first.
+          </p>
+        </div>
+        <div class="py-5 md:pl-6">
+          <p class="text-sm font-semibold text-[var(--color-text)]">
+            Local Central Florida coverage
+          </p>
+          <p class="mt-1 text-sm leading-6 text-[var(--color-text-muted)]">
+            {area.name} is one of CFL Wash Co.'s published service areas.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <Section
+      id="services"
+      eyebrow="Services"
+      title={`Popular pressure washing services in ${area.name}`}
+      description="Choose the closest match for the concrete that needs attention. Multiple connected areas can be included in one quote request."
+    >
+      <LinkGrid
+        items={serviceLinks}
+        density="comfortable"
+        class="gap-4 md:grid-cols-3"
+      />
+    </Section>
+
+    <Section
+      eyebrow="Common reasons to call"
+      title={`${area.name} homeowners request concrete cleaning for practical, visible problems`}
+      description="Start with the surfaces that affect the property's everyday arrival and street-facing appearance."
+      tone="soft"
+    >
+      <div class="grid gap-8 md:grid-cols-3 md:gap-0">
+        {
+          page.reasons.map((reason, index) => (
+            <article
+              class:list={[
+                'min-w-0',
+                index > 0 &&
+                  'border-t border-[var(--color-border)] pt-8 md:border-l md:border-t-0 md:pl-8 md:pt-0',
+                index < page.reasons.length - 1 && 'md:pr-8',
+              ]}
+            >
+              <h3 class="text-lg font-semibold text-[var(--color-text)]">
+                {reason.title}
+              </h3>
+              <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
+                {reason.description}
+              </p>
+            </article>
+          ))
+        }
+      </div>
+    </Section>
+
+    <Section
+      eyebrow="Local context"
+      title={`${page.localHeading} in ${area.name}`}
+      description={page.localBody}
+      class="border-y border-[var(--color-border)]"
+      contentWidth="full"
+    >
+      <div
+        class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.62fr)] lg:items-start"
+      >
+        <div class="max-w-2xl">
+          <p class="text-base leading-8 text-[var(--color-text-muted)]">
+            {page.localNote}
+          </p>
+          <a
+            href="/request-quote"
+            class="mt-6 inline-flex min-h-11 items-center gap-2 font-semibold text-[var(--color-action)] underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-4"
+            data-cta="quote"
+            data-cta-location={`service-area-${area.slug}-local-context`}
+          >
+            Start a {area.name} quote
+            <ArrowRight class="h-4 w-4" aria-hidden="true" stroke-width="1.9" />
+          </a>
+        </div>
+
+        <CityContextMedia
+          image={{ ...cityContextImage.image, alt: cityContextImage.alt }}
+          caption={cityContextImage.caption}
+          attribution={cityContextImage.attribution}
+          class="max-w-md justify-self-end"
+        />
+      </div>
+    </Section>
+
+    <Section
+      eyebrow="Simple quote process"
+      title={`How to request a pressure washing quote in ${area.name}`}
+      description="A few clear details help keep the scope focused without turning the request into a long inspection form."
+    >
+      <ProcessSteps steps={quoteSteps} cardTone="soft" />
+    </Section>
+
+    <Section
+      eyebrow="Questions"
+      title={`${area.name} pressure washing FAQs`}
+      tone="warm"
+    >
+      <FAQList faqs={faqs} columns="two" />
+    </Section>
+
+    <Section
+      eyebrow="Nearby service areas"
+      title={`CFL Wash Co. also serves homeowners near ${area.name}`}
+      description="Use the page that matches the service address. You can also enter the exact address or nearest cross streets in the quote request."
+      spacing="compact"
+      class="border-t border-[var(--color-border)]"
+    >
+      <div class="flex flex-wrap gap-3">
+        {
+          nearbyAreas.map((nearbyArea) => (
+            <a
+              href={`/service-areas/${nearbyArea.slug}`}
+              class="inline-flex min-h-11 items-center rounded-full border border-[var(--color-border)] bg-white px-5 py-2 text-sm font-semibold text-[var(--color-text)] transition-colors hover:border-[var(--color-action)] hover:text-[var(--color-action)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+            >
+              {nearbyArea.name}
+            </a>
+          ))
+        }
+      </div>
+    </Section>
+
+    <CTASection
+      eyebrow={`${area.name} service area`}
+      title={`Request a pressure washing quote for your ${area.name} property.`}
+      description="Share the address, surfaces, photos, and any HOA notice details. CFL Wash Co. will review the request before scheduling."
+      titleWidth="wide"
+      surface="elevated"
+    >
+      <Fragment slot="actions">
+        <Button
+          href="/request-quote"
+          variant="secondary"
+          class="bg-white text-[var(--color-primary)] hover:bg-[var(--color-surface)]"
+          data-cta="quote"
+          data-cta-location={`service-area-${area.slug}-final`}
+        >
+          Request a Quote
+        </Button>
+        {
+          hasPhone ? (
+            <Button
+              href={site.phoneHref!}
+              variant="ghost"
+              class="text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
+              data-cta="call"
+              data-cta-location={`service-area-${area.slug}-final`}
+            >
+              <Phone
+                slot="startIcon"
+                class="h-5 w-5"
+                aria-hidden="true"
+                stroke-width="1.8"
+              />
+              Call {site.phoneDisplay}
+            </Button>
+          ) : (
+            <Button
+              href={`mailto:${site.email}`}
+              variant="ghost"
+              class="text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
+              data-cta="email"
+              data-cta-location={`service-area-${area.slug}-final`}
+            >
+              Email CFL Wash Co.
+            </Button>
+          )
+        }
+      </Fragment>
+    </CTASection>
+  </main>
+</Layout>

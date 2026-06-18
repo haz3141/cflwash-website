@@ -1,0 +1,48 @@
+---
+type Props = {
+  class?: string
+}
+
+const { class: className = '' } = Astro.props as Props
+---
+
+<div
+  id="why-cfl-wash"
+  class={`relative h-20 scroll-mt-24 overflow-hidden bg-[var(--color-surface-inverse)] sm:h-28 lg:h-32 ${className}`.trim()}
+  aria-hidden="true"
+>
+  <svg
+    viewBox="0 0 1440 180"
+    preserveAspectRatio="none"
+    class="absolute inset-0 h-full w-full"
+  >
+    <path
+      d="M0 0H1440V62C1268 124 1107 132 930 105C713 72 548 56 347 102C203 135 88 129 0 108V0Z"
+      fill="var(--color-surface-warm)"></path>
+    <path
+      d="M0 105C122 139 245 135 366 103C570 49 741 78 936 109C1110 137 1270 126 1440 66"
+      fill="none"
+      stroke="rgba(255,255,255,0.92)"
+      stroke-width="12"
+      stroke-linecap="round"></path>
+    <path
+      d="M0 111C126 144 249 140 369 108C568 55 742 84 935 115C1115 144 1277 131 1440 73"
+      fill="none"
+      stroke="var(--color-brand-blue)"
+      stroke-width="4"
+      stroke-linecap="round"></path>
+    <path
+      d="M0 116C132 149 255 145 373 113C569 62 741 90 935 121C1110 149 1272 138 1440 80"
+      fill="none"
+      stroke="rgba(31,93,190,0.35)"
+      stroke-width="3"
+      stroke-linecap="round"></path>
+    <g fill="white" stroke="var(--color-brand-blue)" stroke-width="2">
+      <circle cx="470" cy="76" r="7"></circle>
+      <circle cx="493" cy="58" r="4"></circle>
+      <circle cx="520" cy="81" r="3"></circle>
+      <circle cx="1005" cy="101" r="5"></circle>
+      <circle cx="1031" cy="91" r="3"></circle>
+    </g>
+  </svg>
+</div>

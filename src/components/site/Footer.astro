@@ -1,10 +1,17 @@
 ---
 import Button from '../ui/Button.astro'
 import Container from '../ui/Container.astro'
-import { Mail, MapPin, ClipboardList, Phone } from '@lucide/astro'
-import { serviceAreas } from '../../data/serviceAreas'
+import { ArrowRight, Mail, MapPin, Phone } from '@lucide/astro'
 import { services } from '../../data/services'
 import { site } from '../../data/site'
+
+const companyLinks = [
+  { label: 'Why Choose Us', href: '/#why-cfl-wash' },
+  { label: 'Our Process', href: '/#our-process' },
+  { label: 'Service Areas', href: '/service-areas' },
+  { label: 'Contact', href: '/request-quote' },
+  { label: 'Privacy', href: '/privacy' },
+]
 ---
 
 <footer
@@ -12,9 +19,9 @@ import { site } from '../../data/site'
 >
   <Container
     as="div"
-    class="grid gap-10 py-[var(--section-space-compact)] md:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)_minmax(0,0.9fr)] lg:gap-12"
+    class="grid gap-9 py-12 sm:grid-cols-2 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.8fr)_minmax(0,0.8fr)_minmax(0,1fr)] lg:gap-12"
   >
-    <div class="space-y-5">
+    <div>
       <a
         href="/"
         aria-label={`${site.name} home`}
@@ -22,28 +29,25 @@ import { site } from '../../data/site'
       >
         <img
           src="/images/brand/responsive/logo-primary-reversed-320.png"
-          srcset="
-            /images/brand/responsive/logo-primary-reversed-320.png 1x,
-            /images/brand/responsive/logo-primary-reversed-480.png 2x
-          "
+          srcset="/images/brand/responsive/logo-primary-reversed-320.png 1x, /images/brand/responsive/logo-primary-reversed-480.png 2x"
           alt=""
           width="320"
           height="146"
-          class="h-16 w-auto max-w-[14.5rem] object-contain"
+          class="h-14 w-auto max-w-[13rem] object-contain"
           loading="lazy"
           decoding="async"
         />
       </a>
-      <p class="max-w-sm text-sm leading-6 text-white/78">
-        Driveway, sidewalk, walkway, and concrete cleaning for Central Florida
-        curb appeal.
+      <p class="mt-4 max-w-xs text-sm leading-6 text-white/72">
+        Exterior cleaning made easy across Central Florida, with a focused
+        launch scope for driveways, sidewalks, walkways, and concrete.
       </p>
-      <div class="space-y-3 text-sm">
+      <div class="mt-5 space-y-2.5 text-sm text-white/72">
         <a
           href={site.phoneHref}
           data-cta="call"
           data-cta-location="footer"
-          class="inline-flex items-center gap-2 transition-colors duration-[var(--duration-fast)] hover:text-white focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring-inverse)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface-inverse)]"
+          class="flex items-center gap-2 transition-colors hover:text-white focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring-inverse)]"
         >
           <Phone class="h-4 w-4" aria-hidden="true" stroke-width="1.8" />
           {site.phoneDisplay}
@@ -52,88 +56,104 @@ import { site } from '../../data/site'
           href={`mailto:${site.email}`}
           data-cta="email"
           data-cta-location="footer"
-          class="inline-flex items-center gap-2 transition-colors duration-[var(--duration-fast)] hover:text-white focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring-inverse)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface-inverse)]"
+          class="flex items-center gap-2 transition-colors hover:text-white focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring-inverse)]"
         >
           <Mail class="h-4 w-4" aria-hidden="true" stroke-width="1.8" />
           {site.email}
         </a>
-        <div class="flex items-center gap-2 text-white/72">
+        <p class="flex items-center gap-2">
           <MapPin class="h-4 w-4" aria-hidden="true" stroke-width="1.8" />
-          <span>Serving Central Florida</span>
-        </div>
+          Proudly serving Central Florida
+        </p>
       </div>
-      <Button
-        href="/request-quote"
-        variant="inverse"
-        size="sm"
-        data-cta="quote"
-        data-cta-location="footer"
-      >
-        <ClipboardList
-          slot="startIcon"
-          class="h-5 w-5"
-          aria-hidden="true"
-          stroke-width="1.8"
-        />
-        Request a Quote
-      </Button>
     </div>
 
     <div>
-      <p class="text-sm font-semibold text-[var(--color-text-inverse)]">
+      <a
+        href="/services"
+        class="text-xs font-bold uppercase tracking-[0.12em] text-white transition-colors hover:text-[var(--color-accent)]"
+      >
         Services
-      </p>
-      <ul class="mt-4 space-y-2 text-sm text-white/74">
+      </a>
+      <ul class="mt-4 space-y-2 text-sm text-white/68">
         {
           services.map((service) => (
             <li>
               <a
                 href={`/${service.slug}`}
-                class="transition-colors duration-[var(--duration-fast)] hover:text-white focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring-inverse)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface-inverse)]"
+                class="transition-colors hover:text-white focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring-inverse)]"
               >
                 {service.name}
               </a>
             </li>
           ))
         }
+        <li>
+          <a href="/request-quote" class="transition-colors hover:text-white">
+            HOA Notice Cleanup
+          </a>
+        </li>
+        <li>
+          <a href="/request-quote" class="transition-colors hover:text-white">
+            Curb Appeal Cleanup
+          </a>
+        </li>
       </ul>
     </div>
 
     <div>
-      <p class="text-sm font-semibold text-[var(--color-text-inverse)]">
-        Service Areas
+      <p class="text-xs font-bold uppercase tracking-[0.12em] text-white">
+        Company
       </p>
-      <ul class="mt-4 space-y-2 text-sm text-white/74">
+      <ul class="mt-4 space-y-2 text-sm text-white/68">
         {
-          serviceAreas.map((area) => (
+          companyLinks.map((item) => (
             <li>
               <a
-                href={`/service-areas/${area.slug}`}
-                class="transition-colors duration-[var(--duration-fast)] hover:text-white focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring-inverse)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface-inverse)]"
+                href={item.href}
+                class="transition-colors hover:text-white focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring-inverse)]"
               >
-                {area.name}
+                {item.label}
               </a>
             </li>
           ))
         }
       </ul>
     </div>
+
+    <div>
+      <p class="text-xs font-bold uppercase tracking-[0.12em] text-white">
+        Get a Free Quote
+      </p>
+      <p class="mt-4 text-sm leading-6 text-white/68">
+        Share the city, surfaces, photos, access notes, and any HOA wording that
+        helps explain the request.
+      </p>
+      <Button
+        href="/request-quote"
+        size="sm"
+        class="mt-5 !bg-[var(--color-accent)] !text-[var(--color-surface-inverse)] hover:!bg-[#c9952f]"
+        data-cta="quote"
+        data-cta-location="footer"
+      >
+        Get a Free Quote
+        <ArrowRight
+          slot="endIcon"
+          class="h-4 w-4"
+          aria-hidden="true"
+          stroke-width="1.8"
+        />
+      </Button>
+    </div>
   </Container>
 
   <div class="border-t border-white/10">
     <Container
       as="div"
-      class="flex flex-col gap-2 py-4 text-sm text-white/62 sm:flex-row sm:items-center sm:justify-between"
+      class="flex flex-col gap-2 py-4 text-xs text-white/56 sm:flex-row sm:items-center sm:justify-between"
     >
-      <p>© {new Date().getFullYear()} {site.legalName}</p>
-      <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
-        <a
-          href="/privacy"
-          class="transition-colors duration-[var(--duration-fast)] hover:text-white focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring-inverse)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface-inverse)]"
-        >
-          Privacy Notice
-        </a>
-      </div>
+      <p>© {new Date().getFullYear()} {site.legalName}. All rights reserved.</p>
+      <p>Proudly serving Central Florida</p>
     </Container>
   </div>
 </footer>

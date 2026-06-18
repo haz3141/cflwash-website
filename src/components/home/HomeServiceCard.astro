@@ -1,0 +1,66 @@
+---
+import IconBadge from '../ui/IconBadge.astro'
+import { ArrowRight } from '@lucide/astro'
+
+type Props = {
+  title: string
+  description: string
+  href: string
+  image: string
+  alt: string
+  icon: any
+}
+
+const { title, description, href, image, alt, icon } = Astro.props as Props
+---
+
+<article
+  class="group flex h-full min-w-0 flex-col overflow-hidden rounded-[0.7rem] border border-[var(--color-border)] bg-white shadow-[0_8px_24px_rgba(10,27,46,0.07)] transition duration-[var(--duration-normal)] ease-[var(--ease-standard)] hover:-translate-y-1 hover:shadow-[0_16px_32px_rgba(10,27,46,0.12)]"
+>
+  <a
+    href={href}
+    class="block overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--color-focus-ring)]"
+    aria-label={`View ${title}`}
+  >
+    <img
+      src={image}
+      alt={alt}
+      width="225"
+      height="300"
+      loading="lazy"
+      decoding="async"
+      class="aspect-[4/3] w-full object-cover transition duration-500 ease-[var(--ease-emphasis)] group-hover:scale-[1.035]"
+    />
+  </a>
+
+  <div
+    class="relative flex flex-1 flex-col items-center px-4 pb-5 pt-9 text-center"
+  >
+    <IconBadge
+      icon={icon}
+      tone="inverse"
+      size="lg"
+      class="absolute -top-7 left-1/2 -translate-x-1/2 bg-[var(--color-surface-inverse)] text-[var(--color-accent)] ring-4 ring-white shadow-[0_6px_16px_rgba(10,27,46,0.18)]"
+    />
+    <h3 class="text-[1.02rem] font-semibold leading-5 text-[var(--color-text)]">
+      <a
+        href={href}
+        class="rounded-[var(--radius-sm)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+      >
+        {title}
+      </a>
+    </h3>
+    <p
+      class="mt-3 flex-1 text-[0.78rem] leading-5 text-[var(--color-text-muted)]"
+    >
+      {description}
+    </p>
+    <a
+      href={href}
+      class="mt-5 inline-flex items-center gap-1.5 text-[0.68rem] font-bold uppercase tracking-[0.12em] text-[var(--color-text)] transition-colors hover:text-[var(--color-action)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+    >
+      Learn more
+      <ArrowRight class="h-3.5 w-3.5" aria-hidden="true" stroke-width="1.8" />
+    </a>
+  </div>
+</article>

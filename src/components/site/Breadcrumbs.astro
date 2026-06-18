@@ -12,6 +12,30 @@ type Props = {
 }
 
 const { items, class: className = '' } = Astro.props as Props
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/'
+const serviceRoutes = new Set([
+  '/driveway-pressure-washing',
+  '/sidewalk-walkway-cleaning',
+  '/concrete-cleaning',
+])
+
+let displayItems = items
+
+if (items.length === 2 && items[0]?.href === '/') {
+  if (serviceRoutes.has(pathname)) {
+    displayItems = [
+      items[0],
+      { label: 'Services', href: '/services' },
+      items[1],
+    ]
+  } else if (pathname.startsWith('/service-areas/')) {
+    displayItems = [
+      items[0],
+      { label: 'Service Areas', href: '/service-areas' },
+      items[1],
+    ]
+  }
+}
 ---
 
 <nav aria-label="Breadcrumb" class={className}>
@@ -20,7 +44,7 @@ const { items, class: className = '' } = Astro.props as Props
       class="flex flex-wrap items-center gap-x-2 gap-y-1 py-6 text-sm text-[var(--color-text-muted)]"
     >
       {
-        items.map((item, index) => (
+        displayItems.map((item, index) => (
           <>
             <li>
               {item.href ? (
@@ -39,7 +63,7 @@ const { items, class: className = '' } = Astro.props as Props
                 </span>
               )}
             </li>
-            {index < items.length - 1 && (
+            {index < displayItems.length - 1 && (
               <li aria-hidden="true" class="text-[var(--color-border-strong)]">
                 /
               </li>
