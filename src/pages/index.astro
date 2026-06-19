@@ -66,8 +66,9 @@ const serviceCards = [
     description:
       'Remove visible buildup and refresh the front approach to your home.',
     href: '/driveway-pressure-washing',
-    image: '/images/generated/services/driveway-cleaning.webp',
-    alt: 'Illustrative view of a clean residential concrete driveway in Central Florida.',
+    image:
+      '/images/services/results/after/driveway-apron-after-wide-01-640.webp',
+    alt: 'Clean residential concrete driveway apron and curb after washing.',
     icon: CarFront,
   },
   {
@@ -75,8 +76,8 @@ const serviceCards = [
     description:
       'Refresh street-facing sidewalk panels and everyday pedestrian paths.',
     href: '/sidewalk-walkway-cleaning',
-    image: '/images/generated/services/sidewalk-cleaning.webp',
-    alt: 'Illustrative view of a clean neighborhood concrete sidewalk.',
+    image: '/images/services/results/after/sidewalk-after-wide-01-640.webp',
+    alt: 'Clean residential concrete sidewalk through a landscaped neighborhood.',
     icon: Footprints,
   },
   {
@@ -84,8 +85,8 @@ const serviceCards = [
     description:
       'Restore the look of entry walks and paths leading toward the home.',
     href: '/sidewalk-walkway-cleaning',
-    image: '/images/generated/services/walkway-cleaning.webp',
-    alt: 'Illustrative view of a clean paver walkway leading to a Florida home.',
+    image: '/images/services/results/after/sidewalk-after-close-01-640.webp',
+    alt: 'Clean concrete walkway surface after washing.',
     icon: Waves,
   },
   {
@@ -93,8 +94,8 @@ const serviceCards = [
     description:
       'Clean appropriate patios, pads, aprons, curbs, and entry surfaces.',
     href: '/concrete-cleaning',
-    image: '/images/generated/services/concrete-cleaning.webp',
-    alt: 'Illustrative view of a clean exterior concrete surface at a Florida home.',
+    image: '/images/services/results/after/curb-gutter-after-wide-01-640.webp',
+    alt: 'Clean residential concrete curb and gutter beside a landscaped street.',
     icon: Blocks,
   },
   {
@@ -102,8 +103,8 @@ const serviceCards = [
     description:
       'Start with the cited surface and include the notice wording for review.',
     href: '/request-quote',
-    image: '/images/generated/services/hoa-cleanup.webp',
-    alt: 'Illustrative view of a clean curb, gutter, and sidewalk in an HOA neighborhood.',
+    image: '/images/services/results/after/curb-gutter-after-close-01-640.webp',
+    alt: 'Clean concrete curb and gutter after washing.',
     icon: ClipboardList,
   },
   {
@@ -111,8 +112,8 @@ const serviceCards = [
     description:
       'Bundle visible front-of-home surfaces into one focused quote request.',
     href: '/request-quote',
-    image: '/images/generated/services/curb-appeal-cleaning.webp',
-    alt: 'Illustrative view of a polished Florida home exterior and clean front approach.',
+    image: '/images/brand/hero-homepage.webp',
+    alt: 'Illustrative Florida home exterior with a clean front approach.',
     icon: Sparkles,
   },
 ]
@@ -167,10 +168,10 @@ const processFeatures = [
       </div>
 
       <div
-        class="relative mx-auto grid w-full max-w-[82rem] items-center gap-9 px-[var(--container-gutter)] pb-3 lg:grid-cols-[minmax(0,0.9fr)_minmax(25rem,1.1fr)] lg:gap-6"
+        class="relative mx-auto grid w-full max-w-[82rem] min-w-0 items-center gap-9 px-[var(--container-gutter)] pb-3 lg:grid-cols-[minmax(0,0.9fr)_minmax(25rem,1.1fr)] lg:gap-6"
       >
-        <div class="relative z-10 max-w-[42rem]">
-          <p class="text-eyebrow text-[var(--color-brand-gold)]">
+        <div class="relative z-10 min-w-0 max-w-[42rem]">
+          <p class="text-eyebrow text-[var(--color-accent)]">
             Exterior cleaning made easy
           </p>
           <h1
@@ -182,24 +183,22 @@ const processFeatures = [
             >
           </h1>
           <p
-            class="mt-6 max-w-[37rem] text-base leading-7 text-[var(--color-text-muted)] sm:text-lg sm:leading-8"
+            class="hero-mobile-measure mt-6 text-base leading-7 text-[var(--color-text-muted)] sm:text-lg sm:leading-8"
           >
             Exterior concrete cleaning for homes across Central Florida. Start
             with the driveway, sidewalk, walkway, curb, or front approach that
             needs attention most.
           </p>
 
-          <div
-            class="mt-7 grid grid-cols-2 gap-x-5 gap-y-4 lg:grid-cols-4 lg:gap-3"
-          >
+          <div class="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-3">
             {
               heroBenefits.map((benefit) => (
-                <div class="flex items-center gap-2.5 border-r border-[var(--color-border)] pr-2 last:border-r-0">
+                <div class="flex items-center gap-2.5 sm:border-r sm:border-[var(--color-border)] sm:pr-2 sm:last:border-r-0">
                   <IconBadge
                     icon={benefit.icon}
                     tone="default"
                     size="sm"
-                    class="shrink-0 text-[var(--color-action)] shadow-[var(--shadow-xs)]"
+                    class="theme-shadow-xs shrink-0 text-[var(--color-action)]"
                   />
                   <p class="text-[0.72rem] font-semibold leading-4 text-[var(--color-text)]">
                     {benefit.title}
@@ -250,7 +249,9 @@ const processFeatures = [
           </p>
         </div>
 
-        <div class="relative z-10 mx-auto w-full max-w-[39rem] lg:-mb-6">
+        <div
+          class="relative z-10 mx-auto w-full max-w-full min-w-0 lg:-mb-6 lg:max-w-[39rem]"
+        >
           <div
             class="hero-art-glow absolute inset-x-[12%] bottom-[4%] top-[12%] rounded-[45%]"
             aria-hidden="true"
@@ -272,7 +273,9 @@ const processFeatures = [
       <WaterWaveDivider />
     </section>
 
-    <section class="bg-[var(--color-surface-inverse)] text-white">
+    <section
+      class="bg-[var(--color-surface-inverse)] text-[var(--color-text-inverse)]"
+    >
       <div
         class="mx-auto grid w-full max-w-[82rem] px-[var(--container-gutter)] pb-10 pt-1 sm:grid-cols-2 lg:grid-cols-4 lg:pb-12"
       >
@@ -280,7 +283,7 @@ const processFeatures = [
           trustItems.map((item, index) => (
             <article
               class:list={[
-                'flex flex-col items-center border-white/12 px-5 py-6 text-center',
+                'flex flex-col items-center border-[var(--color-inverse-border)] px-5 py-6 text-center',
                 index > 0 && 'border-t sm:border-t-0',
                 index % 2 === 1 && 'sm:border-l',
                 index > 1 && 'sm:border-t lg:border-t-0',
@@ -296,7 +299,7 @@ const processFeatures = [
               <h2 class="mt-4 text-sm font-semibold text-[var(--color-accent)]">
                 {item.title}
               </h2>
-              <p class="mt-2 max-w-[15rem] text-xs leading-5 text-white/70">
+              <p class="mt-2 max-w-[15rem] text-xs leading-5 text-[var(--color-inverse-muted)]">
                 {item.description}
               </p>
             </article>
@@ -308,9 +311,7 @@ const processFeatures = [
     <section id="services" class="bg-[var(--color-page)] py-16 sm:py-20">
       <div class="mx-auto w-full max-w-[90rem] px-[var(--container-gutter)]">
         <div class="mx-auto max-w-2xl text-center">
-          <p class="text-eyebrow text-[var(--color-brand-gold)]">
-            Our services
-          </p>
+          <p class="text-eyebrow text-[var(--color-accent)]">Our services</p>
           <h2 class="mt-3 text-section-title text-[var(--color-text)]">
             Exterior cleaning that makes a difference
           </h2>
@@ -343,7 +344,7 @@ const processFeatures = [
 
     <section
       id="why-cfl-wash"
-      class="scroll-mt-20 overflow-hidden bg-[var(--color-surface-inverse)] text-white"
+      class="scroll-mt-20 overflow-hidden bg-[var(--color-surface-inverse)] text-[var(--color-text-inverse)]"
     >
       <div
         class="mx-auto grid w-full max-w-[90rem] lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)]"
@@ -354,10 +355,10 @@ const processFeatures = [
           <p class="text-eyebrow text-[var(--color-accent)]">
             Why homeowners choose us
           </p>
-          <h2 class="mt-4 text-section-title text-white">
+          <h2 class="mt-4 text-section-title text-[var(--color-text-inverse)]">
             More than clean. It is confidence in the next step.
           </h2>
-          <p class="mt-5 text-base leading-7 text-white/76">
+          <p class="mt-5 text-base leading-7 text-[var(--color-inverse-muted)]">
             The launch offer stays focused on visible hard surfaces around the
             home. The request is reviewed first so the proposed scope is clear
             before scheduling.
@@ -366,7 +367,7 @@ const processFeatures = [
           <ul class="mt-7 space-y-3">
             {
               reasons.map((reason) => (
-                <li class="flex items-start gap-3 text-sm leading-6 text-white/84">
+                <li class="flex items-start gap-3 text-sm leading-6 text-[var(--color-text-inverse)]">
                   <span class="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-[var(--color-accent)] text-[var(--color-accent)]">
                     <Check
                       class="h-3.5 w-3.5"
@@ -389,18 +390,15 @@ const processFeatures = [
 
         <div class="relative min-h-[25rem] lg:min-h-[37rem]">
           <img
-            src="/images/generated/home/home-confidence-feature.webp"
-            alt="Illustrative upscale Florida home with a clean paver driveway and landscaped entry."
+            src="/images/brand/hero-homepage.webp"
+            alt="Illustrative Florida home with a clean driveway and landscaped entry."
             width="640"
             height="360"
             loading="lazy"
             decoding="async"
             class="absolute inset-0 h-full w-full object-cover"
           />
-          <div
-            class="absolute inset-0 bg-gradient-to-t from-[var(--color-surface-inverse)]/32 via-transparent to-transparent lg:bg-gradient-to-r lg:from-[var(--color-surface-inverse)]/20 lg:to-transparent"
-            aria-hidden="true"
-          >
+          <div class="hero-media-overlay absolute inset-0" aria-hidden="true">
           </div>
         </div>
       </div>
@@ -449,10 +447,10 @@ const processFeatures = [
               icon={CalendarCheck2}
               tone="warm"
               size="lg"
-              class="shrink-0 text-[var(--color-brand-gold)]"
+              class="shrink-0 text-[var(--color-accent)]"
             />
             <div>
-              <p class="text-eyebrow text-[var(--color-brand-gold)]">
+              <p class="text-eyebrow text-[var(--color-accent)]">
                 Ready for a cleaner property?
               </p>
               <h2

@@ -102,15 +102,28 @@
   --color-accent-hover: #c9952f;
   --color-inverse-border: rgb(255 255 255 / 0.12);
   --color-inverse-border-strong: rgb(255 255 255 / 0.35);
+  --color-inverse-text: var(--color-text-inverse);
   --color-inverse-muted: rgb(255 255 255 / 0.72);
+  --color-inverse-soft: rgb(255 255 255 / 0.56);
   --color-inverse-subtle: rgb(255 255 255 / 0.08);
   --color-inverse-subtle-hover: rgb(255 255 255 / 0.14);
+  --color-inverse-surface: rgb(255 255 255 / 0.1);
+  --color-inverse-surface-hover: rgb(255 255 255 / 0.14);
   --color-cta-surface: var(--color-action);
   --color-media-frame: var(--color-surface-raised);
   --color-wave-highlight: rgb(255 255 255 / 0.92);
   --color-wave-trail: rgb(31 93 190 / 0.35);
   --color-focus-ring: var(--color-brand-blue);
   --color-focus-ring-inverse: var(--color-text-inverse);
+  --color-feedback-error: #991b1b;
+  --color-feedback-error-border: #fecaca;
+  --color-feedback-error-surface: #fef2f2;
+  --color-feedback-success: #166534;
+  --color-feedback-success-border: #bbf7d0;
+  --color-feedback-success-surface: #f0fdf4;
+  --color-feedback-info: var(--color-text);
+  --color-feedback-info-border: var(--color-border);
+  --color-feedback-info-surface: var(--color-surface);
 
   --section-space: clamp(3.5rem, 7vw, 6rem);
   --section-space-compact: clamp(2.5rem, 5vw, 4rem);

@@ -109,7 +109,7 @@ const areaCards = serviceAreas.map((area) => ({
               .join(', ')
 
             return (
-              <article class="flex h-full flex-col overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface-raised)] shadow-[var(--shadow-xs)]">
+              <article class="theme-shadow-xs flex h-full flex-col overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface-raised)]">
                 <div class="overflow-hidden bg-[var(--color-surface)]">
                   <img
                     src={image.image.src}
@@ -133,7 +133,7 @@ const areaCards = serviceAreas.map((area) => ({
                   </p>
                   <a
                     href={`/service-areas/${area.slug}`}
-                    class="mt-5 inline-flex min-h-11 items-center gap-2 font-semibold text-[var(--color-action)] underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-4"
+                    class="text-link mt-5"
                   >
                     View {area.name} service page
                     <ArrowRight

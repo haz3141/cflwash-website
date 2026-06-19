@@ -15,7 +15,7 @@ const { title, description, href, image, alt, icon } = Astro.props as Props
 ---
 
 <article
-  class="group flex h-full min-w-0 flex-col overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-raised)] shadow-[var(--shadow-card)] transition duration-[var(--duration-normal)] ease-[var(--ease-standard)] hover:-translate-y-1 hover:shadow-[var(--shadow-card-hover)]"
+  class="theme-shadow-card theme-shadow-card-hover group flex h-full min-w-0 flex-col overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-raised)] transition duration-[var(--duration-normal)] ease-[var(--ease-standard)] hover:-translate-y-1"
 >
   <a
     href={href}
@@ -40,7 +40,7 @@ const { title, description, href, image, alt, icon } = Astro.props as Props
       icon={icon}
       tone="accent"
       size="lg"
-      class="absolute -top-7 left-1/2 -translate-x-1/2 ring-4 ring-[var(--color-surface-raised)] shadow-[var(--shadow-accent)]"
+      class="absolute -top-7 left-1/2 -translate-x-1/2 theme-shadow-action ring-4 ring-[var(--color-surface-raised)]"
     />
     <h3 class="text-[1.02rem] font-semibold leading-5 text-[var(--color-text)]">
       <a

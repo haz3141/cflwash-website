@@ -12,6 +12,7 @@
 
 - [ ] `pnpm check` passes.
 - [ ] `git diff --check` passes.
+- [ ] `pnpm audit:patterns` passes after any public UI/theme change.
 - [ ] No unsupported claims were added.
 - [ ] No credentials, API keys, Turnstile secrets, or Resend keys were committed.
 - [ ] New docs match the current repo state and do not claim the quote form is live in production before release.
@@ -36,6 +37,15 @@
 - [ ] Form values remain after validation, verification, or delivery failure.
 - [ ] Successful submission redirects to `/thank-you` only after backend confirmation.
 - [ ] Delivery failure makes the email fallback prominent.
+
+## Visual Theme Checks
+
+- [ ] The current homepage remains the visual reference for navy, cream, water, white, and gold theme rhythm.
+- [ ] Public routes are reviewed at 390px, 768px, 1024px, and 1440px: `/`, `/services`, `/service-areas`, `/request-quote`, `/thank-you`, `/privacy`, `/driveway-pressure-washing`, `/sidewalk-walkway-cleaning`, `/concrete-cleaning`, and all six `/service-areas/*` pages.
+- [ ] Header, footer, and mobile sticky CTA match the shared inverse/action system.
+- [ ] Interior heroes, cards, links, CTA panels, media frames, borders, radii, shadows, and section spacing feel connected to the homepage.
+- [ ] No page-local theme styling was added where a token, primitive prop, pattern prop, or shared utility fits.
+- [ ] PR notes include route and viewport visual QA notes, plus any intentional deviations.
 
 ## Backend Smoke Checks
 

@@ -24,7 +24,9 @@ const textAlign = align === 'center' ? 'text-center items-center mx-auto' : ''
 const isInverse = tone === 'inverse'
 const eyebrowClasses = [
   'text-eyebrow',
-  isInverse ? 'text-white/75' : 'text-[var(--color-text-muted)]',
+  isInverse
+    ? 'text-[var(--color-inverse-muted)]'
+    : 'text-[var(--color-text-muted)]',
   align === 'center' ? 'justify-center' : '',
 ].join(' ')
 ---
@@ -45,7 +47,7 @@ const eyebrowClasses = [
   {
     description && (
       <p
-        class={`measure-copy text-lead ${isInverse ? 'text-white/82' : 'text-[var(--color-text-muted)]'}`}
+        class={`measure-copy text-lead ${isInverse ? 'text-[var(--color-inverse-muted)]' : 'text-[var(--color-text-muted)]'}`}
       >
         {description}
       </p>

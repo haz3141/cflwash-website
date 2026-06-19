@@ -2,6 +2,7 @@
 import Section from '../components/ui/Section.astro'
 import BreadcrumbSchema from '../components/site/BreadcrumbSchema.astro'
 import Breadcrumbs from '../components/site/Breadcrumbs.astro'
+import HeroSection from '../components/patterns/HeroSection.astro'
 import Layout from '../layouts/Layout.astro'
 import { site } from '../data/site'
 
@@ -20,31 +21,15 @@ const breadcrumbs = [
   <main>
     <Breadcrumbs items={breadcrumbs} />
 
-    <Section spacing="none" class="py-20">
-      <div class="max-w-3xl">
-        <p
-          class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-text-muted)]"
-        >
-          Privacy Notice
-        </p>
-        <h1
-          class="mt-4 text-4xl font-semibold text-[var(--color-text)] sm:text-5xl"
-        >
-          Privacy Notice
-        </h1>
-        <p
-          class="mt-5 text-base leading-8 text-[var(--color-text-muted)] sm:text-lg"
-        >
-          This page explains the practical information CFL Wash Co. may use when
-          someone requests a quote or uses this website.
-        </p>
-      </div>
-    </Section>
+    <HeroSection
+      tone="soft"
+      eyebrow="Privacy Notice"
+      title="Privacy Notice"
+      description="This page explains the practical information CFL Wash Co. may use when someone requests a quote or uses this website."
+    />
 
     <Section spacing="compact" class="pb-20">
-      <div
-        class="max-w-3xl space-y-8 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface-raised)] p-6 sm:p-8"
-      >
+      <div class="legal-panel max-w-3xl space-y-8">
         <section>
           <h2 class="text-2xl font-semibold text-[var(--color-text)]">
             Information you may submit
@@ -126,7 +111,7 @@ const breadcrumbs = [
               href={`mailto:${site.email}`}
               data-cta="email"
               data-cta-location="privacy-contact"
-              class="font-semibold text-[var(--color-action)] underline decoration-[var(--color-border)] underline-offset-4 hover:text-[var(--color-action-hover)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+              class="text-link min-h-0"
             >
               {site.email}
             </a>. This notice may be updated as the website, quote workflow, or

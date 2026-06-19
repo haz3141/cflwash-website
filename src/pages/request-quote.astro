@@ -2,6 +2,7 @@
 import Button from '../components/ui/Button.astro'
 import BreadcrumbSchema from '../components/site/BreadcrumbSchema.astro'
 import Breadcrumbs from '../components/site/Breadcrumbs.astro'
+import HeroSection from '../components/patterns/HeroSection.astro'
 import LinkGrid from '../components/patterns/LinkGrid.astro'
 import QuoteForm from '../components/quote/QuoteForm.astro'
 import Section from '../components/ui/Section.astro'
@@ -46,73 +47,64 @@ const quoteEmailHref = `mailto:${site.email}?subject=${encodeURIComponent(quoteE
   <main>
     <Breadcrumbs items={breadcrumbs} />
 
-    <Section spacing="none" class="py-20">
-      <div class="max-w-3xl">
-        <p class="text-eyebrow text-[var(--color-text-muted)]">
-          Request a Quote
-        </p>
-        <h1 class="measure-copy mt-4 text-display text-[var(--color-text)]">
-          Request a quote for your cleaning project.
-        </h1>
-        <p class="measure-copy mt-5 text-lead text-[var(--color-text-muted)]">
-          Share your city, service, and project details to request a quote for
-          driveway, sidewalk, walkway, and concrete cleaning. Email is still
-          available if you prefer not to use the online form.
-        </p>
-
-        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-          {
-            hasPhone && (
-              <Button
-                href={site.phoneHref!}
-                variant="secondary"
-                size="lg"
-                fullWidth
-                data-cta="call"
-                data-cta-location="request-quote-hero"
-                class="sm:w-auto"
-              >
-                <Phone
-                  slot="startIcon"
-                  class="h-5 w-5"
-                  aria-hidden="true"
-                  stroke-width="1.8"
-                />
-                Call {site.phoneDisplay}
-              </Button>
-            )
-          }
-          <Button
-            href={quoteEmailHref}
-            variant="ghost"
-            size="lg"
-            fullWidth
-            data-cta="email"
-            data-cta-location="request-quote-hero"
-            class="sm:w-auto"
-          >
-            <Mail
-              slot="startIcon"
-              class="h-5 w-5"
-              aria-hidden="true"
-              stroke-width="1.8"
-            />
-            Prefer Email?
-          </Button>
-          <Button
-            href="/#services"
-            variant="ghost"
-            size="lg"
-            fullWidth
-            data-cta="services"
-            data-cta-location="request-quote-hero"
-            class="sm:w-auto"
-          >
-            View Services
-          </Button>
-        </div>
-      </div>
-    </Section>
+    <HeroSection
+      tone="soft"
+      eyebrow="Request a Quote"
+      title="Request a quote for your cleaning project."
+      description="Share your city, service, and project details to request a quote for driveway, sidewalk, walkway, and concrete cleaning. Email is still available if you prefer not to use the online form."
+    >
+      <Fragment slot="actions">
+        {
+          hasPhone && (
+            <Button
+              href={site.phoneHref!}
+              variant="secondary"
+              size="lg"
+              fullWidth
+              data-cta="call"
+              data-cta-location="request-quote-hero"
+              class="sm:w-auto"
+            >
+              <Phone
+                slot="startIcon"
+                class="h-5 w-5"
+                aria-hidden="true"
+                stroke-width="1.8"
+              />
+              Call {site.phoneDisplay}
+            </Button>
+          )
+        }
+        <Button
+          href={quoteEmailHref}
+          variant="ghost"
+          size="lg"
+          fullWidth
+          data-cta="email"
+          data-cta-location="request-quote-hero"
+          class="sm:w-auto"
+        >
+          <Mail
+            slot="startIcon"
+            class="h-5 w-5"
+            aria-hidden="true"
+            stroke-width="1.8"
+          />
+          Prefer Email?
+        </Button>
+        <Button
+          href="/#services"
+          variant="ghost"
+          size="lg"
+          fullWidth
+          data-cta="services"
+          data-cta-location="request-quote-hero"
+          class="sm:w-auto"
+        >
+          View Services
+        </Button>
+      </Fragment>
+    </HeroSection>
 
     <Section spacing="compact" class="pb-20">
       <QuoteForm />
