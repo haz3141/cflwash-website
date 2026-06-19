@@ -30,6 +30,8 @@ Preferred direction:
 
 - Deep navy, water blue, warm gold, curb green, and warm neutral support colors
 - White and soft off-white surfaces for the main page
+- Cream and water-tinted section rhythm across public pages
+- Branded CTA panels and action buttons driven by shared component variants
 - Clear hierarchy over decoration
 - Premium spacing and type rhythm
 - Real photography when available
@@ -63,7 +65,7 @@ It should prioritize:
 - Realistic local positioning
 - Room for future proof photography
 
-The homepage can get more polished over time, but it should not drift into a generic marketing landing page or a broad exterior-cleaning homepage that blurs the MVP offer.
+The homepage can get more polished over time, but it should not drift into a generic marketing landing page or a broad exterior-cleaning homepage that blurs the MVP offer. Interior public pages should share the same visual system through tokens, primitives, and page patterns rather than page-specific theme styling.
 
 ## Stitch Rules
 

@@ -599,7 +599,7 @@ if (form instanceof HTMLFormElement) {
 ---
 
 <div class="grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
-  <Card class="bg-white">
+  <Card tone="raised">
     {
       hasTurnstile ? (
         <>
@@ -655,7 +655,7 @@ if (form instanceof HTMLFormElement) {
                   minlength="2"
                   maxlength="100"
                   aria-describedby="quote-name-hint quote-name-error"
-                  class="mt-2 block w-full rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white px-4 py-3 text-base text-[var(--color-text)] shadow-sm outline-none transition focus:border-[var(--color-primary)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+                  class="mt-2 block w-full rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-raised)] px-4 py-3 text-base text-[var(--color-text)] shadow-sm outline-none transition focus:border-[var(--color-action)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
                 />
                 <p
                   id="quote-name-error"
@@ -689,7 +689,7 @@ if (form instanceof HTMLFormElement) {
                   autocomplete="email"
                   maxlength="254"
                   aria-describedby="quote-email-hint quote-email-error"
-                  class="mt-2 block w-full rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white px-4 py-3 text-base text-[var(--color-text)] shadow-sm outline-none transition focus:border-[var(--color-primary)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+                  class="mt-2 block w-full rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-raised)] px-4 py-3 text-base text-[var(--color-text)] shadow-sm outline-none transition focus:border-[var(--color-action)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
                 />
                 <p
                   id="quote-email-error"
@@ -722,7 +722,7 @@ if (form instanceof HTMLFormElement) {
                   autocomplete="tel"
                   maxlength="30"
                   aria-describedby="quote-phone-hint quote-phone-error"
-                  class="mt-2 block w-full rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white px-4 py-3 text-base text-[var(--color-text)] shadow-sm outline-none transition focus:border-[var(--color-primary)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+                  class="mt-2 block w-full rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-raised)] px-4 py-3 text-base text-[var(--color-text)] shadow-sm outline-none transition focus:border-[var(--color-action)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
                 />
                 <p
                   id="quote-phone-error"
@@ -757,7 +757,7 @@ if (form instanceof HTMLFormElement) {
                   minlength="2"
                   maxlength="100"
                   aria-describedby="quote-city-hint quote-city-error"
-                  class="mt-2 block w-full rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white px-4 py-3 text-base text-[var(--color-text)] shadow-sm outline-none transition focus:border-[var(--color-primary)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+                  class="mt-2 block w-full rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-raised)] px-4 py-3 text-base text-[var(--color-text)] shadow-sm outline-none transition focus:border-[var(--color-action)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
                 />
                 <p
                   id="quote-city-error"
@@ -788,7 +788,7 @@ if (form instanceof HTMLFormElement) {
                   name="service"
                   required
                   aria-describedby="quote-service-hint quote-service-error"
-                  class="mt-2 block w-full rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white px-4 py-3 text-base text-[var(--color-text)] shadow-sm outline-none transition focus:border-[var(--color-primary)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+                  class="mt-2 block w-full rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-raised)] px-4 py-3 text-base text-[var(--color-text)] shadow-sm outline-none transition focus:border-[var(--color-action)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
                 >
                   <option value="">Select a service</option>
                   {services.map((service) => (
@@ -829,7 +829,7 @@ if (form instanceof HTMLFormElement) {
                   maxlength="2000"
                   rows="6"
                   aria-describedby="quote-details-hint quote-details-error"
-                  class="mt-2 block w-full rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white px-4 py-3 text-base text-[var(--color-text)] shadow-sm outline-none transition focus:border-[var(--color-primary)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+                  class="mt-2 block w-full rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-raised)] px-4 py-3 text-base text-[var(--color-text)] shadow-sm outline-none transition focus:border-[var(--color-action)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
                 />
                 <p
                   id="quote-details-error"
@@ -892,7 +892,7 @@ if (form instanceof HTMLFormElement) {
                   value="true"
                   required
                   aria-describedby="quote-consent-hint quote-consent-error"
-                  class="mt-1 h-4 w-4 rounded border-[var(--color-border)] text-[var(--color-primary)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+                  class="mt-1 h-4 w-4 rounded border-[var(--color-border)] text-[var(--color-action)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
                 />
                 <div>
                   <label
@@ -912,7 +912,7 @@ if (form instanceof HTMLFormElement) {
                     Review the{' '}
                     <a
                       href="/privacy"
-                      class="font-semibold text-[var(--color-primary)] underline decoration-[var(--color-border)] underline-offset-4 hover:text-[var(--color-primary-hover)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+                      class="font-semibold text-[var(--color-action)] underline decoration-[var(--color-border)] underline-offset-4 hover:text-[var(--color-action-hover)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
                     >
                       Privacy Notice
                     </a>
@@ -935,7 +935,7 @@ if (form instanceof HTMLFormElement) {
               <button
                 type="submit"
                 data-submit-button
-                class="inline-flex min-h-11 items-center justify-center rounded-[var(--radius-md)] bg-[var(--color-primary)] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[var(--color-primary-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
+                class="inline-flex min-h-11 items-center justify-center rounded-[var(--radius-md)] bg-[var(--color-action)] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[var(--color-action-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 Request quote
               </button>
@@ -1013,19 +1013,19 @@ if (form instanceof HTMLFormElement) {
         <ul class="mt-3 space-y-3 text-sm leading-6 text-[var(--color-text)]">
           <li class="flex gap-3">
             <span
-              class="mt-2 h-2 w-2 shrink-0 rounded-full bg-[var(--color-primary)]"
+              class="mt-2 h-2 w-2 shrink-0 rounded-full bg-[var(--color-action)]"
             ></span>
             <span>City where the cleaning is needed</span>
           </li>
           <li class="flex gap-3">
             <span
-              class="mt-2 h-2 w-2 shrink-0 rounded-full bg-[var(--color-primary)]"
+              class="mt-2 h-2 w-2 shrink-0 rounded-full bg-[var(--color-action)]"
             ></span>
             <span>Closest service match for the project</span>
           </li>
           <li class="flex gap-3">
             <span
-              class="mt-2 h-2 w-2 shrink-0 rounded-full bg-[var(--color-primary)]"
+              class="mt-2 h-2 w-2 shrink-0 rounded-full bg-[var(--color-action)]"
             ></span>
             <span>Surface details, buildup, or curb appeal concerns</span>
           </li>
@@ -1038,7 +1038,7 @@ if (form instanceof HTMLFormElement) {
           Review how contact details, analytics, and operational providers are
           used in the <a
             href="/privacy"
-            class="font-semibold text-[var(--color-primary)] underline decoration-[var(--color-border)] underline-offset-4 hover:text-[var(--color-primary-hover)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+            class="font-semibold text-[var(--color-action)] underline decoration-[var(--color-border)] underline-offset-4 hover:text-[var(--color-action-hover)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
           >
             Privacy Notice
           </a>.

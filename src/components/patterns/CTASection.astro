@@ -29,17 +29,23 @@ const panelClass =
 <section class="py-[var(--section-space)]">
   <Container>
     <div
-      class={`rounded-[var(--radius-lg)] bg-[var(--color-action)] px-6 py-[var(--space-12)] text-center text-white sm:px-10 ${panelClass}`.trim()}
+      class={`rounded-[var(--radius-lg)] bg-[var(--color-cta-surface)] px-6 py-[var(--space-12)] text-center text-[var(--color-text-inverse)] sm:px-10 ${panelClass}`.trim()}
     >
-      {eyebrow && <p class="text-eyebrow text-white/75">{eyebrow}</p>}
+      {
+        eyebrow && (
+          <p class="text-eyebrow text-[var(--color-inverse-muted)]">
+            {eyebrow}
+          </p>
+        )
+      }
       <h2
-        class={`${titleClass} ${eyebrow ? 'mt-3 text-section-title text-white' : ''}`.trim()}
+        class={`${titleClass} ${eyebrow ? 'mt-3 text-section-title text-[var(--color-text-inverse)]' : ''}`.trim()}
       >
         {title}
       </h2>
       {
         description && (
-          <p class="mx-auto mt-4 max-w-2xl text-base leading-8 text-white/85">
+          <p class="mx-auto mt-4 max-w-2xl text-base leading-8 text-[var(--color-inverse-muted)]">
             {description}
           </p>
         )

@@ -3,7 +3,7 @@ import Container from './Container.astro'
 import SectionHeader from './SectionHeader.astro'
 
 type Spacing = 'compact' | 'default' | 'spacious' | 'none'
-type Tone = 'default' | 'soft' | 'warm' | 'inverse'
+type Tone = 'default' | 'soft' | 'water' | 'warm' | 'inverse'
 type ContentWidth = 'narrow' | 'default' | 'wide' | 'full'
 
 type Props = {
@@ -40,6 +40,7 @@ const spacingClasses: Record<Spacing, string> = {
 const toneClasses: Record<Tone, string> = {
   default: '',
   soft: 'bg-[var(--color-surface)]',
+  water: 'bg-[var(--color-surface-water)]',
   warm: 'bg-[var(--color-surface-warm)]',
   inverse: 'bg-[var(--color-surface-inverse)] text-[var(--color-text-inverse)]',
 }

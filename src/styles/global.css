@@ -92,4 +92,140 @@
   .measure-card {
     max-width: var(--measure-card);
   }
+
+  .eyebrow-action {
+    color: var(--color-action);
+    font-size: var(--text-eyebrow);
+    font-weight: 700;
+    letter-spacing: var(--tracking-eyebrow);
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .text-link {
+    align-items: center;
+    color: var(--color-action);
+    display: inline-flex;
+    font-weight: 700;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    text-underline-offset: 0.25rem;
+  }
+
+  .text-link:hover {
+    text-decoration: underline;
+  }
+
+  .text-link:focus {
+    outline: none;
+  }
+
+  .text-link:focus-visible {
+    border-radius: var(--radius-sm);
+    box-shadow:
+      0 0 0 2px var(--color-page),
+      0 0 0 4px var(--color-focus-ring);
+  }
+
+  .feature-panel {
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    color: var(--color-text-muted);
+    padding: 1rem;
+  }
+
+  .media-frame {
+    background: var(--color-media-frame);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-media);
+    overflow: hidden;
+  }
+
+  .hero-art-panel {
+    background-image:
+      radial-gradient(
+        circle at 82% 18%,
+        color-mix(in srgb, var(--color-accent) 20%, transparent),
+        transparent 24%
+      ),
+      radial-gradient(
+        circle at 15% 72%,
+        color-mix(in srgb, var(--color-action) 10%, transparent),
+        transparent 25%
+      );
+  }
+
+  .hero-art-glow {
+    background: color-mix(
+      in srgb,
+      var(--color-surface-raised) 55%,
+      transparent
+    );
+    filter: blur(48px);
+  }
+
+  .hero-art-image {
+    filter: drop-shadow(var(--shadow-hero-art));
+  }
+
+  .card-link {
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xs);
+    color: var(--color-text);
+    display: block;
+    transition:
+      border-color var(--duration-normal) var(--ease-standard),
+      color var(--duration-normal) var(--ease-standard),
+      transform var(--duration-normal) var(--ease-standard);
+  }
+
+  .card-link:hover {
+    border-color: var(--color-action);
+    transform: translateY(-0.125rem);
+  }
+
+  .card-link:focus {
+    outline: none;
+  }
+
+  .card-link:focus-visible {
+    box-shadow:
+      0 0 0 2px var(--color-page),
+      0 0 0 4px var(--color-focus-ring);
+  }
+
+  .pill-link {
+    align-items: center;
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    color: var(--color-text);
+    display: inline-flex;
+    font-size: var(--text-small);
+    font-weight: 700;
+    min-height: 2.75rem;
+    padding: 0.5rem 1.25rem;
+    transition:
+      border-color var(--duration-fast) var(--ease-standard),
+      color var(--duration-fast) var(--ease-standard);
+  }
+
+  .pill-link:hover {
+    border-color: var(--color-action);
+    color: var(--color-action);
+  }
+
+  .pill-link:focus {
+    outline: none;
+  }
+
+  .pill-link:focus-visible {
+    box-shadow:
+      0 0 0 2px var(--color-page),
+      0 0 0 4px var(--color-focus-ring);
+  }
 }

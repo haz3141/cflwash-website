@@ -15,7 +15,7 @@ const { title, description, href, image, alt, icon } = Astro.props as Props
 ---
 
 <article
-  class="group flex h-full min-w-0 flex-col overflow-hidden rounded-[0.7rem] border border-[var(--color-border)] bg-white shadow-[0_8px_24px_rgba(10,27,46,0.07)] transition duration-[var(--duration-normal)] ease-[var(--ease-standard)] hover:-translate-y-1 hover:shadow-[0_16px_32px_rgba(10,27,46,0.12)]"
+  class="group flex h-full min-w-0 flex-col overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-raised)] shadow-[var(--shadow-card)] transition duration-[var(--duration-normal)] ease-[var(--ease-standard)] hover:-translate-y-1 hover:shadow-[var(--shadow-card-hover)]"
 >
   <a
     href={href}
@@ -38,9 +38,9 @@ const { title, description, href, image, alt, icon } = Astro.props as Props
   >
     <IconBadge
       icon={icon}
-      tone="inverse"
+      tone="accent"
       size="lg"
-      class="absolute -top-7 left-1/2 -translate-x-1/2 bg-[var(--color-surface-inverse)] text-[var(--color-accent)] ring-4 ring-white shadow-[0_6px_16px_rgba(10,27,46,0.18)]"
+      class="absolute -top-7 left-1/2 -translate-x-1/2 ring-4 ring-[var(--color-surface-raised)] shadow-[var(--shadow-accent)]"
     />
     <h3 class="text-[1.02rem] font-semibold leading-5 text-[var(--color-text)]">
       <a

@@ -7,7 +7,7 @@ type Step = {
 }
 
 type Variant = 'featured' | 'compact'
-type Tone = 'default' | 'soft'
+type Tone = 'raised' | 'soft'
 
 type Props = {
   steps: Step[]
@@ -19,7 +19,7 @@ type Props = {
 const {
   steps,
   variant = 'compact',
-  cardTone = 'default',
+  cardTone = 'raised',
   class: className = '',
 } = Astro.props as Props
 
@@ -35,7 +35,7 @@ const isFeatured = variant === 'featured'
         <Card
           tone={cardTone}
           padding={isFeatured ? 'lg' : 'md'}
-          class={`flex h-full flex-col ${cardTone === 'default' ? 'bg-white' : ''}`}
+          class="flex h-full flex-col"
         >
           {isFeatured ? (
             <>
@@ -50,7 +50,7 @@ const isFeatured = variant === 'featured'
             </>
           ) : (
             <div class="flex items-center gap-4">
-              <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-primary)] text-sm font-semibold text-white">
+              <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-action)] text-sm font-semibold text-white">
                 {index + 1}
               </span>
               <h3 class="text-base font-semibold text-[var(--color-text)]">

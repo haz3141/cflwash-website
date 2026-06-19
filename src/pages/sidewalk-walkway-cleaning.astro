@@ -157,7 +157,7 @@ const faqs = [
       <div class="grid gap-4 md:grid-cols-2">
         {
           inclusions.map((item) => (
-            <Card class="bg-white">
+            <Card tone="raised">
               <p class="text-sm font-semibold leading-7 text-[var(--color-text)]">
                 {item}
               </p>
@@ -175,7 +175,7 @@ const faqs = [
       <div class="grid gap-4 sm:grid-cols-2">
         {
           considerations.map((item) => (
-            <Card class="bg-white">
+            <Card tone="raised">
               <h3 class="text-base font-semibold text-[var(--color-text)]">
                 {item.title}
               </h3>
@@ -196,9 +196,7 @@ const faqs = [
       <ul class="grid gap-3 md:grid-cols-2">
         {
           prepItems.map((item) => (
-            <li class="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-4 text-sm leading-7 text-[var(--color-text-muted)]">
-              {item}
-            </li>
+            <li class="feature-panel text-sm leading-7">{item}</li>
           ))
         }
       </ul>
@@ -250,8 +248,7 @@ const faqs = [
       <Fragment slot="actions">
         <Button
           href="/request-quote"
-          variant="secondary"
-          class="bg-white text-[var(--color-primary)] hover:bg-[var(--color-surface)]"
+          variant="light"
           data-cta="quote"
           data-cta-location={`service-${service.slug}-final`}
         >
@@ -261,8 +258,7 @@ const faqs = [
           hasPhone ? (
             <Button
               href={site.phoneHref!}
-              variant="ghost"
-              class="text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
+              variant="inverseGhost"
               data-cta="call"
               data-cta-location={`service-${service.slug}-final`}
             >
@@ -277,8 +273,7 @@ const faqs = [
           ) : (
             <Button
               href={`mailto:${site.email}`}
-              variant="ghost"
-              class="text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
+              variant="inverseGhost"
               data-cta="email"
               data-cta-location={`service-${service.slug}-final`}
             >
