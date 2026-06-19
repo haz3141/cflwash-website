@@ -57,7 +57,7 @@ Current priorities:
 - Avoid unrelated refactors.
 - Reuse existing components and data structures before creating new abstractions.
 - Use centralized design tokens, UI primitive variants, page patterns, and documented shared utilities for theme work; avoid page-local one-off colors, shadows, CTA overrides, and decorative styling unless the exception is documented.
-- Treat theme drift as raw colors outside token/asset contexts, legacy Tailwind color utilities, raw inverse `white/*` utilities, arbitrary shadows, one-off gradients, inline style attributes, public page theme `<style>` blocks, or duplicated button/link/card/CTA treatments.
+- Treat theme drift as raw colors outside token/asset contexts, legacy Tailwind color utilities across color-bearing utility families, raw inverse `white/*` utilities, arbitrary shadows, one-off gradients, inline style attributes, public page theme `<style>` blocks, or duplicated button/link/card/CTA treatments.
 - For visual theme work, review public routes at 390px, 768px, 1024px, and 1440px and record route notes for the PR.
 - For issue-specific work, read only the files named in the issue first and do not reread unrelated documentation unless the issue explicitly requires it.
 

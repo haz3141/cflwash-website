@@ -439,7 +439,9 @@ Rules:
 
 Theme drift is any public page, layout, or shared component that recreates the visual system outside tokens, primitives, pattern props, or documented utilities. Examples include raw hex/rgb/rgba colors outside `src/styles/tokens.css` or asset/SVG contexts, legacy Tailwind color utilities, raw `white/*` inverse utilities, arbitrary shadows when a token utility exists, one-off gradients outside approved global utilities, inline `style` attributes, public page `<style>` blocks for theme decisions, and duplicated CTA/link/button class clusters.
 
-`scripts/audit-patterns.mjs` enforces the obvious cases across public pages, shared components, layouts, and styles. If a real design need is not expressible through an existing primitive or pattern, add the smallest prop or shared utility first, document it here, and then use it. Do not patch page-local classes around the audit.
+`scripts/audit-patterns.mjs` enforces the obvious cases across public pages, shared components, layouts, and styles. Legacy color utility checks cover `bg`, `text`, `border`, `from`, `via`, `to`, `ring`, `divide`, `outline`, `decoration`, `placeholder`, `accent`, `caret`, `fill`, and `stroke` utility families for old slate/blue/gray values and raw white inverse values. The audit reports file and line numbers, and its documented scan exclusions are limited to `src/styles/tokens.css`, `src/styles/global.css`, and dev-only QA pages under `src/pages/dev/`.
+
+If a real design need is not expressible through an existing primitive or pattern, add the smallest prop or shared utility first, document it here, and then use it. Do not patch page-local classes around the audit.
 
 Astro scoped styles are allowed only for isolated component internals, such as layout mechanics that are not part of the global theme. They are not allowed for page-level colors, shadows, CTA treatments, card treatments, section backgrounds, or typography scale decisions on public pages.
 
