@@ -7,6 +7,7 @@ import Card from '../components/ui/Card.astro'
 import FAQList from '../components/patterns/FAQList.astro'
 import HeroSection from '../components/patterns/HeroSection.astro'
 import LinkGrid from '../components/patterns/LinkGrid.astro'
+import MediaFrame from '../components/patterns/MediaFrame.astro'
 import ProcessSteps from '../components/patterns/ProcessSteps.astro'
 import Section from '../components/ui/Section.astro'
 import SplitFeature from '../components/patterns/SplitFeature.astro'
@@ -125,6 +126,8 @@ const faqs = [
     <Breadcrumbs items={breadcrumbs} />
 
     <HeroSection
+      variant="split"
+      tone="soft"
       eyebrow="Service"
       title="Sidewalk and walkway cleaning for the paths people notice."
       description="Front walks, entry paths, sidewalk panels, and routes from the driveway to the door can collect organic buildup, tracked dirt, leaf marks, and irrigation staining. CFL Wash Co. keeps this service focused on cleaner pedestrian concrete with expectations based on the surface condition, age, drainage, and staining involved."
@@ -146,6 +149,38 @@ const faqs = [
           Email CFL Wash Co.
         </Button>
       </Fragment>
+
+      <MediaFrame
+        slot="media"
+        image={{
+          src: '/images/brand/responsive/hero-homepage-1024.webp',
+          alt: 'Illustrative Florida home exterior with a clean front approach',
+          width: 1024,
+          height: 540,
+          sources: [
+            {
+              src: '/images/brand/responsive/hero-homepage-480.webp',
+              width: 480,
+            },
+            {
+              src: '/images/brand/responsive/hero-homepage-768.webp',
+              width: 768,
+            },
+            {
+              src: '/images/brand/responsive/hero-homepage-1024.webp',
+              width: 1024,
+            },
+            {
+              src: '/images/brand/responsive/hero-homepage-1280.webp',
+              width: 1280,
+            },
+          ],
+        }}
+        caption="Decorative brand artwork. It is not presented as a completed project photo."
+        mediaRole="decorative"
+        loading="eager"
+        fetchpriority="high"
+      />
     </HeroSection>
 
     <Section
@@ -244,6 +279,7 @@ const faqs = [
     </Section>
 
     <CTASection
+      tone="inverse"
       title="Request a sidewalk or walkway cleaning quote."
       description="Tell CFL Wash Co. which paths, panels, entry areas, or connected concrete surfaces need attention."
     >

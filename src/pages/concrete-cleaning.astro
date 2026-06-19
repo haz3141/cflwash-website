@@ -7,6 +7,7 @@ import Card from '../components/ui/Card.astro'
 import FAQList from '../components/patterns/FAQList.astro'
 import HeroSection from '../components/patterns/HeroSection.astro'
 import LinkGrid from '../components/patterns/LinkGrid.astro'
+import MediaFrame from '../components/patterns/MediaFrame.astro'
 import ProcessSteps from '../components/patterns/ProcessSteps.astro'
 import Section from '../components/ui/Section.astro'
 import SplitFeature from '../components/patterns/SplitFeature.astro'
@@ -121,6 +122,8 @@ const faqs = [
     <Breadcrumbs items={breadcrumbs} />
 
     <HeroSection
+      variant="split"
+      tone="soft"
       eyebrow="Service"
       title="Concrete cleaning for patios, pads, aprons, curbs, and entry areas."
       description="Not every concrete surface is a driveway or sidewalk. This broader service helps homeowners request a quote for appropriate concrete areas around the property while keeping the offer centered on cleaning and realistic surface expectations."
@@ -142,6 +145,38 @@ const faqs = [
           Email CFL Wash Co.
         </Button>
       </Fragment>
+
+      <MediaFrame
+        slot="media"
+        image={{
+          src: '/images/brand/responsive/hero-homepage-1024.webp',
+          alt: 'Illustrative Florida home exterior with a clean front approach',
+          width: 1024,
+          height: 540,
+          sources: [
+            {
+              src: '/images/brand/responsive/hero-homepage-480.webp',
+              width: 480,
+            },
+            {
+              src: '/images/brand/responsive/hero-homepage-768.webp',
+              width: 768,
+            },
+            {
+              src: '/images/brand/responsive/hero-homepage-1024.webp',
+              width: 1024,
+            },
+            {
+              src: '/images/brand/responsive/hero-homepage-1280.webp',
+              width: 1280,
+            },
+          ],
+        }}
+        caption="Decorative brand artwork. It is not presented as a completed project photo."
+        mediaRole="decorative"
+        loading="eager"
+        fetchpriority="high"
+      />
     </HeroSection>
 
     <Section
@@ -240,6 +275,7 @@ const faqs = [
     </Section>
 
     <CTASection
+      tone="inverse"
       title="Request a concrete cleaning quote."
       description="Share the surface type, location, access details, and visible buildup so CFL Wash Co. can review whether it fits the launch services."
     >

@@ -115,6 +115,7 @@ The site uses Manrope Variable with a clean sans fallback stack.
 Scale targets:
 
 - Display: `clamp(2.75rem, 2rem + 3.2vw, 4.75rem)`
+- Interior hero: `clamp(2.5rem, 1.85rem + 2.6vw, 4rem)`
 - H2: `clamp(2rem, 1.5rem + 1.6vw, 3rem)`
 - H3: `clamp(1.25rem, 1.1rem + 0.4vw, 1.5rem)`
 - Lead: `clamp(1.125rem, 1rem + 0.35vw, 1.25rem)`
@@ -133,6 +134,7 @@ Rules:
 Shared utility classes:
 
 - `.text-display`
+- `.text-hero`
 - `.text-section-title`
 - `.text-section-subtitle`
 - `.text-lead`
@@ -274,12 +276,12 @@ Use page patterns when at least two current pages share the same structure. Do n
 
 #### HeroSection
 
-Purpose: page-opening structure for the homepage split hero and compact service/city heroes.
+Purpose: page-opening structure for split media-led interiors and compact utility pages.
 
 Allowed variants:
 
-- `split`: homepage-style copy plus media slot, stacked on mobile and two-column on desktop.
-- `compact`: service/city page intro with optional aside slot.
+- `split`: copy plus explicit media slot, stacked on mobile and two-column on desktop.
+- `compact`: quiet utility-page intro with optional aside slot.
 
 Allowed tones:
 
@@ -295,8 +297,32 @@ Slots:
 Rules:
 
 - Keep the visible H1 copy page-owned and claim-safe.
+- Supply content-relevant media explicitly from the page or shared page pattern.
+- Never infer hero media from `Astro.url.pathname` or another route side table.
 - Do not add `centered`, `full-bleed`, or `editorial` variants until real current pages require them.
 - Do not hide CTA fallback logic inside the component.
+
+#### MediaFrame
+
+Purpose: proof-safe framing for decorative or contextual hero and feature media.
+
+Props:
+
+- `image`: source, alt text, intrinsic dimensions, and optional responsive sources.
+- `caption?: string`
+- `mediaRole?: 'decorative' | 'context'`
+- `loading?: 'eager' | 'lazy'`
+- `fetchpriority?: 'high' | 'low' | 'auto'`
+- `sizes?: string`
+- `class?: string`
+- `imageClass?: string`
+
+Rules:
+
+- Always provide intrinsic dimensions and accurate alt text.
+- Use a visible caption when an illustrative image could be mistaken for completed-project proof.
+- Use eager loading and high fetch priority only for above-the-fold media.
+- Keep verified project-proof modeling and richer media-rights metadata in the dedicated media-system work.
 
 #### SplitFeature
 
@@ -339,11 +365,13 @@ Semantics:
 
 - Renders an ordered list.
 - Uses visible numeric markers as the primary visual system.
+- Marks the list and steps in generated HTML so production audits can verify one sequence without duplicated numbering.
 
 Rules:
 
 - Do not add icon support until a current page requires it.
 - Keep the process to clear, short steps.
+- Use the open compact timeline by default; reserve cards for the explicitly featured variant.
 
 #### LinkGrid
 
@@ -351,8 +379,14 @@ Purpose: repeated link groups such as active service areas, related services, ne
 
 Allowed variants:
 
-- `compact`: white linked cards.
+- `compact`: open divided navigation rows.
 - `cards`: page-surface linked cards for broader grids.
+
+Allowed columns:
+
+- `one`
+- `two`
+- `three`
 
 Allowed item state:
 
@@ -373,6 +407,11 @@ Allowed surfaces:
 - `default`: majority service/city appearance with fixed horizontal padding, no shadow, and no overflow clipping.
 - `elevated`: homepage treatment with subtle elevation.
 
+Allowed tones:
+
+- `action`: water-blue conversion panel.
+- `inverse`: deep-navy conversion panel.
+
 Allowed title widths:
 
 - `default`
@@ -388,10 +427,11 @@ Rules:
 - Do not centralize phone/email fallback logic in the pattern.
 - Use the strong branded panel sparingly, usually once near the end of a page.
 - Keep the default panel restrained; reserve elevation for the homepage or another current page that explicitly needs it.
+- Use inverse panels to vary long interior-page rhythm without adding page-local colors.
 
 #### FAQList
 
-Purpose: static accessible FAQ lists for service and city pages.
+Purpose: static accessible FAQ lists with open, divided rows for service and city pages.
 
 Allowed columns:
 
@@ -402,6 +442,7 @@ Rules:
 
 - Render static content; do not build an accordion until a real content need requires it.
 - Keep each question and answer page-owned.
+- Do not wrap every FAQ in a card; section tone and dividers carry the hierarchy.
 
 #### ServiceAreaPage
 

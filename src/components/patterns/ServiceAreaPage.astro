@@ -213,11 +213,7 @@ const quoteSteps = [
       title={`Popular pressure washing services in ${area.name}`}
       description="Choose the closest match for the concrete that needs attention. Multiple connected areas can be included in one quote request."
     >
-      <LinkGrid
-        items={serviceLinks}
-        density="comfortable"
-        class="gap-4 md:grid-cols-3"
-      />
+      <LinkGrid items={serviceLinks} columns="three" density="comfortable" />
     </Section>
 
     <Section
@@ -318,6 +314,7 @@ const quoteSteps = [
     </Section>
 
     <CTASection
+      tone="inverse"
       eyebrow={`${area.name} service area`}
       title={`Request a pressure washing quote for your ${area.name} property.`}
       description="Share the address, surfaces, photos, and any HOA notice details. CFL Wash Co. will review the request before scheduling."

@@ -6,6 +6,7 @@ type Props = {
   title: string
   description?: string
   surface?: 'default' | 'elevated'
+  tone?: 'action' | 'inverse'
   titleWidth?: 'default' | 'wide'
 }
 
@@ -14,6 +15,7 @@ const {
   title,
   description,
   surface = 'default',
+  tone = 'action',
   titleWidth = 'default',
 } = Astro.props as Props
 
@@ -24,12 +26,16 @@ const titleClass =
 
 const panelClass =
   surface === 'elevated' ? 'overflow-hidden theme-shadow-sm' : ''
+const toneClass =
+  tone === 'inverse'
+    ? 'bg-[var(--color-surface-inverse)]'
+    : 'bg-[var(--color-cta-surface)]'
 ---
 
 <section class="py-[var(--section-space)]">
   <Container>
     <div
-      class={`rounded-[var(--radius-lg)] bg-[var(--color-cta-surface)] px-6 py-[var(--space-12)] text-center text-[var(--color-text-inverse)] sm:px-10 ${panelClass}`.trim()}
+      class={`rounded-[var(--radius-lg)] ${toneClass} px-6 py-[var(--space-12)] text-center text-[var(--color-text-inverse)] sm:px-10 ${panelClass}`.trim()}
     >
       {
         eyebrow && (
