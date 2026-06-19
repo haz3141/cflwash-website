@@ -65,7 +65,7 @@ It should prioritize:
 - Realistic local positioning
 - Room for future proof photography
 
-The homepage can get more polished over time, but it should not drift into a generic marketing landing page or a broad exterior-cleaning homepage that blurs the MVP offer. Interior public pages should share the same visual system through tokens, primitives, and page patterns rather than page-specific theme styling.
+The homepage can get more polished over time, but it should not drift into a generic marketing landing page or a broad exterior-cleaning homepage that blurs the MVP offer. Interior public pages should share the same visual system through tokens, primitives, and page patterns rather than page-specific theme styling. The current homepage is the approved visual reference for the sitewide navy, cream, water, white, and gold rhythm.
 
 ## Stitch Rules
 

@@ -1,7 +1,7 @@
 ---
 import Button from '../components/ui/Button.astro'
 import Breadcrumbs from '../components/site/Breadcrumbs.astro'
-import Section from '../components/ui/Section.astro'
+import HeroSection from '../components/patterns/HeroSection.astro'
 import Layout from '../layouts/Layout.astro'
 import { site } from '../data/site'
 
@@ -17,25 +17,13 @@ const breadcrumbs = [{ label: 'Home', href: '/' }, { label: 'Thank You' }]
   <main>
     <Breadcrumbs items={breadcrumbs} />
 
-    <Section spacing="none" class="py-20">
-      <p
-        class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-text-muted)]"
-      >
-        Thank You
-      </p>
-      <h1
-        class="mt-4 text-4xl font-semibold text-[var(--color-text)] sm:text-5xl"
-      >
-        Thanks for reaching out.
-      </h1>
-      <p
-        class="mt-5 max-w-2xl text-base leading-8 text-[var(--color-text-muted)] sm:text-lg"
-      >
-        We have your request details. If you need to add anything else about the
-        driveway, sidewalk, walkway, or concrete area, send us an email.
-      </p>
-
-      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+    <HeroSection
+      tone="soft"
+      eyebrow="Thank You"
+      title="Thanks for reaching out."
+      description="We have your request details. If you need to add anything else about the driveway, sidewalk, walkway, or concrete area, send us an email."
+    >
+      <Fragment slot="actions">
         <Button href="/">Back Home</Button>
         <Button
           href={`mailto:${site.email}`}
@@ -45,7 +33,7 @@ const breadcrumbs = [{ label: 'Home', href: '/' }, { label: 'Thank You' }]
         >
           Email CFL Wash Co.
         </Button>
-      </div>
-    </Section>
+      </Fragment>
+    </HeroSection>
   </main>
 </Layout>

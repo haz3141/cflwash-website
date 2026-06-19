@@ -42,15 +42,15 @@ const sizeClasses: Record<Size, string> = {
 
 const variants: Record<Variant, string> = {
   primary:
-    'bg-[var(--color-action)] text-white hover:bg-[var(--color-action-hover)] active:bg-[var(--color-action-active)]',
+    'bg-[var(--color-action)] text-[var(--color-text-inverse)] hover:bg-[var(--color-action-hover)] active:bg-[var(--color-action-active)]',
   secondary:
     'bg-[var(--color-page)] text-[var(--color-text)] ring-1 ring-inset ring-[var(--color-border)] hover:bg-[var(--color-surface)] active:bg-[var(--color-surface-soft)]',
   ghost:
     'text-[var(--color-text)] hover:bg-[var(--color-surface)] active:bg-[var(--color-surface-soft)]',
   inverse:
-    'bg-[var(--color-surface-inverse)] text-[var(--color-text-inverse)] ring-1 ring-inset ring-white/15 hover:bg-[var(--color-surface-inverse-hover)] active:bg-[var(--color-surface-inverse-active)]',
+    'bg-[var(--color-surface-inverse)] text-[var(--color-text-inverse)] ring-1 ring-inset ring-[var(--color-inverse-border)] hover:bg-[var(--color-surface-inverse-hover)] active:bg-[var(--color-surface-inverse-active)]',
   accent:
-    'bg-[var(--color-accent)] text-[var(--color-surface-inverse)] shadow-[var(--shadow-action)] hover:bg-[var(--color-accent-hover)] active:bg-[var(--color-accent-hover)]',
+    'theme-shadow-action bg-[var(--color-accent)] text-[var(--color-surface-inverse)] hover:bg-[var(--color-accent-hover)] active:bg-[var(--color-accent-hover)]',
   light:
     'bg-[var(--color-surface-raised)] text-[var(--color-action)] ring-1 ring-inset ring-[var(--color-border)] hover:bg-[var(--color-surface)] active:bg-[var(--color-surface-soft)]',
   inverseGhost:

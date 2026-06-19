@@ -22,10 +22,12 @@ It complements:
 
 The codebase uses a hybrid token model:
 
-- Primitive tokens live in Tailwind 4 `@theme` when generated utilities are useful.
+- Brand primitive tokens live in Tailwind 4 `@theme` when generated utilities are useful.
 - Semantic aliases live in `:root` and should be preferred by components.
 - Raw palette values should be avoided in shared UI unless a one-off exception is documented.
 - Legacy aliases such as `--color-primary` and `--section-spacing` remain available for compatibility, but new work should use the semantic names above.
+
+Use `@theme` for durable brand primitives, spacing, type, radius, shadows, transitions, and container values that should map to Tailwind utilities. Use `:root` for meanings such as page, surface, text, border, action, accent, inverse, focus, feedback, section, and container roles. Components should not reach for brand primitives directly unless the primitive is the actual design meaning.
 
 ### Primitive Tokens
 
@@ -89,10 +91,12 @@ Components should consume semantic tokens such as:
 - `--color-focus-ring-inverse`
 
 Shared utility classes such as `.media-frame`, `.feature-panel`, `.card-link`,
-`.pill-link`, `.text-link`, `.eyebrow-action`, and the homepage art utilities
-exist only for recurring visual treatments. Do not use raw page-local hex,
-shadow, or gradient values for the approved navy / cream / white / blue / gold
-system when a token, primitive prop, or shared utility exists.
+`.pill-link`, `.text-link`, `.inverse-link`, `.form-control`,
+`.status-message`, `.eyebrow-action`, token shadow utilities, and the homepage
+art utilities exist only for recurring visual treatments. Do not use raw
+page-local hex, shadow, or gradient values for the approved navy / cream /
+white / blue / gold system when a token, primitive prop, or shared utility
+exists.
 
 ## Color Rules
 
@@ -249,6 +253,12 @@ Key expectations:
 - Card grids stack cleanly before widening.
 - Text measure stays comfortable on all viewports.
 - No overlap or layout shift in the chrome.
+
+## Visual QA Process
+
+For sitewide theme work, compare every public route against the current homepage visual system at 390px, 768px, 1024px, and 1440px. Check typography scale, section spacing, cream/water/white surface rhythm, dark navy inverse surfaces, CTA panels, cards, borders, radii, shadows, media frames, link behavior, button behavior, header, footer, and mobile sticky CTA.
+
+Use the in-app Browser when available. Record any route-specific notes in the PR description, including intentional deviations and any viewport that could not be reviewed. Functional checks and `pnpm build` do not replace visual QA.
 
 ## Component APIs
 
@@ -424,6 +434,14 @@ Rules:
 - `TrustStrip` should wait until another current page shares the homepage trust-row need.
 - `FeatureList` should wait until bullets, prep notes, and scenario lists converge on one clear API.
 - A full `MediaPanel` component should wait until media captions, proof photos, and city context converge on one API. Until then, use `.media-frame` for repeated hero and feature image framing.
+
+### Theme Drift Guardrails
+
+Theme drift is any public page, layout, or shared component that recreates the visual system outside tokens, primitives, pattern props, or documented utilities. Examples include raw hex/rgb/rgba colors outside `src/styles/tokens.css` or asset/SVG contexts, legacy Tailwind color utilities, raw `white/*` inverse utilities, arbitrary shadows when a token utility exists, one-off gradients outside approved global utilities, inline `style` attributes, public page `<style>` blocks for theme decisions, and duplicated CTA/link/button class clusters.
+
+`scripts/audit-patterns.mjs` enforces the obvious cases across public pages, shared components, layouts, and styles. If a real design need is not expressible through an existing primitive or pattern, add the smallest prop or shared utility first, document it here, and then use it. Do not patch page-local classes around the audit.
+
+Astro scoped styles are allowed only for isolated component internals, such as layout mechanics that are not part of the global theme. They are not allowed for page-level colors, shadows, CTA treatments, card treatments, section backgrounds, or typography scale decisions on public pages.
 
 ### Button
 

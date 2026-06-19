@@ -28,7 +28,7 @@ const toneClasses: Record<Tone, string> = {
     'bg-[var(--color-surface-water)] text-[var(--color-text)] border-[var(--color-border)]',
   warm: 'bg-[var(--color-surface-warm)] text-[var(--color-text)] border-[var(--color-border)]',
   inverse:
-    'bg-[var(--color-surface-inverse)] text-[var(--color-text-inverse)] border-white/10',
+    'bg-[var(--color-surface-inverse)] text-[var(--color-text-inverse)] border-[var(--color-inverse-border)]',
 }
 
 const paddingClasses: Record<Padding, string> = {
@@ -37,7 +37,7 @@ const paddingClasses: Record<Padding, string> = {
   lg: 'p-7 sm:p-8',
 }
 
-const shadowClass = elevated ? 'shadow-[var(--shadow-xs)]' : ''
+const shadowClass = elevated ? 'theme-shadow-xs' : ''
 const classes =
   `rounded-[var(--radius-lg)] border ${toneClasses[tone]} ${paddingClasses[padding]} ${shadowClass} ${className}`.trim()
 ---

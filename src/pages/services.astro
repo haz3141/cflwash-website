@@ -166,10 +166,7 @@ const serviceFits = {
                 <p class="mt-4 flex-1 border-t border-[var(--color-border)] pt-4 text-sm leading-7 text-[var(--color-text-muted)]">
                   {serviceFits[service.slug]}
                 </p>
-                <a
-                  href={`/${service.slug}`}
-                  class="mt-6 inline-flex min-h-11 items-center gap-2 font-semibold text-[var(--color-action)] underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-4"
-                >
+                <a href={`/${service.slug}`} class="text-link mt-6">
                   View {service.name}
                   <ArrowRight
                     class="h-4 w-4"

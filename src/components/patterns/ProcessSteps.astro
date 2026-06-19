@@ -40,7 +40,7 @@ const isFeatured = variant === 'featured'
           {isFeatured ? (
             <>
               <div class="flex items-center">
-                <span class="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--color-action)] text-base font-semibold text-white shadow-[var(--shadow-xs)] ring-4 ring-[var(--color-surface)] md:h-14 md:w-14 md:text-lg">
+                <span class="theme-shadow-xs flex h-12 w-12 items-center justify-center rounded-full bg-[var(--color-action)] text-base font-semibold text-[var(--color-text-inverse)] ring-4 ring-[var(--color-surface)] md:h-14 md:w-14 md:text-lg">
                   {index + 1}
                 </span>
               </div>
@@ -50,7 +50,7 @@ const isFeatured = variant === 'featured'
             </>
           ) : (
             <div class="flex items-center gap-4">
-              <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-action)] text-sm font-semibold text-white">
+              <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-action)] text-sm font-semibold text-[var(--color-text-inverse)]">
                 {index + 1}
               </span>
               <h3 class="text-base font-semibold text-[var(--color-text)]">

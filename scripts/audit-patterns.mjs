@@ -6,6 +6,12 @@ import process from 'node:process'
 const root = process.cwd()
 const patternsDir = join(root, 'src/components/patterns')
 const designSystemPath = join(root, 'docs/design/DESIGN_SYSTEM.md')
+const scanRoots = [
+  join(root, 'src/components'),
+  join(root, 'src/layouts'),
+  join(root, 'src/pages'),
+  join(root, 'src/styles'),
+]
 
 const requiredComponents = [
   'HeroSection.astro',
@@ -42,12 +48,48 @@ const publicPageThemeDriftPatterns = [
     pattern: /\bstyle=/,
   },
   {
+    label: 'public page style block',
+    pattern: /<style(?:\s|>)/,
+  },
+  {
     label: 'ad hoc numeric shadow utility',
     pattern: /shadow-\[[^\]]*\d/,
   },
 ]
+const themeDriftPatterns = [
+  ...publicPageThemeDriftPatterns.filter(
+    ({ label }) => label !== 'public page style block',
+  ),
+  {
+    label: 'legacy Tailwind color utility',
+    pattern:
+      /\b(?:bg|text|border|from|via|to)-(?:slate|blue|gray)-[0-9]{2,3}\b/,
+  },
+  {
+    label: 'raw Tailwind white opacity utility',
+    pattern: /\b(?:bg|text|border|ring)-white(?:\/[0-9]{1,3})?\b/,
+  },
+  {
+    label: 'ad hoc Tailwind shadow utility',
+    pattern: /(?<!theme-)shadow-(?:sm|md|lg|xl|2xl)\b|shadow-\[/,
+  },
+  {
+    label: 'one-off gradient utility',
+    pattern: /\b(?:bg-gradient|from-|via-|to-)/,
+  },
+  {
+    label: 'duplicated action text-link treatment',
+    pattern:
+      /font-semibold\s+text-\[var\(--color-action\)\]\s+underline|underline\s+decoration-\[var\(--color-border\)\]/,
+  },
+]
 
-function walkAstroFiles(directory) {
+const approvedThemeDriftFiles = new Set([
+  join('src', 'styles', 'tokens.css'),
+  join('src', 'styles', 'global.css'),
+])
+
+function walkFiles(directory, extensions) {
   const entries = []
 
   for (const entry of readdirSync(directory)) {
@@ -55,16 +97,30 @@ function walkAstroFiles(directory) {
     const stats = statSync(fullPath)
 
     if (stats.isDirectory()) {
-      entries.push(...walkAstroFiles(fullPath))
+      entries.push(...walkFiles(fullPath, extensions))
       continue
     }
 
-    if (entry.endsWith('.astro')) {
+    if (extensions.some((extension) => entry.endsWith(extension))) {
       entries.push(fullPath)
     }
   }
 
   return entries
+}
+
+function walkAstroFiles(directory) {
+  return walkFiles(directory, ['.astro'])
+}
+
+function isDevOnlyPage(relativePath) {
+  return relativePath.startsWith(join('src', 'pages', 'dev'))
+}
+
+function isApprovedThemeContext(relativePath) {
+  return (
+    approvedThemeDriftFiles.has(relativePath) || isDevOnlyPage(relativePath)
+  )
 }
 
 function extractPatternImports(source, pagePath) {
@@ -122,7 +178,7 @@ for (const pagePath of walkAstroFiles(join(root, 'src/pages'))) {
   const source = readFileSync(pagePath, 'utf8')
   const relativePagePath = relative(root, pagePath)
 
-  if (!relativePagePath.startsWith(join('src/pages', 'dev'))) {
+  if (!isDevOnlyPage(relativePagePath)) {
     for (const { label, pattern } of publicPageThemeDriftPatterns) {
       if (pattern.test(source)) {
         failures.push(
@@ -150,6 +206,27 @@ for (const pagePath of walkAstroFiles(join(root, 'src/pages'))) {
       page: relative(root, pagePath),
       specifier,
     })
+  }
+}
+
+const scanFiles = scanRoots.flatMap((directory) =>
+  walkFiles(directory, ['.astro', '.css']),
+)
+
+for (const filePath of scanFiles) {
+  const source = readFileSync(filePath, 'utf8')
+  const relativePath = relative(root, filePath)
+
+  if (isApprovedThemeContext(relativePath)) {
+    continue
+  }
+
+  for (const { label, pattern } of themeDriftPatterns) {
+    if (pattern.test(source)) {
+      failures.push(
+        `${relativePath} contains ${label}; use src/styles/tokens.css, a semantic utility, a primitive variant, or a pattern prop instead.`,
+      )
+    }
   }
 }
 
