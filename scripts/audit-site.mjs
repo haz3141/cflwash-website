@@ -68,6 +68,11 @@ const serviceAreasPath = 'src/data/serviceAreas.ts'
 const pageInventoryPath = 'docs/product/PAGE_INVENTORY.md'
 const sixCityInventoryPath = 'docs/seo/six-city-inventory.yaml'
 const imageRightsManifestPath = 'docs/seo/image-rights-manifest.yaml'
+const serviceDetailRoutes = [
+  '/driveway-pressure-washing',
+  '/sidewalk-walkway-cleaning',
+  '/concrete-cleaning',
+]
 const expectedCityPages = [
   {
     city: 'Deltona',
@@ -648,6 +653,57 @@ async function main() {
   const htmlByRoute = new Map(
     htmlContents.map((record) => [record.route, record]),
   )
+
+  for (const route of serviceDetailRoutes) {
+    const record = htmlByRoute.get(route)
+
+    if (!record) {
+      failures.push(`Expected service-detail route \`${route}\` is missing.`)
+      continue
+    }
+
+    if (!record.html.includes('data-media-role="decorative"')) {
+      failures.push(
+        `Service-detail route \`${route}\` must prerender explicit proof-safe decorative hero media.`,
+      )
+    }
+  }
+
+  const processRoutes = [
+    ...serviceDetailRoutes,
+    ...expectedCityPages.map(({ route }) => route),
+  ]
+
+  for (const route of processRoutes) {
+    const record = htmlByRoute.get(route)
+
+    if (!record) continue
+
+    const processListTags = getTags(record.html, 'ol').filter(
+      (tag) => parseAttributes(tag)['data-process-list'] !== undefined,
+    )
+    const processStepTags = getTags(record.html, 'li').filter(
+      (tag) => parseAttributes(tag)['data-process-step'] !== undefined,
+    )
+
+    if (processListTags.length !== 1) {
+      failures.push(
+        `Route \`${route}\` must render exactly one explicit ordered process list.`,
+      )
+    }
+
+    if (processStepTags.length !== 3) {
+      failures.push(
+        `Route \`${route}\` must render exactly three explicitly marked process steps.`,
+      )
+    }
+
+    if (/\b(?:1|2|3)\.\s+(?:1|2|3)\b/.test(stripHtml(record.html))) {
+      failures.push(
+        `Route \`${route}\` must not render duplicated process numbering.`,
+      )
+    }
+  }
   const [
     serviceAreasSource,
     pageInventorySource,

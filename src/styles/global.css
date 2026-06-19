@@ -49,6 +49,13 @@
     font-weight: 600;
   }
 
+  .text-hero {
+    font-size: var(--text-hero);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-display);
+    font-weight: 600;
+  }
+
   .text-section-title {
     font-size: var(--text-h2);
     line-height: var(--leading-h2);

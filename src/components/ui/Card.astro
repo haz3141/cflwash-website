@@ -37,7 +37,7 @@ const paddingClasses: Record<Padding, string> = {
   lg: 'p-7 sm:p-8',
 }
 
-const shadowClass = elevated ? 'theme-shadow-xs' : ''
+const shadowClass = elevated ? 'theme-shadow-card' : ''
 const classes =
   `rounded-[var(--radius-lg)] border ${toneClasses[tone]} ${paddingClasses[padding]} ${shadowClass} ${className}`.trim()
 ---

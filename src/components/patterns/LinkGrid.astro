@@ -9,7 +9,7 @@ type Item = {
 }
 
 type Variant = 'cards' | 'compact'
-type Columns = 'one' | 'two'
+type Columns = 'one' | 'two' | 'three'
 type Density = 'compact' | 'comfortable'
 
 type Props = {
@@ -28,21 +28,27 @@ const {
   class: className = '',
 } = Astro.props as Props
 
-const gridClass = columns === 'two' ? 'grid gap-3 sm:grid-cols-2' : 'grid gap-3'
+const gridClasses: Record<Columns, string> = {
+  one: 'grid',
+  two: 'grid sm:grid-cols-2',
+  three: 'grid md:grid-cols-3',
+}
 const paddingClass = density === 'comfortable' ? 'p-5' : 'p-4'
 const labelClass =
   density === 'comfortable'
     ? 'text-base font-semibold'
     : 'text-sm font-semibold'
-const itemBase =
-  variant === 'cards'
-    ? `block h-full w-full rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-page)] ${paddingClass} text-[var(--color-text)]`
-    : `block h-full w-full rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-raised)] ${paddingClass} text-[var(--color-text)]`
-const linkClass = `${itemBase} transition-colors duration-[var(--duration-fast)] hover:border-[var(--color-action)] hover:text-[var(--color-action)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2`
-const inactiveClass = `${itemBase} border-dashed bg-[var(--color-page)]/70 text-[var(--color-text-muted)]`
+const isCards = variant === 'cards'
+const itemBase = isCards
+  ? `block h-full w-full rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface-raised)] ${paddingClass} text-[var(--color-text)]`
+  : `block h-full w-full border-b border-[var(--color-border)] ${paddingClass} text-[var(--color-text)]`
+const linkClass = `${itemBase} transition-colors duration-[var(--duration-fast)] hover:border-[var(--color-action)] hover:text-[var(--color-action)] focus:outline-none focus-visible:relative focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--color-focus-ring)]`
+const inactiveClass = `${itemBase} border-dashed text-[var(--color-text-muted)]`
 ---
 
-<ul class={`${gridClass} ${className}`.trim()}>
+<ul
+  class={`${gridClasses[columns]} ${isCards ? 'gap-4' : 'border-t border-[var(--color-border)]'} ${className}`.trim()}
+>
   {
     items.map((item) => (
       <li>

@@ -12,12 +12,6 @@ type Props = {
   description?: string
 }
 
-type AutomaticMedia = {
-  src: string
-  alt: string
-  caption: string
-}
-
 const {
   variant = 'compact',
   tone = 'default',
@@ -26,35 +20,12 @@ const {
   description,
 } = Astro.props as Props
 
-const automaticMediaByPath: Record<string, AutomaticMedia> = {
-  '/driveway-pressure-washing': {
-    src: '/images/brand/responsive/hero-homepage-1024.webp',
-    alt: 'Illustrative Florida home exterior with a clean front approach',
-    caption:
-      'Decorative brand artwork. It is not presented as a completed project photo.',
-  },
-  '/sidewalk-walkway-cleaning': {
-    src: '/images/brand/responsive/hero-homepage-1024.webp',
-    alt: 'Illustrative Florida home exterior with a clean front approach',
-    caption:
-      'Decorative brand artwork. It is not presented as a completed project photo.',
-  },
-  '/concrete-cleaning': {
-    src: '/images/brand/responsive/hero-homepage-1024.webp',
-    alt: 'Illustrative Florida home exterior with a clean front approach',
-    caption:
-      'Decorative brand artwork. It is not presented as a completed project photo.',
-  },
-}
-
-const automaticMedia = automaticMediaByPath[Astro.url.pathname]
-const hasMedia = Astro.slots.has('media') || Boolean(automaticMedia)
-const isSplit = variant === 'split' || Boolean(automaticMedia)
-const toneClass =
-  tone === 'soft' || automaticMedia ? 'bg-[var(--color-surface)]' : ''
+const hasMedia = Astro.slots.has('media')
+const isSplit = variant === 'split'
+const toneClass = tone === 'soft' ? 'bg-[var(--color-surface)]' : ''
 const titleClass = isSplit
-  ? 'measure-copy mt-4 text-display text-[var(--color-text)]'
-  : 'measure-copy mt-4 text-section-title text-[var(--color-text)]'
+  ? 'measure-copy text-hero text-[var(--color-text)]'
+  : 'measure-copy text-section-title text-[var(--color-text)]'
 const descriptionClass = isSplit
   ? 'measure-copy mt-5 text-lead text-[var(--color-text-muted)]'
   : 'measure-copy mt-5 text-lead text-[var(--color-text-muted)]'
@@ -63,7 +34,7 @@ const descriptionClass = isSplit
 <section class={`${isSplit ? 'overflow-hidden' : ''} ${toneClass}`.trim()}>
   <Container
     class={isSplit
-      ? 'grid gap-12 py-[var(--section-space)] lg:grid-cols-[minmax(0,1fr)_minmax(22rem,0.92fr)] lg:items-center lg:py-[var(--section-space-spacious)]'
+      ? 'grid gap-10 py-[var(--section-space)] lg:grid-cols-[minmax(0,1fr)_minmax(22rem,0.92fr)] lg:items-center lg:py-[var(--section-space-compact)]'
       : 'py-[var(--section-space)]'}
   >
     <div
@@ -85,7 +56,7 @@ const descriptionClass = isSplit
             </p>
           )
         }
-        <h1 class={titleClass}>
+        <h1 class={`${eyebrow ? 'mt-4' : ''} ${titleClass}`.trim()}>
           {title}
         </h1>
         {description && <p class={descriptionClass}>{description}</p>}
@@ -101,28 +72,6 @@ const descriptionClass = isSplit
       {Astro.slots.has('aside') && <slot name="aside" />}
     </div>
 
-    {
-      isSplit &&
-        hasMedia &&
-        (Astro.slots.has('media') ? (
-          <slot name="media" />
-        ) : automaticMedia ? (
-          <figure class="media-frame theme-shadow-xs">
-            <img
-              src={automaticMedia.src}
-              alt={automaticMedia.alt}
-              width="480"
-              height="640"
-              class="aspect-[3/4] h-full w-full object-cover"
-              loading="eager"
-              fetchpriority="high"
-              decoding="async"
-            />
-            <figcaption class="border-t border-[var(--color-border)] px-4 py-3 text-xs leading-5 text-[var(--color-text-muted)]">
-              {automaticMedia.caption}
-            </figcaption>
-          </figure>
-        ) : null)
-    }
+    {isSplit && hasMedia && <slot name="media" />}
   </Container>
 </section>

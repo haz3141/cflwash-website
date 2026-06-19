@@ -1,0 +1,64 @@
+---
+type ResponsiveSource = {
+  src: string
+  width: number
+}
+
+type ImageAsset = {
+  src: string
+  alt: string
+  width: number
+  height: number
+  sources?: ResponsiveSource[]
+}
+
+type MediaRole = 'decorative' | 'context'
+
+type Props = {
+  image: ImageAsset
+  caption?: string
+  mediaRole?: MediaRole
+  loading?: 'eager' | 'lazy'
+  fetchpriority?: 'high' | 'low' | 'auto'
+  sizes?: string
+  class?: string
+  imageClass?: string
+}
+
+const {
+  image,
+  caption,
+  mediaRole = 'decorative',
+  loading = 'lazy',
+  fetchpriority = 'auto',
+  sizes = '(min-width: 1024px) 42vw, 100vw',
+  class: className = '',
+  imageClass = 'aspect-[16/10] lg:aspect-[4/5]',
+} = Astro.props as Props
+
+const srcset = image.sources
+  ?.map(({ src, width }) => `${src} ${width}w`)
+  .join(', ')
+---
+
+<figure class={`media-frame ${className}`.trim()} data-media-role={mediaRole}>
+  <img
+    src={image.src}
+    alt={image.alt}
+    width={image.width}
+    height={image.height}
+    srcset={srcset}
+    sizes={srcset ? sizes : undefined}
+    class={`w-full object-cover ${imageClass}`.trim()}
+    loading={loading}
+    decoding="async"
+    fetchpriority={fetchpriority}
+  />
+  {
+    caption && (
+      <figcaption class="border-t border-[var(--color-border)] bg-[var(--color-surface-raised)] px-4 py-3 text-xs leading-5 text-[var(--color-text-muted)]">
+        {caption}
+      </figcaption>
+    )
+  }
+</figure>
