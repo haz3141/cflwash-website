@@ -56,6 +56,7 @@ Current priorities:
 - Preserve the quote backend, header, footer, homepage composition, and shared design system unless the assigned task requires changing them.
 - Avoid unrelated refactors.
 - Reuse existing components and data structures before creating new abstractions.
+- Use centralized design tokens, UI primitive variants, page patterns, and documented shared utilities for theme work; avoid page-local one-off colors, shadows, CTA overrides, and decorative styling unless the exception is documented.
 - For issue-specific work, read only the files named in the issue first and do not reread unrelated documentation unless the issue explicitly requires it.
 
 ## Model routing

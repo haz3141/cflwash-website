@@ -65,6 +65,8 @@ Components should consume semantic tokens such as:
 
 - `--color-page`
 - `--color-surface`
+- `--color-surface-raised`
+- `--color-surface-water`
 - `--color-surface-soft`
 - `--color-surface-warm`
 - `--color-surface-inverse`
@@ -78,8 +80,19 @@ Components should consume semantic tokens such as:
 - `--color-action-active`
 - `--color-secondary`
 - `--color-accent`
+- `--color-accent-hover`
+- `--color-cta-surface`
+- `--color-media-frame`
+- `--color-inverse-border`
+- `--color-inverse-muted`
 - `--color-focus-ring`
 - `--color-focus-ring-inverse`
+
+Shared utility classes such as `.media-frame`, `.feature-panel`, `.card-link`,
+`.pill-link`, `.text-link`, `.eyebrow-action`, and the homepage art utilities
+exist only for recurring visual treatments. Do not use raw page-local hex,
+shadow, or gradient values for the approved navy / cream / white / blue / gold
+system when a token, primitive prop, or shared utility exists.
 
 ## Color Rules
 
@@ -309,7 +322,7 @@ Allowed variants:
 
 Allowed `cardTone` values:
 
-- `default`
+- `raised`
 - `soft`
 
 Semantics:
@@ -380,6 +393,22 @@ Rules:
 - Render static content; do not build an accordion until a real content need requires it.
 - Keep each question and answer page-owned.
 
+#### ServiceAreaPage
+
+Purpose: shared layout for the six approved service-area pages.
+
+Inputs:
+
+- `page: ServiceAreaPageContent` from `src/data/serviceAreaPages/*`.
+
+Rules:
+
+- Keep city-specific copy, FAQs, nearby cities, and SEO data in the data file.
+- Preserve canonical paths under `/service-areas/{slug}`.
+- Preserve `data-cta` and `data-cta-location` values on quote, call, and email actions.
+- Do not add cities through this pattern unless the city is approved in the service-area data and SEO inventory.
+- Use city-context images only as location context, never as completed project proof.
+
 ### Page Rhythm Rules
 
 - Use a background-tone change or a border as the primary separator, usually not both.
@@ -394,14 +423,14 @@ Rules:
 
 - `TrustStrip` should wait until another current page shares the homepage trust-row need.
 - `FeatureList` should wait until bullets, prep notes, and scenario lists converge on one clear API.
-- `MediaPanel` should wait until real photography creates repeated media-frame behavior beyond the homepage hero.
+- A full `MediaPanel` component should wait until media captions, proof photos, and city context converge on one API. Until then, use `.media-frame` for repeated hero and feature image framing.
 
 ### Button
 
 Props:
 
 - `href?: string`
-- `variant?: 'primary' | 'secondary' | 'ghost' | 'inverse'`
+- `variant?: 'primary' | 'secondary' | 'ghost' | 'inverse' | 'accent' | 'light' | 'inverseGhost'`
 - `size?: 'sm' | 'md' | 'lg'`
 - `fullWidth?: boolean`
 - `disabled?: boolean`
@@ -419,6 +448,9 @@ Rules:
 - Use `secondary` for lower-emphasis actions.
 - Use `ghost` for the least-emphasis actions.
 - Use `inverse` on dark surfaces.
+- Use `accent` for the gold marketing CTA treatment.
+- Use `light` inside branded CTA panels where a white action button is needed.
+- Use `inverseGhost` for secondary actions on branded CTA panels.
 - Keep touch targets at or above 44px.
 - Preserve visible focus states.
 - Disabled anchors must be non-interactive and labelled correctly.
@@ -427,7 +459,7 @@ Rules:
 
 Props:
 
-- `tone?: 'default' | 'soft' | 'warm' | 'inverse'`
+- `tone?: 'default' | 'raised' | 'soft' | 'water' | 'warm' | 'inverse'`
 - `padding?: 'sm' | 'md' | 'lg'`
 - `elevated?: boolean`
 - `class?: string`
@@ -436,7 +468,8 @@ Rules:
 
 - Use borders first, elevation second.
 - Do not nest cards inside cards.
-- Use `soft` or `warm` only when the section tone supports it.
+- Use `raised` for white cards on tinted sections.
+- Use `water` or `warm` only when the section tone supports it.
 
 ### Section
 
@@ -447,7 +480,7 @@ Props:
 - `title?: string`
 - `description?: string`
 - `spacing?: 'compact' | 'default' | 'spacious' | 'none'`
-- `tone?: 'default' | 'soft' | 'warm' | 'inverse'`
+- `tone?: 'default' | 'soft' | 'water' | 'warm' | 'inverse'`
 - `contentWidth?: 'narrow' | 'default' | 'wide' | 'full'`
 - `class?: string`
 
@@ -491,12 +524,13 @@ Rules:
 Props:
 
 - `icon: any`
-- `tone?: 'default' | 'soft' | 'warm' | 'inverse'`
+- `tone?: 'default' | 'soft' | 'water' | 'warm' | 'action' | 'accent' | 'inverse'`
 - `size?: 'sm' | 'md' | 'lg'`
 - `class?: string`
 
 Rules:
 
+- Use `action` for blue circular markers and `accent` for navy/gold markers.
 - Use for compact service, process, or metadata markers.
 - Do not use as decoration beside every text block.
 

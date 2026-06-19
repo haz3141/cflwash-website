@@ -57,6 +57,11 @@
 
   --shadow-xs: 0 1px 2px rgb(10 27 46 / 0.08);
   --shadow-sm: 0 12px 28px rgb(10 27 46 / 0.08);
+  --shadow-card: 0 8px 24px rgb(10 27 46 / 0.07);
+  --shadow-card-hover: 0 16px 32px rgb(10 27 46 / 0.12);
+  --shadow-accent: 0 6px 16px rgb(10 27 46 / 0.18);
+  --shadow-action: 0 8px 20px rgb(0 0 0 / 0.18);
+  --shadow-hero-art: 0 28px 34px rgb(10 27 46 / 0.18);
   --shadow-media: 0 28px 60px rgb(10 27 46 / 0.16);
 
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
@@ -74,6 +79,8 @@
   --color-page: var(--color-brand-white);
   --color-background: var(--color-page);
   --color-surface: #f8fbfc;
+  --color-surface-raised: var(--color-brand-white);
+  --color-surface-water: #eef7fb;
   --color-surface-soft: var(--color-brand-concrete);
   --color-surface-warm: var(--color-brand-cream);
   --color-surface-inverse: var(--color-brand-navy);
@@ -92,6 +99,16 @@
   --color-primary-active: var(--color-action-active);
   --color-secondary: var(--color-brand-green);
   --color-accent: var(--color-brand-gold);
+  --color-accent-hover: #c9952f;
+  --color-inverse-border: rgb(255 255 255 / 0.12);
+  --color-inverse-border-strong: rgb(255 255 255 / 0.35);
+  --color-inverse-muted: rgb(255 255 255 / 0.72);
+  --color-inverse-subtle: rgb(255 255 255 / 0.08);
+  --color-inverse-subtle-hover: rgb(255 255 255 / 0.14);
+  --color-cta-surface: var(--color-action);
+  --color-media-frame: var(--color-surface-raised);
+  --color-wave-highlight: rgb(255 255 255 / 0.92);
+  --color-wave-trail: rgb(31 93 190 / 0.35);
   --color-focus-ring: var(--color-brand-blue);
   --color-focus-ring-inverse: var(--color-text-inverse);
 

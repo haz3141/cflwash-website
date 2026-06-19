@@ -72,7 +72,7 @@ const toneClass =
               class={
                 isSplit
                   ? 'text-eyebrow text-[var(--color-action)]'
-                  : 'text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-primary)]'
+                  : 'eyebrow-action'
               }
             >
               {eyebrow}
@@ -117,7 +117,7 @@ const toneClass =
         (Astro.slots.has('media') ? (
           <slot name="media" />
         ) : automaticMedia ? (
-          <figure class="overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white shadow-sm">
+          <figure class="media-frame shadow-[var(--shadow-xs)]">
             <img
               src={automaticMedia.src}
               alt={automaticMedia.alt}

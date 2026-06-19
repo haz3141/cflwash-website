@@ -2,8 +2,10 @@
 import Button from '../components/ui/Button.astro'
 import BreadcrumbSchema from '../components/site/BreadcrumbSchema.astro'
 import Breadcrumbs from '../components/site/Breadcrumbs.astro'
+import Card from '../components/ui/Card.astro'
 import CTASection from '../components/patterns/CTASection.astro'
 import HeroSection from '../components/patterns/HeroSection.astro'
+import IconBadge from '../components/ui/IconBadge.astro'
 import Section from '../components/ui/Section.astro'
 import Layout from '../layouts/Layout.astro'
 import { cityContextImages } from '../data/cityContextImages'
@@ -66,17 +68,14 @@ const areaCards = serviceAreas.map((area) => ({
         </Button>
       </Fragment>
 
-      <aside
+      <Card
         slot="aside"
+        tone="raised"
+        elevated
         aria-label="Current service-area coverage"
-        class="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white p-6 shadow-[var(--shadow-xs)]"
       >
         <div class="flex items-center gap-3">
-          <span
-            class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[var(--color-primary)] text-white"
-          >
-            <MapPin class="h-5 w-5" aria-hidden="true" stroke-width="1.8" />
-          </span>
+          <IconBadge icon={MapPin} tone="action" size="lg" />
           <div>
             <p class="text-sm font-semibold text-[var(--color-text)]">
               Published coverage
@@ -91,7 +90,7 @@ const areaCards = serviceAreas.map((area) => ({
           streets. CFL Wash Co. can review whether the property fits the current
           coverage area without implying service everywhere in Central Florida.
         </p>
-      </aside>
+      </Card>
     </HeroSection>
 
     <Section
@@ -110,7 +109,7 @@ const areaCards = serviceAreas.map((area) => ({
               .join(', ')
 
             return (
-              <article class="flex h-full flex-col overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white shadow-[var(--shadow-xs)]">
+              <article class="flex h-full flex-col overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface-raised)] shadow-[var(--shadow-xs)]">
                 <div class="overflow-hidden bg-[var(--color-surface)]">
                   <img
                     src={image.image.src}
@@ -125,9 +124,7 @@ const areaCards = serviceAreas.map((area) => ({
                   />
                 </div>
                 <div class="flex flex-1 flex-col p-6">
-                  <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-action)]">
-                    Service area
-                  </p>
+                  <p class="eyebrow-action">Service area</p>
                   <h2 class="mt-2 text-section-subtitle text-[var(--color-text)]">
                     {area.name}, Florida
                   </h2>
@@ -165,10 +162,7 @@ const areaCards = serviceAreas.map((area) => ({
       <div class="grid gap-4 md:grid-cols-3">
         {
           services.map((service) => (
-            <a
-              href={`/${service.slug}`}
-              class="group rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white p-6 shadow-[var(--shadow-xs)] transition-transform hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
-            >
+            <a href={`/${service.slug}`} class="card-link group p-6">
               <h2 class="text-lg font-semibold text-[var(--color-text)] group-hover:text-[var(--color-action)]">
                 {service.name}
               </h2>
@@ -199,8 +193,7 @@ const areaCards = serviceAreas.map((area) => ({
       <Fragment slot="actions">
         <Button
           href="/request-quote"
-          variant="secondary"
-          class="bg-white text-[var(--color-primary)] hover:bg-[var(--color-surface)]"
+          variant="light"
           data-cta="quote"
           data-cta-location="service-areas-hub-final"
         >
@@ -210,8 +203,7 @@ const areaCards = serviceAreas.map((area) => ({
           hasPhone && (
             <Button
               href={site.phoneHref!}
-              variant="ghost"
-              class="text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
+              variant="inverseGhost"
               data-cta="call"
               data-cta-location="service-areas-hub-final"
             >

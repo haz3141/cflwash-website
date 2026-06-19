@@ -135,7 +135,7 @@ const quoteSteps = [
 
       <div
         slot="media"
-        class="relative aspect-[16/10] overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white shadow-[var(--shadow-media)] lg:aspect-[11/10]"
+        class="media-frame relative aspect-[16/10] lg:aspect-[11/10]"
         aria-hidden="true"
       >
         <picture>
@@ -174,7 +174,9 @@ const quoteSteps = [
       </div>
     </HeroSection>
 
-    <section class="border-y border-[var(--color-border)] bg-white">
+    <section
+      class="border-y border-[var(--color-border)] bg-[var(--color-surface-raised)]"
+    >
       <div
         class="mx-auto grid w-full max-w-[var(--container-width)] divide-y divide-[var(--color-border)] px-[var(--container-gutter)] md:grid-cols-3 md:divide-x md:divide-y-0"
       >
@@ -307,10 +309,7 @@ const quoteSteps = [
       <div class="flex flex-wrap gap-3">
         {
           nearbyAreas.map((nearbyArea) => (
-            <a
-              href={`/service-areas/${nearbyArea.slug}`}
-              class="inline-flex min-h-11 items-center rounded-full border border-[var(--color-border)] bg-white px-5 py-2 text-sm font-semibold text-[var(--color-text)] transition-colors hover:border-[var(--color-action)] hover:text-[var(--color-action)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
-            >
+            <a href={`/service-areas/${nearbyArea.slug}`} class="pill-link">
               {nearbyArea.name}
             </a>
           ))
@@ -328,8 +327,7 @@ const quoteSteps = [
       <Fragment slot="actions">
         <Button
           href="/request-quote"
-          variant="secondary"
-          class="bg-white text-[var(--color-primary)] hover:bg-[var(--color-surface)]"
+          variant="light"
           data-cta="quote"
           data-cta-location={`service-area-${area.slug}-final`}
         >
@@ -339,8 +337,7 @@ const quoteSteps = [
           hasPhone ? (
             <Button
               href={site.phoneHref!}
-              variant="ghost"
-              class="text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
+              variant="inverseGhost"
               data-cta="call"
               data-cta-location={`service-area-${area.slug}-final`}
             >
@@ -355,8 +352,7 @@ const quoteSteps = [
           ) : (
             <Button
               href={`mailto:${site.email}`}
-              variant="ghost"
-              class="text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
+              variant="inverseGhost"
               data-cta="email"
               data-cta-location={`service-area-${area.slug}-final`}
             >

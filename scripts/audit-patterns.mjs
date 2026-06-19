@@ -14,6 +14,7 @@ const requiredComponents = [
   'LinkGrid.astro',
   'CTASection.astro',
   'FAQList.astro',
+  'ServiceAreaPage.astro',
 ]
 
 const implementedPatternNames = requiredComponents.map((file) =>
@@ -23,6 +24,28 @@ const implementedPatternNames = requiredComponents.map((file) =>
 const pagePatternImports = new Map(
   implementedPatternNames.map((name) => [name, []]),
 )
+const publicPageThemeDriftPatterns = [
+  {
+    label: 'raw hex color',
+    pattern: /#[0-9A-Fa-f]{3,8}/,
+  },
+  {
+    label: 'raw rgb/rgba color',
+    pattern: /\brgba?\(/,
+  },
+  {
+    label: 'important background override',
+    pattern: /!bg-/,
+  },
+  {
+    label: 'inline style attribute',
+    pattern: /\bstyle=/,
+  },
+  {
+    label: 'ad hoc numeric shadow utility',
+    pattern: /shadow-\[[^\]]*\d/,
+  },
+]
 
 function walkAstroFiles(directory) {
   const entries = []
@@ -97,6 +120,17 @@ if (!existsSync(designSystemPath)) {
 
 for (const pagePath of walkAstroFiles(join(root, 'src/pages'))) {
   const source = readFileSync(pagePath, 'utf8')
+  const relativePagePath = relative(root, pagePath)
+
+  if (!relativePagePath.startsWith(join('src/pages', 'dev'))) {
+    for (const { label, pattern } of publicPageThemeDriftPatterns) {
+      if (pattern.test(source)) {
+        failures.push(
+          `Public page ${relativePagePath} contains ${label}; use a token, primitive variant, pattern prop, or shared utility instead.`,
+        )
+      }
+    }
+  }
 
   for (const { specifier, modulePath } of extractPatternImports(
     source,

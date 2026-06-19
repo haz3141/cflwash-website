@@ -99,7 +99,7 @@ const serviceFits = {
 
       <div
         slot="media"
-        class="relative aspect-[16/11] overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white shadow-[var(--shadow-media)] lg:aspect-[11/10]"
+        class="media-frame relative aspect-[16/11] lg:aspect-[11/10]"
         aria-hidden="true"
       >
         <picture>
@@ -150,7 +150,12 @@ const serviceFits = {
             const Icon = serviceIcons[service.slug]
 
             return (
-              <Card elevated padding="lg" class="flex h-full flex-col bg-white">
+              <Card
+                tone="raised"
+                elevated
+                padding="lg"
+                class="flex h-full flex-col"
+              >
                 <IconBadge icon={Icon} tone="soft" size="lg" />
                 <h2 class="mt-5 text-section-subtitle text-[var(--color-text)]">
                   {service.name}
@@ -227,10 +232,7 @@ const serviceFits = {
       spacing="compact"
       class="border-y border-[var(--color-border)]"
     >
-      <a
-        href="/service-areas"
-        class="inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white px-5 py-3 font-semibold text-[var(--color-action)] transition-colors hover:border-[var(--color-action)] hover:bg-[var(--color-surface)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
-      >
+      <a href="/service-areas" class="text-link">
         <MapPin class="h-5 w-5" aria-hidden="true" stroke-width="1.8" />
         View all service areas
         <ArrowRight class="h-4 w-4" aria-hidden="true" stroke-width="1.9" />
@@ -247,8 +249,7 @@ const serviceFits = {
       <Fragment slot="actions">
         <Button
           href="/request-quote"
-          variant="secondary"
-          class="bg-white text-[var(--color-primary)] hover:bg-[var(--color-surface)]"
+          variant="light"
           data-cta="quote"
           data-cta-location="services-hub-final"
         >
@@ -258,8 +259,7 @@ const serviceFits = {
           hasPhone && (
             <Button
               href={site.phoneHref!}
-              variant="ghost"
-              class="text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
+              variant="inverseGhost"
               data-cta="call"
               data-cta-location="services-hub-final"
             >

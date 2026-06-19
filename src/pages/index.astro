@@ -161,9 +161,8 @@ const processFeatures = [
       class="relative overflow-hidden bg-[var(--color-surface-warm)] pt-10 sm:pt-14 lg:pt-16"
     >
       <div
-        class="pointer-events-none absolute inset-0 opacity-45"
+        class="hero-art-panel pointer-events-none absolute inset-0 opacity-45"
         aria-hidden="true"
-        style="background-image: radial-gradient(circle at 82% 18%, rgba(224,170,58,0.2), transparent 24%), radial-gradient(circle at 15% 72%, rgba(31,93,190,0.1), transparent 25%);"
       >
       </div>
 
@@ -213,9 +212,10 @@ const processFeatures = [
           <div class="mt-8 flex flex-col gap-3 sm:flex-row">
             <Button
               href="/request-quote"
+              variant="accent"
               size="lg"
               fullWidth
-              class="!bg-[var(--color-accent)] !text-[var(--color-surface-inverse)] shadow-[0_12px_24px_rgba(10,27,46,0.14)] hover:!bg-[#c9952f] sm:w-auto"
+              class="sm:w-auto"
               data-cta="quote"
               data-cta-location="home-hero"
             >
@@ -229,10 +229,10 @@ const processFeatures = [
             </Button>
             <Button
               href="/services"
-              variant="secondary"
+              variant="light"
               size="lg"
               fullWidth
-              class="!border-[var(--color-border-strong)] !bg-white/70 sm:w-auto"
+              class="sm:w-auto"
             >
               View Services
             </Button>
@@ -252,7 +252,7 @@ const processFeatures = [
 
         <div class="relative z-10 mx-auto w-full max-w-[39rem] lg:-mb-6">
           <div
-            class="absolute inset-x-[12%] bottom-[4%] top-[12%] rounded-[45%] bg-white/55 blur-3xl"
+            class="hero-art-glow absolute inset-x-[12%] bottom-[4%] top-[12%] rounded-[45%]"
             aria-hidden="true"
           >
           </div>
@@ -264,7 +264,7 @@ const processFeatures = [
             loading="eager"
             decoding="async"
             fetchpriority="high"
-            class="relative mx-auto max-h-[39rem] w-full object-contain drop-shadow-[0_28px_34px_rgba(10,27,46,0.18)]"
+            class="hero-art-image relative mx-auto max-h-[39rem] w-full object-contain"
           />
         </div>
       </div>
@@ -381,12 +381,7 @@ const processFeatures = [
           </ul>
 
           <div class="mt-8">
-            <Button
-              href="/service-areas"
-              variant="inverse"
-              size="lg"
-              class="!bg-white !text-[var(--color-text)] hover:!bg-[var(--color-surface-warm)]"
-            >
+            <Button href="/service-areas" variant="light" size="lg">
               Explore Service Areas
             </Button>
           </div>
@@ -441,7 +436,10 @@ const processFeatures = [
       </div>
     </section>
 
-    <section id="our-process" class="scroll-mt-20 bg-white py-12 sm:py-14">
+    <section
+      id="our-process"
+      class="scroll-mt-20 bg-[var(--color-surface-raised)] py-12 sm:py-14"
+    >
       <div
         class="mx-auto grid w-full max-w-[82rem] items-center gap-9 px-[var(--container-gutter)] lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]"
       >
@@ -473,9 +471,10 @@ const processFeatures = [
           <div class="mt-6 flex flex-col gap-3 sm:flex-row">
             <Button
               href="/request-quote"
+              variant="accent"
               size="lg"
               fullWidth
-              class="!bg-[var(--color-accent)] !text-[var(--color-surface-inverse)] hover:!bg-[#c9952f] sm:w-auto"
+              class="sm:w-auto"
               data-cta="quote"
               data-cta-location="home-final"
             >
