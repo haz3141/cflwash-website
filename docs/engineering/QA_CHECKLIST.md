@@ -13,6 +13,7 @@
 - [ ] `pnpm check` passes.
 - [ ] `git diff --check` passes.
 - [ ] `pnpm audit:patterns` passes after any public UI/theme change.
+- [ ] `pnpm audit:patterns` reports only the documented scan exclusions: `src/styles/tokens.css`, `src/styles/global.css`, and dev-only QA pages under `src/pages/dev/`.
 - [ ] No unsupported claims were added.
 - [ ] No credentials, API keys, Turnstile secrets, or Resend keys were committed.
 - [ ] New docs match the current repo state and do not claim the quote form is live in production before release.
@@ -44,7 +45,7 @@
 - [ ] Public routes are reviewed at 390px, 768px, 1024px, and 1440px: `/`, `/services`, `/service-areas`, `/request-quote`, `/thank-you`, `/privacy`, `/driveway-pressure-washing`, `/sidewalk-walkway-cleaning`, `/concrete-cleaning`, and all six `/service-areas/*` pages.
 - [ ] Header, footer, and mobile sticky CTA match the shared inverse/action system.
 - [ ] Interior heroes, cards, links, CTA panels, media frames, borders, radii, shadows, and section spacing feel connected to the homepage.
-- [ ] No page-local theme styling was added where a token, primitive prop, pattern prop, or shared utility fits.
+- [ ] No page-local theme styling was added where a token, primitive prop, pattern prop, or shared utility fits, including legacy `bg`, `text`, `border`, `ring`, `divide`, `outline`, `decoration`, `placeholder`, `accent`, `caret`, `fill`, `stroke`, `from`, `via`, or `to` color utilities.
 - [ ] PR notes include route and viewport visual QA notes, plus any intentional deviations.
 
 ## Backend Smoke Checks

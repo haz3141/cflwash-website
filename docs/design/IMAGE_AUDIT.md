@@ -14,23 +14,23 @@ City images establish location. They are not service photographs. Licensing and 
 
 ## Owner-provided result photography
 
-Owner-provided completed-result examples are stored under `public/images/services/results/after/` and are now used on the homepage and active service pages.
+No owner-provided completed-result photos are currently active in the public UI.
 
-These photos show cleaned concrete examples. They are not labeled as matched before-and-after sets.
+Issue #86 visual QA found the previously referenced service-result WebP files were not valid browser-renderable image assets, so they were removed from active use rather than presented as proof. Homepage and service-page visuals now use approved decorative brand artwork until valid project or result photography is available.
 
 ## Route inventory
 
-| Route                        | Current treatment                                                   | Status                                                           |
-| ---------------------------- | ------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| `/`                          | Illustrated hero, water-wave divider, icons, and result-photo cards | Improved; some cards reuse approved source photos                |
-| `/services`                  | Decorative hero and service icons                                   | Functional                                                       |
-| `/driveway-pressure-washing` | Result photo in hero                                                | Improved                                                         |
-| `/sidewalk-walkway-cleaning` | Result photo in hero                                                | Improved                                                         |
-| `/concrete-cleaning`         | Result photo in hero                                                | Improved; stronger dedicated concrete photo can replace it later |
-| `/service-areas`             | Six attributed city images                                          | Improved                                                         |
-| Six city pages               | Shared decorative artwork and one city image per page               | Improved but temporary                                           |
-| `/request-quote`             | Form and interface styling                                          | Appropriate                                                      |
-| Header and footer            | Responsive wordmarks                                                | Functional                                                       |
+| Route                        | Current treatment                                                               | Status                                                            |
+| ---------------------------- | ------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `/`                          | Illustrated hero, water-wave divider, icons, and decorative brand service cards | Improved; service cards are not proof photos                      |
+| `/services`                  | Decorative hero and service icons                                               | Functional                                                        |
+| `/driveway-pressure-washing` | Decorative brand artwork in hero                                                | Improved; replace with verified result photography when available |
+| `/sidewalk-walkway-cleaning` | Decorative brand artwork in hero                                                | Improved; replace with verified result photography when available |
+| `/concrete-cleaning`         | Decorative brand artwork in hero                                                | Improved; replace with verified result photography when available |
+| `/service-areas`             | Six attributed city images                                                      | Improved                                                          |
+| Six city pages               | Shared decorative artwork and one city image per page                           | Improved but temporary                                            |
+| `/request-quote`             | Form and interface styling                                                      | Appropriate                                                       |
+| Header and footer            | Responsive wordmarks                                                            | Functional                                                        |
 
 ## Publishing rules
 
@@ -43,7 +43,7 @@ These photos show cleaned concrete examples. They are not labeled as matched bef
 
 ## Remaining work
 
-1. Add more approved result photos so the six homepage cards have greater variety.
+1. Add approved result photos so the six homepage cards have greater variety.
 2. Create verified matched before-and-after sets.
 3. Add equipment, process, and team photography when available.
 4. Create service-specific social sharing images.

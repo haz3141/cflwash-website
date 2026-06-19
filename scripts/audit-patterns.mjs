@@ -56,18 +56,23 @@ const publicPageThemeDriftPatterns = [
     pattern: /shadow-\[[^\]]*\d/,
   },
 ]
+const legacyColorUtilityPrefixes =
+  'bg|text|border|from|via|to|ring|divide|outline|decoration|placeholder|accent|caret|fill|stroke'
 const themeDriftPatterns = [
   ...publicPageThemeDriftPatterns.filter(
     ({ label }) => label !== 'public page style block',
   ),
   {
     label: 'legacy Tailwind color utility',
-    pattern:
-      /\b(?:bg|text|border|from|via|to)-(?:slate|blue|gray)-[0-9]{2,3}\b/,
+    pattern: new RegExp(
+      `\\b(?:${legacyColorUtilityPrefixes})-(?:slate|blue|gray)-[0-9]{2,3}(?:\\/[0-9]{1,3})?\\b`,
+    ),
   },
   {
     label: 'raw Tailwind white opacity utility',
-    pattern: /\b(?:bg|text|border|ring)-white(?:\/[0-9]{1,3})?\b/,
+    pattern: new RegExp(
+      `\\b(?:${legacyColorUtilityPrefixes})-white(?:\\/[0-9]{1,3})?\\b`,
+    ),
   },
   {
     label: 'ad hoc Tailwind shadow utility',
@@ -84,10 +89,23 @@ const themeDriftPatterns = [
   },
 ]
 
-const approvedThemeDriftFiles = new Set([
-  join('src', 'styles', 'tokens.css'),
-  join('src', 'styles', 'global.css'),
-])
+const approvedThemeDriftContexts = [
+  {
+    path: join('src', 'styles', 'tokens.css'),
+    reason: 'brand primitive and semantic token source of truth',
+  },
+  {
+    path: join('src', 'styles', 'global.css'),
+    reason: 'documented shared utilities and base styles',
+  },
+]
+const approvedDevOnlyPageContext = {
+  path: join('src', 'pages', 'dev'),
+  reason: 'dev-only QA route excluded from public theme enforcement',
+}
+const approvedThemeDriftFiles = new Set(
+  approvedThemeDriftContexts.map(({ path }) => path),
+)
 
 function walkFiles(directory, extensions) {
   const entries = []
@@ -121,6 +139,16 @@ function isApprovedThemeContext(relativePath) {
   return (
     approvedThemeDriftFiles.has(relativePath) || isDevOnlyPage(relativePath)
   )
+}
+
+function findPatternMatches(source, patterns) {
+  return source
+    .split('\n')
+    .flatMap((line, index) =>
+      patterns
+        .filter(({ pattern }) => pattern.test(line))
+        .map(({ label }) => ({ label, lineNumber: index + 1 })),
+    )
 }
 
 function extractPatternImports(source, pagePath) {
@@ -179,12 +207,13 @@ for (const pagePath of walkAstroFiles(join(root, 'src/pages'))) {
   const relativePagePath = relative(root, pagePath)
 
   if (!isDevOnlyPage(relativePagePath)) {
-    for (const { label, pattern } of publicPageThemeDriftPatterns) {
-      if (pattern.test(source)) {
-        failures.push(
-          `Public page ${relativePagePath} contains ${label}; use a token, primitive variant, pattern prop, or shared utility instead.`,
-        )
-      }
+    for (const { label, lineNumber } of findPatternMatches(
+      source,
+      publicPageThemeDriftPatterns,
+    )) {
+      failures.push(
+        `Public page ${relativePagePath}:${lineNumber} contains ${label}; use a token, primitive variant, pattern prop, or shared utility instead.`,
+      )
     }
   }
 
@@ -221,12 +250,13 @@ for (const filePath of scanFiles) {
     continue
   }
 
-  for (const { label, pattern } of themeDriftPatterns) {
-    if (pattern.test(source)) {
-      failures.push(
-        `${relativePath} contains ${label}; use src/styles/tokens.css, a semantic utility, a primitive variant, or a pattern prop instead.`,
-      )
-    }
+  for (const { label, lineNumber } of findPatternMatches(
+    source,
+    themeDriftPatterns,
+  )) {
+    failures.push(
+      `${relativePath}:${lineNumber} contains ${label}; use src/styles/tokens.css, a semantic utility, a primitive variant, or a pattern prop instead.`,
+    )
   }
 }
 
@@ -239,6 +269,14 @@ for (const name of implementedPatternNames) {
 
   console.log(`- ${name}: ${report}`)
 }
+
+console.log('Approved theme-drift scan exclusions:')
+for (const { path, reason } of approvedThemeDriftContexts) {
+  console.log(`- ${path}: ${reason}`)
+}
+console.log(
+  `- ${approvedDevOnlyPageContext.path}/**: ${approvedDevOnlyPageContext.reason}`,
+)
 
 if (failures.length > 0) {
   console.error('Pattern audit failed:')

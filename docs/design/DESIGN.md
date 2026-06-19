@@ -35,6 +35,7 @@ Preferred direction:
 - Clear hierarchy over decoration
 - Premium spacing and type rhythm
 - Real photography when available
+- Decorative brand artwork is acceptable when valid project or result photography is not available, but it must not be presented as completed-work proof.
 
 Avoid:
 
