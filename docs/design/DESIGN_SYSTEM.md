@@ -378,6 +378,55 @@ Layout rules:
 - Use shared tokens, `IconBadge`, `.media-frame`, `.text-link`, and documented
   shadow utilities rather than page-local colors, shadows, or CTA treatments.
 
+#### ServiceDetailPage
+
+Purpose: shared, centrally tunable layout for the three active service-detail
+routes.
+
+Content ownership and data contract:
+
+- Accept one `ServiceDetailPageContent` record from
+  `src/data/serviceDetailPages.ts`; route wrappers select the matching record
+  and do not duplicate page markup.
+- Keep SEO title and description, hero copy and registered media, scope,
+  guidance, preparation, process, related-section copy, FAQs, and final CTA
+  copy in the data record.
+- Derive the current service name and related service links from `services`,
+  and derive the six active area links from `serviceAreas`.
+
+Section rhythm and density:
+
+- Use a soft split hero, white open scope list, light water guidance band,
+  white compact process, quiet warm related-navigation band, light FAQ band,
+  and one inverse final CTA.
+- Render scope as one semantic two-column open list with dividers; do not use a
+  card for each inclusion.
+- Render guidance as one open divided list beside exactly one restrained Card
+  for preparation. Do not turn the four guidance items or four preparation
+  items into card grids.
+- Keep the process on the open compact `ProcessSteps` variant and use compact
+  `LinkGrid` groups for two related services and six active service areas.
+
+Responsive and conversion rules:
+
+- Stack hero copy, actions, and media on smaller screens; keep quote first,
+  make hero and final actions full width on mobile, and return them to auto
+  width from `sm`.
+- Use the verified phone as the secondary call action when configured. Use an
+  email action with a Mail icon when the phone is unavailable.
+- Preserve exact hero tracking location `service-{slug}` and final tracking
+  location `service-{slug}-final` on both the quote and secondary actions.
+
+Preservation rules:
+
+- Preserve each route's canonical path, SEO metadata, visible breadcrumbs,
+  breadcrumb schema, one-H1 structure, registered `PublicMediaAsset`, eager
+  hero loading, intrinsic image dimensions, media role, proof status, alt text,
+  and visible proof-safe caption.
+- Keep the pattern limited to the three active launch services. Do not add
+  speculative services, project proof, unsupported claims, or the full #94
+  brand-voice rewrite through this component.
+
 #### SplitFeature
 
 Purpose: recurring two-column sections with a text column and flexible secondary content.

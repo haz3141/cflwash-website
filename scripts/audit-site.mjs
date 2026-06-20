@@ -64,6 +64,7 @@ const textExtensions = new Set([
 const publicTurnstileSiteKey =
   process.env.PUBLIC_TURNSTILE_SITE_KEY?.trim() ?? ''
 const ga4MeasurementId = process.env.PUBLIC_GA4_MEASUREMENT_ID?.trim() ?? ''
+const siteDataPath = 'src/data/site.ts'
 const serviceAreasPath = 'src/data/serviceAreas.ts'
 const pageInventoryPath = 'docs/product/PAGE_INVENTORY.md'
 const sixCityInventoryPath = 'docs/seo/six-city-inventory.yaml'
@@ -457,6 +458,14 @@ function listAnchorAttributes(html) {
   return getTags(html, 'a').map((tag) => parseAttributes(tag))
 }
 
+function parseSingleQuotedSiteDataValue(source, field) {
+  const match = source.match(
+    new RegExp(`^\\s*${field}:\\s*'([^']*)',?\\s*$`, 'm'),
+  )
+
+  return match ? match[1] : null
+}
+
 function countOccurrences(value, search) {
   if (search === '') {
     return 0
@@ -770,6 +779,32 @@ async function main() {
   const htmlByRoute = new Map(
     htmlContents.map((record) => [record.route, record]),
   )
+  const siteDataSource = await readRepoText(siteDataPath)
+  const configuredPhoneHref = parseSingleQuotedSiteDataValue(
+    siteDataSource,
+    'phoneHref',
+  )
+  const configuredEmail = parseSingleQuotedSiteDataValue(
+    siteDataSource,
+    'email',
+  )
+  const hasParsedSiteContact =
+    configuredPhoneHref !== null && configuredEmail !== null
+  const hasConfiguredPhone = Boolean(configuredPhoneHref)
+  const configuredEmailHref =
+    configuredEmail === null ? null : `mailto:${configuredEmail}`
+
+  if (configuredPhoneHref === null) {
+    failures.push(
+      `Could not parse single-quoted \`phoneHref\` from \`${siteDataPath}\`; service-detail CTA targets cannot be audited.`,
+    )
+  }
+
+  if (configuredEmail === null) {
+    failures.push(
+      `Could not parse single-quoted \`email\` from \`${siteDataPath}\`; service-detail CTA fallbacks cannot be audited.`,
+    )
+  }
 
   for (const route of serviceDetailRoutes) {
     const record = htmlByRoute.get(route)
@@ -777,6 +812,83 @@ async function main() {
     if (!record) {
       failures.push(`Expected service-detail route \`${route}\` is missing.`)
       continue
+    }
+
+    for (const marker of [
+      'data-service-detail-page',
+      'data-service-scope',
+      'data-service-guidance',
+      'data-service-preparation',
+    ]) {
+      const markerCount = countOccurrences(record.html, marker)
+
+      if (markerCount !== 1) {
+        failures.push(
+          `Service-detail route \`${route}\` must render exactly one \`${marker}\` structure; found ${markerCount}.`,
+        )
+      }
+    }
+
+    const slug = route.slice(1)
+    const anchors = listAnchorAttributes(record.html)
+
+    for (const location of [`service-${slug}`, `service-${slug}-final`]) {
+      const locationAnchors = anchors.filter(
+        (attributes) => attributes['data-cta-location'] === location,
+      )
+      const quoteCtas = locationAnchors.filter(
+        (attributes) =>
+          attributes['data-cta'] === 'quote' &&
+          attributes.href === '/request-quote',
+      )
+
+      if (quoteCtas.length !== 1) {
+        failures.push(
+          `Service-detail route \`${route}\` CTA location \`${location}\` must include exactly one quote anchor to \`/request-quote\`; found ${quoteCtas.length}.`,
+        )
+      }
+
+      const secondaryCtas = locationAnchors.filter(({ ['data-cta']: cta }) =>
+        ['call', 'email'].includes(cta ?? ''),
+      )
+      const callCtas = secondaryCtas.filter(
+        ({ ['data-cta']: cta }) => cta === 'call',
+      )
+      const emailCtas = secondaryCtas.filter(
+        ({ ['data-cta']: cta }) => cta === 'email',
+      )
+      const canonicalCallCtas = callCtas.filter(
+        ({ href = '' }) => href === configuredPhoneHref,
+      )
+      const canonicalEmailCtas = emailCtas.filter(
+        ({ href = '' }) => href === configuredEmailHref,
+      )
+
+      if (secondaryCtas.length !== 1) {
+        failures.push(
+          `Service-detail route \`${route}\` CTA location \`${location}\` must include exactly one secondary call or email anchor; found ${secondaryCtas.length}.`,
+        )
+      }
+
+      if (
+        hasParsedSiteContact &&
+        hasConfiguredPhone &&
+        (canonicalCallCtas.length !== 1 || emailCtas.length !== 0)
+      ) {
+        failures.push(
+          `Service-detail route \`${route}\` CTA location \`${location}\` must use exactly one \`data-cta="call"\` anchor with the configured \`phoneHref\` \`${configuredPhoneHref}\` and no email fallback; found ${canonicalCallCtas.length} canonical call anchor(s) and ${emailCtas.length} email fallback(s).`,
+        )
+      }
+
+      if (
+        hasParsedSiteContact &&
+        !hasConfiguredPhone &&
+        (canonicalEmailCtas.length !== 1 || callCtas.length !== 0)
+      ) {
+        failures.push(
+          `Service-detail route \`${route}\` CTA location \`${location}\` must use exactly one \`data-cta="email"\` anchor with the configured email href \`${configuredEmailHref}\` and no call action when \`phoneHref\` is empty; found ${canonicalEmailCtas.length} canonical email anchor(s) and ${callCtas.length} call action(s).`,
+        )
+      }
     }
 
     if (!record.html.includes('data-proof-status="not-proof"')) {

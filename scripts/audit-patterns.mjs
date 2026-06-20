@@ -18,6 +18,7 @@ const scanRoots = [
 const requiredComponents = [
   'HeroSection.astro',
   'MediaFrame.astro',
+  'ServiceDetailPage.astro',
   'ServiceMenu.astro',
   'SplitFeature.astro',
   'ProcessSteps.astro',
@@ -299,15 +300,16 @@ for (const filePath of scanFiles) {
   }
 }
 
-console.log('Pattern usage report:')
+console.log('Direct page-pattern import report:')
 for (const name of implementedPatternNames) {
   const pages = pagePatternImports.get(name) ?? []
   const report = pages.length
     ? pages.map(({ page, specifier }) => `${page} (${specifier})`).join(', ')
-    : 'no current page imports'
+    : 'no direct page imports'
 
   console.log(`- ${name}: ${report}`)
 }
+console.log('Nested pattern use is owned by shared page-pattern components.')
 
 console.log('Approved theme-drift scan exclusions:')
 for (const { path, reason } of approvedThemeDriftContexts) {
