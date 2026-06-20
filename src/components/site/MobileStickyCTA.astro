@@ -7,7 +7,11 @@ const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
 ---
 
 <div
-  class="theme-shadow-xs fixed inset-x-0 bottom-0 z-40 border-t border-[var(--color-inverse-border)] bg-[var(--color-surface-inverse)]/96 p-3 text-[var(--color-text-inverse)] backdrop-blur sm:hidden"
+  class="mobile-sticky-cta theme-shadow-xs fixed inset-x-0 bottom-0 z-40 border-t border-[var(--color-inverse-border)] bg-[var(--color-surface-inverse)]/96 p-3 text-[var(--color-text-inverse)] backdrop-blur sm:hidden"
+  data-mobile-sticky-cta
+  data-visible="false"
+  aria-hidden="true"
+  inert
 >
   <div class={hasPhone ? 'grid grid-cols-2 gap-3' : undefined}>
     {
@@ -50,3 +54,31 @@ const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
     </Button>
   </div>
 </div>
+
+<script>
+  const stickyCTA = document.querySelector<HTMLElement>(
+    '[data-mobile-sticky-cta]',
+  )
+  const firstQuoteCTA = document.querySelector<HTMLElement>(
+    'main [data-cta="quote"]',
+  )
+
+  if (stickyCTA) {
+    const setStickyVisibility = (visible: boolean) => {
+      stickyCTA.dataset.visible = String(visible)
+      stickyCTA.ariaHidden = String(!visible)
+      stickyCTA.inert = !visible
+    }
+
+    if (firstQuoteCTA) {
+      const observer = new IntersectionObserver(
+        ([entry]) => setStickyVisibility(!entry.isIntersecting),
+        { threshold: 0.1 },
+      )
+
+      observer.observe(firstQuoteCTA)
+    } else {
+      setStickyVisibility(true)
+    }
+  }
+</script>
