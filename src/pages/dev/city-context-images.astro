@@ -45,9 +45,7 @@ const description =
         {
           cityContextImageList.map((record) => (
             <CityContextMedia
-              image={record.image}
-              caption={record.caption}
-              attribution={record.attribution}
+              media={record}
               sizes="(min-width: 1280px) 28vw, (min-width: 768px) 42vw, 100vw"
               class="h-full"
             />

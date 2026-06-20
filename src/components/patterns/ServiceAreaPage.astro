@@ -7,10 +7,12 @@ import CityContextMedia from './CityContextMedia.astro'
 import FAQList from './FAQList.astro'
 import HeroSection from './HeroSection.astro'
 import LinkGrid from './LinkGrid.astro'
+import MediaFrame from './MediaFrame.astro'
 import ProcessSteps from './ProcessSteps.astro'
 import Section from '../ui/Section.astro'
 import Layout from '../../layouts/Layout.astro'
 import { cityContextImages } from '../../data/cityContextImages'
+import { publicMedia } from '../../data/publicMedia'
 import { serviceAreaFaqAdditions } from '../../data/serviceAreaFaqAdditions'
 import type { ServiceAreaPageContent } from '../../data/serviceAreaPages'
 import { serviceAreas } from '../../data/serviceAreas'
@@ -133,45 +135,13 @@ const quoteSteps = [
         }
       </Fragment>
 
-      <div
+      <MediaFrame
         slot="media"
-        class="media-frame relative aspect-[16/10] lg:aspect-[11/10]"
-        aria-hidden="true"
-      >
-        <picture>
-          <source
-            media="(max-width: 639px)"
-            srcset="
-              /images/brand/responsive/hero-homepage-480.webp 1x,
-              /images/brand/responsive/hero-homepage-768.webp 2x
-            "
-          />
-          <source
-            media="(max-width: 1023px)"
-            srcset="
-              /images/brand/responsive/hero-homepage-768.webp 1x,
-              /images/brand/responsive/hero-homepage-1024.webp 2x
-            "
-          />
-          <source
-            media="(min-width: 1024px)"
-            srcset="
-              /images/brand/responsive/hero-homepage-1024.webp 1x,
-              /images/brand/responsive/hero-homepage-1280.webp 2x
-            "
-          />
-          <img
-            src="/images/brand/responsive/hero-homepage-1024.webp"
-            alt=""
-            width="1024"
-            height="540"
-            class="h-full w-full object-cover object-center"
-            loading="eager"
-            decoding="async"
-            fetchpriority="high"
-          />
-        </picture>
-      </div>
+        media={publicMedia.brandResidentialContext}
+        imageClass="aspect-[16/10] lg:aspect-[11/10]"
+        loading="eager"
+        fetchpriority="high"
+      />
     </HeroSection>
 
     <section
@@ -271,9 +241,7 @@ const quoteSteps = [
         </div>
 
         <CityContextMedia
-          image={{ ...cityContextImage.image, alt: cityContextImage.alt }}
-          caption={cityContextImage.caption}
-          attribution={cityContextImage.attribution}
+          media={cityContextImage}
           class="max-w-md justify-self-end"
         />
       </div>

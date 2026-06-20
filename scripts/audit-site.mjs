@@ -68,6 +68,28 @@ const serviceAreasPath = 'src/data/serviceAreas.ts'
 const pageInventoryPath = 'docs/product/PAGE_INVENTORY.md'
 const sixCityInventoryPath = 'docs/seo/six-city-inventory.yaml'
 const imageRightsManifestPath = 'docs/seo/image-rights-manifest.yaml'
+const premiumMediaSystemPath = 'docs/design/PREMIUM_MEDIA_SYSTEM.md'
+const publicMediaRegistryPath = 'src/data/publicMedia.ts'
+const serviceIllustrations = [
+  {
+    route: '/driveway-pressure-washing',
+    id: 'service-driveway',
+    stem: 'driveway-cleaning',
+    alt: 'Illustrative Florida-style home with a broad concrete driveway and landscaped front approach.',
+  },
+  {
+    route: '/sidewalk-walkway-cleaning',
+    id: 'service-walkway',
+    stem: 'walkway-cleaning',
+    alt: 'Illustrative Florida-style home with a curved concrete walkway, sidewalk, and landscaped entry.',
+  },
+  {
+    route: '/concrete-cleaning',
+    id: 'service-concrete',
+    stem: 'concrete-cleaning',
+    alt: 'Illustrative Florida-style home with concrete patio, entry, and curb surfaces.',
+  },
+]
 const serviceDetailRoutes = [
   '/driveway-pressure-washing',
   '/sidewalk-walkway-cleaning',
@@ -216,6 +238,23 @@ async function readText(relativePath) {
 
 async function readRepoText(relativePath) {
   return readFile(path.join(repoRoot, relativePath), 'utf8')
+}
+
+async function readOptionalRepoText(relativePath) {
+  try {
+    return await readRepoText(relativePath)
+  } catch (error) {
+    if (
+      error &&
+      typeof error === 'object' &&
+      'code' in error &&
+      error.code === 'ENOENT'
+    ) {
+      return ''
+    }
+
+    throw error
+  }
 }
 
 function parseAttributes(tag) {
@@ -662,11 +701,141 @@ async function main() {
       continue
     }
 
-    if (!record.html.includes('data-media-role="decorative"')) {
+    if (!record.html.includes('data-proof-status="not-proof"')) {
       failures.push(
-        `Service-detail route \`${route}\` must prerender explicit proof-safe decorative hero media.`,
+        `Service-detail route \`${route}\` must prerender explicit media marked as not project proof.`,
       )
     }
+  }
+
+  for (const { route, id, stem, alt } of serviceIllustrations) {
+    const record = htmlByRoute.get(route)
+
+    if (!record) continue
+
+    if (!record.html.includes(`data-media-id="${id}"`)) {
+      failures.push(
+        `Service-detail route \`${route}\` must render registered media \`${id}\`.`,
+      )
+    }
+
+    if (!record.html.includes('data-media-role="service-illustration"')) {
+      failures.push(
+        `Service-detail route \`${route}\` must identify hero media as a service illustration.`,
+      )
+    }
+
+    if (
+      !record.html.includes(
+        'Illustrative service image. Not completed project photography.',
+      )
+    ) {
+      failures.push(
+        `Service-detail route \`${route}\` must render the proof-safety caption for illustrative media.`,
+      )
+    }
+
+    const imageTag = getTags(record.html, 'img')
+      .map((tag) => parseAttributes(tag))
+      .find(
+        (attributes) =>
+          attributes.src === `/images/service-illustrations/${stem}-1280.webp`,
+      )
+
+    if (!imageTag) {
+      failures.push(
+        `Service-detail route \`${route}\` must render the registered responsive service illustration.`,
+      )
+    } else {
+      if ((imageTag.alt ?? '').trim() !== alt) {
+        failures.push(
+          `Service-detail route \`${route}\` must render accurate registered service-illustration alt text.`,
+        )
+      }
+
+      if (imageTag.width !== '1280' || imageTag.height !== '853') {
+        failures.push(
+          `Service-detail route \`${route}\` must reserve the registered service-illustration dimensions.`,
+        )
+      }
+
+      if (!(imageTag.sizes ?? '').trim()) {
+        failures.push(
+          `Service-detail route \`${route}\` must render a responsive \`sizes\` attribute.`,
+        )
+      }
+    }
+
+    for (const width of [480, 768, 1024, 1280]) {
+      const asset = `images/service-illustrations/${stem}-${width}.webp`
+
+      if (!fileSet.has(asset)) {
+        failures.push(
+          `Missing responsive service illustration: \`dist/${asset}\`.`,
+        )
+      }
+
+      if (imageTag && !imageTag.srcset?.includes(`/${asset} ${width}w`)) {
+        failures.push(
+          `Service-detail route \`${route}\` must include responsive image source \`/${asset} ${width}w\`.`,
+        )
+      }
+
+      if (fileSet.has(asset)) {
+        const assetBuffer = await readFile(path.join(distDir, asset))
+        const hasExif = assetBuffer.includes(Buffer.from('Exif\u0000\u0000'))
+        const hasXmp = assetBuffer.includes(
+          Buffer.from('http://ns.adobe.com/xap/1.0/'),
+        )
+
+        if (hasExif || hasXmp) {
+          failures.push(
+            `Service illustration \`dist/${asset}\` must not retain EXIF, GPS, or XMP metadata.`,
+          )
+        }
+      }
+    }
+  }
+
+  const homepage = htmlByRoute.get('/')?.html ?? ''
+  const homepageServiceMediaIds = new Set(
+    getTags(homepage, 'article')
+      .map((tag) => parseAttributes(tag))
+      .filter(
+        (attributes) =>
+          attributes['data-media-role'] === 'service-illustration',
+      )
+      .map((attributes) => attributes['data-media-id'])
+      .filter(Boolean),
+  )
+
+  if (homepageServiceMediaIds.size < 3) {
+    failures.push(
+      'Homepage service cards must use at least three distinct registered service illustrations.',
+    )
+  }
+
+  const serviceAreaHub = htmlByRoute.get('/service-areas')?.html ?? ''
+  if (serviceAreaHub.includes('/images/city-context/')) {
+    failures.push(
+      'The service-area hub must not use civic photography as primary city-selection media.',
+    )
+  }
+
+  if (!serviceAreaHub.includes('data-media-role="brand-artwork"')) {
+    failures.push(
+      'The service-area hub must use registered residential brand artwork as its primary supporting media.',
+    )
+  }
+
+  const servicesHub = htmlByRoute.get('/services')?.html ?? ''
+  if (
+    !servicesHub.includes('data-media-id="service-concrete"') ||
+    !servicesHub.includes('data-media-role="service-illustration"')
+  ) {
+    failures.push(
+      'The services hub must lead with registered service-illustration media.',
+    )
   }
 
   const processRoutes = [
@@ -709,11 +878,15 @@ async function main() {
     pageInventorySource,
     sixCityInventorySource,
     imageRightsManifestSource,
+    premiumMediaSystemSource,
+    publicMediaRegistrySource,
   ] = await Promise.all([
     readRepoText(serviceAreasPath),
     readRepoText(pageInventoryPath),
     readRepoText(sixCityInventoryPath),
     readRepoText(imageRightsManifestPath),
+    readOptionalRepoText(premiumMediaSystemPath),
+    readOptionalRepoText(publicMediaRegistryPath),
   ])
   const serviceAreaEntries = parseServiceAreas(serviceAreasSource)
   const pageInventoryRoutes = parsePageInventoryRoutes(pageInventorySource)
@@ -726,6 +899,39 @@ async function main() {
     (route) =>
       route === '/' || (!route.startsWith('/dev/') && !route.endsWith('/')),
   )
+
+  if (!premiumMediaSystemSource.includes('# Premium Proof-Safe Media System')) {
+    failures.push(
+      `\`${premiumMediaSystemPath}\` must document the premium proof-safe media system.`,
+    )
+  }
+
+  for (const requiredSection of [
+    '## Active media inventory',
+    '## Proof-safety rules',
+    '## Future verified project proof',
+  ]) {
+    if (!premiumMediaSystemSource.includes(requiredSection)) {
+      failures.push(
+        `\`${premiumMediaSystemPath}\` is missing required section \`${requiredSection}\`.`,
+      )
+    }
+  }
+
+  for (const requiredRegistryTerm of [
+    'export type PublicMediaRole',
+    'service-illustration',
+    'brand-artwork',
+    'city-context',
+    'proofStatus',
+    'publicMedia',
+  ]) {
+    if (!publicMediaRegistrySource.includes(requiredRegistryTerm)) {
+      failures.push(
+        `\`${publicMediaRegistryPath}\` must define \`${requiredRegistryTerm}\`.`,
+      )
+    }
+  }
 
   if (!sixCityInventorySource.includes('integration_audit:')) {
     failures.push(
@@ -1416,6 +1622,18 @@ async function main() {
         typeof value === 'object' &&
         value['@type'] === 'BreadcrumbList',
     )
+
+    if (!cityPage.html.includes('data-media-role="brand-artwork"')) {
+      failures.push(
+        `City page \`${cityPage.route}\` must identify generic hero media as brand artwork.`,
+      )
+    }
+
+    if (!cityPage.html.includes('data-media-role="city-context"')) {
+      failures.push(
+        `City page \`${cityPage.route}\` must identify civic photography as secondary city context.`,
+      )
+    }
 
     if (!h1) {
       failures.push(

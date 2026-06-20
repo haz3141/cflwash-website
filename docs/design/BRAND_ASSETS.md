@@ -81,6 +81,19 @@ These files are resized delivery derivatives created from the approved raster so
 | `public/images/brand/responsive/logo-primary-reversed-320.png`           | `public/images/brand/logo-primary-reversed.png`           | Footer wordmark candidate                     |
 | `public/images/brand/responsive/logo-primary-reversed-480.png`           | `public/images/brand/logo-primary-reversed.png`           | High-density footer wordmark candidate        |
 
+## Service Illustration Assets
+
+The generated service scenes are supporting illustrations, not brand masters
+and not completed-project proof. Their public role, proof status, alt text,
+captions, route hierarchy, and prompt provenance are governed by
+[`PREMIUM_MEDIA_SYSTEM.md`](./PREMIUM_MEDIA_SYSTEM.md).
+
+| Delivery family                                                                  | Subject                                     | Required treatment                               |
+| -------------------------------------------------------------------------------- | ------------------------------------------- | ------------------------------------------------ |
+| `public/images/service-illustrations/driveway-cleaning-{480,768,1024,1280}.webp` | Residential concrete driveway               | Register as `service-illustration` / `not-proof` |
+| `public/images/service-illustrations/walkway-cleaning-{480,768,1024,1280}.webp`  | Residential walkway and sidewalk            | Register as `service-illustration` / `not-proof` |
+| `public/images/service-illustrations/concrete-cleaning-{480,768,1024,1280}.webp` | Residential concrete patio, entry, and curb | Register as `service-illustration` / `not-proof` |
+
 ## Header-Specific Wordmark
 
 `public/images/brand/logo-primary-header-transparent.png` is the approved header-specific wordmark derivative.

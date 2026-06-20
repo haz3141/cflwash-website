@@ -1,9 +1,14 @@
+import type { PublicMediaProofStatus, PublicMediaRole } from './publicMedia'
+
 export type CityContextResponsiveSource = {
   src: string
   width: number
 }
 
 export type CityContextImage = {
+  id: string
+  role: Extract<PublicMediaRole, 'city-context'>
+  proofStatus: Extract<PublicMediaProofStatus, 'context-only'>
   city: string
   slug: string
   subject: string
@@ -22,6 +27,9 @@ export type CityContextImage = {
 
 export const cityContextImages: Record<string, CityContextImage> = {
   deltona: {
+    id: 'city-context-deltona',
+    role: 'city-context',
+    proofStatus: 'context-only',
     city: 'Deltona',
     slug: 'deltona',
     subject: 'Deltona City Hall',
@@ -43,6 +51,9 @@ export const cityContextImages: Record<string, CityContextImage> = {
     },
   },
   'orange-city': {
+    id: 'city-context-orange-city',
+    role: 'city-context',
+    proofStatus: 'context-only',
     city: 'Orange City',
     slug: 'orange-city',
     subject: 'Orange City Town Hall',
@@ -70,6 +81,9 @@ export const cityContextImages: Record<string, CityContextImage> = {
     },
   },
   debary: {
+    id: 'city-context-debary',
+    role: 'city-context',
+    proofStatus: 'context-only',
     city: 'DeBary',
     slug: 'debary',
     subject: 'DeBary Hall',
@@ -90,6 +104,9 @@ export const cityContextImages: Record<string, CityContextImage> = {
     },
   },
   deland: {
+    id: 'city-context-deland',
+    role: 'city-context',
+    proofStatus: 'context-only',
     city: 'DeLand',
     slug: 'deland',
     subject: 'Athens Theatre',
@@ -117,6 +134,9 @@ export const cityContextImages: Record<string, CityContextImage> = {
     },
   },
   sanford: {
+    id: 'city-context-sanford',
+    role: 'city-context',
+    proofStatus: 'context-only',
     city: 'Sanford',
     slug: 'sanford',
     subject: 'Sanford City Hall',
@@ -138,6 +158,9 @@ export const cityContextImages: Record<string, CityContextImage> = {
     },
   },
   'lake-mary': {
+    id: 'city-context-lake-mary',
+    role: 'city-context',
+    proofStatus: 'context-only',
     city: 'Lake Mary',
     slug: 'lake-mary',
     subject: 'Lake Mary City Hall',

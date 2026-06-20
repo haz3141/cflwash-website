@@ -6,9 +6,10 @@ import Card from '../components/ui/Card.astro'
 import CTASection from '../components/patterns/CTASection.astro'
 import HeroSection from '../components/patterns/HeroSection.astro'
 import IconBadge from '../components/ui/IconBadge.astro'
+import MediaFrame from '../components/patterns/MediaFrame.astro'
 import Section from '../components/ui/Section.astro'
 import Layout from '../layouts/Layout.astro'
-import { cityContextImages } from '../data/cityContextImages'
+import { publicMedia } from '../data/publicMedia'
 import { serviceAreas } from '../data/serviceAreas'
 import { services } from '../data/services'
 import { site } from '../data/site'
@@ -19,10 +20,6 @@ const breadcrumbs = [
   { label: 'Service Areas', href: '/service-areas' },
 ]
 const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
-const areaCards = serviceAreas.map((area) => ({
-  ...area,
-  contextImage: cityContextImages[area.slug],
-}))
 ---
 
 <Layout
@@ -100,56 +97,40 @@ const areaCards = serviceAreas.map((area) => ({
       class="border-t border-[var(--color-border)]"
       contentWidth="full"
     >
-      <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-        {
-          areaCards.map((area) => {
-            const image = area.contextImage
-            const srcset = image.image.sources
-              .map(({ src, width }) => `${src} ${width}w`)
-              .join(', ')
+      <div
+        class="grid gap-8 lg:grid-cols-[minmax(18rem,0.72fr)_minmax(0,1.28fr)] lg:items-start"
+      >
+        <MediaFrame
+          media={publicMedia.brandResidentialContext}
+          sizes="(min-width: 1024px) 36vw, 100vw"
+          imageClass="aspect-[16/10] lg:aspect-[4/5]"
+          class="lg:sticky lg:top-24"
+        />
 
-            return (
-              <article class="theme-shadow-xs flex h-full flex-col overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface-raised)]">
-                <div class="overflow-hidden bg-[var(--color-surface)]">
-                  <img
-                    src={image.image.src}
-                    srcset={srcset}
-                    sizes="(min-width: 1280px) 31vw, (min-width: 768px) 46vw, 100vw"
-                    alt={image.alt}
-                    width={image.image.width}
-                    height={image.image.height}
-                    class="aspect-[16/10] h-full w-full object-cover"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <div class="flex flex-1 flex-col p-6">
-                  <p class="eyebrow-action">Service area</p>
-                  <h2 class="mt-2 text-section-subtitle text-[var(--color-text)]">
-                    {area.name}, Florida
-                  </h2>
-                  <p class="mt-3 flex-1 text-sm leading-7 text-[var(--color-text-muted)]">
-                    {area.description}
-                  </p>
-                  <a
-                    href={`/service-areas/${area.slug}`}
-                    class="text-link mt-5"
-                  >
-                    View {area.name} service page
-                    <ArrowRight
-                      class="h-4 w-4"
-                      aria-hidden="true"
-                      stroke-width="1.9"
-                    />
-                  </a>
-                </div>
-                <p class="border-t border-[var(--color-border)] px-6 py-3 text-xs leading-5 text-[var(--color-text-muted)]">
-                  City context only. {image.attribution}
+        <div class="grid gap-4 sm:grid-cols-2">
+          {
+            serviceAreas.map((area) => (
+              <article class="theme-shadow-xs flex h-full flex-col rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface-raised)] p-6">
+                <IconBadge icon={MapPin} tone="soft" size="md" />
+                <p class="eyebrow-action mt-5">Service area</p>
+                <h2 class="mt-2 text-section-subtitle text-[var(--color-text)]">
+                  {area.name}, Florida
+                </h2>
+                <p class="mt-3 flex-1 text-sm leading-7 text-[var(--color-text-muted)]">
+                  {area.description}
                 </p>
+                <a href={`/service-areas/${area.slug}`} class="text-link mt-5">
+                  View {area.name} service page
+                  <ArrowRight
+                    class="h-4 w-4"
+                    aria-hidden="true"
+                    stroke-width="1.9"
+                  />
+                </a>
               </article>
-            )
-          })
-        }
+            ))
+          }
+        </div>
       </div>
     </Section>
 
