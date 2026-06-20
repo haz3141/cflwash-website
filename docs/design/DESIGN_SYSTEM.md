@@ -89,6 +89,7 @@ Components should consume semantic tokens such as:
 - `--color-inverse-muted`
 - `--color-focus-ring`
 - `--color-focus-ring-inverse`
+- `--layout-gap`
 
 Shared utility classes such as `.media-frame`, `.feature-panel`, `.card-link`,
 `.pill-link`, `.text-link`, `.inverse-link`, `.form-control`,
@@ -115,7 +116,7 @@ The site uses Manrope Variable with a clean sans fallback stack.
 Scale targets:
 
 - Display: `clamp(2.75rem, 2rem + 3.2vw, 4.75rem)`
-- Interior hero: `clamp(2.5rem, 1.85rem + 2.6vw, 4rem)`
+- Interior hero: `clamp(2.25rem, 1.8rem + 2.3vw, 4rem)`
 - H2: `clamp(2rem, 1.5rem + 1.6vw, 3rem)`
 - H3: `clamp(1.25rem, 1.1rem + 0.4vw, 1.5rem)`
 - Lead: `clamp(1.125rem, 1rem + 0.35vw, 1.25rem)`
@@ -151,6 +152,8 @@ Standard section spacing:
 - `--section-space: clamp(3.5rem, 7vw, 6rem)`
 - `--section-space-compact: clamp(2.5rem, 5vw, 4rem)`
 - `--section-space-spacious: clamp(4.5rem, 8vw, 7rem)`
+- `--layout-gap: clamp(2rem, 4vw, 4rem)` (32px to 64px) for major split
+  compositions such as split heroes
 
 Rhythm targets:
 
@@ -158,7 +161,7 @@ Rhythm targets:
 - Heading to description: 16px
 - Section header to content: 32px to 40px
 - Card padding: 24px mobile, up to 32px desktop
-- Grid gaps: 16px to 24px mobile, 24px to 32px desktop
+- Compact and card grid gaps: 16px to 24px mobile, 24px to 32px desktop
 - CTA groups: 12px
 
 Layout rules:
@@ -314,6 +317,8 @@ Rules:
 - Keep the visible H1 copy page-owned and claim-safe.
 - Supply content-relevant media explicitly from the page or shared page pattern.
 - Never infer hero media from `Astro.url.pathname` or another route side table.
+- Reset the split grid and both direct grid children with `min-w-0` so intrinsic
+  media cannot expand the mobile layout.
 - Do not add `centered`, `full-bleed`, or `editorial` variants until real current pages require them.
 - Do not hide CTA fallback logic inside the component.
 

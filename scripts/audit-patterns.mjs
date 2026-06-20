@@ -5,7 +5,9 @@ import process from 'node:process'
 
 const root = process.cwd()
 const patternsDir = join(root, 'src/components/patterns')
+const heroSectionPath = join(patternsDir, 'HeroSection.astro')
 const designSystemPath = join(root, 'docs/design/DESIGN_SYSTEM.md')
+const tokensPath = join(root, 'src/styles/tokens.css')
 const scanRoots = [
   join(root, 'src/components'),
   join(root, 'src/layouts'),
@@ -181,6 +183,35 @@ for (const component of requiredComponents) {
   }
 }
 
+if (existsSync(heroSectionPath)) {
+  const heroSection = readFileSync(heroSectionPath, 'utf8')
+  const minWidthResetCount = heroSection.match(/\bmin-w-0\b/g)?.length ?? 0
+
+  if (minWidthResetCount < 3) {
+    failures.push(
+      `HeroSection.astro has ${minWidthResetCount} min-w-0 reset(s); the split grid, content child, and media wrapper each require one so intrinsic media cannot expand the mobile layout.`,
+    )
+  }
+
+  if (!heroSection.includes('gap-[var(--layout-gap)]')) {
+    failures.push(
+      'HeroSection.astro must consume gap-[var(--layout-gap)] so major split compositions share the semantic layout rhythm.',
+    )
+  }
+}
+
+if (!existsSync(tokensPath)) {
+  failures.push(`Missing design tokens: ${relative(root, tokensPath)}`)
+} else {
+  const tokens = readFileSync(tokensPath, 'utf8')
+
+  if (!tokens.includes('--layout-gap: clamp(2rem, 4vw, 4rem);')) {
+    failures.push(
+      'Design tokens must include the exact definition "--layout-gap: clamp(2rem, 4vw, 4rem);" for the shared major-split rhythm.',
+    )
+  }
+}
+
 if (!existsSync(designSystemPath)) {
   failures.push(
     `Missing design system documentation: ${relative(root, designSystemPath)}`,
@@ -191,6 +222,12 @@ if (!existsSync(designSystemPath)) {
   if (!/^### Page Pattern Components$/m.test(designSystem)) {
     failures.push(
       'Design system documentation is missing the Page Pattern Components section heading',
+    )
+  }
+
+  if (!designSystem.includes('`--layout-gap`')) {
+    failures.push(
+      'Design system documentation is missing `--layout-gap`; document the semantic shared-layout gap token used to keep interior hero rhythm consistent.',
     )
   }
 

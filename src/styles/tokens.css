@@ -37,7 +37,7 @@
   --text-lead: clamp(1.125rem, 1rem + 0.35vw, 1.25rem);
   --text-h3: clamp(1.25rem, 1.1rem + 0.4vw, 1.5rem);
   --text-h2: clamp(2rem, 1.5rem + 1.6vw, 3rem);
-  --text-hero: clamp(2.5rem, 1.85rem + 2.6vw, 4rem);
+  --text-hero: clamp(2.25rem, 1.8rem + 2.3vw, 4rem);
   --text-display: clamp(2.75rem, 2rem + 3.2vw, 4.75rem);
 
   --leading-tight: 1.05;
@@ -132,6 +132,7 @@
   --section-spacing-compact: var(--section-space-compact);
   --section-header-gap: 2rem;
   --section-content-gap: 2.5rem;
+  --layout-gap: clamp(2rem, 4vw, 4rem);
 
   --measure-copy: 68ch;
   --measure-card: 42ch;
