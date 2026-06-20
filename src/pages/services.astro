@@ -6,8 +6,10 @@ import Card from '../components/ui/Card.astro'
 import CTASection from '../components/patterns/CTASection.astro'
 import HeroSection from '../components/patterns/HeroSection.astro'
 import IconBadge from '../components/ui/IconBadge.astro'
+import MediaFrame from '../components/patterns/MediaFrame.astro'
 import Section from '../components/ui/Section.astro'
 import Layout from '../layouts/Layout.astro'
+import { publicMedia } from '../data/publicMedia'
 import { serviceAreas } from '../data/serviceAreas'
 import { services } from '../data/services'
 import { site } from '../data/site'
@@ -97,45 +99,13 @@ const serviceFits = {
         }
       </Fragment>
 
-      <div
+      <MediaFrame
         slot="media"
-        class="media-frame relative aspect-[16/11] lg:aspect-[11/10]"
-        aria-hidden="true"
-      >
-        <picture>
-          <source
-            media="(max-width: 639px)"
-            srcset="
-              /images/brand/responsive/hero-homepage-480.webp 1x,
-              /images/brand/responsive/hero-homepage-768.webp 2x
-            "
-          />
-          <source
-            media="(max-width: 1023px)"
-            srcset="
-              /images/brand/responsive/hero-homepage-768.webp 1x,
-              /images/brand/responsive/hero-homepage-1024.webp 2x
-            "
-          />
-          <source
-            media="(min-width: 1024px)"
-            srcset="
-              /images/brand/responsive/hero-homepage-1024.webp 1x,
-              /images/brand/responsive/hero-homepage-1280.webp 2x
-            "
-          />
-          <img
-            src="/images/brand/responsive/hero-homepage-1024.webp"
-            alt=""
-            width="1024"
-            height="540"
-            class="h-full w-full object-cover object-center"
-            loading="eager"
-            decoding="async"
-            fetchpriority="high"
-          />
-        </picture>
-      </div>
+        media={publicMedia.serviceConcrete}
+        imageClass="aspect-[16/11] lg:aspect-[11/10]"
+        loading="eager"
+        fetchpriority="high"
+      />
     </HeroSection>
 
     <Section

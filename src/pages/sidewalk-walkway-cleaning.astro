@@ -12,6 +12,7 @@ import ProcessSteps from '../components/patterns/ProcessSteps.astro'
 import Section from '../components/ui/Section.astro'
 import SplitFeature from '../components/patterns/SplitFeature.astro'
 import Layout from '../layouts/Layout.astro'
+import { publicMedia } from '../data/publicMedia'
 import { serviceAreas } from '../data/serviceAreas'
 import { site } from '../data/site'
 import { services } from '../data/services'
@@ -152,32 +153,7 @@ const faqs = [
 
       <MediaFrame
         slot="media"
-        image={{
-          src: '/images/brand/responsive/hero-homepage-1024.webp',
-          alt: 'Illustrative Florida home exterior with a clean front approach',
-          width: 1024,
-          height: 540,
-          sources: [
-            {
-              src: '/images/brand/responsive/hero-homepage-480.webp',
-              width: 480,
-            },
-            {
-              src: '/images/brand/responsive/hero-homepage-768.webp',
-              width: 768,
-            },
-            {
-              src: '/images/brand/responsive/hero-homepage-1024.webp',
-              width: 1024,
-            },
-            {
-              src: '/images/brand/responsive/hero-homepage-1280.webp',
-              width: 1280,
-            },
-          ],
-        }}
-        caption="Decorative brand artwork. It is not presented as a completed project photo."
-        mediaRole="decorative"
+        media={publicMedia.serviceWalkway}
         loading="eager"
         fetchpriority="high"
       />

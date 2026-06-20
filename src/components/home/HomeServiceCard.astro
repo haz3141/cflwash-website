@@ -1,21 +1,27 @@
 ---
 import IconBadge from '../ui/IconBadge.astro'
+import type { PublicMediaAsset } from '../../data/publicMedia'
 import { ArrowRight } from '@lucide/astro'
 
 type Props = {
   title: string
   description: string
   href: string
-  image: string
-  alt: string
+  media: PublicMediaAsset
   icon: any
 }
 
-const { title, description, href, image, alt, icon } = Astro.props as Props
+const { title, description, href, media, icon } = Astro.props as Props
+const srcset = media.image.sources
+  .map(({ src, width }) => `${src} ${width}w`)
+  .join(', ')
 ---
 
 <article
   class="theme-shadow-card theme-shadow-card-hover group flex h-full min-w-0 flex-col overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-raised)] transition duration-[var(--duration-normal)] ease-[var(--ease-standard)] hover:-translate-y-1"
+  data-media-id={media.id}
+  data-media-role={media.role}
+  data-proof-status={media.proofStatus}
 >
   <a
     href={href}
@@ -23,10 +29,12 @@ const { title, description, href, image, alt, icon } = Astro.props as Props
     aria-label={`View ${title}`}
   >
     <img
-      src={image}
-      alt={alt}
-      width="225"
-      height="300"
+      src={media.image.src}
+      srcset={srcset}
+      sizes="(min-width: 1280px) 15vw, (min-width: 768px) 30vw, 46vw"
+      alt={media.alt}
+      width={media.image.width}
+      height={media.image.height}
       loading="lazy"
       decoding="async"
       class="aspect-[4/3] w-full object-cover transition duration-500 ease-[var(--ease-emphasis)] group-hover:scale-[1.035]"

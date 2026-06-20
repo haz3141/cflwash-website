@@ -304,13 +304,12 @@ Rules:
 
 #### MediaFrame
 
-Purpose: proof-safe framing for decorative or contextual hero and feature media.
+Purpose: proof-safe framing for registered hero and feature media.
 
 Props:
 
-- `image`: source, alt text, intrinsic dimensions, and optional responsive sources.
-- `caption?: string`
-- `mediaRole?: 'decorative' | 'context'`
+- `media`: a `PublicMediaAsset` with stable ID, role, proof status, source type,
+  alt text, caption, intrinsic dimensions, and responsive sources.
 - `loading?: 'eager' | 'lazy'`
 - `fetchpriority?: 'high' | 'low' | 'auto'`
 - `sizes?: string`
@@ -319,10 +318,13 @@ Props:
 
 Rules:
 
+- Add reusable public content media to `src/data/publicMedia.ts`; licensed city
+  records use the same role vocabulary in `src/data/cityContextImages.ts`.
 - Always provide intrinsic dimensions and accurate alt text.
 - Use a visible caption when an illustrative image could be mistaken for completed-project proof.
 - Use eager loading and high fetch priority only for above-the-fold media.
-- Keep verified project-proof modeling and richer media-rights metadata in the dedicated media-system work.
+- Follow `PREMIUM_MEDIA_SYSTEM.md` for role selection, disclosures, delivery,
+  rights records, and the future verified-proof boundary.
 
 #### SplitFeature
 

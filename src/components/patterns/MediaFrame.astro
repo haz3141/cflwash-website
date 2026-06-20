@@ -1,23 +1,8 @@
 ---
-type ResponsiveSource = {
-  src: string
-  width: number
-}
-
-type ImageAsset = {
-  src: string
-  alt: string
-  width: number
-  height: number
-  sources?: ResponsiveSource[]
-}
-
-type MediaRole = 'decorative' | 'context'
+import type { PublicMediaAsset } from '../../data/publicMedia'
 
 type Props = {
-  image: ImageAsset
-  caption?: string
-  mediaRole?: MediaRole
+  media: PublicMediaAsset
   loading?: 'eager' | 'lazy'
   fetchpriority?: 'high' | 'low' | 'auto'
   sizes?: string
@@ -26,9 +11,7 @@ type Props = {
 }
 
 const {
-  image,
-  caption,
-  mediaRole = 'decorative',
+  media,
   loading = 'lazy',
   fetchpriority = 'auto',
   sizes = '(min-width: 1024px) 42vw, 100vw',
@@ -36,17 +19,22 @@ const {
   imageClass = 'aspect-[16/10] lg:aspect-[4/5]',
 } = Astro.props as Props
 
-const srcset = image.sources
+const srcset = media.image.sources
   ?.map(({ src, width }) => `${src} ${width}w`)
   .join(', ')
 ---
 
-<figure class={`media-frame ${className}`.trim()} data-media-role={mediaRole}>
+<figure
+  class={`media-frame ${className}`.trim()}
+  data-media-id={media.id}
+  data-media-role={media.role}
+  data-proof-status={media.proofStatus}
+>
   <img
-    src={image.src}
-    alt={image.alt}
-    width={image.width}
-    height={image.height}
+    src={media.image.src}
+    alt={media.alt}
+    width={media.image.width}
+    height={media.image.height}
     srcset={srcset}
     sizes={srcset ? sizes : undefined}
     class={`w-full object-cover ${imageClass}`.trim()}
@@ -55,9 +43,10 @@ const srcset = image.sources
     fetchpriority={fetchpriority}
   />
   {
-    caption && (
+    media.caption && (
       <figcaption class="border-t border-[var(--color-border)] bg-[var(--color-surface-raised)] px-4 py-3 text-xs leading-5 text-[var(--color-text-muted)]">
-        {caption}
+        {media.caption}
+        {media.attribution && <span> {media.attribution}</span>}
       </figcaption>
     )
   }

@@ -5,6 +5,7 @@ import OrganizationSchema from '../components/site/OrganizationSchema.astro'
 import Button from '../components/ui/Button.astro'
 import IconBadge from '../components/ui/IconBadge.astro'
 import Layout from '../layouts/Layout.astro'
+import { publicMedia } from '../data/publicMedia'
 import { serviceAreas } from '../data/serviceAreas'
 import { site } from '../data/site'
 import {
@@ -66,8 +67,7 @@ const serviceCards = [
     description:
       'Remove visible buildup and refresh the front approach to your home.',
     href: '/driveway-pressure-washing',
-    image: '/images/brand/hero-homepage.webp',
-    alt: 'Illustrative Florida home exterior with a clean front approach.',
+    media: publicMedia.serviceDriveway,
     icon: CarFront,
   },
   {
@@ -75,8 +75,7 @@ const serviceCards = [
     description:
       'Refresh street-facing sidewalk panels and everyday pedestrian paths.',
     href: '/sidewalk-walkway-cleaning',
-    image: '/images/brand/hero-homepage.webp',
-    alt: 'Illustrative Florida home exterior with a clean front approach.',
+    media: publicMedia.serviceWalkway,
     icon: Footprints,
   },
   {
@@ -84,8 +83,7 @@ const serviceCards = [
     description:
       'Restore the look of entry walks and paths leading toward the home.',
     href: '/sidewalk-walkway-cleaning',
-    image: '/images/brand/hero-homepage.webp',
-    alt: 'Illustrative Florida home exterior with a clean front approach.',
+    media: publicMedia.serviceWalkway,
     icon: Waves,
   },
   {
@@ -93,8 +91,7 @@ const serviceCards = [
     description:
       'Clean appropriate patios, pads, aprons, curbs, and entry surfaces.',
     href: '/concrete-cleaning',
-    image: '/images/brand/hero-homepage.webp',
-    alt: 'Illustrative Florida home exterior with a clean front approach.',
+    media: publicMedia.serviceConcrete,
     icon: Blocks,
   },
   {
@@ -102,8 +99,7 @@ const serviceCards = [
     description:
       'Start with the cited surface and include the notice wording for review.',
     href: '/request-quote',
-    image: '/images/brand/hero-homepage.webp',
-    alt: 'Illustrative Florida home exterior with a clean front approach.',
+    media: publicMedia.serviceDriveway,
     icon: ClipboardList,
   },
   {
@@ -111,8 +107,7 @@ const serviceCards = [
     description:
       'Bundle visible front-of-home surfaces into one focused quote request.',
     href: '/request-quote',
-    image: '/images/brand/hero-homepage.webp',
-    alt: 'Illustrative Florida home exterior with a clean front approach.',
+    media: publicMedia.serviceConcrete,
     icon: Sparkles,
   },
 ]
@@ -265,6 +260,9 @@ const processFeatures = [
             decoding="async"
             fetchpriority="high"
             class="hero-art-image relative mx-auto max-h-[39rem] w-full object-contain"
+            data-media-id="brand-illustrated-badge"
+            data-media-role="brand-artwork"
+            data-proof-status="not-proof"
           />
         </div>
       </div>
@@ -316,8 +314,8 @@ const processFeatures = [
           </h2>
           <p class="mt-4 text-base leading-7 text-[var(--color-text-muted)]">
             Choose the surface or situation that best matches the property.
-            These brand visuals support the service categories and are not
-            presented as photos of completed CFL Wash Co. projects.
+            These illustrative visuals support the service categories and are
+            not presented as photos of completed CFL Wash Co. projects.
           </p>
         </div>
 
@@ -387,12 +385,21 @@ const processFeatures = [
           </div>
         </div>
 
-        <div class="relative min-h-[25rem] lg:min-h-[37rem]">
+        <div
+          class="relative min-h-[25rem] lg:min-h-[37rem]"
+          data-media-id={publicMedia.brandResidentialContext.id}
+          data-media-role={publicMedia.brandResidentialContext.role}
+          data-proof-status={publicMedia.brandResidentialContext.proofStatus}
+        >
           <img
-            src="/images/brand/hero-homepage.webp"
-            alt="Illustrative Florida home with a clean driveway and landscaped entry."
-            width="640"
-            height="360"
+            src={publicMedia.brandResidentialContext.image.src}
+            srcset={publicMedia.brandResidentialContext.image.sources
+              .map(({ src, width }) => `${src} ${width}w`)
+              .join(', ')}
+            sizes="(min-width: 1024px) 55vw, 100vw"
+            alt={publicMedia.brandResidentialContext.alt}
+            width={publicMedia.brandResidentialContext.image.width}
+            height={publicMedia.brandResidentialContext.image.height}
             loading="lazy"
             decoding="async"
             class="absolute inset-0 h-full w-full object-cover"
