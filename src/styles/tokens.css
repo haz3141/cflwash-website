@@ -64,7 +64,6 @@
   --shadow-action: 0 8px 20px rgb(0 0 0 / 0.18);
   --shadow-hero-art: 0 28px 34px rgb(10 27 46 / 0.18);
   --shadow-media: 0 28px 60px rgb(10 27 46 / 0.16);
-
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
   --ease-emphasis: cubic-bezier(0.16, 1, 0.3, 1);
   --duration-fast: 150ms;

@@ -60,10 +60,10 @@ Do not substitute the illustrated badge or compact monogram for Flow Crest in fa
 | `public/images/brand/logo-primary-transparent.png` | Header candidate                         | Use only when visually faithful to the original.      |
 | `public/images/brand/logo-primary-reversed.png`    | Dark-surface candidate                   | Raster conversion; requires visual approval.          |
 | `public/images/brand/logo-mark.png`                | Legacy compact monogram                  | Too detailed for favicon use.                         |
-| `public/images/brand/logo-mark-transparent.png`    | Medium compact-mark use                  | Keep out of tiny contexts.                            |
+| `public/images/brand/logo-mark-transparent.png`    | Medium compact-mark and small hero seal  | Transparent raster; never lead the homepage hero.     |
 | `public/images/brand/logo-mark-reversed.png`       | Medium compact-mark use on dark surfaces | Raster derivative.                                    |
-| `public/images/brand/badge-illustrated.png`        | Secondary storytelling                   | Do not treat as proof of completed work.              |
-| `public/images/brand/hero-homepage.webp`           | Homepage hero artwork                    | Decorative page artwork.                              |
+| `public/images/brand/badge-illustrated.png`        | Archived storytelling candidate          | RGB white background; do not composite on public UI.  |
+| `public/images/brand/hero-homepage.webp`           | Residential brand artwork                | Decorative page artwork; not project proof.           |
 | `public/images/brand/og-default.png`               | Open Graph and social sharing            | Keep on-brand and claim-safe.                         |
 
 ## Responsive Delivery Derivatives
@@ -111,6 +111,8 @@ captions, route hierarchy, and prompt provenance are governed by
 - Use the primary wordmark for header and footer identity, not Flow Crest alone.
 - Use Flow Crest only where a singular compact mark is appropriate.
 - Never publish checkerboard backgrounds or accidental white rectangles.
+- Use `logo-mark-transparent.png` only as a small decorative hero seal; the service message and surface imagery must lead.
+- Do not composite `badge-illustrated.png` in public UI because its white RGB background is not transparent.
 - Do not describe raster derivatives as vector masters.
 - Keep rendered image dimensions stable to avoid layout shift.
 - Use empty alt text for decorative logo images inside an already labeled home link.

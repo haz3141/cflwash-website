@@ -26,7 +26,7 @@ and `not-proof`, even though they use a realistic architectural style.
 
 | Asset path                                                               | Public usage                                                     | Classification | Alt or accessible treatment                                                                            | Caption / disclosure                                                        | Risk and delivery                                                          |
 | ------------------------------------------------------------------------ | ---------------------------------------------------------------- | -------------- | ------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| `/images/brand/badge-illustrated.png`                                    | Homepage hero                                                    | Brand artwork  | “CFL Wash Co. illustrated Central Florida exterior cleaning badge”                                     | No caption needed because the asset is visibly illustrated and brand-led    | Not proof; 1024 × 1024 with intrinsic dimensions                           |
+| `/images/brand/logo-mark-transparent.png`                                | Small decorative homepage hero seal                              | Brand artwork  | Empty alt because the adjacent header and hero already identify the brand                              | None                                                                        | Transparent raster identity only; 640 × 640 with intrinsic dimensions      |
 | `/images/brand/responsive/hero-homepage-{480,768,1024,1280}.webp`        | Homepage feature, `/service-areas`, and all six city-page heroes | Brand artwork  | “Illustrative Florida-style home exterior with driveway, walkway, palms, and residential landscaping.” | “Decorative brand artwork. Not completed project photography.” where framed | Not proof; responsive WebP set with `srcset` and route-appropriate `sizes` |
 | Header and footer wordmark derivatives under `/images/brand/responsive/` | All public routes                                                | Brand artwork  | Empty alt inside an already labeled home link                                                          | None                                                                        | Identity only; responsive PNG derivatives                                  |
 | `/images/brand/og-default.png`                                           | Social share metadata                                            | Brand artwork  | Metadata alt: “CFL Wash Co. exterior cleaning in Central Florida”                                      | None                                                                        | Not visible project proof; social delivery asset                           |
@@ -34,15 +34,17 @@ and `not-proof`, even though they use a realistic architectural style.
 ### Service illustrations
 
 Each family has `480`, `768`, `1024`, and `1280` pixel WebP derivatives under
-`/images/service-illustrations/`. All use the visible caption “Illustrative
-service image. Not completed project photography.” in hero framing. The
-homepage service-card section carries the equivalent section-level disclosure.
+`/images/service-illustrations/`. Service-detail hero frames use the visible
+caption “Illustrative service image. Not completed project photography.” The
+homepage service-card section carries the equivalent section-level disclosure,
+and the homepage mosaic exposes the same `service-illustration` / `not-proof`
+classification in its markup.
 
-| Registry ID and path stem                  | Public usage                                          | Classification       | Alt text                                                                                          | Risk and delivery                                                      |
-| ------------------------------------------ | ----------------------------------------------------- | -------------------- | ------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| `service-driveway` / `driveway-cleaning-*` | Homepage cards and `/driveway-pressure-washing`       | Service illustration | “Illustrative Florida-style home with a broad concrete driveway and landscaped front approach.”   | Realistic generated scene; always `not-proof`; responsive 3:2 WebP set |
-| `service-walkway` / `walkway-cleaning-*`   | Homepage cards and `/sidewalk-walkway-cleaning`       | Service illustration | “Illustrative Florida-style home with a curved concrete walkway, sidewalk, and landscaped entry.” | Realistic generated scene; always `not-proof`; responsive 3:2 WebP set |
-| `service-concrete` / `concrete-cleaning-*` | Homepage cards, `/services`, and `/concrete-cleaning` | Service illustration | “Illustrative Florida-style home with concrete patio, entry, and curb surfaces.”                  | Realistic generated scene; always `not-proof`; responsive 3:2 WebP set |
+| Registry ID and path stem                  | Public usage                                               | Classification       | Alt text                                                                                          | Risk and delivery                                                      |
+| ------------------------------------------ | ---------------------------------------------------------- | -------------------- | ------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `service-driveway` / `driveway-cleaning-*` | Homepage hero/cards and `/driveway-pressure-washing`       | Service illustration | “Illustrative Florida-style home with a broad concrete driveway and landscaped front approach.”   | Realistic generated scene; always `not-proof`; responsive 3:2 WebP set |
+| `service-walkway` / `walkway-cleaning-*`   | Homepage hero/cards and `/sidewalk-walkway-cleaning`       | Service illustration | “Illustrative Florida-style home with a curved concrete walkway, sidewalk, and landscaped entry.” | Realistic generated scene; always `not-proof`; responsive 3:2 WebP set |
+| `service-concrete` / `concrete-cleaning-*` | Homepage hero/cards, `/services`, and `/concrete-cleaning` | Service illustration | “Illustrative Florida-style home with concrete patio, entry, and curb surfaces.”                  | Realistic generated scene; always `not-proof`; responsive 3:2 WebP set |
 
 The source scenes were generated with the built-in image-generation model on
 2026-06-19. The coordinated final prompt briefs were:
@@ -85,9 +87,9 @@ the user complete or confirm the quote flow. Shared wordmarks remain present.
 
 ## Route hierarchy
 
-- `/`: brand badge leads the hero; three distinct service illustrations create
-  category recognition; generic residential brand artwork supports the company
-  process section.
+- `/`: driveway, walkway, and concrete service illustrations lead a responsive
+  hero mosaic; a small transparent logo mark provides decorative identity only.
+  Generic residential brand artwork supports the later company process section.
 - `/services`: a service illustration leads; icons and copy do the remaining
   comparison work.
 - Three service detail pages: the matching service illustration leads with a

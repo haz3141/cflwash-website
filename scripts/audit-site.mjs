@@ -798,6 +798,130 @@ async function main() {
   }
 
   const homepage = htmlByRoute.get('/')?.html ?? ''
+  const homepageHero =
+    homepage.match(
+      /<section\b[^>]*data-home-hero[^>]*>[\s\S]*?<\/section>/i,
+    )?.[0] ?? ''
+  const expectedHeroHeading =
+    'Driveway, Sidewalk, and Exterior Cleaning in Central Florida'
+  const heroImages = getTags(homepageHero, 'img').map((tag) =>
+    parseAttributes(tag),
+  )
+
+  if (!homepageHero) {
+    failures.push('Homepage must render the responsive service-led hero.')
+  }
+
+  if (getTags(homepageHero, 'h1').length !== 1) {
+    failures.push('Homepage hero must render exactly one H1.')
+  }
+
+  if (findHeading(homepageHero, 1) !== expectedHeroHeading) {
+    failures.push('Homepage hero must render the approved service-led H1.')
+  }
+
+  const heroText = stripHtml(homepageHero)
+  if (!heroText.includes('Request a Quote') || !heroText.includes('Call')) {
+    failures.push(
+      'Homepage hero must render the approved quote and call actions.',
+    )
+  }
+
+  if (homepageHero.includes('/images/brand/badge-illustrated.png')) {
+    failures.push(
+      'Homepage hero must not render the white-background illustrated badge.',
+    )
+  }
+
+  if (
+    !homepage.includes('data-mobile-sticky-cta') ||
+    !homepage.includes('data-visible="false"')
+  ) {
+    failures.push(
+      'Homepage mobile sticky CTA must start hidden so it does not compete with visible hero actions.',
+    )
+  }
+
+  for (const { id, stem, alt } of serviceIllustrations) {
+    if (countOccurrences(homepageHero, `data-media-id="${id}"`) !== 1) {
+      failures.push(
+        `Homepage hero must render registered service media \`${id}\` exactly once.`,
+      )
+    }
+
+    const imageSrc = `/images/service-illustrations/${stem}-1280.webp`
+    const imageTags = heroImages.filter(({ src }) => src === imageSrc)
+
+    if (imageTags.length !== 1) {
+      failures.push(
+        `Homepage hero must render responsive service image \`${imageSrc}\` exactly once.`,
+      )
+      continue
+    }
+
+    const [imageTag] = imageTags
+
+    if ((imageTag.alt ?? '').trim() !== alt) {
+      failures.push(
+        `Homepage hero service media \`${id}\` must use its registered alt text.`,
+      )
+    }
+
+    if (imageTag.width !== '1280' || imageTag.height !== '853') {
+      failures.push(
+        `Homepage hero service media \`${id}\` must reserve its registered dimensions.`,
+      )
+    }
+
+    if (!(imageTag.sizes ?? '').trim()) {
+      failures.push(
+        `Homepage hero service media \`${id}\` must render a responsive \`sizes\` attribute.`,
+      )
+    }
+
+    for (const width of [480, 768, 1024, 1280]) {
+      const source = `/images/service-illustrations/${stem}-${width}.webp ${width}w`
+
+      if (!imageTag.srcset?.includes(source)) {
+        failures.push(
+          `Homepage hero service media \`${id}\` must include responsive source \`${source}\`.`,
+        )
+      }
+    }
+  }
+
+  if (
+    countOccurrences(homepageHero, 'data-media-role="service-illustration"') !==
+      3 ||
+    countOccurrences(homepageHero, 'data-proof-status="not-proof"') !== 3
+  ) {
+    failures.push(
+      'Homepage hero must identify all three mosaic images as proof-safe service illustrations.',
+    )
+  }
+
+  const heroSealTags = heroImages.filter(
+    ({ src }) => src === '/images/brand/logo-mark-transparent.png',
+  )
+
+  if (heroSealTags.length !== 1) {
+    failures.push(
+      'Homepage hero must render the transparent brand seal exactly once.',
+    )
+  } else {
+    const [heroSeal] = heroSealTags
+
+    if ((heroSeal.alt ?? '') !== '') {
+      failures.push('Homepage hero transparent brand seal must be decorative.')
+    }
+
+    if (heroSeal.width !== '640' || heroSeal.height !== '640') {
+      failures.push(
+        'Homepage hero transparent brand seal must reserve its intrinsic dimensions.',
+      )
+    }
+  }
+
   const homepageServiceMediaIds = new Set(
     getTags(homepage, 'article')
       .map((tag) => parseAttributes(tag))

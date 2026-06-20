@@ -1,5 +1,6 @@
 ---
 import HomeServiceCard from '../components/home/HomeServiceCard.astro'
+import HomeHero from '../components/home/HomeHero.astro'
 import WaterWaveDivider from '../components/home/WaterWaveDivider.astro'
 import OrganizationSchema from '../components/site/OrganizationSchema.astro'
 import Button from '../components/ui/Button.astro'
@@ -19,22 +20,13 @@ import {
   ClipboardList,
   Droplets,
   Footprints,
-  House,
   MapPin,
   Phone,
-  ShieldCheck,
   Sparkles,
   Waves,
 } from '@lucide/astro'
 
 const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
-
-const heroBenefits = [
-  { icon: Sparkles, title: 'Boosts curb appeal' },
-  { icon: House, title: 'HOA notice support' },
-  { icon: ShieldCheck, title: 'Surface-aware review' },
-  { icon: CalendarCheck2, title: 'Clear next steps' },
-]
 
 const trustItems = [
   {
@@ -152,123 +144,8 @@ const processFeatures = [
   <OrganizationSchema slot="head" />
 
   <main>
-    <section
-      class="relative overflow-hidden bg-[var(--color-surface-warm)] pt-10 sm:pt-14 lg:pt-16"
-    >
-      <div
-        class="hero-art-panel pointer-events-none absolute inset-0 opacity-45"
-        aria-hidden="true"
-      >
-      </div>
-
-      <div
-        class="relative mx-auto grid w-full max-w-[82rem] min-w-0 items-center gap-9 px-[var(--container-gutter)] pb-3 lg:grid-cols-[minmax(0,0.9fr)_minmax(25rem,1.1fr)] lg:gap-6"
-      >
-        <div class="relative z-10 min-w-0 max-w-[42rem]">
-          <p class="text-eyebrow text-[var(--color-accent)]">
-            Exterior cleaning made easy
-          </p>
-          <h1
-            class="mt-4 max-w-[10ch] text-[clamp(3.2rem,6.7vw,6.35rem)] font-semibold leading-[0.93] tracking-[-0.058em] text-[var(--color-text)]"
-          >
-            Curb Appeal You Can See<span
-              class="text-[var(--color-accent)]"
-              aria-hidden="true">.</span
-            >
-          </h1>
-          <p
-            class="hero-mobile-measure mt-6 text-base leading-7 text-[var(--color-text-muted)] sm:text-lg sm:leading-8"
-          >
-            Exterior concrete cleaning for homes across Central Florida. Start
-            with the driveway, sidewalk, walkway, curb, or front approach that
-            needs attention most.
-          </p>
-
-          <div class="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-3">
-            {
-              heroBenefits.map((benefit) => (
-                <div class="flex items-center gap-2.5 sm:border-r sm:border-[var(--color-border)] sm:pr-2 sm:last:border-r-0">
-                  <IconBadge
-                    icon={benefit.icon}
-                    tone="default"
-                    size="sm"
-                    class="theme-shadow-xs shrink-0 text-[var(--color-action)]"
-                  />
-                  <p class="text-[0.72rem] font-semibold leading-4 text-[var(--color-text)]">
-                    {benefit.title}
-                  </p>
-                </div>
-              ))
-            }
-          </div>
-
-          <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button
-              href="/request-quote"
-              variant="accent"
-              size="lg"
-              fullWidth
-              class="sm:w-auto"
-              data-cta="quote"
-              data-cta-location="home-hero"
-            >
-              Get a Free Quote
-              <ArrowRight
-                slot="endIcon"
-                class="h-5 w-5"
-                aria-hidden="true"
-                stroke-width="1.8"
-              />
-            </Button>
-            <Button
-              href="/services"
-              variant="light"
-              size="lg"
-              fullWidth
-              class="sm:w-auto"
-            >
-              View Services
-            </Button>
-          </div>
-
-          <p
-            class="mt-7 flex items-center gap-2 text-sm font-semibold text-[var(--color-text)]"
-          >
-            <MapPin
-              class="h-4 w-4 text-[var(--color-action)]"
-              aria-hidden="true"
-              stroke-width="1.8"
-            />
-            Proudly serving Central Florida
-          </p>
-        </div>
-
-        <div
-          class="relative z-10 mx-auto w-full max-w-full min-w-0 lg:-mb-6 lg:max-w-[39rem]"
-        >
-          <div
-            class="hero-art-glow absolute inset-x-[12%] bottom-[4%] top-[12%] rounded-[45%]"
-            aria-hidden="true"
-          >
-          </div>
-          <img
-            src="/images/brand/badge-illustrated.png"
-            alt="CFL Wash Co. illustrated Central Florida exterior cleaning badge"
-            width="1024"
-            height="1024"
-            loading="eager"
-            decoding="async"
-            fetchpriority="high"
-            class="hero-art-image relative mx-auto max-h-[39rem] w-full object-contain"
-            data-media-id="brand-illustrated-badge"
-            data-media-role="brand-artwork"
-            data-proof-status="not-proof"
-          />
-        </div>
-      </div>
-
-      <WaterWaveDivider />
-    </section>
+    <HomeHero />
+    <WaterWaveDivider />
 
     <section
       class="bg-[var(--color-surface-inverse)] text-[var(--color-text-inverse)]"

@@ -269,10 +269,25 @@ Use the in-app Browser when available. Record any route-specific notes in the PR
 The component hierarchy is intentionally layered:
 
 - `src/components/ui/` contains low-level primitives: `Button`, `Card`, `Container`, `IconBadge`, `Section`, and `SectionHeader`.
+- `src/components/home/` contains homepage-only compositions such as `HomeHero`, `HomeServiceCard`, and `WaterWaveDivider`.
 - `src/components/patterns/` contains reusable page compositions that own common responsive structure while pages still own copy, SEO, content order, and page-specific slots.
 - `src/components/site/` remains reserved for global chrome such as the header, footer, analytics, schema, and mobile sticky CTA.
 
 Use page patterns when at least two current pages share the same structure. Do not create speculative variants for future page ideas.
+
+#### HomeHero
+
+Purpose: homepage-only, service-led conversion hero owned by
+`src/components/home/HomeHero.astro`.
+
+Rules:
+
+- Keep one semantic content and media structure across all breakpoints.
+- Use a centered stacked layout below 960px and a copy/mosaic split at 960px and above.
+- Keep the eyebrow, H1, supporting copy, and primary quote action ahead of the visual on mobile.
+- Use only registered `service-illustration` / `not-proof` media with responsive candidates and intrinsic dimensions.
+- Use `logo-mark-transparent.png` only as a small decorative seal; never use the white-background illustrated badge as the main hero image.
+- Keep the primary action labeled `Request a Quote` and the secondary phone action labeled `Call`.
 
 #### HeroSection
 
