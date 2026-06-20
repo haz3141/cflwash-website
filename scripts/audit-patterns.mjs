@@ -18,6 +18,7 @@ const scanRoots = [
 const requiredComponents = [
   'HeroSection.astro',
   'MediaFrame.astro',
+  'ServiceMenu.astro',
   'SplitFeature.astro',
   'ProcessSteps.astro',
   'LinkGrid.astro',

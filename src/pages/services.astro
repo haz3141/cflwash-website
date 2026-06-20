@@ -2,11 +2,10 @@
 import Button from '../components/ui/Button.astro'
 import BreadcrumbSchema from '../components/site/BreadcrumbSchema.astro'
 import Breadcrumbs from '../components/site/Breadcrumbs.astro'
-import Card from '../components/ui/Card.astro'
 import CTASection from '../components/patterns/CTASection.astro'
 import HeroSection from '../components/patterns/HeroSection.astro'
-import IconBadge from '../components/ui/IconBadge.astro'
 import MediaFrame from '../components/patterns/MediaFrame.astro'
+import ServiceMenu from '../components/patterns/ServiceMenu.astro'
 import Section from '../components/ui/Section.astro'
 import Layout from '../layouts/Layout.astro'
 import { publicMedia } from '../data/publicMedia'
@@ -41,6 +40,19 @@ const serviceFits = {
   'concrete-cleaning':
     'Choose this for patios, pads, aprons, curbs, and other appropriate concrete areas.',
 } as const
+const serviceMedia = {
+  'driveway-pressure-washing': publicMedia.serviceDriveway,
+  'sidewalk-walkway-cleaning': publicMedia.serviceWalkway,
+  'concrete-cleaning': publicMedia.serviceConcrete,
+} as const
+const serviceMenuItems = services.map((service) => ({
+  slug: service.slug,
+  name: service.name,
+  summary: service.summary,
+  fit: serviceFits[service.slug],
+  media: serviceMedia[service.slug],
+  icon: serviceIcons[service.slug],
+}))
 ---
 
 <Layout
@@ -114,41 +126,7 @@ const serviceFits = {
       description="Each page explains the active scope, quote considerations, preparation, and common homeowner questions for that service."
       class="border-t border-[var(--color-border)]"
     >
-      <div class="grid gap-5 lg:grid-cols-3">
-        {
-          services.map((service) => {
-            const Icon = serviceIcons[service.slug]
-
-            return (
-              <Card
-                tone="raised"
-                elevated
-                padding="lg"
-                class="flex h-full flex-col"
-              >
-                <IconBadge icon={Icon} tone="soft" size="lg" />
-                <h2 class="mt-5 text-section-subtitle text-[var(--color-text)]">
-                  {service.name}
-                </h2>
-                <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
-                  {service.summary}
-                </p>
-                <p class="mt-4 flex-1 border-t border-[var(--color-border)] pt-4 text-sm leading-7 text-[var(--color-text-muted)]">
-                  {serviceFits[service.slug]}
-                </p>
-                <a href={`/${service.slug}`} class="text-link mt-6">
-                  View {service.name}
-                  <ArrowRight
-                    class="h-4 w-4"
-                    aria-hidden="true"
-                    stroke-width="1.9"
-                  />
-                </a>
-              </Card>
-            )
-          })
-        }
-      </div>
+      <ServiceMenu items={serviceMenuItems} />
     </Section>
 
     <Section

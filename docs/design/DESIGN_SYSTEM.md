@@ -346,6 +346,38 @@ Rules:
 - Follow `PREMIUM_MEDIA_SYSTEM.md` for role selection, disclosures, delivery,
   rights records, and the future verified-proof boundary.
 
+#### ServiceMenu
+
+Purpose: curated editorial navigation for the three active launch services on
+the services hub.
+
+Inputs:
+
+- `items`: exactly the active driveway, sidewalk and walkway, and concrete
+  services, each with its canonical slug, existing name, summary, fit guidance,
+  registered `PublicMediaAsset`, and Lucide icon.
+
+Content and media rules:
+
+- Keep the menu limited to the three active service routes; do not add future
+  services, speculative variants, or unsupported claims.
+- Use each service's registered illustration with its exact alt text,
+  responsive sources, intrinsic dimensions, media role, and proof status.
+- Keep the proof-safe caption visible and include attribution whenever the
+  registry supplies it.
+- Keep service names, summaries, fit guidance, and descriptive link labels
+  page-owned and claim-safe.
+
+Layout rules:
+
+- Render one semantic, non-nested list of open rows separated by borders and
+  whitespace; do not wrap rows or their content in `Card` components or nested
+  framed cards.
+- Keep media before content in the DOM, stack each row on smaller screens, and
+  use a balanced two-column layout at the large breakpoint.
+- Use shared tokens, `IconBadge`, `.media-frame`, `.text-link`, and documented
+  shadow utilities rather than page-local colors, shadows, or CTA treatments.
+
 #### SplitFeature
 
 Purpose: recurring two-column sections with a text column and flexible secondary content.
