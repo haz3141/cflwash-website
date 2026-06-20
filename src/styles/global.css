@@ -192,6 +192,39 @@
     box-shadow: var(--shadow-media);
   }
 
+  .hero-mosaic-container {
+    position: relative;
+    width: 100%;
+  }
+
+  .mosaic-card-main {
+    box-shadow: var(--shadow-xl);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .mosaic-card-side {
+    box-shadow: var(--shadow-lg);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .mosaic-label {
+    background: var(--color-wave-highlight);
+    backdrop-filter: blur(4px);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+    color: var(--color-brand-navy);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.025em;
+    padding: 0.25rem 0.5rem;
+    position: absolute;
+    text-transform: uppercase;
+  }
+
   .hero-art-panel {
     background-image:
       radial-gradient(
