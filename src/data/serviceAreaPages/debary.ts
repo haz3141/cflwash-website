@@ -5,62 +5,52 @@ export const debaryPage = {
   slug: 'debary',
   seoTitle: 'Pressure Washing in DeBary, FL | CFL Wash Co.',
   seoDescription:
-    'Request driveway, walkway, sidewalk, and concrete cleaning in DeBary, Florida from CFL Wash Co.',
+    'Request DeBary driveway, walkway, sidewalk, and concrete cleaning for shaded surfaces, compact entries, and connected front areas.',
   heroDescription:
-    'CFL Wash Co. provides driveway, walkway, sidewalk, and concrete cleaning for DeBary homeowners who want a cleaner front approach.',
+    'Request cleaning for a shaded DeBary driveway, front walk, entry pad, sidewalk section, or other residential concrete around the home.',
   heroMedia: publicMedia.serviceDriveway,
-  localHeading: 'Wooded streets and varied concrete layouts',
+  localHeading: 'Shade and access',
   localBody:
-    'DeBary properties can combine mature tree cover, shaded walks, wider driveways, and compact entries around DeBary Main Street or the SunRail area. Photos help show where buildup collects and which surfaces should be quoted together.',
+    'Tree cover can leave driveway edges, walks, and entries with different levels of buildup. A wide photo helps connect those areas while close views show the shaded sections that need the most attention.',
   localNote:
-    'Show the full path from the street to the entry, including gates, parked vehicles, shared access, or narrow walkways.',
+    'Mention a shared driveway, gate, parked vehicles, or a narrow path so access is clear before the quote is prepared.',
   reasons: [
     {
       title: 'Shaded concrete buildup',
       description:
-        'Walkways and driveway edges under trees can hold visible organic buildup and leaf marks.',
+        'Driveway edges and walks under trees can collect visible organic buildup and leaf marks.',
     },
     {
-      title: 'Driveway and front-walk bundle',
+      title: 'A connected driveway and walk',
       description:
-        'Request connected surfaces together when they form the main arrival path to the home.',
+        'Request both areas together when they form the main route from the street to the entry.',
     },
     {
-      title: 'HOA-facing concrete cleanup',
+      title: 'Tight or shared access',
       description:
-        'Send any notice details and photos of the exact driveway, walk, curb, or entry area involved.',
+        'A shared drive, gate, or narrow walk belongs in the request so the quote reflects how the concrete can be reached.',
     },
   ],
   faqs: [
     {
-      question: 'Which DeBary surfaces can I include in a quote?',
+      question: 'Which DeBary concrete surfaces can I request?',
       answer:
-        'You can request driveways, front walks, sidewalk sections, entry pads, patios, aprons, curbs, and similar residential concrete.',
+        'Request driveways, front walks, sidewalk sections, entry pads, patios, aprons, curbs, and other residential concrete.',
     },
     {
-      question: 'Why should I send a wide photo of the property?',
+      question: 'What should I show when tree cover affects the concrete?',
       answer:
-        'A wide photo shows the approach, nearby surfaces, access limits, and how the driveway and walk connect.',
+        'Send one wide photo of the approach and close views of shaded edges, leaf marks, recurring buildup, and nearby landscaping.',
     },
     {
-      question: 'Can smaller entry areas still be quoted?',
+      question: 'Can I send an HOA notice with the request?',
       answer:
-        'Yes. Describe the surfaces you want cleaned and include photos so the complete scope can be reviewed.',
+        'Yes. Include the exact HOA notice wording, deadline, named surface, and current photos.',
     },
     {
-      question: 'What surface details should I disclose?',
+      question: 'What access details matter for a DeBary quote?',
       answer:
-        'Mention decorative, sealed, painted, coated, exposed-aggregate, or paver-adjacent surfaces before expectations are set.',
-    },
-    {
-      question: 'What if tree cover causes recurring buildup?',
-      answer:
-        'Show the shaded areas and where buildup returns. Those photos help distinguish the affected edges, walks, and driveway sections.',
-    },
-    {
-      question: 'Should I mention shared drives, gates, or narrow access?',
-      answer:
-        'Yes. Include any access condition that could affect reaching the requested surfaces or clearing the work area.',
+        'Mention a shared driveway, gate, narrow path, parked vehicles, or anything else that affects reaching and clearing the requested concrete.',
     },
   ],
   nearbySlugs: ['deltona', 'orange-city', 'deland'],

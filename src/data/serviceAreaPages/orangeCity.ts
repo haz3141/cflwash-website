@@ -5,63 +5,52 @@ export const orangeCityPage = {
   slug: 'orange-city',
   seoTitle: 'Pressure Washing in Orange City, FL | CFL Wash Co.',
   seoDescription:
-    'Request driveway, walkway, sidewalk, and concrete cleaning in Orange City, Florida from CFL Wash Co.',
+    'Request Orange City driveway, walkway, sidewalk, and concrete cleaning for shaded walks, compact entries, and front approaches.',
   heroDescription:
-    'CFL Wash Co. helps Orange City homeowners clean driveways, front walks, entry concrete, sidewalk sections, and other appropriate hard surfaces.',
+    'Request cleaning for an Orange City driveway, shaded front walk, entry slab, sidewalk section, or connected residential concrete.',
   heroMedia: publicMedia.serviceWalkway,
-  localHeading: 'Established neighborhoods and compact front entries',
+  localHeading: 'Entry layout',
   localBody:
-    'Orange City homes can range from compact front approaches near Graves Avenue and Rhode Island Avenue to wider driveways in surrounding neighborhoods. The right quote starts with the actual concrete at the property, not a one-size-fits-all package.',
+    'A smaller front approach may combine a driveway edge, short walk, entry slab, and curb in a tight area. Tree cover can also leave shaded walks and borders looking darker than the open driveway.',
   localNote:
-    'Include photos of the driveway, entry walk, and any sidewalk sections you want considered together.',
+    'Use one wide photo to show how the driveway, entry walk, and sidewalk connect. Move planters, bins, or furniture only after the quote identifies the requested areas.',
   reasons: [
+    {
+      title: 'Shaded walks and entry concrete',
+      description:
+        'Damp, shaded edges can collect leaf marks and organic buildup around the route to the door.',
+    },
     {
       title: 'Driveway and entry refresh',
       description:
-        'Clean the visible approach to the home when the driveway and front walk have collected everyday buildup.',
-    },
-    {
-      title: 'Leaf and shade-related buildup',
-      description:
-        'Tree cover and damp areas can leave darker patches around walks, edges, and entry concrete.',
+        'Include the visible approach when the driveway and front walk both look dull or uneven.',
     },
     {
       title: 'Move-in or sale preparation',
       description:
-        'A concrete cleanup can improve the first impression before photos, showings, or moving day.',
+        'Request a focused cleanup before listing photos, showings, hosting, or moving day.',
     },
   ],
   faqs: [
     {
-      question: 'What can CFL Wash Co. clean in Orange City?',
+      question: 'Which Orange City surfaces can I include?',
       answer:
-        'The current offer covers driveways, sidewalks, walkways, entry concrete, patios, pads, aprons, curbs, and similar appropriate hard surfaces.',
+        'Request driveways, sidewalks, walkways, entries, patios, pads, aprons, curbs, and other residential concrete.',
     },
     {
-      question:
-        'Do I need to know the square footage before requesting a quote?',
+      question: 'What if shade causes the buildup to return?',
       answer:
-        'No. A rough description and clear photos are enough to start. Measurements can be confirmed during the quote review.',
+        'Recurring shade does not prevent you from requesting a quote. Show the darkest edges and note where leaves, irrigation, or moisture regularly affect the concrete.',
     },
     {
-      question: 'Can I include an HOA notice with my request?',
+      question: 'Can I include an HOA notice?',
       answer:
-        'Yes. Add the notice wording, due date, named surface, and photos so the requested cleanup is clear.',
+        'Yes. Send the notice wording, deadline, named surface, and current photos with the quote request.',
     },
     {
-      question: 'What if the concrete is sealed, painted, or decorative?',
+      question: 'Do I need measurements before I request a quote?',
       answer:
-        'Mention it before the quote is reviewed. Specialty and previously coated surfaces need to be identified up front.',
-    },
-    {
-      question: 'Can I request several small front-entry areas together?',
-      answer:
-        'Yes. List the driveway approach, front walk, entry slab, curb edge, or other concrete sections and show them together in one wide photo.',
-    },
-    {
-      question: 'What access details should I include?',
-      answer:
-        'Mention parked vehicles, gates, planters, porch furniture, bins, or narrow spaces that may affect access to the requested concrete.',
+        'No. Start with the address, a surface list, and clear photos. Mention sealed, painted, decorative, or paver-adjacent areas so they are identified from the beginning.',
     },
   ],
   nearbySlugs: ['deltona', 'debary', 'deland'],

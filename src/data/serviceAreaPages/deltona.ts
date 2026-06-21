@@ -5,62 +5,52 @@ export const deltonaPage = {
   slug: 'deltona',
   seoTitle: 'Pressure Washing in Deltona, FL | CFL Wash Co.',
   seoDescription:
-    'Request driveway, sidewalk, walkway, and concrete cleaning in Deltona, Florida from CFL Wash Co.',
+    'Request Deltona driveway, sidewalk, walkway, and concrete cleaning with guidance for connected front surfaces and HOA notices.',
   heroDescription:
-    'CFL Wash Co. provides concrete-focused pressure washing for Deltona driveways, sidewalks, walkways, entry areas, and curb appeal cleanup.',
+    'Request cleaning for a dark driveway, front walk, entry concrete, sidewalk panels, or other residential concrete at a Deltona home.',
   heroMedia: publicMedia.serviceDriveway,
-  localHeading: 'Driveway-first residential layouts',
+  localHeading: 'Front approach',
   localBody:
-    'Homes across Deltona can have very different front approaches. Sidewalk coverage varies by neighborhood. Some include a driveway and entry walk only, while others add panels, aprons, curbs, or extra concrete near the garage.',
+    'A Deltona quote can start with the driveway and front walk, then add the entry pad, sidewalk panels, apron, curb, or extra concrete near the garage when those areas need attention too.',
   localNote:
-    'Send one wide photo of the front approach so the quote includes the surfaces that matter most from the street and entry.',
+    'Send one wide photo from the street and label the exact sections you want included. Add close photos of stains, cracks, coatings, or decorative finishes.',
   reasons: [
     {
       title: 'Dark driveway buildup',
       description:
-        'Visible grime and organic buildup can make the driveway look dull from the street.',
+        'Everyday grime and organic buildup can leave the main driveway looking dark from the street.',
     },
     {
       title: 'HOA notice cleanup',
       description:
-        'Share the notice wording, deadline, and photos of the concrete named in the notice.',
+        'Attach the notice, deadline, and current photos so the request stays focused on the cited concrete.',
     },
     {
-      title: 'Front-entry curb appeal',
+      title: 'One connected arrival path',
       description:
-        'Bundle the driveway, front walk, and entry concrete when they read as one connected area.',
+        'Include the driveway, front walk, and entry concrete together when they form the route to the door.',
     },
   ],
   faqs: [
     {
-      question: 'What pressure washing services are available in Deltona?',
+      question: 'Which Deltona concrete surfaces can I request?',
       answer:
-        'Current services include driveway pressure washing, sidewalk and walkway cleaning, and concrete cleaning for appropriate residential hard surfaces.',
+        'Request driveways, sidewalks, walkways, entry pads, patios, aprons, curbs, and other residential concrete.',
     },
     {
-      question: 'Can I request driveway and walkway cleaning together?',
+      question: 'How does an HOA notice fit the quote?',
       answer:
-        'Yes. Include both areas in one quote request and send a wide photo that shows how they connect.',
+        'Attach the exact notice wording, deadline, and photos of the named surface. The quote can stay limited to that area or include other concrete you identify.',
     },
     {
-      question: 'Can you help with a Deltona HOA notice?',
+      question: 'Will pressure washing remove every driveway stain?',
       answer:
-        'Yes. Send the exact wording, deadline, named surface, and current photos so the request stays tied to the notice.',
+        'Not always. Everyday buildup can improve, while oil, rust, irrigation marks, wear, and deeper discoloration may remain.',
     },
     {
-      question: 'What should I mention about the surface?',
+      question: 'What should I send with the Deltona quote request?',
       answer:
-        'Call out pavers, sealed or painted concrete, decorative finishes, exposed aggregate, cracks, or previous coatings before the quote is reviewed.',
-    },
-    {
-      question: 'What photos should I send for a Deltona quote?',
-      answer:
-        'Send one wide photo of the full approach plus close photos of buildup, stains, edges, cracks, and any specialty finish.',
-    },
-    {
-      question: 'Can a patio, apron, curb, or entry pad be included?',
-      answer:
-        'Include every concrete area you want considered in the same request. Photos and surface details help define the proposed scope.',
+        'Send the address, a list of surfaces, one wide photo, close views of problem areas, and notes about access, pavers, paint, sealers, or decorative finishes.',
     },
   ],
   nearbySlugs: ['orange-city', 'debary', 'deland'],

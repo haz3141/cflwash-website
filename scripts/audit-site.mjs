@@ -110,7 +110,8 @@ const expectedCityPages = [
     alt: 'Deltona City Hall with flags and landscaping beneath a broad blue sky.',
     attribution:
       'Photo: Connor J. Williams, CC BY 3.0, via Wikimedia Commons. Resized for web delivery.',
-    snippets: ['Sidewalk coverage varies', 'Deltona City Hall civic context.'],
+    snippets: ['driveway and front walk', 'HOA notice'],
+    forbiddenCopySnippets: ['Sidewalk coverage varies'],
   },
   {
     city: 'Orange City',
@@ -125,7 +126,8 @@ const expectedCityPages = [
     alt: 'Orange City Town Hall framed by trees and lawn under a clear sky.',
     attribution:
       'Photo: Connor J. Williams, CC BY 3.0, via Wikimedia Commons. Resized for web delivery.',
-    snippets: ['Graves Avenue', 'Rhode Island'],
+    snippets: ['shaded walks', 'moving day'],
+    forbiddenCopySnippets: ['Graves Avenue', 'Rhode Island Avenue'],
   },
   {
     city: 'DeBary',
@@ -140,7 +142,8 @@ const expectedCityPages = [
     alt: 'DeBary Hall, a white historic building with wraparound porches and palm trees.',
     attribution:
       'Photo: Ebyabe (John Bradley), CC BY-SA 3.0, via Wikimedia Commons. Resized for web delivery.',
-    snippets: ['DeBary Main Street', 'SunRail'],
+    snippets: ['Tree cover', 'shared driveway'],
+    forbiddenCopySnippets: ['DeBary Main Street', 'SunRail area'],
   },
   {
     city: 'DeLand',
@@ -155,7 +158,11 @@ const expectedCityPages = [
     alt: 'The Athens Theatre facade in downtown DeLand with the marquee visible.',
     attribution:
       'Photo: Ebyabe (John Bradley), CC BY 2.5, via Wikimedia Commons. Resized for web delivery.',
-    snippets: ['downtown historic district', 'school-link sidewalks'],
+    snippets: ['Older and newer concrete', 'listing photos'],
+    forbiddenCopySnippets: [
+      'downtown historic district',
+      'school-link sidewalks',
+    ],
   },
   {
     city: 'Sanford',
@@ -170,7 +177,8 @@ const expectedCityPages = [
     alt: 'Sanford City Hall with a curved facade, flags, and palm trees near the entrance.',
     attribution:
       'Photo: Connor Williams, CC BY 2.0, via Wikimedia Commons. Resized for web delivery.',
-    snippets: ['Georgetown', 'Park Avenue corridor'],
+    snippets: ['concrete meets brick', 'Alley or curbside access'],
+    forbiddenCopySnippets: ['Georgetown', 'Park Avenue corridor'],
   },
   {
     city: 'Lake Mary',
@@ -185,10 +193,19 @@ const expectedCityPages = [
     alt: 'Lake Mary City Hall sign in front of a low brick wall and trees.',
     attribution:
       'Photo: Wikisteveb4, CC BY 4.0, via Wikimedia Commons. Resized for web delivery.',
-    snippets: ['Soldiers Creek', 'Rinehart Road'],
+    snippets: ['gate instructions', 'shared parking'],
+    forbiddenCopySnippets: ['Soldiers Creek', 'Rinehart Road'],
   },
 ]
 const expectedCityRoutes = new Set(expectedCityPages.map(({ route }) => route))
+const forbiddenCityCopySnippets = [
+  'homeowner-controlled scope',
+  'rights-of-way',
+  'public right-of-way',
+  'justify a city-specific page',
+  'drainage basin',
+  'jurisdiction boundary',
+]
 const secretPatterns = [
   {
     label: 'Resend API key',
@@ -2180,16 +2197,51 @@ async function main() {
     )
     const processSection = findSectionContaining(
       cityPage.html,
-      `How to request a pressure washing quote in ${cityPage.city}`,
+      `${cityPage.city} quote checklist`,
     )
     const faqSection = findSectionContaining(
       cityPage.html,
-      `${cityPage.city} pressure washing FAQs`,
+      `${cityPage.city} quote questions`,
     )
     const localContextSection = findSectionContaining(
       cityPage.html,
       'City context only',
     )
+    const visibleCityCopy = stripHtml(cityPage.html)
+    const requiredBuyerCopy = [
+      'Concrete surfaces you can request',
+      'Why clean the concrete?',
+      `${cityPage.city} quote checklist`,
+      'Quote first, scheduling later',
+      'HOA notice',
+    ]
+
+    for (const snippet of requiredBuyerCopy) {
+      if (!visibleCityCopy.includes(snippet)) {
+        failures.push(
+          `City page \`${cityPage.route}\` must answer issue #95 buyer questions with \`${snippet}\`.`,
+        )
+      }
+    }
+
+    for (const snippet of [
+      ...forbiddenCityCopySnippets,
+      ...cityPage.forbiddenCopySnippets,
+    ]) {
+      if (visibleCityCopy.toLowerCase().includes(snippet.toLowerCase())) {
+        failures.push(
+          `City page \`${cityPage.route}\` must remove civic-heavy or internal copy \`${snippet}\`.`,
+        )
+      }
+    }
+
+    const faqCount = faqSection ? getTags(faqSection.html, 'h3').length : 0
+
+    if (faqCount !== 4) {
+      failures.push(
+        `City page \`${cityPage.route}\` must keep four selective homeowner FAQs; found ${faqCount}.`,
+      )
+    }
 
     if (
       !processSection?.attributes.class?.includes(

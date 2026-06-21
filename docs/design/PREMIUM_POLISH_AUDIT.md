@@ -928,3 +928,107 @@ design/layout side of #77 by centralizing the premium composition, replacing
 the civic-led hierarchy, reducing hub/card density, and clarifying mobile
 conversion paths. Issue #77 should remain open until #95 proves the remaining
 content and usefulness requirements.
+
+## Issue #95 implementation review
+
+- Review date: June 21, 2026
+- Reviewed branch: `content/premium-city-copy`
+- Entry revision: `7465a841c17af1a42749d16362c3d05f20d19cd9`
+- Render target: built preview at `http://127.0.0.1:4322`
+- Browser: headless Google Chrome `149.0.7827.156` through the Chrome DevTools
+  Protocol
+
+### Structure-preserving content strategy
+
+Issue #95 keeps the complete issue #93 layout and media system. The hub remains
+the same split hero, six-city menu, active-service navigation, and inverse
+close. Every city still delegates to `ServiceAreaPage` and retains the same
+soft hero, service selector, water scenario band, compact local context, warm
+quote process, soft FAQ section, nearby links, and inverse CTA. No component
+field, section, route, CTA destination, tracking location, or visual variant
+was added.
+
+The copy now answers the homeowner's buying questions directly. The shared
+service-fit strip names the concrete surfaces that can be requested, explains
+that a few useful photos are enough to start, and distinguishes a quote request
+from scheduling. Scenario headings explain when cleaning makes sense. The
+quote checklist asks for the address, surface list, wide and close photos,
+access or finish details, and any HOA notice. Each city keeps four selective
+FAQs instead of six.
+
+### Hub and city positioning
+
+The service-area hub now uses a shorter concrete-cleaning promise, tells the
+visitor to choose the property city, and explains what each city page provides.
+Its outside-coverage close asks for the address, surfaces, photos, and any HOA
+notice without using `scope`, `review`, or scheduling-policy language.
+
+| Route                        | Homeowner-first distinction                                                                                                  |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `/service-areas/deltona`     | Dark driveways, the connected driveway/front-walk approach, sidewalk panels, and HOA-notice cleanup.                         |
+| `/service-areas/orange-city` | Compact entries, shaded walks, driveway refresh, and preparation for listing photos, showings, hosting, or moving day.       |
+| `/service-areas/debary`      | Tree-cover buildup, connected driveway and walk requests, and shared-drive, gate, or narrow-path access.                     |
+| `/service-areas/deland`      | Older and newer concrete at one property, realistic age/wear expectations, entry routes, and listing or event preparation.   |
+| `/service-areas/sanford`     | Concrete beside brick, pavers, paint, or curbs, plus alley, curbside, gate, drain, and parked-vehicle access.                |
+| `/service-areas/lake-mary`   | Gate instructions, shared parking, townhome entries, HOA notices, and sealed, decorative, or paver-adjacent surface details. |
+
+The six content records are 12–18% shorter by source word count than their
+issue #93 versions. Public copy removes the prior Graves Avenue, Rhode Island
+Avenue, DeBary Main Street, SunRail, downtown historic district, school-link
+sidewalk, Georgetown, Park Avenue corridor, Rinehart Road, and Soldiers Creek
+references. Civic captions remain unchanged because they identify licensed
+context-only media rather than selling the service.
+
+### Rendered QA method and results
+
+The in-app Browser bootstrap returned `Browser is not available: iab`.
+Project Playwright is not installed, so the established issue #93 fallback used
+installed headless Chrome through the DevTools Protocol. All temporary scripts,
+profiles, screenshots, and JSON results remained under `/tmp`; no browser
+dependency or QA artifact was added to the repository.
+
+The built-output matrix covered all seven affected routes at:
+
+- `390 × 844`
+- `430 × 932`
+- `768 × 1024`
+- `1024 × 768`
+- `1440 × 900`
+
+Across all 35 route/viewport combinations:
+
+- document width matched viewport width with no horizontal overflow;
+- each route rendered one expected H1 with no clipped or orphaned H1/H2 line;
+- hero quote and configured call actions were visible in the initial viewport;
+- the service-area hub and all city pages retained the issue #93 composition;
+- every image loaded with positive natural dimensions;
+- every city retained one expected service illustration, its visible
+  not-completed-project disclosure, and one compact attributed city-context
+  callout;
+- the final quote action remained visible and the mobile sticky CTA stayed
+  contained without overlapping it;
+- no framework overlay, relevant console warning/error, runtime exception,
+  failed request, or page error appeared.
+
+The 390px interaction path also passed:
+
+1. `/service-areas` → Deltona opened `/service-areas/deltona` with the expected
+   city H1.
+2. The Deltona hero `Request a Quote` action opened `/request-quote`.
+3. The destination retained `Request a quote for your cleaning project.` as
+   its H1 and `Request a Cleaning Quote | CFL Wash Co.` as its title.
+
+### Claim safety and relationship to #77
+
+Issue #95 adds no reviews, ratings, testimonials, guarantees, insurance or
+licensing claims, rankings, response-time or same-day claims, completed-job or
+city-work-history claims, fixed pricing, booking/payment claims, new services,
+new cities, or service-area expansion. It preserves the six titles, canonical
+paths, breadcrumbs, schema, sitemap/indexability rules, CTA tracking, proof
+statuses, image captions, and attribution.
+
+After issue #95 merges, issue #77 can close as completed. Issue #93 resolved
+its shared layout, civic-image hierarchy, card density, mobile rhythm, and CTA
+requirements; issue #95 now resolves the remaining homeowner usefulness,
+length, repetition, local differentiation, FAQ, and civic-document copy
+requirements. Issues #50 and #51 remain deferred.

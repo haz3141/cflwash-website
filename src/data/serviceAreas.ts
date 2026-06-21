@@ -9,36 +9,36 @@ export const serviceAreas: ServiceArea[] = [
     slug: 'deltona',
     name: 'Deltona',
     description:
-      'Driveway, sidewalk, walkway, and concrete cleaning for Deltona homeowners.',
+      'Driveway cleaning plus front walks, entries, sidewalk sections, and HOA notice requests.',
   },
   {
     slug: 'orange-city',
     name: 'Orange City',
     description:
-      'Historic-core, driveway, and entry concrete cleaning for Orange City homeowners.',
+      'Cleaning for compact entries, shaded walks, driveways, and move or sale preparation.',
   },
   {
     slug: 'debary',
     name: 'DeBary',
     description:
-      'Driveway, walkway, and entry concrete cleaning for DeBary homeowners.',
+      'Driveway and walkway cleaning for shaded surfaces, compact entries, and connected front concrete.',
   },
   {
     slug: 'deland',
     name: 'DeLand',
     description:
-      'Driveway, walkway, and entry concrete cleaning for DeLand homeowners.',
+      'Cleaning for older concrete, front walks, driveways, entries, and listing or event preparation.',
   },
   {
     slug: 'sanford',
     name: 'Sanford',
     description:
-      'Historic-frontage, driveway, walkway, and entry concrete cleaning for Sanford homeowners.',
+      'Cleaning for driveways and entries where concrete meets brick, pavers, curbs, or tight access.',
   },
   {
     slug: 'lake-mary',
     name: 'Lake Mary',
     description:
-      'Planned-community, driveway, walkway, and entry concrete cleaning for Lake Mary homeowners.',
+      'Driveway and entry cleaning with guidance for gates, shared parking, and decorative concrete.',
   },
 ]
