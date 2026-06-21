@@ -346,6 +346,26 @@ Rules:
 - Follow `PREMIUM_MEDIA_SYSTEM.md` for role selection, disclosures, delivery,
   rights records, and the future verified-proof boundary.
 
+#### CityContextMedia
+
+Purpose: attributed licensed place photography that identifies a city without
+acting as service or completed-project proof.
+
+Allowed variants:
+
+- `standard`: framed review treatment for the dev-only city-image fixture.
+- `compact`: small open callout used later on public city pages.
+
+Rules:
+
+- Public city pages must use `compact`, expose `data-city-context-callout`, and
+  keep the label `City context only` visible.
+- Preserve the registered `city-context` role, `context-only` proof status,
+  factual alt text, responsive sources, intrinsic dimensions, caption, and
+  attribution.
+- Never use civic photography in a hero, as a service result, or as evidence of
+  city-specific work history.
+
 #### ServiceMenu
 
 Purpose: curated editorial navigation for the three active launch services on
@@ -557,11 +577,33 @@ Inputs:
 
 Rules:
 
-- Keep city-specific copy, FAQs, nearby cities, and SEO data in the data file.
+- Keep city-specific copy, explicit registered hero media, FAQs, nearby cities,
+  and SEO data in the data file.
+- Use a proof-safe service illustration in the split hero. The mapping may
+  reflect an existing homeowner scenario, but must not imply work completed in
+  that city.
+- Use the shared soft hero, open service navigation, water scenario band,
+  white compact local-context treatment, warm process, soft FAQ, compact nearby
+  links, and inverse close. Do not fork the six route templates.
+- Render one stronger lead scenario and two quieter supporting scenarios as an
+  open editorial composition, not bordered cards.
+- Keep civic imagery inside the compact `CityContextMedia` callout after the
+  service and homeowner content. It must remain secondary and attributed.
+- Keep hero and final actions full width on mobile, quote first, and call/email
+  second.
 - Preserve canonical paths under `/service-areas/{slug}`.
 - Preserve `data-cta` and `data-cta-location` values on quote, call, and email actions.
 - Do not add cities through this pattern unless the city is approved in the service-area data and SEO inventory.
 - Use city-context images only as location context, never as completed project proof.
+
+### Service-area hub composition
+
+`/service-areas` uses the shared split `HeroSection` with registered residential
+brand artwork, one semantic `data-service-area-menu` list for the six approved
+cities, compact open service links, and one inverse final CTA. The city chooser
+uses two open columns only when space allows and collapses to one column on
+mobile. It must not use civic photography, city-boundary maps, card grids, or a
+separate page-local visual system.
 
 ### Page Rhythm Rules
 

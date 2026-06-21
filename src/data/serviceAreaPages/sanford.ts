@@ -1,4 +1,5 @@
 import type { ServiceAreaPageContent } from '../serviceAreaPageTypes'
+import { publicMedia } from '../publicMedia'
 
 export const sanfordPage = {
   slug: 'sanford',
@@ -7,6 +8,7 @@ export const sanfordPage = {
     'Request driveway, walkway, sidewalk, and concrete cleaning in Sanford, Florida from CFL Wash Co.',
   heroDescription:
     'CFL Wash Co. provides residential pressure washing in Sanford for driveways, walkways, entry concrete, sidewalks, and other appropriate hard surfaces.',
+  heroMedia: publicMedia.serviceConcrete,
   localHeading: 'Older neighborhoods and newer communities',
   localBody:
     'Sanford homes can include older front walks in Georgetown, brick-adjacent concrete near the Park Avenue corridor, alley or curbside access, and newer neighborhood driveways. Clear photos help separate the surfaces to be cleaned from nearby materials.',

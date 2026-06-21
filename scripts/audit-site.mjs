@@ -101,6 +101,7 @@ const expectedCityPages = [
     city: 'Deltona',
     slug: 'deltona',
     route: '/service-areas/deltona',
+    heroMediaId: 'service-driveway',
     imageSrc: '/images/city-context/deltona-city-hall-1280.jpg',
     imageSources: [
       '/images/city-context/deltona-city-hall-640.jpg 640w',
@@ -115,6 +116,7 @@ const expectedCityPages = [
     city: 'Orange City',
     slug: 'orange-city',
     route: '/service-areas/orange-city',
+    heroMediaId: 'service-walkway',
     imageSrc: '/images/city-context/orange-city-town-hall-1280.jpg',
     imageSources: [
       '/images/city-context/orange-city-town-hall-640.jpg 640w',
@@ -129,6 +131,7 @@ const expectedCityPages = [
     city: 'DeBary',
     slug: 'debary',
     route: '/service-areas/debary',
+    heroMediaId: 'service-driveway',
     imageSrc: '/images/city-context/debary-hall-1280.jpg',
     imageSources: [
       '/images/city-context/debary-hall-640.jpg 640w',
@@ -143,6 +146,7 @@ const expectedCityPages = [
     city: 'DeLand',
     slug: 'deland',
     route: '/service-areas/deland',
+    heroMediaId: 'service-walkway',
     imageSrc: '/images/city-context/deland-athens-theatre-1280.jpg',
     imageSources: [
       '/images/city-context/deland-athens-theatre-640.jpg 640w',
@@ -157,6 +161,7 @@ const expectedCityPages = [
     city: 'Sanford',
     slug: 'sanford',
     route: '/service-areas/sanford',
+    heroMediaId: 'service-concrete',
     imageSrc: '/images/city-context/sanford-city-hall-1280.jpg',
     imageSources: [
       '/images/city-context/sanford-city-hall-640.jpg 640w',
@@ -171,6 +176,7 @@ const expectedCityPages = [
     city: 'Lake Mary',
     slug: 'lake-mary',
     route: '/service-areas/lake-mary',
+    heroMediaId: 'service-concrete',
     imageSrc: '/images/city-context/lake-mary-city-hall-1280.jpg',
     imageSources: [
       '/images/city-context/lake-mary-city-hall-640.jpg 640w',
@@ -484,6 +490,22 @@ function stripHtml(value) {
     .replace(/<[^>]+>/g, ' ')
     .replace(/\s+/g, ' ')
     .trim()
+}
+
+function findSectionContaining(html, text) {
+  for (const match of html.matchAll(
+    /<section\b[^>]*>[\s\S]*?<\/section\s*>/gi,
+  )) {
+    if (!stripHtml(match[0]).includes(text)) continue
+
+    const openingTag = match[0].match(/^<section\b[^>]*>/i)?.[0] ?? ''
+    return {
+      html: match[0],
+      attributes: parseAttributes(openingTag),
+    }
+  }
+
+  return null
 }
 
 function findHeading(html, level) {
@@ -1140,6 +1162,62 @@ async function main() {
     failures.push(
       'The service-area hub must use registered residential brand artwork as its primary supporting media.',
     )
+  }
+
+  const serviceAreaMenuTags = getTags(serviceAreaHub, 'ul').filter(
+    (tag) => parseAttributes(tag)['data-service-area-menu'] !== undefined,
+  )
+
+  if (serviceAreaMenuTags.length !== 1) {
+    failures.push(
+      `The service-area hub must render exactly one \`<ul data-service-area-menu>\`; found ${serviceAreaMenuTags.length}.`,
+    )
+  }
+
+  const serviceAreaMenu =
+    serviceAreaMenuTags.length === 1
+      ? extractFlatListByDataAttribute(serviceAreaHub, 'data-service-area-menu')
+      : ''
+
+  if (serviceAreaMenuTags.length === 1 && !serviceAreaMenu) {
+    failures.push(
+      'The service-area hub city chooser must be one complete, non-nested semantic list.',
+    )
+  }
+
+  if (serviceAreaMenu) {
+    const serviceAreaMenuItems = getTags(serviceAreaMenu, 'li').filter(
+      (tag) =>
+        parseAttributes(tag)['data-service-area-menu-item'] !== undefined,
+    )
+
+    if (serviceAreaMenuItems.length !== expectedCityPages.length) {
+      failures.push(
+        `The service-area hub city chooser must render exactly ${expectedCityPages.length} marked city items; found ${serviceAreaMenuItems.length}.`,
+      )
+    }
+
+    for (const { route, city } of expectedCityPages) {
+      if (!serviceAreaMenu.includes(`href="${route}"`)) {
+        failures.push(
+          `The service-area hub city chooser must link ${city} to \`${route}\`.`,
+        )
+      }
+    }
+  }
+
+  if (countOccurrences(serviceAreaHub, 'data-service-area-services') !== 1) {
+    failures.push(
+      'The service-area hub must render one compact active-service navigation region.',
+    )
+  }
+
+  for (const { route } of serviceIllustrations) {
+    if (!serviceAreaHub.includes(`href="${route}"`)) {
+      failures.push(
+        `The service-area hub active-service navigation must preserve \`${route}\`.`,
+      )
+    }
   }
 
   const servicesHub = htmlByRoute.get('/services')?.html ?? ''
@@ -2100,10 +2178,91 @@ async function main() {
         typeof value === 'object' &&
         value['@type'] === 'BreadcrumbList',
     )
+    const processSection = findSectionContaining(
+      cityPage.html,
+      `How to request a pressure washing quote in ${cityPage.city}`,
+    )
+    const faqSection = findSectionContaining(
+      cityPage.html,
+      `${cityPage.city} pressure washing FAQs`,
+    )
+    const localContextSection = findSectionContaining(
+      cityPage.html,
+      'City context only',
+    )
 
-    if (!cityPage.html.includes('data-media-role="brand-artwork"')) {
+    if (
+      !processSection?.attributes.class?.includes(
+        'bg-[var(--color-surface-warm)]',
+      )
+    ) {
       failures.push(
-        `City page \`${cityPage.route}\` must identify generic hero media as brand artwork.`,
+        `City page \`${cityPage.route}\` must use the shared warm surface for its compact quote process.`,
+      )
+    }
+
+    if (!faqSection?.attributes.class?.includes('bg-[var(--color-surface)]')) {
+      failures.push(
+        `City page \`${cityPage.route}\` must separate FAQs from the quote process with the shared soft surface.`,
+      )
+    }
+
+    if (
+      !localContextSection?.html.includes('py-[var(--section-space-compact)]')
+    ) {
+      failures.push(
+        `City page \`${cityPage.route}\` must keep the secondary local-context section compact.`,
+      )
+    }
+
+    if (countOccurrences(cityPage.html, 'data-city-page') !== 1) {
+      failures.push(
+        `City page \`${cityPage.route}\` must render one shared \`data-city-page\` composition.`,
+      )
+    }
+
+    if (
+      countOccurrences(
+        cityPage.html,
+        `data-media-id="${cityPage.heroMediaId}"`,
+      ) !== 1
+    ) {
+      failures.push(
+        `City page \`${cityPage.route}\` must render registered hero media \`${cityPage.heroMediaId}\` exactly once.`,
+      )
+    }
+
+    if (!cityPage.html.includes('data-media-role="service-illustration"')) {
+      failures.push(
+        `City page \`${cityPage.route}\` must lead with proof-safe service-illustration media.`,
+      )
+    }
+
+    if (!cityPage.html.includes('data-proof-status="not-proof"')) {
+      failures.push(
+        `City page \`${cityPage.route}\` hero media must remain marked \`not-proof\`.`,
+      )
+    }
+
+    if (
+      !cityPage.html.includes(
+        'Illustrative service image. Not completed project photography.',
+      )
+    ) {
+      failures.push(
+        `City page \`${cityPage.route}\` must keep the visible illustrative-media proof disclosure.`,
+      )
+    }
+
+    if (countOccurrences(cityPage.html, 'data-city-scenarios') !== 1) {
+      failures.push(
+        `City page \`${cityPage.route}\` must render one editorial homeowner-scenarios region.`,
+      )
+    }
+
+    if (countOccurrences(cityPage.html, 'data-city-context-callout') !== 1) {
+      failures.push(
+        `City page \`${cityPage.route}\` must render its civic image once as a compact context-only callout.`,
       )
     }
 
@@ -2111,6 +2270,17 @@ async function main() {
       failures.push(
         `City page \`${cityPage.route}\` must identify civic photography as secondary city context.`,
       )
+    }
+
+    for (const location of [
+      `service-area-${cityPage.slug}-hero`,
+      `service-area-${cityPage.slug}-final`,
+    ]) {
+      if (!cityPage.html.includes(`data-cta-location="${location}"`)) {
+        failures.push(
+          `City page \`${cityPage.route}\` must preserve CTA tracking location \`${location}\`.`,
+        )
+      }
     }
 
     if (!h1) {

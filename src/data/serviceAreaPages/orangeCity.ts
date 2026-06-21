@@ -1,4 +1,5 @@
 import type { ServiceAreaPageContent } from '../serviceAreaPageTypes'
+import { publicMedia } from '../publicMedia'
 
 export const orangeCityPage = {
   slug: 'orange-city',
@@ -7,6 +8,7 @@ export const orangeCityPage = {
     'Request driveway, walkway, sidewalk, and concrete cleaning in Orange City, Florida from CFL Wash Co.',
   heroDescription:
     'CFL Wash Co. helps Orange City homeowners clean driveways, front walks, entry concrete, sidewalk sections, and other appropriate hard surfaces.',
+  heroMedia: publicMedia.serviceWalkway,
   localHeading: 'Established neighborhoods and compact front entries',
   localBody:
     'Orange City homes can range from compact front approaches near Graves Avenue and Rhode Island Avenue to wider driveways in surrounding neighborhoods. The right quote starts with the actual concrete at the property, not a one-size-fits-all package.',

@@ -1,4 +1,5 @@
 import type { ServiceAreaPageContent } from '../serviceAreaPageTypes'
+import { publicMedia } from '../publicMedia'
 
 export const deltonaPage = {
   slug: 'deltona',
@@ -7,6 +8,7 @@ export const deltonaPage = {
     'Request driveway, sidewalk, walkway, and concrete cleaning in Deltona, Florida from CFL Wash Co.',
   heroDescription:
     'CFL Wash Co. provides concrete-focused pressure washing for Deltona driveways, sidewalks, walkways, entry areas, and curb appeal cleanup.',
+  heroMedia: publicMedia.serviceDriveway,
   localHeading: 'Driveway-first residential layouts',
   localBody:
     'Homes across Deltona can have very different front approaches. Sidewalk coverage varies by neighborhood. Some include a driveway and entry walk only, while others add panels, aprons, curbs, or extra concrete near the garage.',

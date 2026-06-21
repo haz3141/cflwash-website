@@ -1,4 +1,5 @@
 import type { ServiceAreaPageContent } from '../serviceAreaPageTypes'
+import { publicMedia } from '../publicMedia'
 
 export const debaryPage = {
   slug: 'debary',
@@ -7,6 +8,7 @@ export const debaryPage = {
     'Request driveway, walkway, sidewalk, and concrete cleaning in DeBary, Florida from CFL Wash Co.',
   heroDescription:
     'CFL Wash Co. provides driveway, walkway, sidewalk, and concrete cleaning for DeBary homeowners who want a cleaner front approach.',
+  heroMedia: publicMedia.serviceDriveway,
   localHeading: 'Wooded streets and varied concrete layouts',
   localBody:
     'DeBary properties can combine mature tree cover, shaded walks, wider driveways, and compact entries around DeBary Main Street or the SunRail area. Photos help show where buildup collects and which surfaces should be quoted together.',
