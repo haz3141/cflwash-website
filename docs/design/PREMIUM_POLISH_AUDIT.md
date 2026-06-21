@@ -684,3 +684,118 @@ and composition; this review does not pre-empt #94 with piecemeal page-local
 rewrites. The remaining long mobile reading length is content-led rather than a
 layout defect and should be reconsidered only as part of that coordinated copy
 pass.
+
+## Issue #94 implementation review
+
+- Review date: June 20, 2026
+- Reviewed branch: `content/premium-service-copy`
+- Entry revision: `44a211c`
+- Render target: `http://127.0.0.1:4321`
+- Browser: headless Google Chrome `149.0.7827.156` through the Chrome DevTools
+  Protocol
+
+### Structure-preserving copy strategy
+
+Issue #94 rewrites the existing homepage, service hub, and three service-detail
+content slots without changing the composition delivered by issue #92. No new
+component, content field, section, page-local style, CTA treatment, or layout
+variant was added. The `ServiceMenu`, `ServiceDetailPage`, section sequence,
+responsive behavior, media records, proof captions, canonical routes,
+breadcrumbs, CTA destinations, and tracking attributes remain in place.
+
+The public voice now leads with the homeowner's concrete surface and visible
+concern. Conditions and limitations are concentrated in each detail page's
+existing guidance section and relevant FAQ instead of being repeated through
+the hero, lists, process, and final CTA. The centralized visitor copy in
+`serviceDetailPages.ts` no longer uses `scope`, `appropriate`, or `review`;
+`scope` remains only as the internal typed content key required by the shared
+page component.
+
+### Before and after positioning
+
+| Route                        | Before                                                                                               | After                                                                                                                                               |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/`                          | Broad exterior-cleaning language, process-heavy trust labels, and a generic confidence statement.    | Driveway and residential concrete cleaning lead the hero; trust labels describe local coverage, service focus, quote simplicity, and visit clarity. |
+| `/services`                  | The correct inventory was presented through internal vocabulary about active scope, review, and fit. | The hub is a direct chooser: start with the main surface, add connected concrete, and flag specialty finishes.                                      |
+| `/driveway-pressure-washing` | Surface conditions and quote mechanics competed with the front-approach benefit throughout the page. | The front approach and curb appeal lead; condition, water flow, access, and set-in staining sit in one focused guidance section.                    |
+| `/sidewalk-walkway-cleaning` | Repeated quote and condition language weakened the useful distinction between walking-surface types. | The route from street to door leads; panels, paths, nearby edges, access, and older marks are explained once and in homeowner language.             |
+| `/concrete-cleaning`         | A long taxonomy of appropriate surfaces and exclusions made the broad service feel procedural.       | The page is the clear third choice for patios, pads, aprons, curbs, entries, and other residential concrete beyond the driveway or primary walkway. |
+
+### Metadata changes
+
+The homepage title changed from broad pressure washing to `Concrete Pressure
+Washing in Central Florida | CFL Wash Co.` and its description now names the
+four core concrete-cleaning categories before the quote action. The service-hub
+description now frames the page as a comparison among the three active
+services. Each service-detail description was tightened around its distinct
+surface, Central Florida coverage, and quote action. Existing service-detail
+titles, canonical paths, breadcrumbs, structured data, and sitemap inclusion
+were preserved.
+
+### Rendered QA method
+
+The in-app Browser was available in the session but failed during the required
+bootstrap with `Browser is not available: iab`. The project has no Playwright
+command installed. The documented fallback used installed headless Google
+Chrome through the Chrome DevTools Protocol with temporary profiles and scripts
+under `/tmp`; no browser dependency, screenshot, result file, or harness was
+added to the repository.
+
+The rendered matrix covered all five routes at:
+
+- `390 × 844`
+- `430 × 932`
+- `768 × 1024`
+- `1024 × 768`
+- `1440 × 900`
+
+Fresh first-viewport screenshots at 390px, 1024px, and 1440px were inspected at
+original size. A separate scroll pass exercised lazy media and the final CTA
+area before measuring image completion and sticky-CTA overlap.
+
+### Route and viewport notes
+
+| Route                        | 390px                                                                                                                       | 430px                                                                                            | 768px                                                                                   | 1024px                                                                                                              | 1440px                                                                                                                |
+| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `/`                          | The three-line concrete-first H1, concise lead, quote/call pair, and service mosaic fit the first view without competition. | The same centered composition gains a wider lead measure while retaining the early quote action. | The mobile composition remains balanced and all four short benefit labels scan cleanly. | The split hero keeps the quote action visible; the new H1 remains a deliberate three-line block.                    | Copy and mosaic carry balanced visual weight, with the concrete offer clearer than the prior broad exterior wording.  |
+| `/services`                  | The service-choice H1 wraps cleanly to three lines, with both hero actions visible before the media.                        | The lead shortens naturally with no isolated word or button wrap.                                | The stacked hero remains easy to scan and keeps the primary action high.                | The split hero activates with a visible quote action and unchanged service illustration treatment.                  | The chooser copy fits the established premium split hero and leads naturally into the three editorial service rows.   |
+| `/driveway-pressure-washing` | The front-approach H1 forms a compact three-line block; quote and call remain visible before the illustration.              | Wider measure reduces body wrapping without weakening the H1.                                    | The stacked hero holds its intended copy/media order.                                   | The four-line split-hero H1 reads as an intentional editorial block; both actions remain fully visible.             | The shorter, benefit-led narrative balances the driveway image and preserves the premium page rhythm.                 |
+| `/sidewalk-walkway-cleaning` | The longest H1 uses four balanced lines and keeps both actions in the first viewport.                                       | The H1 settles to three lines and the lead remains readable.                                     | The stacked layout reduces the H1 to two lines without crowding the media.              | The four-line split treatment is intentional, with no orphan, clipping, or loss of the proof caption.               | The path-to-door story and illustration form a cohesive service identity distinct from driveway cleaning.             |
+| `/concrete-cleaning`         | The broader service H1 uses three balanced lines; the CTA pair and top of the service illustration remain visible.          | The final CTA line and body copy gain breathing room without extending the first view.           | The stacked hero reduces the H1 to two lines and keeps the service selector clear.      | The four-line split headline and concrete image remain balanced, with the primary action above the viewport bottom. | The beyond-the-driveway positioning is immediately distinct while using the same approved service-detail composition. |
+
+Across all 25 route/viewport combinations:
+
+- document width never exceeded viewport width;
+- exactly one H1 rendered on every route and all heading containers retained
+  their full text width without clipping;
+- the first page-owned quote action remained visible in the initial viewport;
+- every lazy and eager image completed with positive natural dimensions after
+  the scroll pass;
+- all media elements retained `data-media-role` and `data-proof-status` values,
+  and the visible illustrative-image captions remained unchanged;
+- no framework overlay, relevant console warning/error, runtime exception,
+  failed request, final-CTA/sticky-CTA overlap, or broken target appeared.
+
+The 390px interaction path also passed:
+
+1. `/services` → `Driveway Pressure Washing` navigated to
+   `/driveway-pressure-washing`.
+2. The service page rendered its new H1 and unchanged hero quote action.
+3. `Request a Quote` navigated to `/request-quote`, whose title remained
+   `Request a Cleaning Quote | CFL Wash Co.`.
+
+### Claim safety and deferred work
+
+The rewrite adds no review, rating, guarantee, insurance, licensing, ranking,
+response-time, same-day, completed-project, price, booking, payment, or new
+service/city claim. Stain language is explicitly qualified: surface buildup can
+improve, while oil, rust, irrigation marks, wear, and deeper discoloration may
+remain. Pavers, coatings, paint, exposed aggregate, and other specialty
+finishes require confirmation rather than being presented as active service
+promises. Concrete repair, resurfacing, restoration, and sealing remain
+explicitly excluded.
+
+All service imagery remains registered `service-illustration` media with
+`not-proof` status and the existing visible disclosure. Issues #50 and #51
+remain deferred. Issue #77 remains open until the coordinated #93 and #95 work
+is complete.
