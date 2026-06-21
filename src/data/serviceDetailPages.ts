@@ -104,7 +104,7 @@ export const serviceDetailPages = {
             'No. Cleaning can improve everyday grime and surface buildup, but deep oil, rust, irrigation staining, tire marks, and older discoloration may remain visible.',
         },
         {
-          question: 'What if the driveway is paver, sealed, or painted?',
+          question: 'What if the driveway has pavers, sealer, or paint?',
           answer:
             'Send close photos and identify the finish. The current service centers on concrete driveways, and specialty surfaces must be confirmed before they are included.',
         },
