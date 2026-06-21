@@ -993,7 +993,7 @@ async function main() {
       /<section\b[^>]*data-home-hero[^>]*>[\s\S]*?<\/section>/i,
     )?.[0] ?? ''
   const expectedHeroHeading =
-    'Driveway, Sidewalk, and Exterior Cleaning in Central Florida'
+    'Driveway and Concrete Cleaning in Central Florida'
   const heroImages = getTags(homepageHero, 'img').map((tag) =>
     parseAttributes(tag),
   )
