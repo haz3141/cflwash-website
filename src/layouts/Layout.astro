@@ -38,6 +38,9 @@ const canonicalUrl = site.url + cleanPath
 const ogTitle = title
 const ogDescription = description
 const robotsContent = noindex ? 'noindex, follow' : 'index, follow'
+const showMobileStickyCTA = !['/privacy', '/thank-you'].includes(
+  cleanPath || '/',
+)
 const ogImageUrl = ogImage
   ? ogImage.startsWith('http://') || ogImage.startsWith('https://')
     ? ogImage
@@ -108,7 +111,7 @@ const ogImageUrl = ogImage
       <Header />
       <slot />
       <Footer />
-      <MobileStickyCTA />
+      <MobileStickyCTA enabled={showMobileStickyCTA} />
     </div>
     <Analytics />
   </body>

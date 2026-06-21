@@ -202,6 +202,14 @@ Transition rules:
 - Respect `prefers-reduced-motion`.
 - Do not add ornamental animation, parallax, counters, or scroll effects.
 
+## Quote Flow And CTA Rhythm
+
+- Use `Request a quote` as the default quote CTA label.
+- Ask for city, concrete surfaces, access notes, HOA wording, and priority concerns in quote-flow helper text.
+- If the current flow does not support uploads, photo guidance must point to request notes or email follow-up, not uploads.
+- Utility pages such as `/thank-you` and `/privacy` should stay visually aligned but quieter than marketing pages.
+- Mobile sticky quote CTAs should appear only on conversion routes and should hide near final CTA sections, footer content, or form submit areas by using shared `data-sticky-cta-stop` markers.
+
 Focus rules:
 
 - Every interactive element must show a visible keyboard focus state.

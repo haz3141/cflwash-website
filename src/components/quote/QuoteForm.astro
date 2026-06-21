@@ -6,7 +6,7 @@ import { site } from '../../data/site'
 
 const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY?.trim()
 const hasTurnstile = Boolean(turnstileSiteKey)
-const quoteEmailSubject = 'Quote request for exterior cleaning'
+const quoteEmailSubject = 'Quote request for driveway or concrete cleaning'
 const quoteEmailBody = [
   'Name:',
   'City:',
@@ -39,8 +39,8 @@ if (form instanceof HTMLFormElement) {
   const fieldNames = ['name', 'email', 'phone', 'city', 'service', 'details', 'consent'];
   const initialButtonText =
     submitButton instanceof HTMLElement
-      ? submitButton.textContent || 'Request quote'
-      : 'Request quote';
+      ? submitButton.textContent || 'Request a quote'
+      : 'Request a quote';
   const state = {
     pending: false,
     widgetId: null,
@@ -152,17 +152,17 @@ if (form instanceof HTMLFormElement) {
     if (field.validity.valueMissing) {
       switch (fieldName) {
         case 'name':
-          return 'Enter your name.';
+          return 'Enter the name to use for quote follow-up.';
         case 'email':
-          return 'Enter your email address.';
+          return 'Enter the email address for quote follow-up.';
         case 'city':
           return 'Enter the city where the cleaning is needed.';
         case 'service':
           return 'Select the service that best matches your project.';
         case 'details':
-          return 'Enter at least a few details about the project.';
+          return 'Share the surfaces, access notes, and project details.';
         case 'consent':
-          return 'You must agree before submitting the form.';
+          return 'Confirm that CFL Wash Co. may use these details to reply.';
         default:
           return 'This field is required.';
       }
@@ -174,7 +174,7 @@ if (form instanceof HTMLFormElement) {
 
     if (field.validity.tooShort) {
       if (fieldName === 'name') {
-        return 'Enter at least 2 characters for your name.';
+        return 'Enter at least 2 characters for the contact name.';
       }
 
       if (fieldName === 'city') {
@@ -471,14 +471,14 @@ if (form instanceof HTMLFormElement) {
     clearTurnstileMessage();
 
     if (!form.checkValidity()) {
-      showStatus('Please review the highlighted fields and try again.');
+      showStatus('Please review the highlighted fields before sending your request.');
       showInvalidFields();
       return;
     }
 
     if (!state.turnstileToken) {
-      showStatus('Complete the security check before submitting the form.');
-      setTurnstileMessage('Complete the security check before submitting the form.');
+      showStatus('Complete the security check before sending your request.');
+      setTurnstileMessage('Complete the security check before sending your request.');
 
       if (turnstileContainer instanceof HTMLElement) {
         turnstileContainer.scrollIntoView({ block: 'center', behavior: 'smooth' });
@@ -521,7 +521,7 @@ if (form instanceof HTMLFormElement) {
     }
 
     setPending(true);
-    showStatus('Submitting your quote request...', 'info');
+    showStatus('Sending your quote request...', 'info');
 
     try {
       const response = await fetch('/api/quote', {
@@ -535,7 +535,7 @@ if (form instanceof HTMLFormElement) {
       const responseJson = await parseResponseJson(response);
 
       if (response.ok && responseJson?.ok === true) {
-        showStatus('Quote request sent. Redirecting...', 'success');
+        showStatus('Thanks, your quote request is in. Redirecting to next steps...', 'success');
         handleSuccessRedirect(payload.service);
         return;
       }
@@ -543,13 +543,13 @@ if (form instanceof HTMLFormElement) {
       resetTurnstile();
 
       if (response.status === 400 && responseJson?.code === 'validation_error') {
-        showStatus('Please correct the highlighted fields and try again.');
+        showStatus('A few details still need attention before the request can be sent.');
         applyServerFieldErrors(responseJson.fieldErrors);
         return;
       }
 
       if (response.status === 400 && responseJson?.code === 'verification_failed') {
-        showStatus('The security check needs to be completed again. Please try once more.');
+        showStatus('The security check needs to be completed again before the request can be sent.');
         setTurnstileMessage('Verification failed. Please complete the security check again.');
         focusStatus();
         return;
@@ -557,7 +557,7 @@ if (form instanceof HTMLFormElement) {
 
       if (response.status === 503 && responseJson?.code === 'delivery_unavailable') {
         showStatus(
-          'The online form could not be delivered right now. Please use email instead at ' +
+          'The online form is not reaching CFL Wash Co. right now. Please use email instead at ' +
             siteEmail +
             '.'
         );
@@ -567,13 +567,13 @@ if (form instanceof HTMLFormElement) {
       }
 
       if (responseJson?.code === 'invalid_request') {
-        showStatus('Please review the form details and try again, or use email instead.');
+        showStatus('Please review the form details and try again, or use email if that is easier.');
         focusStatus();
         return;
       }
 
       showStatus(
-        'The online form could not be sent right now. Please try again or email ' +
+        'The online form could not be sent right now. Please try again, or email ' +
           siteEmail +
           ' instead.'
       );
@@ -582,7 +582,7 @@ if (form instanceof HTMLFormElement) {
     } catch {
       resetTurnstile();
       showStatus(
-        'The online form could not be sent right now. Please try again or email ' +
+        'The online form could not be sent right now. Please try again, or email ' +
           siteEmail +
           ' instead.'
       );
@@ -598,8 +598,11 @@ if (form instanceof HTMLFormElement) {
 `
 ---
 
-<div class="grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
-  <Card tone="raised">
+<div
+  id="quote-form"
+  class="grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]"
+>
+  <Card tone="raised" padding="lg">
     {
       hasTurnstile ? (
         <>
@@ -608,10 +611,40 @@ if (form instanceof HTMLFormElement) {
               Quote request form
             </h2>
             <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)] sm:text-base">
-              Share the basics about the project and CFL Wash Co. can review the
-              request before following up. Fields marked Required must be
-              completed.
+              Share the contact details and concrete-surface context CFL Wash
+              Co. needs to review the request before following up. Fields marked
+              Required must be completed.
             </p>
+          </div>
+
+          <div class="mt-6 grid gap-3 sm:grid-cols-3">
+            <div class="form-panel">
+              <p class="text-sm font-semibold text-[var(--color-text)]">
+                Contact details
+              </p>
+              <p class="mt-2 text-sm leading-6 text-[var(--color-text-muted)]">
+                Use the best email for follow-up and add a phone number only if
+                you want it used.
+              </p>
+            </div>
+            <div class="form-panel">
+              <p class="text-sm font-semibold text-[var(--color-text)]">
+                Property context
+              </p>
+              <p class="mt-2 text-sm leading-6 text-[var(--color-text-muted)]">
+                Name the city, the main concrete surfaces, and anything that may
+                change the scope.
+              </p>
+            </div>
+            <div class="form-panel">
+              <p class="text-sm font-semibold text-[var(--color-text)]">
+                Photo follow-up
+              </p>
+              <p class="mt-2 text-sm leading-6 text-[var(--color-text-muted)]">
+                If photos will help, mention that in the request or send them by
+                email after you submit.
+              </p>
+            </div>
           </div>
 
           <form
@@ -629,166 +662,197 @@ if (form instanceof HTMLFormElement) {
               class="status-message hidden"
             />
 
-            <div class="grid gap-5 sm:grid-cols-2">
-              <div class="sm:col-span-2">
-                <label for="quote-name" class="form-label">
-                  Name
-                  <span class="form-label-meta">Required</span>
-                </label>
-                <p id="quote-name-hint" class="form-hint">
-                  Use the best name for quote follow-up.
-                </p>
-                <input
-                  id="quote-name"
-                  name="name"
-                  type="text"
-                  required
-                  autocomplete="name"
-                  minlength="2"
-                  maxlength="100"
-                  aria-describedby="quote-name-hint quote-name-error"
-                  class="form-control"
-                />
-                <p
-                  id="quote-name-error"
-                  data-field-error
-                  class="form-error"
-                  hidden
-                />
+            <div class="space-y-5">
+              <div class="form-panel">
+                <div class="max-w-2xl">
+                  <h3 class="text-base font-semibold text-[var(--color-text)]">
+                    1. Contact details
+                  </h3>
+                  <p class="mt-2 text-sm leading-6 text-[var(--color-text-muted)]">
+                    Start with the person and inbox CFL Wash Co. should use for
+                    the quote follow-up.
+                  </p>
+                </div>
+
+                <div class="mt-5 grid gap-5 sm:grid-cols-2">
+                  <div class="sm:col-span-2">
+                    <label for="quote-name" class="form-label">
+                      Name
+                      <span class="form-label-meta">Required</span>
+                    </label>
+                    <p id="quote-name-hint" class="form-hint">
+                      Use the best name for quote follow-up.
+                    </p>
+                    <input
+                      id="quote-name"
+                      name="name"
+                      type="text"
+                      required
+                      autocomplete="name"
+                      minlength="2"
+                      maxlength="100"
+                      aria-describedby="quote-name-hint quote-name-error"
+                      class="form-control"
+                    />
+                    <p
+                      id="quote-name-error"
+                      data-field-error
+                      class="form-error"
+                      hidden
+                    />
+                  </div>
+
+                  <div>
+                    <label for="quote-email" class="form-label">
+                      Email
+                      <span class="form-label-meta">Required</span>
+                    </label>
+                    <p id="quote-email-hint" class="form-hint">
+                      CFL Wash Co. uses this email to reply about your request.
+                    </p>
+                    <input
+                      id="quote-email"
+                      name="email"
+                      type="email"
+                      required
+                      autocomplete="email"
+                      maxlength="254"
+                      aria-describedby="quote-email-hint quote-email-error"
+                      class="form-control"
+                    />
+                    <p
+                      id="quote-email-error"
+                      data-field-error
+                      class="form-error"
+                      hidden
+                    />
+                  </div>
+
+                  <div>
+                    <label for="quote-phone" class="form-label">
+                      Phone
+                      <span class="form-label-meta">Optional</span>
+                    </label>
+                    <p id="quote-phone-hint" class="form-hint">
+                      Add a phone number only if you want it used for follow-up.
+                    </p>
+                    <input
+                      id="quote-phone"
+                      name="phone"
+                      type="tel"
+                      autocomplete="tel"
+                      maxlength="30"
+                      aria-describedby="quote-phone-hint quote-phone-error"
+                      class="form-control"
+                    />
+                    <p
+                      id="quote-phone-error"
+                      data-field-error
+                      class="form-error"
+                      hidden
+                    />
+                  </div>
+                </div>
               </div>
 
-              <div>
-                <label for="quote-email" class="form-label">
-                  Email
-                  <span class="form-label-meta">Required</span>
-                </label>
-                <p id="quote-email-hint" class="form-hint">
-                  CFL Wash Co. uses this email to reply about your request.
-                </p>
-                <input
-                  id="quote-email"
-                  name="email"
-                  type="email"
-                  required
-                  autocomplete="email"
-                  maxlength="254"
-                  aria-describedby="quote-email-hint quote-email-error"
-                  class="form-control"
-                />
-                <p
-                  id="quote-email-error"
-                  data-field-error
-                  class="form-error"
-                  hidden
-                />
-              </div>
+              <div class="form-panel">
+                <div class="max-w-2xl">
+                  <h3 class="text-base font-semibold text-[var(--color-text)]">
+                    2. Property and surface details
+                  </h3>
+                  <p class="mt-2 text-sm leading-6 text-[var(--color-text-muted)]">
+                    Name the location, the concrete surfaces involved, and
+                    anything that affects the review.
+                  </p>
+                </div>
 
-              <div>
-                <label for="quote-phone" class="form-label">
-                  Phone
-                  <span class="form-label-meta">Optional</span>
-                </label>
-                <p id="quote-phone-hint" class="form-hint">
-                  Include a phone number only if it is helpful for follow-up.
-                </p>
-                <input
-                  id="quote-phone"
-                  name="phone"
-                  type="tel"
-                  autocomplete="tel"
-                  maxlength="30"
-                  aria-describedby="quote-phone-hint quote-phone-error"
-                  class="form-control"
-                />
-                <p
-                  id="quote-phone-error"
-                  data-field-error
-                  class="form-error"
-                  hidden
-                />
-              </div>
+                <div class="mt-5 grid gap-5 sm:grid-cols-2">
+                  <div>
+                    <label for="quote-city" class="form-label">
+                      City
+                      <span class="form-label-meta">Required</span>
+                    </label>
+                    <p id="quote-city-hint" class="form-hint">
+                      Tell us the city where the cleaning is needed. If the full
+                      address helps, add it in the project details field.
+                    </p>
+                    <input
+                      id="quote-city"
+                      name="city"
+                      type="text"
+                      required
+                      autocomplete="address-level2"
+                      minlength="2"
+                      maxlength="100"
+                      aria-describedby="quote-city-hint quote-city-error"
+                      class="form-control"
+                    />
+                    <p
+                      id="quote-city-error"
+                      data-field-error
+                      class="form-error"
+                      hidden
+                    />
+                  </div>
 
-              <div>
-                <label for="quote-city" class="form-label">
-                  City
-                  <span class="form-label-meta">Required</span>
-                </label>
-                <p id="quote-city-hint" class="form-hint">
-                  Tell us the city where the cleaning is needed.
-                </p>
-                <input
-                  id="quote-city"
-                  name="city"
-                  type="text"
-                  required
-                  autocomplete="address-level2"
-                  minlength="2"
-                  maxlength="100"
-                  aria-describedby="quote-city-hint quote-city-error"
-                  class="form-control"
-                />
-                <p
-                  id="quote-city-error"
-                  data-field-error
-                  class="form-error"
-                  hidden
-                />
-              </div>
+                  <div>
+                    <label for="quote-service" class="form-label">
+                      Service
+                      <span class="form-label-meta">Required</span>
+                    </label>
+                    <p id="quote-service-hint" class="form-hint">
+                      Choose the closest match for the main surface you want
+                      cleaned.
+                    </p>
+                    <select
+                      id="quote-service"
+                      name="service"
+                      required
+                      aria-describedby="quote-service-hint quote-service-error"
+                      class="form-control"
+                    >
+                      <option value="">Select a service</option>
+                      {services.map((service) => (
+                        <option value={service.slug}>{service.name}</option>
+                      ))}
+                    </select>
+                    <p
+                      id="quote-service-error"
+                      data-field-error
+                      class="form-error"
+                      hidden
+                    />
+                  </div>
 
-              <div>
-                <label for="quote-service" class="form-label">
-                  Service
-                  <span class="form-label-meta">Required</span>
-                </label>
-                <p id="quote-service-hint" class="form-hint">
-                  Choose the closest match for the surface you need cleaned.
-                </p>
-                <select
-                  id="quote-service"
-                  name="service"
-                  required
-                  aria-describedby="quote-service-hint quote-service-error"
-                  class="form-control"
-                >
-                  <option value="">Select a service</option>
-                  {services.map((service) => (
-                    <option value={service.slug}>{service.name}</option>
-                  ))}
-                </select>
-                <p
-                  id="quote-service-error"
-                  data-field-error
-                  class="form-error"
-                  hidden
-                />
-              </div>
-
-              <div class="sm:col-span-2">
-                <label for="quote-details" class="form-label">
-                  Project details
-                  <span class="form-label-meta">Required</span>
-                </label>
-                <p id="quote-details-hint" class="form-hint">
-                  Share the area to clean and relevant buildup or curb appeal
-                  context. Do not include payment or other sensitive
-                  information.
-                </p>
-                <textarea
-                  id="quote-details"
-                  name="details"
-                  required
-                  minlength="10"
-                  maxlength="2000"
-                  rows="6"
-                  aria-describedby="quote-details-hint quote-details-error"
-                  class="form-control"
-                />
-                <p
-                  id="quote-details-error"
-                  data-field-error
-                  class="form-error"
-                  hidden
-                />
+                  <div class="sm:col-span-2">
+                    <label for="quote-details" class="form-label">
+                      Project details
+                      <span class="form-label-meta">Required</span>
+                    </label>
+                    <p id="quote-details-hint" class="form-hint">
+                      Include the concrete surfaces, access notes, HOA wording,
+                      and any priority stains or concerns. If photos will help,
+                      mention that here or send them by email after you submit.
+                      Do not include payment or other sensitive information.
+                    </p>
+                    <textarea
+                      id="quote-details"
+                      name="details"
+                      required
+                      minlength="10"
+                      maxlength="2000"
+                      rows="7"
+                      aria-describedby="quote-details-hint quote-details-error"
+                      class="form-control"
+                    />
+                    <p
+                      id="quote-details-error"
+                      data-field-error
+                      class="form-error"
+                      hidden
+                    />
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -819,7 +883,7 @@ if (form instanceof HTMLFormElement) {
                 id="quote-turnstile-hint"
                 class="mt-2 text-sm leading-6 text-[var(--color-text-muted)]"
               >
-                Complete the security check before submitting the form.
+                Complete the security check before sending the request.
               </p>
               <div
                 data-turnstile-container
@@ -850,7 +914,7 @@ if (form instanceof HTMLFormElement) {
                     class="text-sm font-semibold text-[var(--color-text)]"
                   >
                     I agree that CFL Wash Co. may use these details to respond
-                    to my quote request.
+                    to this quote request.
                     <span class="form-label-meta">Required</span>
                   </label>
                   <p
@@ -873,16 +937,20 @@ if (form instanceof HTMLFormElement) {
               />
             </div>
 
-            <div class="flex flex-col gap-3 border-t border-[var(--color-border)] pt-5 sm:flex-row sm:items-center sm:justify-between">
+            <div
+              class="flex flex-col gap-3 border-t border-[var(--color-border)] pt-5 sm:flex-row sm:items-center sm:justify-between"
+              data-sticky-cta-stop
+            >
               <p class="text-sm leading-6 text-[var(--color-text-muted)]">
-                Online quote requests are reviewed before follow-up.
+                CFL Wash Co. reviews each request before follow-up. Sending this
+                form does not book service or confirm pricing on its own.
               </p>
               <Button
                 type="submit"
                 data-submit-button
                 class="disabled:cursor-not-allowed disabled:opacity-60"
               >
-                Request quote
+                Request a quote
               </Button>
             </div>
           </form>
@@ -890,11 +958,12 @@ if (form instanceof HTMLFormElement) {
       ) : (
         <>
           <h2 class="text-2xl font-semibold text-[var(--color-text)]">
-            Online quote form temporarily unavailable
+            Request a quote by email
           </h2>
           <p class="mt-3 max-w-2xl text-sm leading-7 text-[var(--color-text-muted)] sm:text-base">
-            Please email your city, service, and project details to request a
-            quote.
+            The online form is not available right now, but quote requests can
+            still be sent by email. Include the city, surfaces, access notes,
+            HOA wording, and any priority concerns.
           </p>
           <div class="mt-6 flex flex-col gap-3 sm:flex-row">
             <Button
@@ -913,14 +982,14 @@ if (form instanceof HTMLFormElement) {
     }
   </Card>
 
-  <Card tone="soft" id="quote-fallback">
+  <Card tone="soft" id="quote-fallback" padding="lg">
     <h2 class="text-xl font-semibold text-[var(--color-text)]">
-      What happens next
+      What to send and what happens next
     </h2>
     <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
-      CFL Wash Co. reviews the request details, confirms the scope, and follows
-      up by email. A quote request does not confirm scheduling or pricing on its
-      own.
+      Use this page to send enough detail for a useful quote review without
+      overcomplicating the request. A quote request starts the conversation; it
+      does not confirm scheduling or pricing on its own.
     </p>
 
     <div
@@ -932,15 +1001,111 @@ if (form instanceof HTMLFormElement) {
       project details still reach CFL Wash Co.
     </div>
 
-    <div class="mt-6 space-y-4">
-      <div class="border-b border-[var(--color-border)] pb-4">
+    <div class="mt-6 space-y-5">
+      <div class="form-panel">
         <h3 class="text-sm font-semibold text-[var(--color-text)]">
-          Prefer email?
+          Helpful details to include
         </h3>
-        <p class="mt-2 text-sm leading-6 text-[var(--color-text-muted)]">
-          Email is always available as a fallback for quote requests.
-        </p>
-        <div class="mt-4">
+        <ul class="mt-4 space-y-3 text-sm leading-6 text-[var(--color-text)]">
+          <li class="flex gap-3">
+            <span
+              class="mt-2 h-2 w-2 shrink-0 rounded-full bg-[var(--color-action)]"
+            ></span>
+            <span
+              >City and, if helpful, the service address in the details field</span
+            >
+          </li>
+          <li class="flex gap-3">
+            <span
+              class="mt-2 h-2 w-2 shrink-0 rounded-full bg-[var(--color-action)]"
+            ></span>
+            <span
+              >Driveway, sidewalk, walkway, patio, apron, curb, or other
+              concrete surfaces</span
+            >
+          </li>
+          <li class="flex gap-3">
+            <span
+              class="mt-2 h-2 w-2 shrink-0 rounded-full bg-[var(--color-action)]"
+            ></span>
+            <span
+              >Access notes, gates, parked vehicles, and other site conditions</span
+            >
+          </li>
+          <li class="flex gap-3">
+            <span
+              class="mt-2 h-2 w-2 shrink-0 rounded-full bg-[var(--color-action)]"
+            ></span>
+            <span
+              >HOA notice wording, priority stains, or the parts of the surface
+              that concern you most</span
+            >
+          </li>
+          <li class="flex gap-3">
+            <span
+              class="mt-2 h-2 w-2 shrink-0 rounded-full bg-[var(--color-action)]"
+            ></span>
+            <span
+              >If you have clear photos, mention them in the request or send
+              them by email after submitting</span
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div class="form-panel">
+        <h3 class="text-sm font-semibold text-[var(--color-text)]">
+          What happens next
+        </h3>
+        <ol class="mt-4 space-y-4 text-sm leading-6 text-[var(--color-text)]">
+          <li class="flex gap-3">
+            <span
+              class="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--color-surface-raised)] text-xs font-semibold text-[var(--color-action)] ring-1 ring-[var(--color-border)]"
+            >
+              1
+            </span>
+            <span
+              >CFL Wash Co. reviews the city, surfaces, and notes you send.</span
+            >
+          </li>
+          <li class="flex gap-3">
+            <span
+              class="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--color-surface-raised)] text-xs font-semibold text-[var(--color-action)] ring-1 ring-[var(--color-border)]"
+            >
+              2
+            </span>
+            <span
+              >If anything is unclear, follow-up happens by email or phone using
+              the contact details you provide.</span
+            >
+          </li>
+          <li class="flex gap-3">
+            <span
+              class="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--color-surface-raised)] text-xs font-semibold text-[var(--color-action)] ring-1 ring-[var(--color-border)]"
+            >
+              3
+            </span>
+            <span
+              >Scheduling is discussed after the request is reviewed. Sending
+              the request does not book a visit.</span
+            >
+          </li>
+        </ol>
+      </div>
+
+      <div
+        class="flex flex-col gap-3 border-t border-[var(--color-border)] pt-5 sm:flex-row sm:items-center sm:justify-between"
+      >
+        <div>
+          <h3 class="text-sm font-semibold text-[var(--color-text)]">
+            Prefer email?
+          </h3>
+          <p class="mt-2 text-sm leading-6 text-[var(--color-text-muted)]">
+            Email is always available if you want to send the request or follow
+            up with photos directly.
+          </p>
+        </div>
+        <div class="flex flex-col gap-3 sm:flex-row">
           <Button
             href={quoteEmailHref}
             data-cta="email"
@@ -948,43 +1113,8 @@ if (form instanceof HTMLFormElement) {
           >
             Start email
           </Button>
+          <Button href="/privacy" variant="secondary"> Privacy Notice </Button>
         </div>
-      </div>
-
-      <div class="border-b border-[var(--color-border)] pb-4">
-        <h3 class="text-sm font-semibold text-[var(--color-text)]">
-          Helpful details
-        </h3>
-        <ul class="mt-3 space-y-3 text-sm leading-6 text-[var(--color-text)]">
-          <li class="flex gap-3">
-            <span
-              class="mt-2 h-2 w-2 shrink-0 rounded-full bg-[var(--color-action)]"
-            ></span>
-            <span>City where the cleaning is needed</span>
-          </li>
-          <li class="flex gap-3">
-            <span
-              class="mt-2 h-2 w-2 shrink-0 rounded-full bg-[var(--color-action)]"
-            ></span>
-            <span>Closest service match for the project</span>
-          </li>
-          <li class="flex gap-3">
-            <span
-              class="mt-2 h-2 w-2 shrink-0 rounded-full bg-[var(--color-action)]"
-            ></span>
-            <span>Surface details, buildup, or curb appeal concerns</span>
-          </li>
-        </ul>
-      </div>
-
-      <div>
-        <h3 class="text-sm font-semibold text-[var(--color-text)]">Privacy</h3>
-        <p class="mt-2 text-sm leading-6 text-[var(--color-text-muted)]">
-          Review how contact details, analytics, and operational providers are
-          used in the <a href="/privacy" class="text-link min-h-0">
-            Privacy Notice
-          </a>.
-        </p>
       </div>
     </div>
   </Card>
