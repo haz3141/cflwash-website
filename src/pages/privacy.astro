@@ -1,4 +1,6 @@
 ---
+import Button from '../components/ui/Button.astro'
+import Card from '../components/ui/Card.astro'
 import Section from '../components/ui/Section.astro'
 import BreadcrumbSchema from '../components/site/BreadcrumbSchema.astro'
 import Breadcrumbs from '../components/site/Breadcrumbs.astro'
@@ -25,99 +27,145 @@ const breadcrumbs = [
       tone="soft"
       eyebrow="Privacy Notice"
       title="Privacy Notice"
-      description="This page explains the practical information CFL Wash Co. may use when someone requests a quote or uses this website."
+      description="This page explains what CFL Wash Co. uses the quote-request details for, which providers support the website, and what the form is not meant to collect."
     />
 
     <Section spacing="compact" class="pb-20">
-      <div class="legal-panel max-w-3xl space-y-8">
-        <section>
-          <h2 class="text-2xl font-semibold text-[var(--color-text)]">
-            Information you may submit
+      <div class="grid gap-6 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)]">
+        <Card tone="soft" padding="lg" class="h-fit">
+          <h2 class="text-xl font-semibold text-[var(--color-text)]">
+            Privacy at a glance
           </h2>
-          <p
-            class="mt-3 text-sm leading-7 text-[var(--color-text-muted)] sm:text-base"
-          >
-            The quote request form may collect your name, email address, phone
-            number, city, selected service, project details, and your consent to
-            be contacted about the request. The form does not collect payment
-            information or account credentials.
-          </p>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-semibold text-[var(--color-text)]">
-            How CFL Wash Co. uses that information
-          </h2>
-          <p
-            class="mt-3 text-sm leading-7 text-[var(--color-text-muted)] sm:text-base"
-          >
-            CFL Wash Co. uses submitted contact details and project notes to
-            review quote requests, follow up about the requested cleaning work,
-            respond by email or phone when helpful, and keep basic operational
-            records tied to the request.
-          </p>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-semibold text-[var(--color-text)]">
-            Hosting, spam protection, and delivery providers
-          </h2>
-          <p
-            class="mt-3 text-sm leading-7 text-[var(--color-text-muted)] sm:text-base"
-          >
-            This site is hosted on Cloudflare. Cloudflare Turnstile is used on
-            the quote form to reduce spam and abuse. Quote-request delivery may
-            rely on Resend so the request can be sent to {site.email} for follow-up.
-          </p>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-semibold text-[var(--color-text)]">
-            Analytics and logs
-          </h2>
-          <p
-            class="mt-3 text-sm leading-7 text-[var(--color-text-muted)] sm:text-base"
-          >
-            CFL Wash Co. may use Google Analytics 4 or Cloudflare Web Analytics
-            for basic website analytics and may keep basic operational logs such
-            as request timing, coarse delivery status, and other technical
-            records needed to operate the site. Submitted form details are not
-            sold, and the quote form is not intended to collect sensitive
-            personal information.
-          </p>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-semibold text-[var(--color-text)]">
-            What is not collected through this form
-          </h2>
-          <p
-            class="mt-3 text-sm leading-7 text-[var(--color-text-muted)] sm:text-base"
-          >
-            The quote request form is not set up to collect payment information,
-            account logins, or other customer account data. Please avoid sending
-            unnecessary sensitive information in the project details field.
-          </p>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-semibold text-[var(--color-text)]">
-            Contact and updates
-          </h2>
-          <p
-            class="mt-3 text-sm leading-7 text-[var(--color-text-muted)] sm:text-base"
-          >
-            Questions about this notice can be sent to <a
+          <ul class="mt-5 space-y-3 text-sm leading-6 text-[var(--color-text)]">
+            <li class="flex gap-3">
+              <span
+                class="mt-2 h-2 w-2 shrink-0 rounded-full bg-[var(--color-action)]"
+              ></span>
+              <span
+                >The quote form collects contact details and project notes
+                needed to respond about a request.</span
+              >
+            </li>
+            <li class="flex gap-3">
+              <span
+                class="mt-2 h-2 w-2 shrink-0 rounded-full bg-[var(--color-action)]"
+              ></span>
+              <span
+                >The form is not intended for payment details, account logins,
+                or other sensitive information.</span
+              >
+            </li>
+            <li class="flex gap-3">
+              <span
+                class="mt-2 h-2 w-2 shrink-0 rounded-full bg-[var(--color-action)]"
+              ></span>
+              <span
+                >Cloudflare, Turnstile, analytics, and delivery providers
+                support the site and quote workflow.</span
+              >
+            </li>
+          </ul>
+          <div class="mt-6">
+            <Button
               href={`mailto:${site.email}`}
               data-cta="email"
               data-cta-location="privacy-contact"
-              class="text-link min-h-0"
             >
-              {site.email}
-            </a>. This notice may be updated as the website, quote workflow, or
-            service providers change.
-          </p>
-        </section>
+              Email {site.email}
+            </Button>
+          </div>
+        </Card>
+
+        <div class="legal-panel space-y-8">
+          <section>
+            <h2 class="text-2xl font-semibold text-[var(--color-text)]">
+              Information you submit
+            </h2>
+            <p
+              class="mt-3 text-sm leading-7 text-[var(--color-text-muted)] sm:text-base"
+            >
+              The quote request form collects your name, email address, optional
+              phone number, city, selected service, project details, and your
+              consent to be contacted about the request. The form does not
+              collect payment information or account credentials.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold text-[var(--color-text)]">
+              How CFL Wash Co. uses that information
+            </h2>
+            <p
+              class="mt-3 text-sm leading-7 text-[var(--color-text-muted)] sm:text-base"
+            >
+              CFL Wash Co. uses the submitted contact details and project notes
+              to review quote requests, respond about the requested cleaning
+              work, follow up when clarification is needed, and keep basic
+              operational records tied to the request.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold text-[var(--color-text)]">
+              Hosting, spam protection, and delivery providers
+            </h2>
+            <p
+              class="mt-3 text-sm leading-7 text-[var(--color-text-muted)] sm:text-base"
+            >
+              This site is hosted on Cloudflare. Cloudflare Turnstile is used on
+              the quote form to reduce spam and abuse. Quote-request delivery
+              may rely on Resend so the request can be sent to {site.email} for follow-up.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold text-[var(--color-text)]">
+              Analytics and logs
+            </h2>
+            <p
+              class="mt-3 text-sm leading-7 text-[var(--color-text-muted)] sm:text-base"
+            >
+              CFL Wash Co. may use Google Analytics 4 or Cloudflare Web
+              Analytics for basic website analytics and may keep technical or
+              operational logs such as request timing and coarse delivery
+              status. Submitted form details are not sold, and the quote form is
+              not intended to collect sensitive personal information.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold text-[var(--color-text)]">
+              What is not collected through this form
+            </h2>
+            <p
+              class="mt-3 text-sm leading-7 text-[var(--color-text-muted)] sm:text-base"
+            >
+              The quote request form is not set up to collect payment
+              information, account logins, or other customer account data.
+              Please avoid sending unnecessary sensitive information in the
+              project details field.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold text-[var(--color-text)]">
+              Contact and updates
+            </h2>
+            <p
+              class="mt-3 text-sm leading-7 text-[var(--color-text-muted)] sm:text-base"
+            >
+              Questions about this notice can be sent to <a
+                href={`mailto:${site.email}`}
+                data-cta="email"
+                data-cta-location="privacy-copy"
+                class="text-link min-h-0"
+              >
+                {site.email}
+              </a>. This notice may be updated as the website, quote workflow,
+              or service providers change.
+            </p>
+          </section>
+        </div>
       </div>
     </Section>
   </main>

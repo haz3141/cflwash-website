@@ -3,82 +3,108 @@ import Button from '../ui/Button.astro'
 import { site } from '../../data/site'
 import { ClipboardList, Phone } from '@lucide/astro'
 
+type Props = {
+  enabled?: boolean
+}
+
+const { enabled = true } = Astro.props as Props
 const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
+const shouldRenderSticky = enabled
+const stickyClientScript = String.raw`
+const stickyCTA = document.querySelector('[data-mobile-sticky-cta]');
+const firstQuoteCTA =
+  document.querySelector('[data-mobile-sticky-trigger]') ||
+  document.querySelector('main [data-cta="quote"]');
+const stickyStopTargets = Array.from(
+  document.querySelectorAll('[data-sticky-cta-stop], footer')
+).filter((element) => !stickyCTA?.contains(element));
+
+if (stickyCTA) {
+  const state = {
+    pastPrimaryCTA: !firstQuoteCTA,
+    nearStopTarget: false,
+  };
+
+  const setStickyVisibility = (visible) => {
+    stickyCTA.dataset.visible = String(visible);
+    stickyCTA.ariaHidden = String(!visible);
+    stickyCTA.inert = !visible;
+  };
+
+  const syncStickyVisibility = () => {
+    setStickyVisibility(state.pastPrimaryCTA && !state.nearStopTarget);
+  };
+
+  const updateStickyState = () => {
+    if (firstQuoteCTA) {
+      const primaryRect = firstQuoteCTA.getBoundingClientRect();
+      state.pastPrimaryCTA = primaryRect.bottom <= 0 || primaryRect.top < 0;
+    }
+
+    state.nearStopTarget = stickyStopTargets.some((element) => {
+      const rect = element.getBoundingClientRect();
+      return rect.top < window.innerHeight - 96 && rect.bottom > 0;
+    });
+
+    syncStickyVisibility();
+  };
+
+  updateStickyState();
+  document.addEventListener('scroll', updateStickyState, { passive: true });
+  window.addEventListener('resize', updateStickyState, { passive: true });
+}
+`
 ---
 
-<div
-  class="mobile-sticky-cta theme-shadow-xs fixed inset-x-0 bottom-0 z-40 border-t border-[var(--color-inverse-border)] bg-[var(--color-surface-inverse)]/96 p-3 text-[var(--color-text-inverse)] backdrop-blur sm:hidden"
-  data-mobile-sticky-cta
-  data-visible="false"
-  aria-hidden="true"
-  inert
->
-  <div class={hasPhone ? 'grid grid-cols-2 gap-3' : undefined}>
-    {
-      hasPhone && (
+{
+  shouldRenderSticky && (
+    <div
+      class="mobile-sticky-cta theme-shadow-xs fixed inset-x-0 bottom-0 z-40 border-t border-[var(--color-inverse-border)] bg-[var(--color-surface-inverse)]/96 p-3 text-[var(--color-text-inverse)] backdrop-blur sm:hidden"
+      data-mobile-sticky-cta
+      data-visible="false"
+      aria-hidden="true"
+      inert
+    >
+      <div class={hasPhone ? 'grid grid-cols-2 gap-3' : undefined}>
+        {hasPhone && (
+          <Button
+            href={site.phoneHref}
+            variant="inverseGhost"
+            size="sm"
+            fullWidth
+            class="w-full"
+            data-cta="call"
+            data-cta-location="mobile-sticky"
+          >
+            <Phone
+              slot="startIcon"
+              class="h-5 w-5"
+              aria-hidden="true"
+              stroke-width="1.8"
+            />
+            Call
+          </Button>
+        )}
         <Button
-          href={site.phoneHref}
-          variant="inverseGhost"
+          href="/request-quote"
+          variant="accent"
           size="sm"
           fullWidth
           class="w-full"
-          data-cta="call"
+          data-cta="quote"
           data-cta-location="mobile-sticky"
         >
-          <Phone
+          <ClipboardList
             slot="startIcon"
             class="h-5 w-5"
             aria-hidden="true"
             stroke-width="1.8"
           />
-          Call
+          Request a Quote
         </Button>
-      )
-    }
-    <Button
-      href="/request-quote"
-      variant="accent"
-      size="sm"
-      fullWidth
-      class="w-full"
-      data-cta="quote"
-      data-cta-location="mobile-sticky"
-    >
-      <ClipboardList
-        slot="startIcon"
-        class="h-5 w-5"
-        aria-hidden="true"
-        stroke-width="1.8"
-      />
-      Request a Quote
-    </Button>
-  </div>
-</div>
-
-<script>
-  const stickyCTA = document.querySelector<HTMLElement>(
-    '[data-mobile-sticky-cta]',
+      </div>
+    </div>
   )
-  const firstQuoteCTA = document.querySelector<HTMLElement>(
-    'main [data-cta="quote"]',
-  )
+}
 
-  if (stickyCTA) {
-    const setStickyVisibility = (visible: boolean) => {
-      stickyCTA.dataset.visible = String(visible)
-      stickyCTA.ariaHidden = String(!visible)
-      stickyCTA.inert = !visible
-    }
-
-    if (firstQuoteCTA) {
-      const observer = new IntersectionObserver(
-        ([entry]) => setStickyVisibility(!entry.isIntersecting),
-        { threshold: 0.1 },
-      )
-
-      observer.observe(firstQuoteCTA)
-    } else {
-      setStickyVisibility(true)
-    }
-  }
-</script>
+{shouldRenderSticky && <script is:inline set:html={stickyClientScript} />}
