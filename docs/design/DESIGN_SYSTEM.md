@@ -80,7 +80,6 @@ Components should consume semantic tokens such as:
 - `--color-action`
 - `--color-action-hover`
 - `--color-action-active`
-- `--color-secondary`
 - `--color-accent`
 - `--color-accent-hover`
 - `--color-cta-surface`
@@ -650,7 +649,7 @@ Slots:
 
 Rules:
 
-- Use `primary` for the main action.
+- Use `primary` for the main action on light page surfaces unless a documented semantic policy says otherwise.
 - Use `secondary` for lower-emphasis actions.
 - Use `ghost` for the least-emphasis actions.
 - Use `inverse` on dark surfaces.
@@ -660,6 +659,28 @@ Rules:
 - Keep touch targets at or above 44px.
 - Preserve visible focus states.
 - Disabled anchors must be non-interactive and labelled correctly.
+
+#### Semantic quote CTA policy
+
+Use the shared `Button` component for every public quote CTA. Do not create a
+second button component, page-local button color overrides, or page-by-page CTA
+color exceptions unless the exception is documented here first.
+
+- Light page surfaces: quote CTA = `primary`; secondary action = `secondary`.
+- Branded or inverse CTA panels: quote CTA = `light`; secondary action = `inverseGhost`.
+- Persistent global chrome: quote CTA = `accent`.
+
+Apply that policy by surface:
+
+- Header, footer, the desktop/mobile header quote actions, and the mobile sticky quote CTA stay `accent`.
+- Homepage hero and homepage final CTA use `primary` because both sit on light or warm page surfaces.
+- Service hub hero, service-detail heroes, service-area hub hero, and city-page heroes use `primary`.
+- Inverse CTA panels on services, service areas, and city pages use `light` for the quote action and `inverseGhost` for the secondary action.
+- Quote-page submission and thank-you utility actions stay on the light-surface policy: `primary` for the main action, `secondary` for lower-emphasis follow-up.
+
+Semantic note:
+
+- The Button `secondary` variant is the low-emphasis light-surface button treatment. There is intentionally no same-named semantic color alias because that name suggested a green action color that did not match the component system.
 
 ### Card
 
@@ -787,7 +808,9 @@ See [BRAND_ASSETS.md](./BRAND_ASSETS.md) for the inventory and limitations.
 
 Correct:
 
-- `Button` with `variant="primary"` for the quote CTA.
+- `Button` with `variant="primary"` for a quote CTA on a light page surface.
+- `Button` with `variant="light"` for a quote CTA inside an inverse CTA panel.
+- `Button` with `variant="accent"` for a quote CTA in persistent global chrome.
 - `Card tone="soft" padding="lg"` for a section panel.
 - `Section tone="warm" spacing="compact"` for a supporting surface.
 - `IconBadge icon={MapPin}` for a compact service-area cue.

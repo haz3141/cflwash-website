@@ -97,7 +97,6 @@
   --color-primary-hover: var(--color-action-hover);
   --color-action-active: #123a7c;
   --color-primary-active: var(--color-action-active);
-  --color-secondary: var(--color-brand-green);
   --color-accent: var(--color-brand-gold);
   --color-accent-hover: #c9952f;
   --color-inverse-border: rgb(255 255 255 / 0.12);

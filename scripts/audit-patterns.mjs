@@ -111,6 +111,41 @@ const approvedDevOnlyPageContext = {
 const approvedThemeDriftFiles = new Set(
   approvedThemeDriftContexts.map(({ path }) => path),
 )
+const quoteButtonVariantPolicy = new Map([
+  [join('src', 'components', 'home', 'HomeHero.astro'), ['primary']],
+  [join('src', 'components', 'site', 'Header.astro'), ['accent', 'accent']],
+  [join('src', 'components', 'site', 'Footer.astro'), ['accent']],
+  [join('src', 'components', 'site', 'MobileStickyCTA.astro'), ['accent']],
+  [
+    join('src', 'components', 'patterns', 'ServiceDetailPage.astro'),
+    ['primary', 'light'],
+  ],
+  [
+    join('src', 'components', 'patterns', 'ServiceAreaPage.astro'),
+    ['primary', 'light'],
+  ],
+  [join('src', 'pages', 'index.astro'), ['primary']],
+  [join('src', 'pages', 'services.astro'), ['primary', 'light']],
+  [join('src', 'pages', 'service-areas.astro'), ['primary', 'light']],
+])
+const buttonColorOverridePatterns = [
+  /\bbg-\[/,
+  /\bborder-\[/,
+  /\bfrom-\[/,
+  /\bvia-\[/,
+  /\bto-\[/,
+  /\bfill-\[/,
+  /\bstroke-\[/,
+  /\baccent-\[/,
+  /\bcaret-\[/,
+  /\bplaceholder-\[/,
+  /\bdecoration-\[/,
+  /\boutline-\[/,
+  /\btext-\[(?:var\(--color|#|rgb|hsl)/,
+  new RegExp(
+    `\\b(?:bg|text|border|from|via|to|outline|decoration|placeholder|accent|caret|fill|stroke)-(?:white|black|slate|gray|blue|green|red|orange|amber|yellow|neutral|stone|zinc)-[0-9]{2,3}(?:\\/[0-9]{1,3})?\\b`,
+  ),
+]
 
 function walkFiles(directory, extensions) {
   const entries = []
@@ -154,6 +189,37 @@ function findPatternMatches(source, patterns) {
         .filter(({ pattern }) => pattern.test(line))
         .map(({ label }) => ({ label, lineNumber: index + 1 })),
     )
+}
+
+function listComponentTags(source, componentName) {
+  const tags = []
+  const tagRegex = new RegExp(`<${componentName}\\b[\\s\\S]*?>`, 'g')
+
+  for (const match of source.matchAll(tagRegex)) {
+    const tag = match[0]
+    const index = match.index ?? 0
+    const lineNumber = source.slice(0, index).split('\n').length
+    tags.push({ tag, index, lineNumber })
+  }
+
+  return tags
+}
+
+function parseTagAttributes(tag) {
+  const attributes = {}
+  const attributeRegex = /([:@\w-]+)(?:=(?:"([^"]*)"|\{([^}]*)\}))?/g
+
+  for (const match of tag.matchAll(attributeRegex)) {
+    const [, name, quotedValue, expressionValue] = match
+
+    if (name === 'Button') {
+      continue
+    }
+
+    attributes[name] = quotedValue ?? expressionValue ?? true
+  }
+
+  return attributes
 }
 
 function extractPatternImports(source, pagePath) {
@@ -240,6 +306,30 @@ if (!existsSync(designSystemPath)) {
       )
     }
   }
+
+  if (!/^#### Semantic quote CTA policy$/m.test(designSystem)) {
+    failures.push(
+      'Design system documentation is missing the "Semantic quote CTA policy" heading under Button usage.',
+    )
+  }
+
+  for (const policyLine of [
+    'Light page surfaces: quote CTA = `primary`; secondary action = `secondary`.',
+    'Branded or inverse CTA panels: quote CTA = `light`; secondary action = `inverseGhost`.',
+    'Persistent global chrome: quote CTA = `accent`.',
+  ]) {
+    if (!designSystem.includes(policyLine)) {
+      failures.push(
+        `Design system documentation must include the semantic quote CTA rule: ${policyLine}`,
+      )
+    }
+  }
+
+  if (designSystem.includes('`--color-secondary`')) {
+    failures.push(
+      'Design system documentation must not document `--color-secondary`; the unused green alias is misleading next to the Button `secondary` variant.',
+    )
+  }
 }
 
 for (const pagePath of walkAstroFiles(join(root, 'src/pages'))) {
@@ -297,6 +387,50 @@ for (const filePath of scanFiles) {
     failures.push(
       `${relativePath}:${lineNumber} contains ${label}; use src/styles/tokens.css, a semantic utility, a primitive variant, or a pattern prop instead.`,
     )
+  }
+
+  if (!relativePath.endsWith('.astro')) {
+    continue
+  }
+
+  const buttonTags = listComponentTags(source, 'Button').map((entry) => ({
+    ...entry,
+    attributes: parseTagAttributes(entry.tag),
+  }))
+
+  const expectedQuoteVariants = quoteButtonVariantPolicy.get(relativePath)
+
+  if (expectedQuoteVariants) {
+    const actualQuoteVariants = buttonTags
+      .filter(({ attributes }) => attributes['data-cta'] === 'quote')
+      .map(({ attributes }) => attributes.variant || 'primary')
+
+    if (
+      actualQuoteVariants.length !== expectedQuoteVariants.length ||
+      actualQuoteVariants.some(
+        (variant, index) => variant !== expectedQuoteVariants[index],
+      )
+    ) {
+      failures.push(
+        `${relativePath} must keep quote CTA variants ${expectedQuoteVariants.join(', ')} in source order; found ${actualQuoteVariants.join(', ') || 'none'}.`,
+      )
+    }
+  }
+
+  for (const { attributes, lineNumber } of buttonTags) {
+    if (typeof attributes.class !== 'string') {
+      continue
+    }
+
+    if (
+      buttonColorOverridePatterns.some((pattern) =>
+        pattern.test(attributes.class),
+      )
+    ) {
+      failures.push(
+        `${relativePath}:${lineNumber} applies color-bearing Button class overrides; move the color decision into Button variants, tokens, or a documented pattern instead.`,
+      )
+    }
   }
 }
 
