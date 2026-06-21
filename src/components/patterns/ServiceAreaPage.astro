@@ -49,19 +49,19 @@ const nearbyAreas = page.nearbySlugs.flatMap((slug) => {
 
 const quoteSteps = [
   {
-    title: 'Share the property and surfaces',
+    title: 'Name the surfaces',
     description:
-      'Send the service address or city, the concrete areas you want cleaned, and what prompted the request.',
+      'Share the service address and list every concrete area you want included, along with any HOA notice wording.',
   },
   {
-    title: 'Add clear photos and details',
+    title: 'Show the property clearly',
     description:
-      'Include one wide photo, close photos of buildup or staining, and notes about access or specialty surfaces.',
+      'Add one wide photo, close views of buildup or staining, and notes about access, coatings, or decorative finishes.',
   },
   {
-    title: 'Review the quote before scheduling',
+    title: 'Quote first, scheduling later',
     description:
-      'CFL Wash Co. reviews the request so the proposed scope is clear before a cleaning visit is scheduled.',
+      'CFL Wash Co. uses those details to prepare the quote. Sending a request does not book a cleaning visit.',
   },
 ]
 ---
@@ -151,26 +151,27 @@ const quoteSteps = [
       >
         <div class="py-5 md:pr-6">
           <p class="text-sm font-semibold text-[var(--color-text)]">
-            Concrete-focused services
+            Concrete surfaces you can request
           </p>
           <p class="mt-1 text-sm leading-6 text-[var(--color-text-muted)]">
-            Driveways, sidewalks, walkways, entries, and similar hard surfaces.
+            Driveways, sidewalks, walkways, entries, patios, pads, aprons, and
+            curbs.
           </p>
         </div>
         <div class="py-5 md:px-6">
           <p class="text-sm font-semibold text-[var(--color-text)]">
-            Quote before scheduling
+            A few photos are enough to start
           </p>
           <p class="mt-1 text-sm leading-6 text-[var(--color-text-muted)]">
-            Share the property, surface, photos, and job notes first.
+            Show the full area, close marks, access, and any specialty finish.
           </p>
         </div>
         <div class="py-5 md:pl-6">
           <p class="text-sm font-semibold text-[var(--color-text)]">
-            Local Central Florida coverage
+            Quote first, scheduling later
           </p>
           <p class="mt-1 text-sm leading-6 text-[var(--color-text-muted)]">
-            {area.name} is one of CFL Wash Co.'s published service areas.
+            A quote request starts the conversation; it does not book a visit.
           </p>
         </div>
       </div>
@@ -179,8 +180,8 @@ const quoteSteps = [
     <Section
       id="services"
       eyebrow="Services"
-      title={`Popular pressure washing services in ${area.name}`}
-      description="Choose the closest match for the concrete that needs attention. Multiple connected areas can be included in one quote request."
+      title={`${area.name} service options`}
+      description="Choose the service that best matches the main surface. Add connected concrete to the same quote request."
     >
       <div data-city-services>
         <LinkGrid items={serviceLinks} columns="three" density="comfortable" />
@@ -189,8 +190,8 @@ const quoteSteps = [
 
     <Section
       eyebrow="Common reasons to call"
-      title={`${area.name} homeowners request concrete cleaning for practical, visible problems`}
-      description="Start with the surfaces that affect the property's everyday arrival and street-facing appearance."
+      title="Why clean the concrete?"
+      description="Start with the visible problem: a dark driveway, a marked walkway, an HOA notice, or a front approach that needs attention."
       tone="water"
     >
       <div
@@ -231,8 +232,8 @@ const quoteSteps = [
     </Section>
 
     <Section
-      eyebrow="Local context"
-      title={`${page.localHeading} in ${area.name}`}
+      eyebrow="Planning the work"
+      title={`${area.name}: ${page.localHeading}`}
       description={page.localBody}
       spacing="compact"
       class="border-y border-[var(--color-border)]"
@@ -257,8 +258,8 @@ const quoteSteps = [
 
     <Section
       eyebrow="Simple quote process"
-      title={`How to request a pressure washing quote in ${area.name}`}
-      description="A few clear details help keep the scope focused without turning the request into a long inspection form."
+      title={`${area.name} quote checklist`}
+      description="A short description and useful photos help define the surfaces without turning the request into an inspection form."
       tone="warm"
     >
       <ProcessSteps steps={quoteSteps} cardTone="soft" />
@@ -266,7 +267,7 @@ const quoteSteps = [
 
     <Section
       eyebrow="Questions"
-      title={`${area.name} pressure washing FAQs`}
+      title={`${area.name} quote questions`}
       tone="soft"
     >
       <FAQList faqs={faqs} columns="two" />
@@ -274,8 +275,8 @@ const quoteSteps = [
 
     <Section
       eyebrow="Nearby service areas"
-      title={`CFL Wash Co. also serves homeowners near ${area.name}`}
-      description="Use the page that matches the service address. You can also enter the exact address or nearest cross streets in the quote request."
+      title="Nearby CFL Wash Co. service areas"
+      description="Use the page that matches the property address, or include the exact address in your quote request."
       spacing="compact"
       class="border-t border-[var(--color-border)]"
     >
@@ -293,8 +294,8 @@ const quoteSteps = [
     <CTASection
       tone="inverse"
       eyebrow={`${area.name} service area`}
-      title={`Request a pressure washing quote for your ${area.name} property.`}
-      description="Share the address, surfaces, photos, and any HOA notice details. CFL Wash Co. will review the request before scheduling."
+      title="Ready to request a quote?"
+      description="Share the address, concrete surfaces, clear photos, and any HOA notice. That is enough to start the quote."
       titleWidth="wide"
     >
       <Fragment slot="actions">

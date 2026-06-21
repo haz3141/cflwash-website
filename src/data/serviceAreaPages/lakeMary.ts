@@ -5,62 +5,52 @@ export const lakeMaryPage = {
   slug: 'lake-mary',
   seoTitle: 'Pressure Washing in Lake Mary, FL | CFL Wash Co.',
   seoDescription:
-    'Request driveway, walkway, sidewalk, and concrete cleaning in Lake Mary, Florida from CFL Wash Co.',
+    'Request Lake Mary driveway, walkway, sidewalk, and concrete cleaning for gated properties, townhome entries, and decorative surfaces.',
   heroDescription:
-    'CFL Wash Co. helps Lake Mary homeowners clean driveways, front walks, entries, sidewalks, patios, and other appropriate concrete surfaces.',
+    'Request cleaning for a Lake Mary driveway, front walk, townhome entry, sidewalk, patio, or other residential concrete.',
   heroMedia: publicMedia.serviceConcrete,
-  localHeading: 'Planned-community and townhome layouts',
+  localHeading: 'Access and finishes',
   localBody:
-    'Lake Mary properties can include gated access, shared drives, compact townhome entries, and larger driveways near Rinehart Road or Soldiers Creek. The quote should account for access and surface type without making the process complicated.',
+    'A gated property, shared driveway, or compact townhome entry is easier to quote when access is clear. Decorative, sealed, widened, or paver-adjacent concrete also needs close photos.',
   localNote:
-    'Mention gate instructions, parking limits, shared access, decorative finishes, sealed concrete, or nearby pavers.',
+    'Share gate instructions, guest or shared parking limits, vehicle locations, and the finish on every requested surface.',
   reasons: [
     {
-      title: 'HOA-visible driveway cleanup',
+      title: 'HOA notice or visible front concrete',
       description:
-        'Clean the driveway, front walk, or entry concrete that shapes the view from the street or community approach.',
+        'Attach the notice and identify the driveway, walk, curb, or entry area named in it.',
     },
     {
       title: 'Decorative or expanded hardscape',
       description:
-        'Identify sealed, decorative, widened, or paver-adjacent areas before the quote is reviewed.',
+        'Identify sealed, decorative, widened, or paver-adjacent areas before cleaning expectations are set.',
     },
     {
       title: 'Townhome or compact-entry cleaning',
       description:
-        'Smaller front walks, entry pads, and garage aprons can be grouped into one clear request.',
+        'Group the front walk, entry pad, sidewalk section, and garage apron in one clear request.',
     },
   ],
   faqs: [
     {
-      question: 'Can you quote homes in Lake Mary planned communities?',
+      question: 'Which Lake Mary concrete surfaces can I request?',
       answer:
-        'Yes. Include the actual service address, requested surfaces, and any gate, parking, or access instructions.',
+        'Request driveways, sidewalks, walkways, entry pads, patios, aprons, curbs, and other residential concrete.',
     },
     {
       question: 'What if my driveway is sealed or decorative?',
       answer:
-        'Mention the finish and send close photos before the quote is reviewed. Specialty surfaces should not be treated like standard poured concrete by default.',
+        'Mention the finish and send close photos. Sealed, painted, decorative, exposed-aggregate, and paver-adjacent areas should not be treated like standard poured concrete by default.',
+    },
+    {
+      question: 'How do an HOA notice and gate access fit the request?',
+      answer:
+        'Attach the notice wording and deadline, then add gate instructions, parking limits, and photos of the named surface.',
     },
     {
       question: 'Can a townhome entry or smaller driveway be included?',
       answer:
-        'Yes. Describe the complete group of surfaces, such as the apron, front walk, entry pad, or sidewalk section.',
-    },
-    {
-      question: 'Can CFL Wash Co. help with an HOA notice?',
-      answer:
-        'Yes. Send the exact notice wording, deadline, named surface, and current photos with the request.',
-    },
-    {
-      question: 'What gate or parking details should I provide?',
-      answer:
-        'Share gate instructions, guest-parking limits, shared-drive conditions, and where vehicles or bins normally block the requested surfaces.',
-    },
-    {
-      question: 'Can a patio or expanded concrete area be included?',
-      answer:
-        'Yes. Add it to the request with photos and disclose decorative, sealed, widened, or paver-adjacent sections before review.',
+        'Yes. List the apron, front walk, entry pad, sidewalk section, or patio together and show how shared parking or nearby units affect access.',
     },
   ],
   nearbySlugs: ['sanford'],

@@ -5,25 +5,25 @@ export const delandPage = {
   slug: 'deland',
   seoTitle: 'Pressure Washing in DeLand, FL | CFL Wash Co.',
   seoDescription:
-    'Request driveway, walkway, sidewalk, and concrete cleaning in DeLand, Florida from CFL Wash Co.',
+    'Request DeLand driveway, walkway, sidewalk, and concrete cleaning for older surfaces, front entries, and connected approaches.',
   heroDescription:
-    'CFL Wash Co. serves DeLand homeowners with concrete-focused cleaning for driveways, front walks, entries, sidewalks, and curb appeal.',
+    'Request cleaning for an older DeLand driveway, front walk, entry slab, sidewalk section, patio, or other residential concrete.',
   heroMedia: publicMedia.serviceWalkway,
-  localHeading: 'Mature trees and mixed-age concrete',
+  localHeading: 'Older concrete',
   localBody:
-    'DeLand includes established neighborhoods, newer communities, the downtown historic district, and homes near school-link sidewalks. The quote should still reflect the actual material, condition, and access at the property.',
+    'Older and newer concrete can sit side by side around the same home. Photos should separate worn sections, later additions, steps, coatings, and places where the concrete meets brick or pavers.',
   localNote:
-    'Include close photos of older sections, coatings, cracks, decorative finishes, and places where concrete meets brick or pavers.',
+    'Do not hide cracks or wear in the photos. Those details help set realistic expectations without treating age-related discoloration like surface buildup.',
   reasons: [
     {
       title: 'Older driveway appearance',
       description:
-        'Routine buildup can make an established driveway or entry look darker and less cared for.',
+        'Everyday buildup can make an established driveway or entry look darker, even when age and wear will still remain.',
     },
     {
       title: 'Walkway and porch approach',
       description:
-        'Front walks, steps, and entry slabs can be quoted with the driveway when they share the same arrival path.',
+        'Include front walks, steps, and entry slabs with the driveway when they share the route to the door.',
     },
     {
       title: 'Curb appeal before an event or move',
@@ -33,34 +33,24 @@ export const delandPage = {
   ],
   faqs: [
     {
-      question: 'What pressure washing services are available in DeLand?',
+      question: 'Which DeLand concrete surfaces can I request?',
       answer:
-        'CFL Wash Co. currently offers driveway pressure washing, sidewalk and walkway cleaning, and concrete cleaning for residential hard surfaces.',
+        'Request driveways, sidewalks, walkways, entry slabs, steps, patios, aprons, curbs, and other residential concrete.',
     },
     {
-      question: 'Can older concrete be included in a quote?',
+      question: 'What should I expect from older concrete?',
       answer:
-        'Yes, but send close photos and mention age, wear, cracks, coatings, or decorative finishes before the surface is reviewed.',
+        'Cleaning can improve everyday buildup, but cracks, wear, older discoloration, rust, and set-in marks may remain. Send close photos before expectations are set.',
     },
     {
-      question: 'Can I request several small concrete areas together?',
+      question: 'Can I include an HOA notice?',
       answer:
-        'Yes. List the driveway, walk, entry slab, steps, patio, or other areas and show how they relate in one wide photo.',
+        'Yes. Attach the notice wording, deadline, named surface, and current photos with the quote request.',
     },
     {
-      question: 'Can you help with an HOA notice in DeLand?',
+      question: 'Which photos help with mixed-age or mixed-material areas?',
       answer:
-        'Yes. Send the exact wording, deadline, named surface, and current photos with the quote request.',
-    },
-    {
-      question: 'What photos are useful for older or mixed-material entries?',
-      answer:
-        'Send a full approach photo plus close views where concrete meets brick, pavers, stairs, coatings, cracks, or decorative sections.',
-    },
-    {
-      question: 'Can patio or backyard concrete be included?',
-      answer:
-        'Include it in the same request with access notes and photos. The surface type and complete proposed scope will be reviewed first.',
+        'Send a full approach photo plus close views of older sections, later additions, stairs, cracks, coatings, and edges beside brick or pavers.',
     },
   ],
   nearbySlugs: ['orange-city', 'deltona', 'debary'],
