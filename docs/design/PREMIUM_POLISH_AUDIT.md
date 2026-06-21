@@ -799,3 +799,132 @@ All service imagery remains registered `service-illustration` media with
 `not-proof` status and the existing visible disclosure. Issues #50 and #51
 remain deferred. Issue #77 remains open until the coordinated #93 and #95 work
 is complete.
+
+## Issue #93 implementation review
+
+- Review date: June 20, 2026
+- Reviewed branch: `feat/premium-city-pages`
+- Entry revision: `42dad27288b9567d99472eb4041cb4d61e1947f7`
+- Render target: built preview at `http://127.0.0.1:4322`
+- Browser: headless Google Chrome `149.0.7827.156` through the Chrome DevTools
+  Protocol
+
+### Implemented coverage composition
+
+The service-area hub is now a coverage chooser rather than a city-card catalog.
+Its registered residential artwork moved into the split hero, quote and call
+actions remain first-view controls, the six approved city routes render as one
+open semantic menu, the three active services use compact divided navigation,
+and the route closes with one inverse CTA. Civic photography does not appear on
+the hub.
+
+All six city routes continue to delegate to one `ServiceAreaPage`. Each typed
+city record now owns explicit proof-safe hero media: driveway illustration for
+Deltona and DeBary, walkway illustration for Orange City and DeLand, and
+concrete illustration for Sanford and Lake Mary. The mapping reflects existing
+homeowner scenarios only; every image remains `service-illustration`,
+`not-proof`, and visibly labeled as not completed-project photography.
+
+City pages use an open service selector, a water-tinted editorial scenario
+composition, compact local context, warm quote process, separate soft FAQ band,
+compact nearby-area links, and one inverse close. Licensed civic photography is
+now a small `City context only` callout. At 390px its displayed image width is
+104px on every route; the factual alt text, responsive sources, intrinsic
+dimensions, `city-context` / `context-only` metadata, caption, and attribution
+remain intact.
+
+### Rendered QA method
+
+The in-app Browser skill was loaded first, but runtime setup returned
+`Browser is not available: iab`. The established fallback used installed
+headless Chrome through the DevTools Protocol. A temporary harness, browser
+profile, JSON metrics, and screenshots remained under `/tmp`; no QA dependency
+or artifact was added to the repository.
+
+The final pass ran against built output, not the dev server. It covered all
+seven affected routes at:
+
+- `390 × 844`
+- `430 × 932`
+- `768 × 1024`
+- `1024 × 768`
+- `1440 × 900`
+
+Each route was opened fresh, fonts were awaited, the first viewport was
+captured, the full document was scrolled in increments to trigger lazy media,
+and the final state was measured. Full-page captures were also produced at
+390px and 1440px. Native-width comparison captures used the 985px hub concept
+and 864px city concept dimensions.
+
+### Route and viewport notes
+
+| Route                        | 390px and 430px                                                                                                                      | 768px                                                                                    | 1024px                                                                                                      | 1440px                                                                                                                |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `/service-areas`             | Quote/call precede the residential artwork; six city rows form one fast single-column chooser; final mobile height is 4,891/4,815px. | Hero and chooser remain stacked with comfortable gutters and open service navigation.    | Split hero activates with both actions visible; the city chooser begins in the first viewport continuation. | Balanced split hero, two-column open city menu, compact service band, and inverse close read as one coverage journey. |
+| `/service-areas/deltona`     | Driveway-led hero, both actions, disclosure, and service-fit rail remain clear; civic image is a 104px context thumbnail.            | Stacked service media and open sections retain readable measures without dense cards.    | Split hero and three-part fit rail render without clipping; quote remains first-view.                       | Driveway scenario leads; local context is compact; warm process and soft FAQ bands are visually distinct.             |
+| `/service-areas/orange-city` | Walkway-led hero differentiates the page without implying city work; long city name wraps intentionally with both actions visible.   | Existing compact-entry and shade scenarios remain readable in the shared composition.    | Hero, service selector, and proof caption fit the established interior-page rhythm.                         | Walkway media and page-owned scenarios create distinction while civic photography remains secondary.                  |
+| `/service-areas/debary`      | Driveway-led hero and cleaner-front-approach copy fit without overflow; context thumbnail and attribution remain legible.            | Wooded/shaded conditions remain page-owned while layout stays consistent with the set.   | Split media and call-to-action pair remain visible and aligned.                                             | Scenario hierarchy promotes the existing shaded-buildup angle without a bespoke template.                             |
+| `/service-areas/deland`      | Walkway-led hero, actions, and disclosure remain above the service-fit rail; no crowded city navigation appears.                     | Mixed-age surface guidance reads as content rather than another card field.              | The longer local material remains contained with no first-view CTA loss.                                    | Civic theatre imagery is reduced to the same small attributed context role as every other city.                       |
+| `/service-areas/sanford`     | Concrete-led hero distinguishes the broader mixed-material use case; actions and H1 stay fully visible.                              | Open navigation and scenario rows avoid repeating card-grid cadence.                     | Split hero and fit rail remain balanced without image or heading clipping.                                  | The mixed-material/access story leads the body; Sanford City Hall remains a context-only thumbnail.                   |
+| `/service-areas/lake-mary`   | Concrete-led hero, quote/call pair, and planned-community copy remain readable; the civic sign is visually subordinate.              | Gate, parking, and specialty-surface material remains available without layout crowding. | Split hero, media disclosure, and three fit statements stay within the first-view composition.              | Existing HOA/access distinctions are easier to locate while the shared layout remains cohesive.                       |
+
+Across all 35 route/viewport combinations:
+
+- document width equaled viewport width with `0px` horizontal overflow;
+- exactly one visible H1 rendered with the expected route-specific text;
+- the hero quote action was visible and fully inside the first viewport;
+- every eager and lazy image completed with positive natural dimensions;
+- city pages rendered exactly one expected service illustration and one unique
+  city-context asset with their registered role and proof status;
+- no framework error overlay, relevant console warning/error, runtime
+  exception, failed resource, or page error appeared;
+- the 104px mobile civic thumbnail stayed materially smaller than the
+  service-led hero media;
+- the mobile sticky action remained viewport-contained and did not cover the
+  measured final action when the final state was checked.
+
+The 390px interaction path also passed:
+
+1. `/service-areas` → Deltona city-menu link navigated to
+   `/service-areas/deltona`.
+2. The city route rendered `Pressure washing in Deltona, FL` and the registered
+   driveway illustration.
+3. The hero `Request a Quote` action navigated to `/request-quote`, whose H1
+   remained `Request a quote for your cleaning project.`
+
+### Concept fidelity ledger
+
+| Fidelity point         | Concept and render comparison                                                                                                                                                                                                   |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| First-view hierarchy   | Both hub and city renders preserve the concept's service/location H1, restrained lead, quote-first action pair, single framed media moment, and visible next-section continuation.                                              |
+| Typography and palette | Shared Manrope, navy headings, water-blue actions, gold global CTA, soft hero surface, white editorial areas, water scenario band, warm process, and inverse close match the approved homepage-derived system.                  |
+| Container model        | The implementation uses open divided city/service/scenario rows rather than the prior card catalog or mockup-invented component families.                                                                                       |
+| Media treatment        | Hub artwork and service illustrations keep stable crops, restrained media elevation, intrinsic sizing, responsive sources, and visible proof captions. Civic photography is a small attributed factual inset.                   |
+| Responsive behavior    | The accepted system keeps stacked heroes below 1024px and split heroes at 1024px and above. The generated concepts used desktop splits at 985px/864px; retaining the established breakpoint is an intentional consistency rule. |
+| Copy and claims        | Public copy remains the current verified repository copy. Mockup-invented results, hours, pricing, phone numbers, extra cities, accordion behavior, and service claims were not implemented.                                    |
+| Section rhythm         | The render follows soft hero → white services → water scenarios → compact white local context → warm process → soft FAQ → white nearby links → inverse CTA, matching the intended editorial cadence without one-off styling.    |
+
+The image review identified and fixed one material mismatch before the final
+pass: the process and FAQ sections initially shared the warm surface, creating
+one long beige block. The final implementation locks warm process and separate
+soft FAQ surfaces in the production audit. Local context was also tightened to
+the compact shared spacing. No remaining fixable hierarchy, palette, media,
+container, responsive, or CTA mismatch was found after the built-preview
+review.
+
+### Claim safety and deferred work
+
+Issue #93 adds no reviews, testimonials, ratings, guarantees, insurance or
+licensing claims, rankings, response-time or same-day claims, completed-project
+claims, fixed pricing, booking/payment claims, new services, new cities, or
+city-specific work history. It changes no quote backend behavior, canonical
+path, metadata, breadcrumb, schema, sitemap/indexability rule, or tracked city
+CTA location.
+
+The full city and service-area copy rewrite remains deferred to #95. Current
+city-specific text and six FAQ sets stay in place even where later editing can
+reduce page length or procedural wording. This implementation resolves the
+design/layout side of #77 by centralizing the premium composition, replacing
+the civic-led hierarchy, reducing hub/card density, and clarifying mobile
+conversion paths. Issue #77 should remain open until #95 proves the remaining
+content and usefulness requirements.

@@ -1,4 +1,5 @@
 import type { ServiceAreaPageContent } from '../serviceAreaPageTypes'
+import { publicMedia } from '../publicMedia'
 
 export const delandPage = {
   slug: 'deland',
@@ -7,6 +8,7 @@ export const delandPage = {
     'Request driveway, walkway, sidewalk, and concrete cleaning in DeLand, Florida from CFL Wash Co.',
   heroDescription:
     'CFL Wash Co. serves DeLand homeowners with concrete-focused cleaning for driveways, front walks, entries, sidewalks, and curb appeal.',
+  heroMedia: publicMedia.serviceWalkway,
   localHeading: 'Mature trees and mixed-age concrete',
   localBody:
     'DeLand includes established neighborhoods, newer communities, the downtown historic district, and homes near school-link sidewalks. The quote should still reflect the actual material, condition, and access at the property.',

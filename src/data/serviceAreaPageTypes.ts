@@ -1,3 +1,5 @@
+import type { PublicMediaAsset } from './publicMedia'
+
 export type ServiceAreaFAQ = {
   question: string
   answer: string
@@ -13,6 +15,7 @@ export type ServiceAreaPageContent = {
   seoTitle: string
   seoDescription: string
   heroDescription: string
+  heroMedia: PublicMediaAsset
   localHeading: string
   localBody: string
   localNote: string

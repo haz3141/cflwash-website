@@ -1,4 +1,5 @@
 import type { ServiceAreaPageContent } from '../serviceAreaPageTypes'
+import { publicMedia } from '../publicMedia'
 
 export const lakeMaryPage = {
   slug: 'lake-mary',
@@ -7,6 +8,7 @@ export const lakeMaryPage = {
     'Request driveway, walkway, sidewalk, and concrete cleaning in Lake Mary, Florida from CFL Wash Co.',
   heroDescription:
     'CFL Wash Co. helps Lake Mary homeowners clean driveways, front walks, entries, sidewalks, patios, and other appropriate concrete surfaces.',
+  heroMedia: publicMedia.serviceConcrete,
   localHeading: 'Planned-community and townhome layouts',
   localBody:
     'Lake Mary properties can include gated access, shared drives, compact townhome entries, and larger driveways near Rinehart Road or Soldiers Creek. The quote should account for access and surface type without making the process complicated.',

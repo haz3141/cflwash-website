@@ -2,10 +2,9 @@
 import Button from '../components/ui/Button.astro'
 import BreadcrumbSchema from '../components/site/BreadcrumbSchema.astro'
 import Breadcrumbs from '../components/site/Breadcrumbs.astro'
-import Card from '../components/ui/Card.astro'
 import CTASection from '../components/patterns/CTASection.astro'
 import HeroSection from '../components/patterns/HeroSection.astro'
-import IconBadge from '../components/ui/IconBadge.astro'
+import LinkGrid from '../components/patterns/LinkGrid.astro'
 import MediaFrame from '../components/patterns/MediaFrame.astro'
 import Section from '../components/ui/Section.astro'
 import Layout from '../layouts/Layout.astro'
@@ -13,13 +12,18 @@ import { publicMedia } from '../data/publicMedia'
 import { serviceAreas } from '../data/serviceAreas'
 import { services } from '../data/services'
 import { site } from '../data/site'
-import { ArrowRight, ClipboardList, MapPin, Phone } from '@lucide/astro'
+import { ArrowRight, ClipboardList, Mail, MapPin, Phone } from '@lucide/astro'
 
 const breadcrumbs = [
   { label: 'Home', href: '/' },
   { label: 'Service Areas', href: '/service-areas' },
 ]
 const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
+const serviceLinks = services.map((service) => ({
+  label: service.name,
+  href: `/${service.slug}`,
+  description: service.summary,
+}))
 ---
 
 <Layout
@@ -32,10 +36,11 @@ const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
     <Breadcrumbs items={breadcrumbs} />
 
     <HeroSection
+      variant="split"
       tone="soft"
       eyebrow="Central Florida service areas"
-      title="Find the pressure washing page for your city."
-      description="CFL Wash Co. currently publishes local service pages for six Central Florida cities. Choose the page that matches the service address for local context, active services, quote guidance, and nearby areas."
+      title="Pressure washing across six Central Florida cities"
+      description="CFL Wash Co. provides driveway, sidewalk, walkway, and concrete cleaning in Deltona, Orange City, DeBary, DeLand, Sanford, and Lake Mary."
     >
       <Fragment slot="actions">
         <Button
@@ -54,113 +59,117 @@ const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
           />
           Request a Quote
         </Button>
-        <Button
-          href="/services"
-          variant="secondary"
-          size="lg"
-          fullWidth
-          class="sm:w-auto"
-        >
-          View Services
-        </Button>
+        {
+          hasPhone ? (
+            <Button
+              href={site.phoneHref!}
+              variant="secondary"
+              size="lg"
+              fullWidth
+              class="sm:w-auto"
+              data-cta="call"
+              data-cta-location="service-areas-hub-hero"
+            >
+              <Phone
+                slot="startIcon"
+                class="h-5 w-5"
+                aria-hidden="true"
+                stroke-width="1.8"
+              />
+              Call {site.phoneDisplay}
+            </Button>
+          ) : (
+            <Button
+              href={`mailto:${site.email}`}
+              variant="secondary"
+              size="lg"
+              fullWidth
+              class="sm:w-auto"
+              data-cta="email"
+              data-cta-location="service-areas-hub-hero"
+            >
+              <Mail
+                slot="startIcon"
+                class="h-5 w-5"
+                aria-hidden="true"
+                stroke-width="1.8"
+              />
+              Email CFL Wash Co.
+            </Button>
+          )
+        }
       </Fragment>
 
-      <Card
-        slot="aside"
-        tone="raised"
-        elevated
-        aria-label="Current service-area coverage"
-      >
-        <div class="flex items-center gap-3">
-          <IconBadge icon={MapPin} tone="action" size="lg" />
-          <div>
-            <p class="text-sm font-semibold text-[var(--color-text)]">
-              Published coverage
-            </p>
-            <p class="text-sm text-[var(--color-text-muted)]">
-              {serviceAreas.length} active city pages
-            </p>
-          </div>
-        </div>
-        <p class="mt-4 text-sm leading-7 text-[var(--color-text-muted)]">
-          Do not see the exact city? Send the service address or nearest cross
-          streets. CFL Wash Co. can review whether the property fits the current
-          coverage area without implying service everywhere in Central Florida.
-        </p>
-      </Card>
+      <MediaFrame
+        slot="media"
+        media={publicMedia.brandResidentialContext}
+        imageClass="aspect-[16/10] lg:aspect-[4/3]"
+        loading="eager"
+        fetchpriority="high"
+      />
     </HeroSection>
 
     <Section
       eyebrow="Current city pages"
       title="Choose the service address"
-      description="Each city page is written for homeowners first and includes active service links, common reasons to request cleaning, quote preparation, FAQs, and nearby published cities."
+      description="Select the city that matches the property. Each page keeps active services, practical local context, quote guidance, and nearby coverage easy to find."
       class="border-t border-[var(--color-border)]"
-      contentWidth="full"
     >
-      <div
-        class="grid gap-8 lg:grid-cols-[minmax(18rem,0.72fr)_minmax(0,1.28fr)] lg:items-start"
+      <ul
+        class="grid border-y border-[var(--color-border)] md:grid-cols-2"
+        data-service-area-menu
       >
-        <MediaFrame
-          media={publicMedia.brandResidentialContext}
-          sizes="(min-width: 1024px) 36vw, 100vw"
-          imageClass="aspect-[16/10] lg:aspect-[4/5]"
-          class="lg:sticky lg:top-24"
-        />
-
-        <div class="grid gap-4 sm:grid-cols-2">
-          {
-            serviceAreas.map((area) => (
-              <article class="theme-shadow-xs flex h-full flex-col rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface-raised)] p-6">
-                <IconBadge icon={MapPin} tone="soft" size="md" />
-                <p class="eyebrow-action mt-5">Service area</p>
-                <h2 class="mt-2 text-section-subtitle text-[var(--color-text)]">
-                  {area.name}, Florida
-                </h2>
-                <p class="mt-3 flex-1 text-sm leading-7 text-[var(--color-text-muted)]">
-                  {area.description}
-                </p>
-                <a href={`/service-areas/${area.slug}`} class="text-link mt-5">
-                  View {area.name} service page
-                  <ArrowRight
-                    class="h-4 w-4"
-                    aria-hidden="true"
-                    stroke-width="1.9"
-                  />
-                </a>
-              </article>
-            ))
-          }
-        </div>
-      </div>
+        {
+          serviceAreas.map((area, index) => (
+            <li
+              class:list={[
+                'min-w-0 border-b border-[var(--color-border)]',
+                index % 2 === 0 && 'md:pr-8',
+                index % 2 === 1 && 'md:border-l md:pl-8',
+              ]}
+              data-service-area-menu-item
+            >
+              <a
+                href={`/service-areas/${area.slug}`}
+                class="group grid min-h-32 grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4 py-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--color-focus-ring)]"
+              >
+                <MapPin
+                  class="h-6 w-6 text-[var(--color-action)]"
+                  aria-hidden="true"
+                  stroke-width="1.8"
+                />
+                <span class="min-w-0">
+                  <span class="block text-lg font-semibold text-[var(--color-text)] transition-colors duration-[var(--duration-fast)] group-hover:text-[var(--color-action)]">
+                    {area.name}, Florida
+                  </span>
+                  <span class="mt-2 block text-sm leading-7 text-[var(--color-text-muted)]">
+                    {area.description}
+                  </span>
+                </span>
+                <ArrowRight
+                  class="h-5 w-5 text-[var(--color-action)]"
+                  aria-hidden="true"
+                  stroke-width="1.9"
+                />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="mt-6 text-sm leading-7 text-[var(--color-text-muted)]">
+        Property outside a listed city? Include the exact service address in the
+        quote request so current coverage can be confirmed.
+      </p>
     </Section>
 
     <Section
       eyebrow="Available across current city pages"
-      title="The same concrete-focused services are linked from every city"
-      description="Use a city page for local context or go directly to the service that best matches the requested surface."
-      tone="soft"
+      title="Start with the concrete surface"
+      description="Go directly to the service that best matches the driveway, walkway, or other residential concrete in the request."
+      tone="water"
     >
-      <div class="grid gap-4 md:grid-cols-3">
-        {
-          services.map((service) => (
-            <a href={`/${service.slug}`} class="card-link group p-6">
-              <h2 class="text-lg font-semibold text-[var(--color-text)] group-hover:text-[var(--color-action)]">
-                {service.name}
-              </h2>
-              <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
-                {service.summary}
-              </p>
-              <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-action)]">
-                View service
-                <ArrowRight
-                  class="h-4 w-4"
-                  aria-hidden="true"
-                  stroke-width="1.9"
-                />
-              </span>
-            </a>
-          ))
-        }
+      <div data-service-area-services>
+        <LinkGrid items={serviceLinks} columns="three" density="comfortable" />
       </div>
     </Section>
 
@@ -168,13 +177,16 @@ const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
       eyebrow="Property outside a listed city?"
       title="Send the exact service address for a coverage review."
       description="Include the requested concrete surfaces and clear photos. CFL Wash Co. will review whether the property and scope fit the current service area before scheduling."
-      surface="elevated"
+      tone="inverse"
       titleWidth="wide"
     >
       <Fragment slot="actions">
         <Button
           href="/request-quote"
           variant="light"
+          size="lg"
+          fullWidth
+          class="sm:w-auto"
           data-cta="quote"
           data-cta-location="service-areas-hub-final"
         >
@@ -185,6 +197,9 @@ const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
             <Button
               href={site.phoneHref!}
               variant="inverseGhost"
+              size="lg"
+              fullWidth
+              class="sm:w-auto"
               data-cta="call"
               data-cta-location="service-areas-hub-final"
             >

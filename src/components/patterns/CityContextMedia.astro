@@ -3,6 +3,7 @@ import type { CityContextImage } from '../../data/cityContextImages'
 
 type Props = {
   media: CityContextImage
+  variant?: 'standard' | 'compact'
   loading?: 'eager' | 'lazy'
   sizes?: string
   class?: string
@@ -10,48 +11,89 @@ type Props = {
 
 const {
   media,
+  variant = 'standard',
   loading = 'lazy',
   sizes = '(min-width: 1024px) 40vw, (min-width: 768px) 50vw, 100vw',
   class: className = '',
 } = Astro.props as Props
 
+const isCompact = variant === 'compact'
 const srcset = media.image.sources
   ?.map(({ src, width }) => `${src} ${width}w`)
   .join(', ')
 ---
 
 <figure
-  class={`theme-shadow-xs overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] ${className}`.trim()}
+  class:list={[
+    isCompact
+      ? 'min-w-0 border-t border-[var(--color-border)] pt-4'
+      : 'theme-shadow-xs overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)]',
+    className,
+  ]}
   data-media-id={media.id}
   data-media-role={media.role}
   data-proof-status={media.proofStatus}
+  data-city-context-callout={isCompact ? '' : undefined}
 >
-  <p class="eyebrow-action px-4 pt-4">City context</p>
-  <div class="px-4 pb-4 pt-3">
-    <div
-      class="overflow-hidden rounded-[var(--radius-md)] bg-[var(--color-surface-raised)]"
-    >
-      <img
-        src={media.image.src}
-        alt={media.alt}
-        width={media.image.width}
-        height={media.image.height}
-        srcset={srcset}
-        sizes={srcset ? sizes : undefined}
-        class="aspect-[4/3] h-full w-full object-cover"
-        loading={loading}
-        decoding="async"
-      />
-    </div>
-  </div>
   {
-    (media.caption || media.attribution) && (
-      <figcaption class="space-y-1 border-t border-[var(--color-border)] px-4 py-3 text-sm leading-6 text-[var(--color-text-muted)]">
-        {media.caption && (
-          <p class="font-medium text-[var(--color-text)]">{media.caption}</p>
+    isCompact ? (
+      <div class="grid grid-cols-[6.5rem_minmax(0,1fr)] items-start gap-4 sm:grid-cols-[8rem_minmax(0,1fr)]">
+        <div class="overflow-hidden rounded-[var(--radius-md)] bg-[var(--color-surface-raised)]">
+          <img
+            src={media.image.src}
+            alt={media.alt}
+            width={media.image.width}
+            height={media.image.height}
+            srcset={srcset}
+            sizes={srcset ? sizes : undefined}
+            class="aspect-[4/3] h-full w-full object-cover"
+            loading={loading}
+            decoding="async"
+          />
+        </div>
+        <div class="min-w-0">
+          <p class="eyebrow-action">City context only</p>
+          {(media.caption || media.attribution) && (
+            <figcaption class="mt-2 space-y-1 text-xs leading-5 text-[var(--color-text-muted)]">
+              {media.caption && (
+                <p class="font-medium text-[var(--color-text)]">
+                  {media.caption}
+                </p>
+              )}
+              {media.attribution && <p>{media.attribution}</p>}
+            </figcaption>
+          )}
+        </div>
+      </div>
+    ) : (
+      <>
+        <p class="eyebrow-action px-4 pt-4">City context</p>
+        <div class="px-4 pb-4 pt-3">
+          <div class="overflow-hidden rounded-[var(--radius-md)] bg-[var(--color-surface-raised)]">
+            <img
+              src={media.image.src}
+              alt={media.alt}
+              width={media.image.width}
+              height={media.image.height}
+              srcset={srcset}
+              sizes={srcset ? sizes : undefined}
+              class="aspect-[4/3] h-full w-full object-cover"
+              loading={loading}
+              decoding="async"
+            />
+          </div>
+        </div>
+        {(media.caption || media.attribution) && (
+          <figcaption class="space-y-1 border-t border-[var(--color-border)] px-4 py-3 text-sm leading-6 text-[var(--color-text-muted)]">
+            {media.caption && (
+              <p class="font-medium text-[var(--color-text)]">
+                {media.caption}
+              </p>
+            )}
+            {media.attribution && <p>{media.attribution}</p>}
+          </figcaption>
         )}
-        {media.attribution && <p>{media.attribution}</p>}
-      </figcaption>
+      </>
     )
   }
 </figure>
