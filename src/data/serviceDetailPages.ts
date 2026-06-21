@@ -6,212 +6,212 @@ export const serviceDetailPages = {
     slug: 'driveway-pressure-washing',
     seoTitle: 'Driveway Pressure Washing in Central Florida | CFL Wash Co.',
     seoDescription:
-      'Request a quote for concrete driveway pressure washing in Central Florida. CFL Wash Co. helps with curb appeal, surface grime, and HOA notice cleanup.',
+      'Concrete driveway pressure washing for visible buildup, tire marks, and curb appeal in Central Florida. Share photos and request a quote from CFL Wash Co.',
     hero: {
-      eyebrow: 'Service',
-      title: 'Driveway pressure washing for cleaner curb appeal.',
+      eyebrow: 'Driveway pressure washing',
+      title: 'Driveway pressure washing for a cleaner front approach.',
       description:
-        'CFL Wash Co. cleans concrete driveways affected by tire marks, organic buildup, irrigation staining, tracked-in dirt, and everyday grime. Surface condition and staining shape the quote and expected result.',
+        'Everyday grime, organic buildup, tire marks, and irrigation stains can make the front of a home look overlooked. CFL Wash Co. cleans concrete driveways across Central Florida to help the approach look better cared for.',
       media: publicMedia.serviceDriveway,
     },
     scope: {
-      eyebrow: 'What is included',
-      title: 'A focused driveway cleaning scope',
+      eyebrow: 'Driveway service',
+      title: 'Focused on the concrete that frames your home',
       description:
-        'The quote stays centered on the concrete driveway and connected hard-surface details that affect the visible result.',
+        'The driveway is the priority. Aprons, accessible edges, and connected entry concrete can be included when you list them in the request.',
       items: [
-        'Concrete driveway pressure washing focused on surface buildup, grime, and visible discoloration',
-        'Attention to driveway edges, aprons, and entry-side transitions when they are part of the requested scope',
-        'A pre-cleaning review of surface condition, drainage, nearby landscaping, and access',
-        'Clear quote-first scope before work is scheduled',
+        'Concrete driveways with visible dirt, organic buildup, tire marks, and discoloration',
+        'Driveway aprons and accessible edges included with the main area',
+        'Connected entry concrete identified in the request',
+        'A clear list of the concrete areas included in the visit',
       ],
     },
     guidance: {
-      eyebrow: 'Quote considerations',
-      title: 'Surface, drainage, access, and staining all matter.',
+      eyebrow: 'What affects the work',
+      title: 'What shapes the driveway cleaning approach',
       description:
-        'Driveway cleaning starts with the actual surface. The condition of the concrete, how water moves across the driveway, and what type of staining is present can affect both the process and the visible outcome.',
+        'Age, finish, slope, access, and the type of staining influence how the driveway is approached and what improvement is realistic.',
       items: [
         {
-          title: 'Surface condition',
+          title: 'Condition and finish',
           description:
-            'Older, cracked, patched, painted, or previously coated concrete may need a more careful approach and may not clean evenly.',
+            'Cracks, patches, paint, coatings, and older concrete can respond differently and may not clean evenly.',
         },
         {
-          title: 'Drainage and runoff',
+          title: 'Water flow',
           description:
-            'Driveway slope, low spots, nearby drains, and surrounding landscape beds can affect how the work is approached.',
+            'Slope, low spots, nearby drains, and landscape beds affect how water can move across the work area.',
         },
         {
-          title: 'Access',
+          title: 'Room to work',
           description:
-            'Parked cars, gates, tight side yards, and hose access can change the available cleaning area and quote details.',
+            'Vehicles, gates, tight side yards, and hose access determine how much of the driveway is reachable.',
         },
         {
-          title: 'Staining',
+          title: 'Set-in stains',
           description:
-            'Results depend on the surface condition, age, staining, drainage, and prior treatment.',
+            'Oil, rust, irrigation marks, tire marks, and older discoloration may remain visible after cleaning.',
         },
       ],
     },
     preparation: {
-      title: 'Simple preparation for driveway cleaning',
+      title: 'Get the driveway ready',
       description:
-        'A clear driveway helps the quote and cleaning visit stay focused.',
+        'A few practical steps keep the agreed concrete open and accessible.',
       items: [
         'Move vehicles off the driveway before the visit.',
-        'Clear toys, planters, mats, trash bins, and loose items from the work area.',
-        'Point out fragile edges, damaged concrete, known drainage issues, or stains that are a priority.',
+        'Clear toys, planters, mats, trash bins, and other loose items.',
+        'Point out damaged edges, cracks, coatings, drainage concerns, or priority stains.',
         'Keep pets and people away from the active work area.',
       ],
     },
     process: {
-      eyebrow: 'Process',
-      title: 'Quote-first driveway cleaning',
+      eyebrow: 'How it works',
+      title: 'From driveway photos to a clear plan',
       description:
-        'Request a quote first, then confirm the scope before any work is scheduled.',
+        'Send the essentials once so the driveway and any connected concrete can be understood before a visit is arranged.',
       steps: [
         {
-          title: 'Request a quote',
+          title: 'Show us the driveway',
           description:
-            'Share your city, driveway size or layout, surface concerns, and any HOA notice details that matter.',
+            'Share the city or address, a wide photo, close photos of priority areas, and any HOA wording that applies.',
         },
         {
-          title: 'Confirm the scope',
+          title: 'Confirm the details',
           description:
-            'CFL Wash Co. reviews the surface, access, drainage, and staining notes before confirming the cleaning plan.',
+            'CFL Wash Co. confirms the surface, access, connected areas, and visible staining before arranging the visit.',
         },
         {
-          title: 'Clean the driveway',
+          title: 'Clean the included concrete',
           description:
-            'The work stays focused on improving the appearance of appropriate concrete driveway surfaces.',
+            'The visit stays centered on the driveway and any connected concrete listed in the quote.',
         },
       ],
     },
     related: {
-      eyebrow: 'Related pages',
-      title: 'Explore connected concrete cleaning options',
+      eyebrow: 'Plan the whole approach',
+      title: 'Handle the front approach in one request',
       description:
-        'Pair driveway cleaning with nearby sidewalks, entry walks, or other appropriate concrete surfaces when the quote scope calls for it.',
+        'Add the sidewalk or entry walk when those surfaces support the same curb-appeal goal.',
     },
     faq: {
       eyebrow: 'FAQ',
       title: 'Driveway pressure washing questions',
       items: [
         {
-          question: 'Can driveway pressure washing remove every stain?',
+          question: 'Will every driveway stain come out?',
           answer:
-            'No. Pressure washing can help with surface grime and many types of everyday buildup, but deep oil, rust, irrigation staining, tire marks, and older discoloration may remain visible.',
+            'No. Cleaning can improve everyday grime and surface buildup, but deep oil, rust, irrigation staining, tire marks, and older discoloration may remain visible.',
         },
         {
-          question: 'Do you clean paver driveways or sealed surfaces?',
+          question: 'What if the driveway is paver, sealed, or painted?',
           answer:
-            'This launch service is focused on appropriate concrete surfaces. Share the surface type in the quote request so CFL Wash Co. can confirm whether it fits the current service scope.',
+            'Send close photos and identify the finish. The current service centers on concrete driveways, and specialty surfaces must be confirmed before they are included.',
         },
         {
-          question: 'Is driveway cleaning useful for HOA notices?',
+          question: 'Can this help with an HOA notice?',
           answer:
-            'It can help when the notice is about visible driveway or concrete buildup. Include the notice details in the quote request so the scope stays clear.',
+            'It can help when the notice names driveway or concrete cleaning. Include the exact wording, deadline, and current photos with the request.',
         },
       ],
     },
     cta: {
-      title: 'Request a driveway pressure washing quote.',
+      title: 'Ready to refresh the driveway?',
       description:
-        'Share the driveway details, city, surface condition, and any HOA notice language so CFL Wash Co. can review the scope.',
+        'Send the service address, a wide photo, close photos of priority areas, and any HOA wording that applies.',
     },
   },
   walkway: {
     slug: 'sidewalk-walkway-cleaning',
     seoTitle: 'Sidewalk and Walkway Cleaning in Central Florida | CFL Wash Co.',
     seoDescription:
-      'Sidewalk, walkway, and entry path cleaning in Central Florida. Request a quote for concrete pedestrian areas, curb appeal cleanup, and HOA notice support.',
+      'Sidewalk, walkway, and entry-path cleaning for Central Florida homes. See where the service fits, what to send, and how to request a quote.',
     hero: {
-      eyebrow: 'Service',
-      title: 'Sidewalk and walkway cleaning for a cleaner path to the door.',
+      eyebrow: 'Sidewalk and walkway cleaning',
+      title: 'Sidewalk and walkway cleaning for a better first impression.',
       description:
-        'CFL Wash Co. cleans front walks, entry paths, sidewalk panels, and connected pedestrian concrete. Surface condition, drainage, age, and staining shape the quote and expected result.',
+        'Front walks, entry paths, and sidewalk panels shape the approach from the street to the door. CFL Wash Co. cleans residential concrete walking areas across Central Florida to help that route look better cared for.',
       media: publicMedia.serviceWalkway,
     },
     scope: {
-      eyebrow: 'What is included',
-      title: 'Cleaning for concrete paths, walks, and entry areas',
+      eyebrow: 'Walking surfaces',
+      title: 'Clean the path people see and use',
       description:
-        'This service is built around the pedestrian surfaces that shape curb appeal and daily use.',
+        'Start with the route to the door, a side path, or the sidewalk panels that need attention, then identify any connected walking areas.',
       items: [
-        'Cleaning for appropriate concrete sidewalk panels, front walks, entry paths, and connected pedestrian areas',
-        'Attention to edges, corners, and transition areas where buildup is visible and reachable',
-        'Review of drainage, nearby doors, landscape beds, and access before cleaning begins',
-        'Quote-first scope for the paths and panels that need attention',
+        'Concrete front walks and entry paths',
+        'Reachable sidewalk panels identified in the request',
+        'Connected side paths and pedestrian concrete',
+        'Edges and transitions included with the walking area',
       ],
     },
     guidance: {
-      eyebrow: 'Quote considerations',
-      title: 'Walkway cleaning depends on layout and nearby conditions.',
+      eyebrow: 'What affects the work',
+      title: 'Details around the path matter',
       description:
-        'Sidewalks and walks sit close to doors, lawns, beds, curbs, and driveways. The best quote starts with what needs cleaning, how the area drains, and whether staining is surface-level or more set in.',
+        'Panel layout, nearby doors and landscape beds, water flow, access, and older marks all influence the cleaning approach.',
       items: [
         {
-          title: 'Pedestrian surfaces',
+          title: 'Panels and transitions',
           description:
-            'Sidewalks and walkways often have different panels, slopes, seams, and edges that can clean at different rates.',
+            'Different pours, seams, slopes, and edges can respond differently across one walking route.',
         },
         {
-          title: 'Drainage near entries',
+          title: 'Doors and landscape edges',
           description:
-            'Water movement around doors, garage entries, porch steps, and low walkway areas can affect the cleaning approach.',
+            'Thresholds, porch steps, lawns, planters, curbs, and low areas need to be visible in the photos.',
         },
         {
-          title: 'Access and obstructions',
+          title: 'Access',
           description:
-            'Planters, furniture, parked vehicles, gates, and narrow side paths can limit reach or change the quoted scope.',
+            'Furniture, vehicles, gates, and narrow side paths can limit the concrete that is reachable.',
         },
         {
-          title: 'Organic and irrigation staining',
+          title: 'Older marks',
           description:
-            'Algae-like buildup, leaf staining, rust, and irrigation marks can improve, but older or deeper staining may remain.',
+            'Organic buildup and everyday grime can improve, while rust, irrigation marks, and deeper discoloration may remain.',
         },
       ],
     },
     preparation: {
-      title: 'Preparation for sidewalk and walkway cleaning',
+      title: 'Clear the walking areas',
       description:
-        'Small access details can make a meaningful difference for pedestrian-area cleaning.',
+        'Open paths make it easier to reach the concrete included in the visit.',
       items: [
-        'Move porch mats, planters, patio chairs, toys, and loose decor away from the walking path.',
-        'Unlock gates if side walkways or rear paths are included in the quote.',
-        'Mention nearby door thresholds, damaged edges, loose pavers, or trip concerns before cleaning.',
-        'Keep foot traffic off the active work area until the cleaning visit is complete.',
+        'Move mats, planters, chairs, toys, and loose decor away from the path.',
+        'Unlock gates when side walkways or rear paths are included.',
+        'Point out thresholds, damaged edges, loose materials, or areas to avoid.',
+        'Keep people and pets clear of the active work area.',
       ],
     },
     process: {
-      eyebrow: 'Process',
-      title: 'A clear path from quote to cleaning',
+      eyebrow: 'How it works',
+      title: 'A simple path from photos to cleaning',
       description:
-        'The quote comes first so the surface, access, and requested walking areas are understood before work begins.',
+        'Show the full route once, then identify the panels and paths that matter most.',
       steps: [
         {
-          title: 'Share the path details',
+          title: 'Show us the path',
           description:
-            'Use the quote form to describe the sidewalk, front walk, entry path, or connected panels that need cleaning.',
+            'Share the city or address, wide and close photos, and the sidewalk, walkway, or entry areas you want included.',
         },
         {
-          title: 'Review conditions',
+          title: 'Confirm the walking areas',
           description:
-            'CFL Wash Co. checks the surface type, drainage, staining, and access notes before confirming the scope.',
+            'CFL Wash Co. confirms the concrete, access, nearby edges, and priority marks before arranging the visit.',
         },
         {
-          title: 'Clean reachable areas',
+          title: 'Clean the agreed concrete',
           description:
-            'The visit focuses on appropriate concrete walking surfaces included in the agreed quote.',
+            'The visit stays focused on the reachable panels and paths included in the quote.',
         },
       ],
     },
     related: {
-      eyebrow: 'Related pages',
-      title: 'Connect walkway cleaning with the rest of the concrete scope',
+      eyebrow: 'Plan the whole approach',
+      title: 'Connect the walk with the front approach',
       description:
-        'Many homes pair walkway cleaning with a driveway or other concrete area so visible front-of-home surfaces are addressed together.',
+        'Add the driveway or nearby entry concrete when those areas are part of the same property cleanup.',
     },
     faq: {
       eyebrow: 'FAQ',
@@ -219,145 +219,145 @@ export const serviceDetailPages = {
       items: [
         {
           question:
-            'Can you clean both public sidewalk panels and the front walkway?',
+            'Can sidewalk panels and the front walkway be included together?',
           answer:
-            'The quote can include reachable concrete sidewalk panels and private walkways when they fit the current service scope. Share which areas need attention when requesting a quote.',
+            'They can be considered together when the concrete is reachable and fits the current service. Mark the exact panels and paths in the photos so they can be confirmed.',
         },
         {
-          question: 'Will cleaning remove black or green buildup on walkways?',
+          question: 'Will black or green buildup disappear?',
           answer:
-            'Cleaning can help with visible organic buildup and everyday grime, but the final result depends on the surface condition, staining depth, drainage, and prior wear.',
+            'Cleaning can improve visible organic buildup and everyday grime, but deeper marks, older discoloration, and some irrigation staining may remain.',
         },
         {
-          question: 'Do I need to be home for sidewalk or walkway cleaning?',
+          question: 'Do I need to be home for the visit?',
           answer:
-            'The quote details and access needs should be confirmed first. If gates, pets, or entry areas are involved, include that information in the request.',
+            'That depends on access and the property details. Share gate, pet, and entry-area notes so arrival needs can be confirmed before a visit is arranged.',
         },
       ],
     },
     cta: {
-      title: 'Request a sidewalk or walkway cleaning quote.',
+      title: 'Ready for cleaner-looking paths and walks?',
       description:
-        'Tell CFL Wash Co. which paths, panels, entry areas, or connected concrete surfaces need attention.',
+        'Send the service address, photos of the full route, and the panels or entry areas you want included.',
     },
   },
   concrete: {
     slug: 'concrete-cleaning',
     seoTitle: 'Concrete Cleaning in Central Florida | CFL Wash Co.',
     seoDescription:
-      'Concrete cleaning for patios, pads, aprons, curbs, entry areas, and other appropriate hard surfaces in Central Florida. Request a quote from CFL Wash Co.',
+      'Concrete cleaning for patios, pads, aprons, curbs, and entry areas across Central Florida. Share the surface and request a quote from CFL Wash Co.',
     hero: {
-      eyebrow: 'Service',
-      title: 'Concrete cleaning for patios, pads, curbs, and entry areas.',
+      eyebrow: 'Concrete cleaning',
+      title: 'Concrete cleaning for the spaces beyond the driveway.',
       description:
-        'Use this service for appropriate concrete areas that are not primarily a driveway or walkway. The quote stays focused on cleaning, access, drainage, surface condition, and realistic expectations.',
+        'Patios, pads, aprons, curbs, and entry slabs collect the same everyday buildup but do not always fit a driveway or walkway request. This service gives those residential concrete areas a clear place to start.',
       media: publicMedia.serviceConcrete,
     },
     scope: {
       eyebrow: 'Where it fits',
-      title: 'Concrete surfaces that may be part of the quote',
+      title: 'A practical fit for other concrete areas',
       description:
-        'Use this page when the area is concrete but does not fit neatly into a driveway, sidewalk, or front-walk request.',
+        'Use this service when the surface is concrete but the driveway or walking route is not the main focus.',
       items: [
         'Concrete patios and porch-adjacent slabs',
         'Driveway aprons, curb edges, and front entry concrete',
-        'Trash-bin pads, utility pads, and similar hard-surface areas',
-        'Connected concrete areas that fit the current launch service scope',
+        'Trash-bin pads, utility pads, and similar residential areas',
+        'Connected concrete included with the main area',
       ],
     },
     guidance: {
-      eyebrow: 'Quote considerations',
-      title: 'Different concrete areas need different expectations.',
+      eyebrow: 'What affects the work',
+      title: 'Match the approach to the concrete',
       description:
-        'A patio slab, curb edge, driveway apron, and utility pad can all behave differently. The quote should account for surface condition, water flow, access, and the type of staining before work is planned.',
+        'Finish, age, water flow, access, and the type of buildup determine how each concrete area should be approached.',
       items: [
         {
-          title: 'Surface type and age',
+          title: 'Finish and age',
           description:
-            'Concrete finish, age, patching, cracks, previous coatings, paint, or exposed aggregate can affect what cleaning is appropriate.',
+            'Patches, cracks, paint, coatings, exposed aggregate, and older concrete can change what cleaning is suitable.',
         },
         {
-          title: 'Drainage and nearby areas',
+          title: 'Water flow',
           description:
-            'Low spots, drains, slope, doors, landscape beds, and neighboring surfaces all influence the cleaning plan.',
+            'Low spots, drains, slope, doors, landscape beds, and neighboring surfaces shape how water can move.',
         },
         {
-          title: 'Access and layout',
+          title: 'Access',
           description:
-            'Rear patios, side yards, gates, fences, and stored items can change the reachable area and the quote.',
+            'Rear patios, side yards, gates, fences, and stored items determine which areas are reachable.',
         },
         {
-          title: 'Staining and condition',
+          title: 'Staining',
           description:
-            'Everyday grime and surface buildup can often improve. Rust, oil, irrigation marks, deep organic staining, and worn concrete may not fully clear.',
+            'Everyday grime and surface buildup can improve, while oil, rust, irrigation marks, and deep discoloration may remain.',
         },
       ],
     },
     preparation: {
-      title: 'Preparation for concrete cleaning',
+      title: 'Open up the work area',
       description:
-        'The more clearly the area is described and cleared, the easier it is to quote the right cleaning scope.',
+        'Clear access and a few useful notes help keep the visit focused on the right concrete.',
       items: [
-        'Clear furniture, grills, storage bins, planters, mats, and loose items from the concrete area.',
-        'Share gate, hose access, drainage, or pet details when requesting the quote.',
-        'Point out fragile edges, previous coatings, painted concrete, cracks, or areas that should be avoided.',
-        'Describe any priority stains so the quote can account for surface condition, age, staining, drainage, and prior treatment.',
+        'Move furniture, grills, bins, planters, mats, and loose items off the concrete.',
+        'Share gate, hose-access, drainage, and pet details.',
+        'Point out coatings, painted areas, cracks, fragile edges, or places to avoid.',
+        'Identify priority stains in the close photos.',
       ],
     },
     process: {
-      eyebrow: 'Process',
-      title: 'Quote-first concrete cleaning',
+      eyebrow: 'How it works',
+      title: 'Start with the surface in front of you',
       description:
-        'The quote request clarifies whether the surface fits the current service scope before work is scheduled.',
+        'A few clear details make it easier to identify the concrete and the areas that belong together.',
       steps: [
         {
           title: 'Describe the concrete',
           description:
-            'Use the quote form to explain the surface type, location, approximate size, access, and condition.',
+            'Share the city or address, surface location, approximate size, photos, access, and visible condition.',
         },
         {
-          title: 'Define the scope',
+          title: 'Confirm the included areas',
           description:
-            'CFL Wash Co. reviews whether the surface fits the current concrete-focused launch services.',
+            'CFL Wash Co. confirms that the surface fits the concrete-cleaning offer and identifies the areas for the visit.',
         },
         {
-          title: 'Clean appropriate areas',
+          title: 'Clean the agreed concrete',
           description:
-            'The work focuses on cleaner-looking concrete surfaces with expectations tied to the condition and staining involved.',
+            'The work stays focused on the concrete areas included in the quote, with expectations tied to their condition.',
         },
       ],
     },
     related: {
-      eyebrow: 'Related pages',
-      title: 'Narrow the quote when the surface is more specific',
+      eyebrow: 'Find the closest fit',
+      title: 'Use a more specific page when it fits',
       description:
-        'If the concrete area is primarily a driveway, sidewalk, or walkway, these service pages may be the better starting point.',
+        'Start with the driveway or walkway page when one of those surfaces is the clear priority.',
     },
     faq: {
       eyebrow: 'FAQ',
       title: 'Concrete cleaning questions',
       items: [
         {
-          question: 'What concrete surfaces can be quoted?',
+          question: 'Which concrete areas can I include?',
           answer:
-            'Current launch services can include appropriate driveways, sidewalks, walkways, patios, pads, aprons, curbs, entry areas, and similar concrete surfaces.',
+            'Current services can include concrete driveways, sidewalks, walkways, patios, pads, aprons, curbs, entry areas, and similar residential surfaces.',
         },
         {
-          question: 'Is this concrete restoration or sealing?',
+          question: 'Does this include sealing, repair, or restoration?',
           answer:
-            'No. This is a cleaning service. CFL Wash Co. is not offering concrete repair, resurfacing, restoration, or sealing as part of the launch scope.',
+            'No. CFL Wash Co. is offering cleaning, not sealing, repair, resurfacing, or concrete restoration.',
         },
         {
-          question: 'Can concrete cleaning help with curb appeal?',
+          question: 'Can concrete cleaning help curb appeal?',
           answer:
-            'Yes, cleaning visible concrete can help curb appeal when the issue is surface buildup or grime. Results vary by surface condition and staining.',
+            'It can improve the look of visible concrete when everyday grime or surface buildup is the concern. The result still depends on finish, age, wear, and staining.',
         },
       ],
     },
     cta: {
-      title: 'Request a concrete cleaning quote.',
+      title: 'Have another concrete area in mind?',
       description:
-        'Share the surface type, location, access details, and visible buildup so CFL Wash Co. can review whether it fits the launch services.',
+        'Send the service address, surface location, wide and close photos, and any access details that matter.',
     },
   },
 } satisfies Record<
