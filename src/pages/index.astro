@@ -31,25 +31,23 @@ const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
 const trustItems = [
   {
     icon: MapPin,
-    title: 'Central Florida Focus',
-    description: 'Published local pages for the cities currently served.',
+    title: 'Central Florida service',
+    description: 'Local pages for the six cities currently served.',
   },
   {
     icon: Droplets,
-    title: 'Concrete-First Scope',
-    description:
-      'Driveways, sidewalks, walkways, entries, and similar surfaces.',
+    title: 'Concrete-focused cleaning',
+    description: 'Driveways, sidewalks, walkways, entries, and similar areas.',
   },
   {
     icon: ClipboardCheck,
-    title: 'Quote Before Scheduling',
-    description:
-      'Property details, surfaces, photos, and notes are reviewed first.',
+    title: 'Simple quote request',
+    description: 'Send the property, surfaces, photos, and useful notes.',
   },
   {
     icon: BadgeCheck,
-    title: 'Clear Job Details',
-    description: 'Know which areas are included before a visit is arranged.',
+    title: 'Clear visit plan',
+    description: 'Know which concrete areas are included before a visit.',
   },
 ]
 
@@ -57,7 +55,7 @@ const serviceCards = [
   {
     title: 'Driveway Pressure Washing',
     description:
-      'Remove visible buildup and refresh the front approach to your home.',
+      'Clean visible buildup from the concrete that frames the front of your home.',
     href: '/driveway-pressure-washing',
     media: publicMedia.serviceDriveway,
     icon: CarFront,
@@ -65,7 +63,7 @@ const serviceCards = [
   {
     title: 'Sidewalk Cleaning',
     description:
-      'Refresh street-facing sidewalk panels and everyday pedestrian paths.',
+      'Refresh street-facing sidewalk panels and the route along the property.',
     href: '/sidewalk-walkway-cleaning',
     media: publicMedia.serviceWalkway,
     icon: Footprints,
@@ -73,7 +71,7 @@ const serviceCards = [
   {
     title: 'Walkway Cleaning',
     description:
-      'Restore the look of entry walks and paths leading toward the home.',
+      'Clean the entry paths and concrete walks leading to the door.',
     href: '/sidewalk-walkway-cleaning',
     media: publicMedia.serviceWalkway,
     icon: Waves,
@@ -81,7 +79,7 @@ const serviceCards = [
   {
     title: 'Concrete Cleaning',
     description:
-      'Clean appropriate patios, pads, aprons, curbs, and entry surfaces.',
+      'Handle patios, pads, aprons, curbs, and entry slabs beyond the main driveway.',
     href: '/concrete-cleaning',
     media: publicMedia.serviceConcrete,
     icon: Blocks,
@@ -89,7 +87,7 @@ const serviceCards = [
   {
     title: 'HOA Notice Cleanup',
     description:
-      'Start with the cited surface and include the notice wording for review.',
+      'Share the cited concrete area, notice wording, and current photos in one request.',
     href: '/request-quote',
     media: publicMedia.serviceDriveway,
     icon: ClipboardList,
@@ -97,7 +95,7 @@ const serviceCards = [
   {
     title: 'Curb Appeal Cleanup',
     description:
-      'Bundle visible front-of-home surfaces into one focused quote request.',
+      'Bring the driveway, front walk, and entry concrete into one focused request.',
     href: '/request-quote',
     media: publicMedia.serviceConcrete,
     icon: Sparkles,
@@ -105,38 +103,38 @@ const serviceCards = [
 ]
 
 const reasons = [
-  'Local Central Florida service-area focus',
-  'Concrete-first launch scope',
-  'Photos and property details reviewed before scheduling',
-  'Connected surfaces can be included in one quote request',
+  'Six published Central Florida service areas',
+  'A focused residential concrete offer',
+  'One request for the surfaces that matter',
+  'Clear details before a cleaning visit is arranged',
 ]
 
 const processFeatures = [
   {
     icon: ClipboardCheck,
-    title: 'Send the Details',
+    title: 'Show Us the Concrete',
     description:
-      'Share the city, surfaces, photos, access notes, and useful context.',
+      'Share the city, surfaces, photos, access notes, and any HOA wording.',
   },
   {
     icon: Phone,
-    title: 'Review the Scope',
+    title: 'Talk Through the Details',
     description: hasPhone
       ? `Questions can be discussed at ${site.phoneDisplay}.`
       : 'Questions can be discussed through the published contact details.',
   },
   {
     icon: Check,
-    title: 'Plan the Visit',
+    title: 'Confirm the Visit Plan',
     description:
-      'Confirm what is included before arranging the cleaning visit.',
+      'Know which areas are included before the cleaning visit is arranged.',
   },
 ]
 ---
 
 <Layout
-  title="CFL Wash Co. | Pressure Washing in Central Florida"
-  description="Request a clear quote for driveway, sidewalk, walkway, and concrete cleaning across Central Florida."
+  title="Concrete Pressure Washing in Central Florida | CFL Wash Co."
+  description="Driveway, sidewalk, walkway, and concrete cleaning for Central Florida homeowners. Tell CFL Wash Co. what needs attention and request a quote."
   canonicalPath="/"
   ogImage="/images/brand/og-default.png"
   ogImageAlt="CFL Wash Co. exterior cleaning in Central Florida"
@@ -187,12 +185,13 @@ const processFeatures = [
         <div class="mx-auto max-w-2xl text-center">
           <p class="text-eyebrow text-[var(--color-accent)]">Our services</p>
           <h2 class="mt-3 text-section-title text-[var(--color-text)]">
-            Exterior cleaning that makes a difference
+            Concrete cleaning for the surfaces around your home
           </h2>
           <p class="mt-4 text-base leading-7 text-[var(--color-text-muted)]">
-            Choose the surface or situation that best matches the property.
-            These illustrative visuals support the service categories and are
-            not presented as photos of completed CFL Wash Co. projects.
+            Start with the driveway, walking surfaces, another concrete area, or
+            the situation prompting the cleanup. The illustrations identify
+            service categories and are not photos of completed CFL Wash Co.
+            projects.
           </p>
         </div>
 
@@ -227,15 +226,15 @@ const processFeatures = [
           class="flex flex-col justify-center px-[var(--container-gutter)] py-14 lg:px-12 lg:py-16 xl:px-16"
         >
           <p class="text-eyebrow text-[var(--color-accent)]">
-            Why homeowners choose us
+            Why CFL Wash Co.
           </p>
           <h2 class="mt-4 text-section-title text-[var(--color-text-inverse)]">
-            More than clean. It is confidence in the next step.
+            A focused service and a straightforward next step.
           </h2>
           <p class="mt-5 text-base leading-7 text-[var(--color-inverse-muted)]">
-            The launch offer stays focused on visible hard surfaces around the
-            home. The request is reviewed first so the proposed scope is clear
-            before scheduling.
+            Tell us which concrete areas matter to the property. The request
+            stays centered on those surfaces, with the included areas clarified
+            before a visit is arranged.
           </p>
 
           <ul class="mt-7 space-y-3">
@@ -334,20 +333,20 @@ const processFeatures = [
             />
             <div>
               <p class="text-eyebrow text-[var(--color-accent)]">
-                Ready for a cleaner property?
+                Ready to clean up the concrete?
               </p>
               <h2
                 class="mt-2 text-3xl font-semibold leading-tight text-[var(--color-text)] sm:text-4xl"
               >
-                A clear quote starts with a few details.
+                Show us the surfaces that need attention.
               </h2>
             </div>
           </div>
           <p
             class="mt-4 max-w-xl text-sm leading-6 text-[var(--color-text-muted)]"
           >
-            Include the city, surfaces, photos, access notes, and any HOA
-            wording that helps explain the request.
+            Send the city or address, a few clear photos, access notes, and any
+            HOA wording that applies.
           </p>
           <div class="mt-6 flex flex-col gap-3 sm:flex-row">
             <Button
@@ -359,7 +358,7 @@ const processFeatures = [
               data-cta="quote"
               data-cta-location="home-final"
             >
-              Get Your Free Quote
+              Request a Quote
               <ArrowRight
                 slot="endIcon"
                 class="h-5 w-5"

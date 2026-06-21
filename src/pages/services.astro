@@ -34,11 +34,11 @@ const serviceIcons = {
 } as const
 const serviceFits = {
   'driveway-pressure-washing':
-    'Choose this when the driveway and front approach are the main visible concern.',
+    'Best when the driveway and front approach are the biggest visible priority.',
   'sidewalk-walkway-cleaning':
-    'Choose this for front walks, entry paths, sidewalk panels, and pedestrian concrete.',
+    'Best for front walks, entry paths, sidewalk panels, and connected pedestrian concrete.',
   'concrete-cleaning':
-    'Choose this for patios, pads, aprons, curbs, and other appropriate concrete areas.',
+    'Best for patios, pads, aprons, curbs, and entry slabs that do not fit the first two services.',
 } as const
 const serviceMedia = {
   'driveway-pressure-washing': publicMedia.serviceDriveway,
@@ -57,7 +57,7 @@ const serviceMenuItems = services.map((service) => ({
 
 <Layout
   title="Pressure Washing Services in Central Florida | CFL Wash Co."
-  description="Explore driveway pressure washing, sidewalk and walkway cleaning, and concrete cleaning services from CFL Wash Co. in Central Florida."
+  description="Compare CFL Wash Co. driveway, sidewalk, walkway, and concrete cleaning services for Central Florida homes, then request a quote."
   canonicalPath="/services"
 >
   <BreadcrumbSchema slot="head" items={breadcrumbs} />
@@ -68,8 +68,8 @@ const serviceMenuItems = services.map((service) => ({
       variant="split"
       tone="soft"
       eyebrow="Pressure washing services"
-      title="Concrete cleaning services for Central Florida homes."
-      description="CFL Wash Co. keeps the current service offer focused on driveways, sidewalks, walkways, entries, patios, pads, curbs, and similar hard surfaces. Choose the closest service below, then share the property and surface details for review."
+      title="Concrete cleaning for the surfaces around your home."
+      description="Compare three concrete-focused services for Central Florida homes. Start with the surface that matters most; connected concrete can be included in the same request."
     >
       <Fragment slot="actions">
         <Button
@@ -122,8 +122,8 @@ const serviceMenuItems = services.map((service) => ({
 
     <Section
       eyebrow="Current services"
-      title="Choose the surface that needs attention"
-      description="Each page explains the active scope, quote considerations, preparation, and common homeowner questions for that service."
+      title="Start with the concrete that needs attention"
+      description="Choose driveway cleaning, walking-surface cleaning, or another concrete area. Each page explains where the service fits, what can affect the work, and what to send."
       class="border-t border-[var(--color-border)]"
     >
       <ServiceMenu items={serviceMenuItems} />
@@ -131,40 +131,38 @@ const serviceMenuItems = services.map((service) => ({
 
     <Section
       eyebrow="Choosing a service"
-      title="One quote can include connected concrete areas"
-      description="You do not need to submit separate requests when the driveway, front walk, sidewalk, entry, or patio are part of one property cleanup. List every area you want considered and include wide and close photos."
+      title="Include connected concrete in one request"
+      description="If the driveway, front walk, sidewalk, entry, or patio all need attention, list them together. Wide photos show how the areas connect; close photos show stains, finishes, and wear."
       tone="soft"
     >
       <div class="grid gap-8 md:grid-cols-3 md:gap-0">
         <div class="md:pr-8">
           <h2 class="text-lg font-semibold text-[var(--color-text)]">
-            Start with the main concern
+            Lead with the main surface
           </h2>
           <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
-            Choose the service page that most closely matches the surface
-            driving the request.
+            Choose the service that best matches the area driving the cleanup.
           </p>
         </div>
         <div
           class="border-t border-[var(--color-border)] pt-8 md:border-l md:border-t-0 md:px-8 md:pt-0"
         >
           <h2 class="text-lg font-semibold text-[var(--color-text)]">
-            Add connected surfaces
+            Add nearby concrete
           </h2>
           <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
-            Include nearby concrete areas when they should be reviewed as one
-            proposed scope.
+            Include connected areas you want considered at the same property.
           </p>
         </div>
         <div
           class="border-t border-[var(--color-border)] pt-8 md:border-l md:border-t-0 md:pl-8 md:pt-0"
         >
           <h2 class="text-lg font-semibold text-[var(--color-text)]">
-            Identify specialty finishes
+            Flag specialty finishes
           </h2>
           <p class="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
-            Mention pavers, coatings, sealers, paint, decorative finishes, or
-            exposed aggregate before expectations are set.
+            Point out pavers, coatings, sealers, paint, decorative finishes, or
+            exposed aggregate.
           </p>
         </div>
       </div>
@@ -173,7 +171,7 @@ const serviceMenuItems = services.map((service) => ({
     <Section
       eyebrow="Where we work"
       title="Explore the current Central Florida service areas"
-      description={`CFL Wash Co. currently publishes ${serviceAreas.length} city pages with local quote guidance and active service links.`}
+      description={`See the ${serviceAreas.length} published cities currently served and find the page for your location.`}
       spacing="compact"
       class="border-y border-[var(--color-border)]"
     >
@@ -186,8 +184,8 @@ const serviceMenuItems = services.map((service) => ({
 
     <CTASection
       eyebrow="Request a quote"
-      title="Tell us which concrete surfaces need attention."
-      description="Share the service address, requested areas, clear photos, access details, and any HOA notice wording so CFL Wash Co. can review the request."
+      title="Show us the concrete you want cleaned."
+      description="Send the service address, wide and close photos, access notes, and any HOA wording that applies. Start with one area or include connected concrete in the same request."
       surface="elevated"
       titleWidth="wide"
     >
