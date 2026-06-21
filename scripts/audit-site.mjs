@@ -64,6 +64,7 @@ const textExtensions = new Set([
 const publicTurnstileSiteKey =
   process.env.PUBLIC_TURNSTILE_SITE_KEY?.trim() ?? ''
 const ga4MeasurementId = process.env.PUBLIC_GA4_MEASUREMENT_ID?.trim() ?? ''
+const siteDataPath = 'src/data/site.ts'
 const serviceAreasPath = 'src/data/serviceAreas.ts'
 const pageInventoryPath = 'docs/product/PAGE_INVENTORY.md'
 const sixCityInventoryPath = 'docs/seo/six-city-inventory.yaml'
@@ -282,6 +283,84 @@ function getTags(html, tagName) {
   return [...html.matchAll(pattern)].map((match) => match[0])
 }
 
+function extractFlatListByDataAttribute(html, attributeName) {
+  const openingPattern = new RegExp(
+    `<ul\\b(?=[^>]*\\b${attributeName}(?:\\s|=|>))[^>]*>`,
+    'i',
+  )
+  const openingMatch = openingPattern.exec(html)
+
+  if (!openingMatch) {
+    return ''
+  }
+
+  const listStart = openingMatch.index
+  const contentStart = listStart + openingMatch[0].length
+  const remainingHtml = html.slice(contentStart)
+  const closingMatch = /<\/ul\s*>/i.exec(remainingHtml)
+
+  if (!closingMatch) {
+    return ''
+  }
+
+  const listContent = remainingHtml.slice(0, closingMatch.index)
+
+  if (/<ul\b/i.test(listContent)) {
+    return ''
+  }
+
+  return html.slice(
+    listStart,
+    contentStart + closingMatch.index + closingMatch[0].length,
+  )
+}
+
+function extractFlatListItems(html) {
+  const items = []
+  const tokenPattern = /<li\b[^>]*>|<\/li\s*>/gi
+  let depth = 0
+  let itemStart = -1
+  let openingTag = ''
+  let hasNestedItem = false
+
+  for (const match of html.matchAll(tokenPattern)) {
+    if (/^<li\b/i.test(match[0])) {
+      if (depth === 0) {
+        itemStart = match.index
+        openingTag = match[0]
+        hasNestedItem = false
+      } else {
+        hasNestedItem = true
+      }
+
+      depth += 1
+      continue
+    }
+
+    if (depth === 0) {
+      continue
+    }
+
+    depth -= 1
+
+    if (depth === 0) {
+      if (!hasNestedItem) {
+        items.push({
+          html: html.slice(itemStart, match.index + match[0].length),
+          openingTag,
+          attributes: parseAttributes(openingTag),
+        })
+      }
+
+      itemStart = -1
+      openingTag = ''
+      hasNestedItem = false
+    }
+  }
+
+  return items
+}
+
 function getRouteFromHtmlFile(relativePath) {
   if (relativePath === 'index.html') {
     return '/'
@@ -377,6 +456,14 @@ function listInternalHrefs(html) {
 
 function listAnchorAttributes(html) {
   return getTags(html, 'a').map((tag) => parseAttributes(tag))
+}
+
+function parseSingleQuotedSiteDataValue(source, field) {
+  const match = source.match(
+    new RegExp(`^\\s*${field}:\\s*'([^']*)',?\\s*$`, 'm'),
+  )
+
+  return match ? match[1] : null
 }
 
 function countOccurrences(value, search) {
@@ -692,6 +779,32 @@ async function main() {
   const htmlByRoute = new Map(
     htmlContents.map((record) => [record.route, record]),
   )
+  const siteDataSource = await readRepoText(siteDataPath)
+  const configuredPhoneHref = parseSingleQuotedSiteDataValue(
+    siteDataSource,
+    'phoneHref',
+  )
+  const configuredEmail = parseSingleQuotedSiteDataValue(
+    siteDataSource,
+    'email',
+  )
+  const hasParsedSiteContact =
+    configuredPhoneHref !== null && configuredEmail !== null
+  const hasConfiguredPhone = Boolean(configuredPhoneHref)
+  const configuredEmailHref =
+    configuredEmail === null ? null : `mailto:${configuredEmail}`
+
+  if (configuredPhoneHref === null) {
+    failures.push(
+      `Could not parse single-quoted \`phoneHref\` from \`${siteDataPath}\`; service-detail CTA targets cannot be audited.`,
+    )
+  }
+
+  if (configuredEmail === null) {
+    failures.push(
+      `Could not parse single-quoted \`email\` from \`${siteDataPath}\`; service-detail CTA fallbacks cannot be audited.`,
+    )
+  }
 
   for (const route of serviceDetailRoutes) {
     const record = htmlByRoute.get(route)
@@ -699,6 +812,83 @@ async function main() {
     if (!record) {
       failures.push(`Expected service-detail route \`${route}\` is missing.`)
       continue
+    }
+
+    for (const marker of [
+      'data-service-detail-page',
+      'data-service-scope',
+      'data-service-guidance',
+      'data-service-preparation',
+    ]) {
+      const markerCount = countOccurrences(record.html, marker)
+
+      if (markerCount !== 1) {
+        failures.push(
+          `Service-detail route \`${route}\` must render exactly one \`${marker}\` structure; found ${markerCount}.`,
+        )
+      }
+    }
+
+    const slug = route.slice(1)
+    const anchors = listAnchorAttributes(record.html)
+
+    for (const location of [`service-${slug}`, `service-${slug}-final`]) {
+      const locationAnchors = anchors.filter(
+        (attributes) => attributes['data-cta-location'] === location,
+      )
+      const quoteCtas = locationAnchors.filter(
+        (attributes) =>
+          attributes['data-cta'] === 'quote' &&
+          attributes.href === '/request-quote',
+      )
+
+      if (quoteCtas.length !== 1) {
+        failures.push(
+          `Service-detail route \`${route}\` CTA location \`${location}\` must include exactly one quote anchor to \`/request-quote\`; found ${quoteCtas.length}.`,
+        )
+      }
+
+      const secondaryCtas = locationAnchors.filter(({ ['data-cta']: cta }) =>
+        ['call', 'email'].includes(cta ?? ''),
+      )
+      const callCtas = secondaryCtas.filter(
+        ({ ['data-cta']: cta }) => cta === 'call',
+      )
+      const emailCtas = secondaryCtas.filter(
+        ({ ['data-cta']: cta }) => cta === 'email',
+      )
+      const canonicalCallCtas = callCtas.filter(
+        ({ href = '' }) => href === configuredPhoneHref,
+      )
+      const canonicalEmailCtas = emailCtas.filter(
+        ({ href = '' }) => href === configuredEmailHref,
+      )
+
+      if (secondaryCtas.length !== 1) {
+        failures.push(
+          `Service-detail route \`${route}\` CTA location \`${location}\` must include exactly one secondary call or email anchor; found ${secondaryCtas.length}.`,
+        )
+      }
+
+      if (
+        hasParsedSiteContact &&
+        hasConfiguredPhone &&
+        (canonicalCallCtas.length !== 1 || emailCtas.length !== 0)
+      ) {
+        failures.push(
+          `Service-detail route \`${route}\` CTA location \`${location}\` must use exactly one \`data-cta="call"\` anchor with the configured \`phoneHref\` \`${configuredPhoneHref}\` and no email fallback; found ${canonicalCallCtas.length} canonical call anchor(s) and ${emailCtas.length} email fallback(s).`,
+        )
+      }
+
+      if (
+        hasParsedSiteContact &&
+        !hasConfiguredPhone &&
+        (canonicalEmailCtas.length !== 1 || callCtas.length !== 0)
+      ) {
+        failures.push(
+          `Service-detail route \`${route}\` CTA location \`${location}\` must use exactly one \`data-cta="email"\` anchor with the configured email href \`${configuredEmailHref}\` and no call action when \`phoneHref\` is empty; found ${canonicalEmailCtas.length} canonical email anchor(s) and ${callCtas.length} call action(s).`,
+        )
+      }
     }
 
     if (!record.html.includes('data-proof-status="not-proof"')) {
@@ -960,6 +1150,170 @@ async function main() {
     failures.push(
       'The services hub must lead with registered service-illustration media.',
     )
+  }
+
+  const serviceMenuOpeningTags = getTags(servicesHub, 'ul').filter(
+    (tag) => parseAttributes(tag)['data-service-menu'] !== undefined,
+  )
+
+  if (serviceMenuOpeningTags.length !== 1) {
+    failures.push(
+      `The \`/services\` hub must render exactly one \`<ul data-service-menu>\` opening tag; found ${serviceMenuOpeningTags.length}.`,
+    )
+  }
+
+  const serviceMenu =
+    serviceMenuOpeningTags.length === 1
+      ? extractFlatListByDataAttribute(servicesHub, 'data-service-menu')
+      : ''
+
+  if (serviceMenuOpeningTags.length === 1 && !serviceMenu) {
+    failures.push(
+      'The `/services` hub service menu must be one complete, bounded `<ul>` with no nested `<ul>`.',
+    )
+  }
+
+  if (serviceMenu) {
+    const menuItemOpeningTags = getTags(serviceMenu, 'li').filter(
+      (tag) => parseAttributes(tag)['data-service-menu-item'] !== undefined,
+    )
+
+    if (menuItemOpeningTags.length !== 3) {
+      failures.push(
+        `The \`/services\` hub service menu must render exactly three \`<li data-service-menu-item>\` opening tags; found ${menuItemOpeningTags.length}.`,
+      )
+    }
+
+    const serviceMenuRows = extractFlatListItems(serviceMenu)
+
+    if (serviceMenuRows.length !== 3) {
+      failures.push(
+        `The \`/services\` hub service menu must contain exactly three complete, non-nested \`<li>\` rows; found ${serviceMenuRows.length}.`,
+      )
+    }
+
+    for (const [index, { attributes }] of serviceMenuRows.entries()) {
+      if (attributes['data-service-menu-item'] === undefined) {
+        failures.push(
+          `The \`/services\` hub service menu row ${index + 1} must declare \`data-service-menu-item\` on its \`<li>\`.`,
+        )
+      }
+    }
+
+    for (const { id, stem, alt } of serviceIllustrations) {
+      const matchingRows = serviceMenuRows.filter(
+        ({ attributes }) => attributes['data-media-id'] === id,
+      )
+
+      if (matchingRows.length !== 1) {
+        failures.push(
+          `The \`/services\` hub service menu must render exactly one complete, non-nested item row for registered media \`${id}\`; found ${matchingRows.length}.`,
+        )
+        continue
+      }
+
+      const [row] = matchingRows
+      const rowAttributes = row.attributes
+
+      if (rowAttributes['data-service-menu-item'] === undefined) {
+        failures.push(
+          `The \`/services\` hub service menu row for \`${id}\` must declare \`data-service-menu-item\` on its \`<li>\`.`,
+        )
+      }
+
+      if (rowAttributes['data-media-role'] !== 'service-illustration') {
+        failures.push(
+          `The \`/services\` hub service menu row for \`${id}\` must declare \`data-media-role="service-illustration"\` on its \`<li>\`.`,
+        )
+      }
+
+      if (rowAttributes['data-proof-status'] !== 'not-proof') {
+        failures.push(
+          `The \`/services\` hub service menu row for \`${id}\` must declare \`data-proof-status="not-proof"\` on its \`<li>\`.`,
+        )
+      }
+
+      const fitCount = countOccurrences(row.html, 'data-service-fit')
+
+      if (fitCount !== 1) {
+        failures.push(
+          `The \`/services\` hub service menu row for \`${id}\` must render exactly one \`data-service-fit\` marker; found ${fitCount}.`,
+        )
+      }
+
+      const imageSrc = `/images/service-illustrations/${stem}-1280.webp`
+      const imageTags = getTags(row.html, 'img')
+        .map((tag) => parseAttributes(tag))
+        .filter((attributes) => attributes.src === imageSrc)
+
+      if (imageTags.length !== 1) {
+        failures.push(
+          `The \`/services\` hub service menu row for \`${id}\` must render responsive image \`${imageSrc}\` exactly once; found ${imageTags.length}.`,
+        )
+      } else {
+        const [imageTag] = imageTags
+
+        if ((imageTag.alt ?? '').trim() !== alt) {
+          failures.push(
+            `The \`/services\` hub service menu row for \`${id}\` must use its exact registered alt text.`,
+          )
+        }
+
+        if (imageTag.width !== '1280' || imageTag.height !== '853') {
+          failures.push(
+            `The \`/services\` hub service menu row for \`${id}\` must reserve its registered 1280x853 dimensions.`,
+          )
+        }
+
+        if (!(imageTag.sizes ?? '').trim()) {
+          failures.push(
+            `The \`/services\` hub service menu row for \`${id}\` must render a non-empty responsive \`sizes\` attribute.`,
+          )
+        }
+
+        for (const width of [480, 768, 1024, 1280]) {
+          const source = `/images/service-illustrations/${stem}-${width}.webp ${width}w`
+
+          if (!imageTag.srcset?.includes(source)) {
+            failures.push(
+              `The \`/services\` hub service menu row for \`${id}\` is missing responsive source \`${source}\`.`,
+            )
+          }
+        }
+      }
+
+      const figcaptionTags = getTags(row.html, 'figcaption')
+      const figcaptionMatch = row.html.match(
+        /<figcaption\b[^>]*>([\s\S]*?)<\/figcaption\s*>/i,
+      )
+
+      if (figcaptionTags.length !== 1 || !figcaptionMatch) {
+        failures.push(
+          `The \`/services\` hub service menu row for \`${id}\` must render exactly one complete \`<figcaption>\`; found ${figcaptionTags.length} opening tag(s).`,
+        )
+      } else {
+        const figcaptionAttributes = parseAttributes(figcaptionTags[0])
+        const isHidden =
+          figcaptionAttributes.hidden !== undefined ||
+          figcaptionAttributes['aria-hidden']?.toLowerCase() === 'true'
+
+        if (isHidden) {
+          failures.push(
+            `The \`/services\` hub service menu row for \`${id}\` must keep its proof-safety \`<figcaption>\` visible.`,
+          )
+        }
+
+        if (
+          !stripHtml(figcaptionMatch[1]).includes(
+            'Illustrative service image. Not completed project photography.',
+          )
+        ) {
+          failures.push(
+            `The \`/services\` hub service menu row for \`${id}\` must include the exact proof disclosure inside its \`<figcaption>\`.`,
+          )
+        }
+      }
+    }
   }
 
   const processRoutes = [

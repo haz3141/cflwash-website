@@ -548,3 +548,139 @@ city pages, quote flow, utility pages, header, footer, and mobile CTA feel like
 one brand without becoming one repeated template. The result must be visually
 rich, concrete-first, easy to scan, conversion-clear, SEO-stable, and honest
 about the proof currently available.
+
+## Issue #92 implementation review
+
+- Review date: June 20, 2026
+- Reviewed branch: `feat/premium-service-pages`
+- Entry revision: `013016477ef7cd218c134665f2731cc1750942dc`
+- Render target: `http://127.0.0.1:4321`
+- Browser: headless Google Chrome `149.0.7827.156` through the Chrome DevTools
+  Protocol
+
+### Implemented composition
+
+Issue #92 carries the global interior-page improvements from issue #91 into
+the services hub and the three canonical service-detail routes. The shared
+split hero now uses the homepage's large, restrained type hierarchy, semantic
+layout gap, centered desktop composition, and token-driven section spacing.
+The `min-w-0` boundaries on the split grid, copy, and media children remove the
+intrinsic-width expansion that previously clipped 390px rendering.
+
+The `/services` hub now uses the editorial `ServiceMenu`: three bounded service
+rows pair registered service illustration media with a concise service fit,
+summary, and route link. Supporting service-selection guidance uses dividers
+instead of another card grid. Each service route now delegates to the shared
+`ServiceDetailPage`, which owns the explicit service illustration, hero and
+final actions, scope list, guidance/preparation split, process, supporting
+links, FAQ, and close. This keeps the routes data-driven without presenting
+them as three undifferentiated card templates.
+
+The media is deliberately proof-safe. Every service illustration is registered
+as `data-media-role="service-illustration"` and
+`data-proof-status="not-proof"`, uses its documented responsive sources and
+intrinsic dimensions, and carries the visible caption “Illustrative service
+image. Not completed project photography.” No proof asset was changed.
+
+### Rendered QA method
+
+The in-app Browser was retried before this review and failed exactly with
+`Browser is not available: iab`. Project Playwright is not installed, so the
+explicitly approved fallback used the installed headless Google Chrome and the
+Chrome DevTools Protocol with a temporary browser profile. The fallback
+collected computed DOM/CSS geometry, console and runtime events, network
+failures, interaction state, and PNG screenshots. The browser profile, harness,
+results, and screenshots remained under `/tmp`; no QA artifact was added to the
+repository.
+
+The matrix used these CSS viewports:
+
+- `390 × 844`
+- `430 × 932`
+- `768 × 1024`
+- `1024 × 768`
+- `1440 × 900`
+
+The 1440px homepage first viewport was captured and inspected as the accepted
+visual reference. Every issue #92 route received a viewport screenshot at all
+five sizes. Each route also received a full-page capture at 390px and 1440px.
+Representative hub and detail screenshots were inspected at original size and
+as full-page compositions.
+
+### Route and viewport notes
+
+| Route                        | 390px                                                                                                                              | 430px                                                                                                          | 768px                                                                                                                   | 1024px                                                                                                                              | 1440px                                                                                                                                                       |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `/services`                  | Hero copy, both actions, and media form a clean single column; the service menu becomes three readable editorial rows.             | The same stack gains a wider copy measure without an awkward action or heading wrap.                           | Hero and menu remain stacked, preserving useful illustration scale and quiet section separation.                        | Hero and service rows become two-column compositions; the hero quote action remains in the first viewport.                          | The split hero, generous gutters, three editorial rows, soft selection guidance, compact area link, and elevated close form a deliberate long-page rhythm.   |
+| `/driveway-pressure-washing` | One H1, quote and configured call actions, and the driveway illustration appear in that order with no clipping.                    | The wider mobile measure reduces heading and paragraph wrapping while preserving the same action hierarchy.    | The hero stays stacked; scope and guidance lists use the available width without premature columns.                     | Hero media moves beside the copy, scope becomes two columns, and the first-view quote action stays visible.                         | The driveway-specific crop anchors the split hero; water, warm, soft, and inverse sections separate the service story without repeated card grids.           |
+| `/sidewalk-walkway-cleaning` | The longer H1 wraps intentionally, both 52px actions remain reachable before media, and the path image retains its useful subject. | The 430px measure shortens the heading while keeping the quote and call pair comfortably separated from media. | Stacked composition avoids a squeezed walkway crop and keeps the process and supporting links scan-friendly.            | The split hero and wider content treatments activate without overflow; caption and proof status remain explicit.                    | The service-specific walkway framing, divided scope, guidance/preparation split, warm links, FAQ, and inverse close remain visually distinct and consistent. |
+| `/concrete-cleaning`         | The four-surface H1, copy, actions, and concrete illustration remain contained in the mobile gutter.                               | Copy gains breathing room with no orphaned CTA or clipped media edge.                                          | The broad-service hero remains stacked and the subsequent taxonomy reads as lists rather than a dense catalog of cards. | Split hero composition activates; quote and call remain visible before the first scroll and the caption sits safely below the crop. | The broader patio/pad/curb positioning is visually clear while retaining the same shared pattern, palette, and conversion close as the specific routes.      |
+
+Across all 20 route/viewport combinations:
+
+- `scrollWidth` equaled `clientWidth`; horizontal overflow was `0px`;
+- exactly one visible H1 rendered, with the route-specific visible text;
+- every image completed with positive natural width and height;
+- no relevant console warning/error, runtime exception, failed resource load,
+  framework error overlay, or page error appeared;
+- the hero quote and configured call actions were present and visible; at 390px
+  and 430px both actions preceded the media and met the 44px touch-target floor;
+- proof-safe media attributes, captions, responsive sources, crops, and
+  intrinsic dimensions remained intact;
+- 390px, 430px, and 768px used stacked hero composition, while 1024px and
+  1440px used the intended split composition;
+- the mobile sticky CTA started hidden, `aria-hidden`, and inert while the hero
+  quote action was visible, then became visible after scrolling beyond it; its
+  bottom edge and both horizontal edges remained within the viewport with no
+  overflow.
+
+The interaction path also passed at 390px:
+
+1. `/services` → “View Driveway Pressure Washing” navigated to
+   `/driveway-pressure-washing`.
+2. The selected route rendered its expected title and H1.
+3. A hero call link was read without activation and matched the configured
+   `tel:+14074310856` exactly.
+4. The hero “Request a Quote” link navigated to `/request-quote`, whose visible
+   H1 was “Request a quote for your cleaning project.”
+
+### Homepage fidelity ledger
+
+| Fidelity point         | Rendered comparison and disposition                                                                                                                                                                                                                                                                                   |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Typography             | Shared Manrope type tokens, compact uppercase eyebrows, large sentence-case H1s, muted lead copy, and smaller supporting type preserve the homepage hierarchy. Long service names wrap intentionally at 390px and remain balanced at desktop.                                                                         |
+| Palette                | Navy chrome and closing panels, white and warm/cream surfaces, water-tinted guidance, blue actions, and restrained gold accents stay within the accepted homepage palette. The interior hero's shared blue primary button is an intentional pattern variant; quote remains the first and strongest page-owned action. |
+| Container and gutters  | Shared `Container`, section-space tokens, and `--layout-gap` align hero and body content with the homepage. The previous 390px split-hero width mismatch is resolved by the shared minimum-width resets; all measured overflow deltas are zero.                                                                       |
+| Section surface rhythm | The hub moves from soft hero to white editorial menu, soft guidance, compact white area link, elevated CTA, and navy footer. Detail routes alternate soft, white, water, white, warm, soft, and inverse surfaces, echoing the homepage's banded rhythm without copying its marketing composition.                     |
+| Media framing          | Rounded token-driven frames, quiet media shadows, consistent captions, deliberate portrait desktop crops, and wider stacked crops match the homepage's polished image treatment while making the non-proof role more explicit.                                                                                        |
+| CTA hierarchy          | Hero quote is primary, configured phone is secondary, and each route closes with one decisive quote-first inverse panel. The mobile sticky CTA yields to the visible hero action and returns only after scroll, avoiding first-view competition.                                                                      |
+| Responsive collapse    | The 390px and 430px layouts stack copy, actions, and media; 768px deliberately retains that stack; 1024px and 1440px use split heroes and wider editorial structures. No breakpoint creates a squeezed intermediate composition.                                                                                      |
+
+### Material mismatches resolved
+
+The review specifically rechecked the material issues that motivated this
+implementation:
+
+- the severe pre-change 390px split-hero clipping is gone;
+- service-detail hero media is explicit in built output instead of disappearing
+  behind pathname inference;
+- the services hub no longer returns to three generic service cards;
+- service-detail scope and guidance use quieter lists and one purposeful split
+  rather than a run of equal-weight card grids;
+- service illustrations, captions, and data attributes cannot be mistaken for
+  completed-project proof;
+- mobile quote access is immediate without a competing sticky bar over the
+  first view.
+
+No additional fixable visual inconsistency, broken state, overflow, clipping,
+awkward gap, image failure, sticky overlap, or first-view CTA failure remained
+after the rendered review, so Task 4 required no component or token repair.
+
+### Deferred follow-up
+
+The full issue #94 service-copy rewrite remains intentionally deferred. Issue
+#92 preserves the current factual copy while giving it the approved hierarchy
+and composition; this review does not pre-empt #94 with piecemeal page-local
+rewrites. The remaining long mobile reading length is content-led rather than a
+layout defect and should be reconsidered only as part of that coordinated copy
+pass.

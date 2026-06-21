@@ -89,6 +89,7 @@ Components should consume semantic tokens such as:
 - `--color-inverse-muted`
 - `--color-focus-ring`
 - `--color-focus-ring-inverse`
+- `--layout-gap`
 
 Shared utility classes such as `.media-frame`, `.feature-panel`, `.card-link`,
 `.pill-link`, `.text-link`, `.inverse-link`, `.form-control`,
@@ -115,7 +116,7 @@ The site uses Manrope Variable with a clean sans fallback stack.
 Scale targets:
 
 - Display: `clamp(2.75rem, 2rem + 3.2vw, 4.75rem)`
-- Interior hero: `clamp(2.5rem, 1.85rem + 2.6vw, 4rem)`
+- Interior hero: `clamp(2.25rem, 1.8rem + 2.3vw, 4rem)`
 - H2: `clamp(2rem, 1.5rem + 1.6vw, 3rem)`
 - H3: `clamp(1.25rem, 1.1rem + 0.4vw, 1.5rem)`
 - Lead: `clamp(1.125rem, 1rem + 0.35vw, 1.25rem)`
@@ -151,6 +152,8 @@ Standard section spacing:
 - `--section-space: clamp(3.5rem, 7vw, 6rem)`
 - `--section-space-compact: clamp(2.5rem, 5vw, 4rem)`
 - `--section-space-spacious: clamp(4.5rem, 8vw, 7rem)`
+- `--layout-gap: clamp(2rem, 4vw, 4rem)` (32px to 64px) for major split
+  compositions such as split heroes
 
 Rhythm targets:
 
@@ -158,7 +161,7 @@ Rhythm targets:
 - Heading to description: 16px
 - Section header to content: 32px to 40px
 - Card padding: 24px mobile, up to 32px desktop
-- Grid gaps: 16px to 24px mobile, 24px to 32px desktop
+- Compact and card grid gaps: 16px to 24px mobile, 24px to 32px desktop
 - CTA groups: 12px
 
 Layout rules:
@@ -314,6 +317,8 @@ Rules:
 - Keep the visible H1 copy page-owned and claim-safe.
 - Supply content-relevant media explicitly from the page or shared page pattern.
 - Never infer hero media from `Astro.url.pathname` or another route side table.
+- Reset the split grid and both direct grid children with `min-w-0` so intrinsic
+  media cannot expand the mobile layout.
 - Do not add `centered`, `full-bleed`, or `editorial` variants until real current pages require them.
 - Do not hide CTA fallback logic inside the component.
 
@@ -340,6 +345,87 @@ Rules:
 - Use eager loading and high fetch priority only for above-the-fold media.
 - Follow `PREMIUM_MEDIA_SYSTEM.md` for role selection, disclosures, delivery,
   rights records, and the future verified-proof boundary.
+
+#### ServiceMenu
+
+Purpose: curated editorial navigation for the three active launch services on
+the services hub.
+
+Inputs:
+
+- `items`: exactly the active driveway, sidewalk and walkway, and concrete
+  services, each with its canonical slug, existing name, summary, fit guidance,
+  registered `PublicMediaAsset`, and Lucide icon.
+
+Content and media rules:
+
+- Keep the menu limited to the three active service routes; do not add future
+  services, speculative variants, or unsupported claims.
+- Use each service's registered illustration with its exact alt text,
+  responsive sources, intrinsic dimensions, media role, and proof status.
+- Keep the proof-safe caption visible and include attribution whenever the
+  registry supplies it.
+- Keep service names, summaries, fit guidance, and descriptive link labels
+  page-owned and claim-safe.
+
+Layout rules:
+
+- Render one semantic, non-nested list of open rows separated by borders and
+  whitespace; do not wrap rows or their content in `Card` components or nested
+  framed cards.
+- Keep media before content in the DOM, stack each row on smaller screens, and
+  use a balanced two-column layout at the large breakpoint.
+- Use shared tokens, `IconBadge`, `.media-frame`, `.text-link`, and documented
+  shadow utilities rather than page-local colors, shadows, or CTA treatments.
+
+#### ServiceDetailPage
+
+Purpose: shared, centrally tunable layout for the three active service-detail
+routes.
+
+Content ownership and data contract:
+
+- Accept one `ServiceDetailPageContent` record from
+  `src/data/serviceDetailPages.ts`; route wrappers select the matching record
+  and do not duplicate page markup.
+- Keep SEO title and description, hero copy and registered media, scope,
+  guidance, preparation, process, related-section copy, FAQs, and final CTA
+  copy in the data record.
+- Derive the current service name and related service links from `services`,
+  and derive the six active area links from `serviceAreas`.
+
+Section rhythm and density:
+
+- Use a soft split hero, white open scope list, light water guidance band,
+  white compact process, quiet warm related-navigation band, light FAQ band,
+  and one inverse final CTA.
+- Render scope as one semantic two-column open list with dividers; do not use a
+  card for each inclusion.
+- Render guidance as one open divided list beside exactly one restrained Card
+  for preparation. Do not turn the four guidance items or four preparation
+  items into card grids.
+- Keep the process on the open compact `ProcessSteps` variant and use compact
+  `LinkGrid` groups for two related services and six active service areas.
+
+Responsive and conversion rules:
+
+- Stack hero copy, actions, and media on smaller screens; keep quote first,
+  make hero and final actions full width on mobile, and return them to auto
+  width from `sm`.
+- Use the verified phone as the secondary call action when configured. Use an
+  email action with a Mail icon when the phone is unavailable.
+- Preserve exact hero tracking location `service-{slug}` and final tracking
+  location `service-{slug}-final` on both the quote and secondary actions.
+
+Preservation rules:
+
+- Preserve each route's canonical path, SEO metadata, visible breadcrumbs,
+  breadcrumb schema, one-H1 structure, registered `PublicMediaAsset`, eager
+  hero loading, intrinsic image dimensions, media role, proof status, alt text,
+  and visible proof-safe caption.
+- Keep the pattern limited to the three active launch services. Do not add
+  speculative services, project proof, unsupported claims, or the full #94
+  brand-voice rewrite through this component.
 
 #### SplitFeature
 

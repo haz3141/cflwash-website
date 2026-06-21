@@ -29,19 +29,23 @@ const titleClass = isSplit
 const descriptionClass = isSplit
   ? 'measure-copy mt-5 text-lead text-[var(--color-text-muted)]'
   : 'measure-copy mt-5 text-lead text-[var(--color-text-muted)]'
+const contentClass = [
+  isSplit ? 'min-w-0' : '',
+  Astro.slots.has('aside')
+    ? 'grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.7fr)] lg:items-end'
+    : '',
+]
+  .filter(Boolean)
+  .join(' ')
 ---
 
 <section class={`${isSplit ? 'overflow-hidden' : ''} ${toneClass}`.trim()}>
   <Container
     class={isSplit
-      ? 'grid gap-10 py-[var(--section-space)] lg:grid-cols-[minmax(0,1fr)_minmax(22rem,0.92fr)] lg:items-center lg:py-[var(--section-space-compact)]'
+      ? 'grid min-w-0 gap-[var(--layout-gap)] py-[var(--section-space)] lg:grid-cols-[minmax(0,1fr)_minmax(22rem,0.92fr)] lg:items-center lg:py-[var(--section-space-compact)]'
       : 'py-[var(--section-space)]'}
   >
-    <div
-      class={Astro.slots.has('aside')
-        ? 'grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.7fr)] lg:items-end'
-        : undefined}
-    >
+    <div class={contentClass || undefined}>
       <div>
         {
           eyebrow && (
@@ -72,6 +76,12 @@ const descriptionClass = isSplit
       {Astro.slots.has('aside') && <slot name="aside" />}
     </div>
 
-    {isSplit && hasMedia && <slot name="media" />}
+    {
+      isSplit && hasMedia && (
+        <div class="min-w-0">
+          <slot name="media" />
+        </div>
+      )
+    }
   </Container>
 </section>
