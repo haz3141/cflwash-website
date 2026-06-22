@@ -12,7 +12,8 @@ type Props = {
 }
 
 const { items, class: className = '' } = Astro.props as Props
-const pathname = Astro.url.pathname.replace(/\/$/, '') || '/'
+const pathname =
+  Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/'
 const serviceRoutes = new Set([
   '/driveway-pressure-washing',
   '/sidewalk-walkway-cleaning',
@@ -47,7 +48,7 @@ if (items.length === 2 && items[0]?.href === '/') {
         displayItems.map((item, index) => (
           <>
             <li>
-              {item.href ? (
+              {index < displayItems.length - 1 && item.href ? (
                 <a
                   href={item.href}
                   class="transition-colors duration-[var(--duration-fast)] hover:text-[var(--color-text)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-page)]"

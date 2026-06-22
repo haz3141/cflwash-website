@@ -26,6 +26,8 @@ const bannedClaimPhrases = [
 const forbiddenPublicTerms = [
   'MVP',
   'placeholder',
+  'focused launch scope',
+  'current launch services',
   'future form workflow',
   'no form is implemented',
   'static confirmation route',
@@ -525,6 +527,14 @@ function findSectionContaining(html, text) {
   return null
 }
 
+function findBreadcrumbNav(html) {
+  return (
+    html.match(
+      /<nav\b[^>]*aria-label=(?:"Breadcrumb"|'Breadcrumb')[^>]*>[\s\S]*?<\/nav\s*>/i,
+    )?.[0] ?? ''
+  )
+}
+
 function findHeading(html, level) {
   const headingMatch = html.match(
     new RegExp(`<h${level}\\b[^>]*>([\\s\\S]*?)<\\/h${level}>`, 'i'),
@@ -818,6 +828,30 @@ async function main() {
   const htmlByRoute = new Map(
     htmlContents.map((record) => [record.route, record]),
   )
+
+  for (const record of htmlContents.filter(
+    ({ route }) => route !== '/' && !route.startsWith('/dev/'),
+  )) {
+    const breadcrumbNav = findBreadcrumbNav(record.html)
+
+    if (!breadcrumbNav) {
+      failures.push(
+        `Public interior route \`${record.route}\` must render breadcrumb navigation.`,
+      )
+      continue
+    }
+
+    const currentPageCount = countOccurrences(
+      breadcrumbNav,
+      'aria-current="page"',
+    )
+
+    if (currentPageCount !== 1) {
+      failures.push(
+        `Public interior route \`${record.route}\` breadcrumb must expose exactly one non-linked current page; found ${currentPageCount}.`,
+      )
+    }
+  }
   const siteDataSource = await readRepoText(siteDataPath)
   const configuredPhoneHref = parseSingleQuotedSiteDataValue(
     siteDataSource,
@@ -870,6 +904,34 @@ async function main() {
 
     const slug = route.slice(1)
     const anchors = listAnchorAttributes(record.html)
+    const breadcrumbNav = findBreadcrumbNav(record.html)
+    const breadcrumbSchema = parseStructuredData(record.html).find(
+      (value) =>
+        value &&
+        typeof value === 'object' &&
+        value['@type'] === 'BreadcrumbList',
+    )
+
+    if (!breadcrumbNav.includes('href="/services"')) {
+      failures.push(
+        `Service-detail route \`${route}\` breadcrumb UI must include the \`/services\` hub level.`,
+      )
+    }
+
+    const breadcrumbItems = breadcrumbSchema?.itemListElement
+
+    if (
+      !Array.isArray(breadcrumbItems) ||
+      breadcrumbItems.length !== 3 ||
+      breadcrumbItems[0]?.name !== 'Home' ||
+      breadcrumbItems[1]?.name !== 'Services' ||
+      breadcrumbItems[1]?.item !== `${productionOrigin}/services` ||
+      breadcrumbItems[2]?.item !== `${productionOrigin}${route}`
+    ) {
+      failures.push(
+        `Service-detail route \`${route}\` breadcrumb schema must follow Home > Services > current service.`,
+      )
+    }
 
     for (const location of [`service-${slug}`, `service-${slug}-final`]) {
       const locationAnchors = anchors.filter(

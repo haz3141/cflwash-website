@@ -12,8 +12,8 @@ delivery rules, and future-proof boundary now live in
   registered as `not-proof`.
 - `/service-areas` no longer uses six civic buildings as primary selection-card
   media.
-- Each city page leads with generic residential brand artwork and retains one
-  visibly labeled, attributed civic image only as secondary local context.
+- Each city page leads with a surface-relevant service illustration and retains
+  one visibly labeled, attributed civic image only as secondary local context.
 - `/request-quote` and `/thank-you` intentionally contain no content imagery.
 - No owner-provided completed-project photography is active in the public UI;
   verified project proof remains deferred to issue #51.
