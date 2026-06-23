@@ -1,7 +1,6 @@
 ---
 import Button from '../components/ui/Button.astro'
 import BreadcrumbSchema from '../components/site/BreadcrumbSchema.astro'
-import Breadcrumbs from '../components/site/Breadcrumbs.astro'
 import CTASection from '../components/patterns/CTASection.astro'
 import HeroSection from '../components/patterns/HeroSection.astro'
 import MediaFrame from '../components/patterns/MediaFrame.astro'
@@ -62,11 +61,9 @@ const serviceMenuItems = services.map((service) => ({
 >
   <BreadcrumbSchema slot="head" items={breadcrumbs} />
   <main>
-    <Breadcrumbs items={breadcrumbs} />
-
     <HeroSection
       variant="split"
-      tone="soft"
+      tone="brand"
       eyebrow="Pressure washing services"
       title="Concrete cleaning for the surfaces around your home."
       description="Compare three concrete-focused services for Central Florida homes. Start with the surface that matters most; connected concrete can be included in the same request."
@@ -187,6 +184,7 @@ const serviceMenuItems = services.map((service) => ({
       title="Show us the concrete you want cleaned."
       description="Send the service address, wide and close photos, access notes, and any HOA wording that applies. Start with one area or include connected concrete in the same request."
       surface="elevated"
+      tone="inverse"
       titleWidth="wide"
     >
       <Fragment slot="actions">

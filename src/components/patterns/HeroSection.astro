@@ -2,7 +2,7 @@
 import Container from '../ui/Container.astro'
 
 type Variant = 'split' | 'compact'
-type Tone = 'default' | 'soft'
+type Tone = 'default' | 'soft' | 'brand'
 
 type Props = {
   variant?: Variant
@@ -22,7 +22,11 @@ const {
 
 const hasMedia = Astro.slots.has('media')
 const isSplit = variant === 'split'
-const toneClass = tone === 'soft' ? 'bg-[var(--color-surface)]' : ''
+const toneClass = {
+  default: 'hero-shell hero-shell--default',
+  soft: 'hero-shell hero-shell--soft',
+  brand: 'hero-shell hero-shell--brand',
+}[tone]
 const titleClass = isSplit
   ? 'measure-copy text-hero text-[var(--color-text)]'
   : 'measure-copy text-section-title text-[var(--color-text)]'
@@ -39,49 +43,57 @@ const contentClass = [
   .join(' ')
 ---
 
-<section class={`${isSplit ? 'overflow-hidden' : ''} ${toneClass}`.trim()}>
+<section class={isSplit ? 'overflow-hidden' : undefined}>
   <Container
-    class={isSplit
-      ? 'grid min-w-0 gap-[var(--layout-gap)] py-[var(--section-space)] lg:grid-cols-[minmax(0,1fr)_minmax(22rem,0.92fr)] lg:items-center lg:py-[var(--section-space-compact)]'
-      : 'py-[var(--section-space)]'}
+    class="py-[var(--section-space)] lg:py-[var(--section-space-compact)]"
   >
-    <div class={contentClass || undefined}>
-      <div>
+    <div
+      class={`${toneClass} ${isSplit ? 'px-5 py-5 sm:px-8 sm:py-8 lg:px-10' : 'px-5 py-8 sm:px-8 sm:py-10 lg:px-10 lg:py-12'}`.trim()}
+    >
+      {tone === 'brand' && <div class="hero-shell-art" aria-hidden="true" />}
+
+      <div
+        class={`relative min-w-0 ${isSplit ? 'grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.92fr)] lg:items-center lg:gap-[var(--layout-gap)]' : ''}`.trim()}
+      >
+        <div class={contentClass || undefined}>
+          <div>
+            {
+              eyebrow && (
+                <p
+                  class={
+                    isSplit
+                      ? 'text-eyebrow text-[var(--color-action)]'
+                      : 'eyebrow-action'
+                  }
+                >
+                  {eyebrow}
+                </p>
+              )
+            }
+            <h1 class={`${eyebrow ? 'mt-4' : ''} ${titleClass}`.trim()}>
+              {title}
+            </h1>
+            {description && <p class={descriptionClass}>{description}</p>}
+            {
+              Astro.slots.has('actions') && (
+                <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+                  <slot name="actions" />
+                </div>
+              )
+            }
+          </div>
+
+          {Astro.slots.has('aside') && <slot name="aside" />}
+        </div>
+
         {
-          eyebrow && (
-            <p
-              class={
-                isSplit
-                  ? 'text-eyebrow text-[var(--color-action)]'
-                  : 'eyebrow-action'
-              }
-            >
-              {eyebrow}
-            </p>
-          )
-        }
-        <h1 class={`${eyebrow ? 'mt-4' : ''} ${titleClass}`.trim()}>
-          {title}
-        </h1>
-        {description && <p class={descriptionClass}>{description}</p>}
-        {
-          Astro.slots.has('actions') && (
-            <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-              <slot name="actions" />
+          isSplit && hasMedia && (
+            <div class="min-w-0">
+              <slot name="media" />
             </div>
           )
         }
       </div>
-
-      {Astro.slots.has('aside') && <slot name="aside" />}
     </div>
-
-    {
-      isSplit && hasMedia && (
-        <div class="min-w-0">
-          <slot name="media" />
-        </div>
-      )
-    }
   </Container>
 </section>

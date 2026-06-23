@@ -1,7 +1,6 @@
 ---
 import Button from '../components/ui/Button.astro'
 import BreadcrumbSchema from '../components/site/BreadcrumbSchema.astro'
-import Breadcrumbs from '../components/site/Breadcrumbs.astro'
 import CTASection from '../components/patterns/CTASection.astro'
 import HeroSection from '../components/patterns/HeroSection.astro'
 import LinkGrid from '../components/patterns/LinkGrid.astro'
@@ -33,11 +32,9 @@ const serviceLinks = services.map((service) => ({
 >
   <BreadcrumbSchema slot="head" items={breadcrumbs} />
   <main>
-    <Breadcrumbs items={breadcrumbs} />
-
     <HeroSection
       variant="split"
-      tone="soft"
+      tone="brand"
       eyebrow="Central Florida service areas"
       title="Concrete cleaning across six Central Florida cities"
       description="Choose your city for driveway, sidewalk, walkway, and residential concrete cleaning details, then send the address and photos to request a quote."
@@ -178,6 +175,7 @@ const serviceLinks = services.map((service) => ({
       title="Send the property details."
       description="Add clear photos and any HOA notice. CFL Wash Co. can confirm current coverage before preparing the quote."
       tone="inverse"
+      surface="elevated"
       titleWidth="wide"
     >
       <Fragment slot="actions">

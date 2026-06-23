@@ -3,7 +3,6 @@ import Button from '../components/ui/Button.astro'
 import Card from '../components/ui/Card.astro'
 import Section from '../components/ui/Section.astro'
 import BreadcrumbSchema from '../components/site/BreadcrumbSchema.astro'
-import Breadcrumbs from '../components/site/Breadcrumbs.astro'
 import HeroSection from '../components/patterns/HeroSection.astro'
 import Layout from '../layouts/Layout.astro'
 import { site } from '../data/site'
@@ -21,10 +20,8 @@ const breadcrumbs = [
 >
   <BreadcrumbSchema slot="head" items={breadcrumbs} />
   <main>
-    <Breadcrumbs items={breadcrumbs} />
-
     <HeroSection
-      tone="soft"
+      tone="brand"
       eyebrow="Privacy Notice"
       title="Privacy Notice"
       description="This page explains what CFL Wash Co. uses the quote-request details for, which providers support the website, and what the form is not meant to collect."

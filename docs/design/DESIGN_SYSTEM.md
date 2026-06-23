@@ -209,6 +209,17 @@ Transition rules:
 - If the current flow does not support uploads, photo guidance must point to request notes or email follow-up, not uploads.
 - Utility pages such as `/thank-you` and `/privacy` should stay visually aligned but quieter than marketing pages.
 - Mobile sticky quote CTAs should appear only on conversion routes and should hide near final CTA sections, footer content, or form submit areas by using shared `data-sticky-cta-stop` markers.
+- Do not add layout-level bottom padding to create sticky-CTA clearance. The footer must meet the end of the document content directly, and sticky CTA overlap prevention must come from stop markers or route-local spacing where needed.
+
+## Canonical Public Page Treatment
+
+- Page background: `--color-page` stays the default public-route canvas.
+- Section tones: default white, `soft`, `water`, `warm`, and inverse navy are the only approved public-page surface families.
+- Inner-page heroes should use one shared framed treatment that feels related to the homepage through cream/warm surface, subtle brand artwork, shared typography, consistent spacing, and the same media-frame language.
+- Homepage hero remains the expressive exception. It can use the bespoke mosaic composition as long as it still anchors the sitewide navy / cream / water / white / gold rhythm.
+- Final CTA panels on the services hub, service-detail pages, service-area hub, and city pages should share the same branded panel treatment, button hierarchy, radius, and spacing.
+- Utility pages such as `/request-quote`, `/privacy`, and `/thank-you` should use the same hero and surface system, but with quieter section stacking than marketing pages.
+- Visible breadcrumb navigation is not part of the current public UI. Breadcrumb structured data may remain where implemented.
 
 Focus rules:
 
@@ -312,6 +323,7 @@ Allowed tones:
 
 - `default`
 - `soft`
+- `brand`
 
 Slots:
 
@@ -326,6 +338,7 @@ Rules:
 - Never infer hero media from `Astro.url.pathname` or another route side table.
 - Reset the split grid and both direct grid children with `min-w-0` so intrinsic
   media cannot expand the mobile layout.
+- Use `brand` for the canonical inner-page hero treatment unless a quieter utility-page need or a documented exception calls for `default` or `soft`.
 - Do not add `centered`, `full-bleed`, or `editorial` variants until real current pages require them.
 - Do not hide CTA fallback logic inside the component.
 
@@ -446,8 +459,8 @@ Responsive and conversion rules:
 
 Preservation rules:
 
-- Preserve each route's canonical path, SEO metadata, visible breadcrumbs,
-  breadcrumb schema, one-H1 structure, registered `PublicMediaAsset`, eager
+- Preserve each route's canonical path, SEO metadata, breadcrumb schema,
+  one-H1 structure, registered `PublicMediaAsset`, eager
   hero loading, intrinsic image dimensions, media role, proof status, alt text,
   and visible proof-safe caption.
 - Keep the pattern limited to the three active launch services. Do not add

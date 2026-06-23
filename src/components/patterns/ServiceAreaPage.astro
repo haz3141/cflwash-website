@@ -1,7 +1,6 @@
 ---
 import Button from '../ui/Button.astro'
 import BreadcrumbSchema from '../site/BreadcrumbSchema.astro'
-import Breadcrumbs from '../site/Breadcrumbs.astro'
 import CTASection from './CTASection.astro'
 import CityContextMedia from './CityContextMedia.astro'
 import FAQList from './FAQList.astro'
@@ -73,11 +72,9 @@ const quoteSteps = [
 >
   <BreadcrumbSchema slot="head" items={breadcrumbs} />
   <main data-city-page>
-    <Breadcrumbs items={breadcrumbs} />
-
     <HeroSection
       variant="split"
-      tone="soft"
+      tone="brand"
       eyebrow={`${area.name}, Florida service area`}
       title={`Pressure washing in ${area.name}, FL`}
       description={page.heroDescription}
@@ -293,6 +290,7 @@ const quoteSteps = [
 
     <CTASection
       tone="inverse"
+      surface="elevated"
       eyebrow={`${area.name} service area`}
       title="Ready to request a quote?"
       description="Share the address, concrete surfaces, clear photos, and any HOA notice. That is enough to start the quote."

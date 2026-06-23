@@ -1,7 +1,6 @@
 ---
 import Button from '../components/ui/Button.astro'
 import BreadcrumbSchema from '../components/site/BreadcrumbSchema.astro'
-import Breadcrumbs from '../components/site/Breadcrumbs.astro'
 import HeroSection from '../components/patterns/HeroSection.astro'
 import LinkGrid from '../components/patterns/LinkGrid.astro'
 import QuoteForm from '../components/quote/QuoteForm.astro'
@@ -45,11 +44,9 @@ const quoteEmailHref = `mailto:${site.email}?subject=${encodeURIComponent(quoteE
 >
   <BreadcrumbSchema slot="head" items={breadcrumbs} />
   <main>
-    <Breadcrumbs items={breadcrumbs} />
-
     <HeroSection
       variant="split"
-      tone="soft"
+      tone="brand"
       eyebrow="Request a Quote"
       title="Request a quote for your driveway or concrete cleaning project."
       description="Use the form below to send the city, surfaces, and site details CFL Wash Co. needs to review the request. If photos help explain the job, mention them in the form or send them by email after you submit."

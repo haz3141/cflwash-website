@@ -21,42 +21,42 @@ const {
 
 const titleClass =
   titleWidth === 'wide'
-    ? 'mx-auto max-w-3xl text-3xl font-semibold sm:text-4xl'
-    : 'mx-auto max-w-2xl text-3xl font-semibold sm:text-4xl'
+    ? 'mx-auto max-w-3xl text-section-title text-[var(--color-text-inverse)]'
+    : 'mx-auto max-w-2xl text-section-title text-[var(--color-text-inverse)]'
 
-const panelClass =
-  surface === 'elevated' ? 'overflow-hidden theme-shadow-sm' : ''
+const panelClass = surface === 'elevated' ? 'theme-shadow-sm' : ''
 const toneClass =
   tone === 'inverse'
-    ? 'bg-[var(--color-surface-inverse)]'
-    : 'bg-[var(--color-cta-surface)]'
+    ? 'cta-shell border-[var(--color-inverse-border)] bg-[var(--color-surface-inverse)]'
+    : 'cta-shell border-[var(--color-inverse-border)] bg-[var(--color-cta-surface)]'
 ---
 
 <section class="py-[var(--section-space)]" data-sticky-cta-stop>
   <Container>
     <div
-      class={`rounded-[var(--radius-lg)] ${toneClass} px-6 py-[var(--space-12)] text-center text-[var(--color-text-inverse)] sm:px-10 ${panelClass}`.trim()}
+      class={`relative overflow-hidden rounded-[var(--radius-xl)] border px-6 py-[var(--space-12)] text-center text-[var(--color-text-inverse)] sm:px-10 sm:py-14 ${toneClass} ${panelClass}`.trim()}
     >
+      <div class="cta-shell-art" aria-hidden="true"></div>
       {
         eyebrow && (
-          <p class="text-eyebrow text-[var(--color-inverse-muted)]">
+          <p class="relative text-eyebrow text-[var(--color-inverse-muted)]">
             {eyebrow}
           </p>
         )
       }
       <h2
-        class={`${titleClass} ${eyebrow ? 'mt-3 text-section-title text-[var(--color-text-inverse)]' : ''}`.trim()}
+        class={`${titleClass} ${eyebrow ? 'relative mt-3' : 'relative'}`.trim()}
       >
         {title}
       </h2>
       {
         description && (
-          <p class="mx-auto mt-4 max-w-2xl text-base leading-8 text-[var(--color-inverse-muted)]">
+          <p class="relative mx-auto mt-4 max-w-2xl text-base leading-8 text-[var(--color-inverse-muted)]">
             {description}
           </p>
         )
       }
-      <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+      <div class="relative mt-8 flex flex-col justify-center gap-3 sm:flex-row">
         <slot name="actions" />
       </div>
     </div>
