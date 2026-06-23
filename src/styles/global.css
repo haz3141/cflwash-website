@@ -387,6 +387,71 @@
     }
   }
 
+  .hero-shell {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .hero-shell--default {
+    background: var(--color-surface-raised);
+  }
+
+  .hero-shell--soft {
+    background: var(--color-surface);
+  }
+
+  .hero-shell--brand {
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--color-page) 72%, transparent),
+        color-mix(in srgb, var(--color-surface-warm) 92%, transparent)
+      ),
+      var(--color-surface-warm);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .hero-shell-art {
+    background-image:
+      radial-gradient(
+        circle at 14% 18%,
+        color-mix(in srgb, var(--color-accent) 18%, transparent),
+        transparent 28%
+      ),
+      radial-gradient(
+        circle at 86% 22%,
+        color-mix(in srgb, var(--color-action) 12%, transparent),
+        transparent 30%
+      );
+    inset: 0;
+    opacity: 0.85;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  .cta-shell {
+    isolation: isolate;
+  }
+
+  .cta-shell-art {
+    background-image:
+      radial-gradient(
+        circle at 14% 16%,
+        rgb(255 255 255 / 0.12),
+        transparent 24%
+      ),
+      radial-gradient(
+        circle at 86% 78%,
+        rgb(255 255 255 / 0.08),
+        transparent 28%
+      );
+    inset: 0;
+    pointer-events: none;
+    position: absolute;
+  }
+
   .card-link {
     background: var(--color-surface-raised);
     border: 1px solid var(--color-border);

@@ -834,21 +834,9 @@ async function main() {
   )) {
     const breadcrumbNav = findBreadcrumbNav(record.html)
 
-    if (!breadcrumbNav) {
+    if (breadcrumbNav) {
       failures.push(
-        `Public interior route \`${record.route}\` must render breadcrumb navigation.`,
-      )
-      continue
-    }
-
-    const currentPageCount = countOccurrences(
-      breadcrumbNav,
-      'aria-current="page"',
-    )
-
-    if (currentPageCount !== 1) {
-      failures.push(
-        `Public interior route \`${record.route}\` breadcrumb must expose exactly one non-linked current page; found ${currentPageCount}.`,
+        `Public interior route \`${record.route}\` must not render visible breadcrumb navigation.`,
       )
     }
   }
@@ -904,19 +892,12 @@ async function main() {
 
     const slug = route.slice(1)
     const anchors = listAnchorAttributes(record.html)
-    const breadcrumbNav = findBreadcrumbNav(record.html)
     const breadcrumbSchema = parseStructuredData(record.html).find(
       (value) =>
         value &&
         typeof value === 'object' &&
         value['@type'] === 'BreadcrumbList',
     )
-
-    if (!breadcrumbNav.includes('href="/services"')) {
-      failures.push(
-        `Service-detail route \`${route}\` breadcrumb UI must include the \`/services\` hub level.`,
-      )
-    }
 
     const breadcrumbItems = breadcrumbSchema?.itemListElement
 
@@ -2406,12 +2387,6 @@ async function main() {
     if (!robotsContent.includes('index') || robotsContent.includes('noindex')) {
       failures.push(
         `City page \`${cityPage.route}\` must keep the issue #63 approved \`index, follow\` robots directive.`,
-      )
-    }
-
-    if (!cityPage.html.includes('aria-label="Breadcrumb"')) {
-      failures.push(
-        `City page \`${cityPage.route}\` must render breadcrumb UI with \`aria-label="Breadcrumb"\`.`,
       )
     }
 

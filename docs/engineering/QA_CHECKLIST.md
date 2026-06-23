@@ -44,6 +44,8 @@
 - [ ] The current homepage remains the visual reference for navy, cream, water, white, and gold theme rhythm.
 - [ ] Public routes are reviewed at 390px, 768px, 1024px, and 1440px: `/`, `/services`, `/service-areas`, `/request-quote`, `/thank-you`, `/privacy`, `/driveway-pressure-washing`, `/sidewalk-walkway-cleaning`, `/concrete-cleaning`, and all six `/service-areas/*` pages.
 - [ ] Header, footer, and mobile sticky CTA match the shared inverse/action system.
+- [ ] No public route renders visible breadcrumb UI; breadcrumb structured data remains where expected.
+- [ ] No mobile route shows a white band below the footer, and sticky CTA spacing is handled without layout-level footer padding.
 - [ ] Interior heroes, cards, links, CTA panels, media frames, borders, radii, shadows, and section spacing feel connected to the homepage.
 - [ ] No page-local theme styling was added where a token, primitive prop, pattern prop, or shared utility fits, including legacy `bg`, `text`, `border`, `ring`, `divide`, `outline`, `decoration`, `placeholder`, `accent`, `caret`, `fill`, `stroke`, `from`, `via`, or `to` color utilities.
 - [ ] PR notes include route and viewport visual QA notes, plus any intentional deviations.

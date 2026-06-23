@@ -1,14 +1,12 @@
 ---
 import Button from '../components/ui/Button.astro'
 import Card from '../components/ui/Card.astro'
-import Breadcrumbs from '../components/site/Breadcrumbs.astro'
 import HeroSection from '../components/patterns/HeroSection.astro'
 import Section from '../components/ui/Section.astro'
 import Layout from '../layouts/Layout.astro'
 import { site } from '../data/site'
 import { Mail, Phone } from '@lucide/astro'
 
-const breadcrumbs = [{ label: 'Home', href: '/' }, { label: 'Thank You' }]
 const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
 ---
 
@@ -19,10 +17,8 @@ const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
   noindex={true}
 >
   <main>
-    <Breadcrumbs items={breadcrumbs} />
-
     <HeroSection
-      tone="soft"
+      tone="brand"
       eyebrow="Thank You"
       title="Thanks for reaching out."
       description="If you just submitted the quote form, your request is on its way. If you want to add surface details or send photos, email CFL Wash Co. and include the same name and property context."

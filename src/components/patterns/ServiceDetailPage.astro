@@ -3,7 +3,6 @@ import Button from '../ui/Button.astro'
 import Card from '../ui/Card.astro'
 import Section from '../ui/Section.astro'
 import BreadcrumbSchema from '../site/BreadcrumbSchema.astro'
-import Breadcrumbs from '../site/Breadcrumbs.astro'
 import CTASection from './CTASection.astro'
 import FAQList from './FAQList.astro'
 import HeroSection from './HeroSection.astro'
@@ -54,11 +53,9 @@ const finalLocation = `${heroLocation}-final`
 >
   <BreadcrumbSchema slot="head" items={breadcrumbs} />
   <main data-service-detail-page>
-    <Breadcrumbs items={breadcrumbs} />
-
     <HeroSection
       variant="split"
-      tone="soft"
+      tone="brand"
       eyebrow={page.hero.eyebrow}
       title={page.hero.title}
       description={page.hero.description}
@@ -237,6 +234,7 @@ const finalLocation = `${heroLocation}-final`
 
     <CTASection
       tone="inverse"
+      surface="elevated"
       title={page.cta.title}
       description={page.cta.description}
     >
