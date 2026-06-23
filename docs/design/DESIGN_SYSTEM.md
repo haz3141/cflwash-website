@@ -98,6 +98,29 @@ page-local hex, shadow, or gradient values for the approved navy / cream /
 white / blue / gold system when a token, primitive prop, or shared utility
 exists.
 
+### Styling ownership and audit
+
+- `src/styles/tokens.css` owns primitive values and semantic color, surface,
+  radius, shadow, spacing, type, motion, and container decisions.
+- `src/components/ui/` owns low-level visual variants such as section, card,
+  button, badge, and container treatments.
+- `src/components/patterns/` owns recurring page-level decisions such as hero,
+  media-frame, CTA, process, link-grid, and city-context composition.
+- `src/styles/global.css` may contain named semantic utilities only when the
+  treatment is reused or is a documented system concept, including
+  `.page-hero`, `.media-frame`, and `.cta-shell`.
+- Route files may retain layout, spacing, responsive grid, and content classes.
+  They must not introduce a route-local palette, gradient, shadow, surface,
+  CTA treatment, media frame, or public theme `<style>` block.
+- `scripts/audit-patterns.mjs` scans components, layouts, pages, and styles for
+  raw colors, legacy color utilities, raw inverse white utilities, arbitrary
+  shadows, one-off gradients, inline styles, page theme blocks, and Button
+  color overrides. Its only theme-source exclusions are `tokens.css`,
+  `global.css`, and the dev-only visual fixture route.
+- `scripts/audit-site.mjs` verifies generated public output, including shared
+  inner-page heroes, hidden hero disclaimer captions, retained proof metadata,
+  invisible breadcrumb UI, and other route contracts.
+
 ## Color Rules
 
 - Deep navy anchors headings, inverse surfaces, and premium footer treatment.
@@ -107,6 +130,18 @@ exists.
 - White and warm off-white remain the page base and inverse text colors.
 - Avoid industrial black/yellow styling.
 - Avoid low-contrast gold text.
+
+Approved public-page rhythm:
+
+- Header, footer, and mobile sticky CTA use the navy inverse system.
+- The main page canvas and most content sections stay white or subtly warm.
+- The homepage hero remains the expressive warm brand composition.
+- Inner-page heroes use one full-width warm-to-water brand surface without a
+  surrounding border, card radius, or panel shadow.
+- Alternating `soft`, `water`, and `warm` sections are used only to separate
+  meaningful content groups; do not stack tinted bands by default.
+- Final conversion sections use the shared navy or action `CTASection`
+  treatment, normally once per page.
 
 ## Typography
 
@@ -215,7 +250,10 @@ Transition rules:
 
 - Page background: `--color-page` stays the default public-route canvas.
 - Section tones: default white, `soft`, `water`, `warm`, and inverse navy are the only approved public-page surface families.
-- Inner-page heroes should use one shared framed treatment that feels related to the homepage through cream/warm surface, subtle brand artwork, shared typography, consistent spacing, and the same media-frame language.
+- Inner-page heroes use the full-width `.page-hero` treatment so they read as
+  page sections, not cards. The hero section itself has no border, rounded
+  container, white outline, or shadow; only slotted media may use the shared
+  `.media-frame` treatment.
 - Homepage hero remains the expressive exception. It can use the bespoke mosaic composition as long as it still anchors the sitewide navy / cream / water / white / gold rhythm.
 - Final CTA panels on the services hub, service-detail pages, service-area hub, and city pages should share the same branded panel treatment, button hierarchy, radius, and spacing.
 - Utility pages such as `/request-quote`, `/privacy`, and `/thank-you` should use the same hero and surface system, but with quieter section stacking than marketing pages.
@@ -339,6 +377,8 @@ Rules:
 - Reset the split grid and both direct grid children with `min-w-0` so intrinsic
   media cannot expand the mobile layout.
 - Use `brand` for the canonical inner-page hero treatment unless a quieter utility-page need or a documented exception calls for `default` or `soft`.
+- `brand` is a full-width page surface, not a bordered or rounded panel. Do not
+  recreate the removed `hero-shell` card treatment in a route.
 - Do not add `centered`, `full-bleed`, or `editorial` variants until real current pages require them.
 - Do not hide CTA fallback logic inside the component.
 
@@ -355,13 +395,24 @@ Props:
 - `sizes?: string`
 - `class?: string`
 - `imageClass?: string`
+- `showCaption?: boolean` (defaults to `true`)
 
 Rules:
 
 - Add reusable public content media to `src/data/publicMedia.ts`; licensed city
   records use the same role vocabulary in `src/data/cityContextImages.ts`.
 - Always provide intrinsic dimensions and accurate alt text.
-- Use a visible caption when an illustrative image could be mistaken for completed-project proof.
+- Hero usages pass `showCaption={false}` for generated service illustrations
+  and brand artwork so filler proof-disclaimer text does not sit under the
+  image. The `data-media-id`, `data-media-role`, `data-proof-status`, alt text,
+  and responsive image data remain intact.
+- Keep captions visible when they add meaningful context outside heroes or
+  when an illustration could otherwise be presented as completed-project
+  proof. Service-menu disclosure captions remain visible.
+- Attribution is never suppressed by `showCaption={false}`. If a registered
+  asset includes attribution, `MediaFrame` still renders it. Licensed city
+  context must continue using `CityContextMedia`, where caption and attribution
+  remain visible.
 - Use eager loading and high fetch priority only for above-the-fold media.
 - Follow `PREMIUM_MEDIA_SYSTEM.md` for role selection, disclosures, delivery,
   rights records, and the future verified-proof boundary.
@@ -462,7 +513,7 @@ Preservation rules:
 - Preserve each route's canonical path, SEO metadata, breadcrumb schema,
   one-H1 structure, registered `PublicMediaAsset`, eager
   hero loading, intrinsic image dimensions, media role, proof status, alt text,
-  and visible proof-safe caption.
+  and hidden hero-caption policy.
 - Keep the pattern limited to the three active launch services. Do not add
   speculative services, project proof, unsupported claims, or the full #94
   brand-voice rewrite through this component.
@@ -602,7 +653,7 @@ Rules:
 - Use a proof-safe service illustration in the split hero. The mapping may
   reflect an existing homeowner scenario, but must not imply work completed in
   that city.
-- Use the shared soft hero, open service navigation, water scenario band,
+- Use the shared brand page hero, open service navigation, water scenario band,
   white compact local-context treatment, warm process, soft FAQ, compact nearby
   links, and inverse close. Do not fork the six route templates.
 - Render one stronger lead scenario and two quieter supporting scenarios as an

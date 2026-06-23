@@ -535,6 +535,14 @@ function findBreadcrumbNav(html) {
   )
 }
 
+function findPageHero(html) {
+  return (
+    html.match(
+      /<section\b(?=[^>]*\bdata-page-hero(?:\s|=|>))[^>]*>[\s\S]*?<\/section\s*>/i,
+    )?.[0] ?? ''
+  )
+}
+
 function findHeading(html, level) {
   const headingMatch = html.match(
     new RegExp(`<h${level}\\b[^>]*>([\\s\\S]*?)<\\/h${level}>`, 'i'),
@@ -839,6 +847,28 @@ async function main() {
         `Public interior route \`${record.route}\` must not render visible breadcrumb navigation.`,
       )
     }
+
+    const pageHero = findPageHero(record.html)
+
+    if (!pageHero) {
+      failures.push(
+        `Public interior route \`${record.route}\` must render one shared \`data-page-hero\` section.`,
+      )
+      continue
+    }
+
+    if (
+      pageHero.includes(
+        'Illustrative service image. Not completed project photography.',
+      ) ||
+      pageHero.includes(
+        'Decorative brand artwork. Not completed project photography.',
+      )
+    ) {
+      failures.push(
+        `Public interior route \`${record.route}\` must not show generated-image disclaimer copy inside hero media.`,
+      )
+    }
   }
   const siteDataSource = await readRepoText(siteDataPath)
   const configuredPhoneHref = parseSingleQuotedSiteDataValue(
@@ -998,12 +1028,12 @@ async function main() {
     }
 
     if (
-      !record.html.includes(
+      record.html.includes(
         'Illustrative service image. Not completed project photography.',
       )
     ) {
       failures.push(
-        `Service-detail route \`${route}\` must render the proof-safety caption for illustrative media.`,
+        `Service-detail route \`${route}\` must keep illustrative-media metadata without rendering a filler disclaimer caption.`,
       )
     }
 
@@ -2340,12 +2370,12 @@ async function main() {
     }
 
     if (
-      !cityPage.html.includes(
+      cityPage.html.includes(
         'Illustrative service image. Not completed project photography.',
       )
     ) {
       failures.push(
-        `City page \`${cityPage.route}\` must keep the visible illustrative-media proof disclosure.`,
+        `City page \`${cityPage.route}\` must keep illustrative-media metadata without rendering a filler disclaimer caption.`,
       )
     }
 
