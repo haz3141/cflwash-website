@@ -6,6 +6,7 @@ import process from 'node:process'
 const root = process.cwd()
 const patternsDir = join(root, 'src/components/patterns')
 const heroSectionPath = join(patternsDir, 'HeroSection.astro')
+const mediaFramePath = join(patternsDir, 'MediaFrame.astro')
 const designSystemPath = join(root, 'docs/design/DESIGN_SYSTEM.md')
 const tokensPath = join(root, 'src/styles/tokens.css')
 const scanRoots = [
@@ -264,6 +265,34 @@ if (existsSync(heroSectionPath)) {
   if (!heroSection.includes('gap-[var(--layout-gap)]')) {
     failures.push(
       'HeroSection.astro must consume gap-[var(--layout-gap)] so major split compositions share the semantic layout rhythm.',
+    )
+  }
+
+  if (!heroSection.includes('data-page-hero')) {
+    failures.push(
+      'HeroSection.astro must expose `data-page-hero` so generated-output audits can isolate hero content.',
+    )
+  }
+
+  if (/\bhero-shell\b/.test(heroSection)) {
+    failures.push(
+      'HeroSection.astro must use the page-level hero treatment instead of the bordered `hero-shell` card treatment.',
+    )
+  }
+}
+
+if (existsSync(mediaFramePath)) {
+  const mediaFrame = readFileSync(mediaFramePath, 'utf8')
+
+  if (!mediaFrame.includes('showCaption?: boolean')) {
+    failures.push(
+      'MediaFrame.astro must expose an optional `showCaption` prop for contexts where proof metadata remains in markup but a filler caption should not be visible.',
+    )
+  }
+
+  if (!mediaFrame.includes('showCaption = true')) {
+    failures.push(
+      'MediaFrame.astro must default `showCaption` to true so existing attribution and caption behavior stays safe.',
     )
   }
 }

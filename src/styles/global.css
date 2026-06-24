@@ -387,46 +387,43 @@
     }
   }
 
-  .hero-shell {
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-xl);
-    overflow: hidden;
+  .page-hero {
+    overflow: clip;
     position: relative;
   }
 
-  .hero-shell--default {
-    background: var(--color-surface-raised);
+  .page-hero--default {
+    background: var(--color-page);
   }
 
-  .hero-shell--soft {
+  .page-hero--soft {
     background: var(--color-surface);
   }
 
-  .hero-shell--brand {
+  .page-hero--brand {
     background:
       linear-gradient(
-        180deg,
-        color-mix(in srgb, var(--color-page) 72%, transparent),
-        color-mix(in srgb, var(--color-surface-warm) 92%, transparent)
+        115deg,
+        color-mix(in srgb, var(--color-surface-warm) 88%, var(--color-page)),
+        color-mix(in srgb, var(--color-surface-water) 64%, var(--color-page))
       ),
-      var(--color-surface-warm);
-    box-shadow: var(--shadow-sm);
+      var(--color-page);
   }
 
-  .hero-shell-art {
+  .page-hero-art {
     background-image:
       radial-gradient(
-        circle at 14% 18%,
-        color-mix(in srgb, var(--color-accent) 18%, transparent),
-        transparent 28%
+        circle at 10% 12%,
+        color-mix(in srgb, var(--color-accent) 16%, transparent),
+        transparent 30%
       ),
       radial-gradient(
-        circle at 86% 22%,
-        color-mix(in srgb, var(--color-action) 12%, transparent),
-        transparent 30%
+        circle at 92% 18%,
+        color-mix(in srgb, var(--color-action) 10%, transparent),
+        transparent 32%
       );
     inset: 0;
-    opacity: 0.85;
+    opacity: 0.75;
     pointer-events: none;
     position: absolute;
   }

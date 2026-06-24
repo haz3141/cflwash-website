@@ -23,9 +23,9 @@ const {
 const hasMedia = Astro.slots.has('media')
 const isSplit = variant === 'split'
 const toneClass = {
-  default: 'hero-shell hero-shell--default',
-  soft: 'hero-shell hero-shell--soft',
-  brand: 'hero-shell hero-shell--brand',
+  default: 'page-hero page-hero--default',
+  soft: 'page-hero page-hero--soft',
+  brand: 'page-hero page-hero--brand',
 }[tone]
 const titleClass = isSplit
   ? 'measure-copy text-hero text-[var(--color-text)]'
@@ -43,17 +43,15 @@ const contentClass = [
   .join(' ')
 ---
 
-<section class={isSplit ? 'overflow-hidden' : undefined}>
-  <Container
-    class="py-[var(--section-space)] lg:py-[var(--section-space-compact)]"
-  >
-    <div
-      class={`${toneClass} ${isSplit ? 'px-5 py-5 sm:px-8 sm:py-8 lg:px-10' : 'px-5 py-8 sm:px-8 sm:py-10 lg:px-10 lg:py-12'}`.trim()}
-    >
-      {tone === 'brand' && <div class="hero-shell-art" aria-hidden="true" />}
+<section class={toneClass} data-page-hero>
+  {tone === 'brand' && <div class="page-hero-art" aria-hidden="true" />}
 
+  <Container
+    class="relative py-[var(--section-space)] lg:py-[var(--section-space-compact)]"
+  >
+    <div class={isSplit ? 'py-2 sm:py-4' : 'py-2 sm:py-4 lg:py-6'}>
       <div
-        class={`relative min-w-0 ${isSplit ? 'grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.92fr)] lg:items-center lg:gap-[var(--layout-gap)]' : ''}`.trim()}
+        class={`min-w-0 ${isSplit ? 'grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.92fr)] lg:items-center lg:gap-[var(--layout-gap)]' : ''}`.trim()}
       >
         <div class={contentClass || undefined}>
           <div>

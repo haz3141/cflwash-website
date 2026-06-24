@@ -8,6 +8,7 @@ type Props = {
   sizes?: string
   class?: string
   imageClass?: string
+  showCaption?: boolean
 }
 
 const {
@@ -17,11 +18,13 @@ const {
   sizes = '(min-width: 1024px) 42vw, 100vw',
   class: className = '',
   imageClass = 'aspect-[16/10] lg:aspect-[4/5]',
+  showCaption = true,
 } = Astro.props as Props
 
 const srcset = media.image.sources
   ?.map(({ src, width }) => `${src} ${width}w`)
   .join(', ')
+const shouldShowCaption = showCaption || Boolean(media.attribution)
 ---
 
 <figure
@@ -43,9 +46,9 @@ const srcset = media.image.sources
     fetchpriority={fetchpriority}
   />
   {
-    media.caption && (
+    shouldShowCaption && (media.caption || media.attribution) && (
       <figcaption class="border-t border-[var(--color-border)] bg-[var(--color-surface-raised)] px-4 py-3 text-xs leading-5 text-[var(--color-text-muted)]">
-        {media.caption}
+        {showCaption && media.caption}
         {media.attribution && <span> {media.attribution}</span>}
       </figcaption>
     )
