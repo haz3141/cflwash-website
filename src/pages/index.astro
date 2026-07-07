@@ -22,8 +22,6 @@ import {
   Footprints,
   MapPin,
   Phone,
-  Sparkles,
-  Waves,
 } from '@lucide/astro'
 
 const hasPhone = Boolean(site.phoneDisplay && site.phoneHref)
@@ -53,7 +51,7 @@ const trustItems = [
 
 const serviceCards = [
   {
-    title: 'Driveway Pressure Washing',
+    title: 'Driveway Cleaning',
     description:
       'Clean visible buildup from the concrete that frames the front of your home.',
     href: '/driveway-pressure-washing',
@@ -61,20 +59,12 @@ const serviceCards = [
     icon: CarFront,
   },
   {
-    title: 'Sidewalk Cleaning',
+    title: 'Sidewalk & Walkway Cleaning',
     description:
-      'Refresh street-facing sidewalk panels and the route along the property.',
+      'Refresh street-facing panels, entry paths, and connected walking surfaces.',
     href: '/sidewalk-walkway-cleaning',
     media: publicMedia.serviceWalkway,
     icon: Footprints,
-  },
-  {
-    title: 'Walkway Cleaning',
-    description:
-      'Clean the entry paths and concrete walks leading to the door.',
-    href: '/sidewalk-walkway-cleaning',
-    media: publicMedia.serviceWalkway,
-    icon: Waves,
   },
   {
     title: 'Concrete Cleaning',
@@ -91,14 +81,7 @@ const serviceCards = [
     href: '/request-quote',
     media: publicMedia.serviceDriveway,
     icon: ClipboardList,
-  },
-  {
-    title: 'Curb Appeal Cleanup',
-    description:
-      'Bring the driveway, front walk, and entry concrete into one focused request.',
-    href: '/request-quote',
-    media: publicMedia.serviceConcrete,
-    icon: Sparkles,
+    actionLabel: 'Start quote',
   },
 ]
 
@@ -195,15 +178,13 @@ const processFeatures = [
           </p>
         </div>
 
-        <div
-          class="mt-10 grid grid-cols-2 gap-3 md:grid-cols-3 lg:gap-4 xl:grid-cols-6"
-        >
+        <div class="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {serviceCards.map((card) => <HomeServiceCard {...card} />)}
         </div>
 
         <div class="mt-9 flex justify-center">
           <Button href="/services" variant="secondary" size="lg">
-            Explore All Services
+            Explore Services
             <ArrowRight
               slot="endIcon"
               class="h-5 w-5"

@@ -105,7 +105,7 @@ exists.
 - `src/components/ui/` owns low-level visual variants such as section, card,
   button, badge, and container treatments.
 - `src/components/patterns/` owns recurring page-level decisions such as hero,
-  media-frame, CTA, process, link-grid, and city-context composition.
+  media-frame, CTA, process, link-grid, and service-area composition.
 - `src/styles/global.css` may contain named semantic utilities only when the
   treatment is reused or is a documented system concept, including
   `.page-hero`, `.media-frame`, and `.cta-shell`.
@@ -411,8 +411,9 @@ Rules:
   proof. Service-menu disclosure captions remain visible.
 - Attribution is never suppressed by `showCaption={false}`. If a registered
   asset includes attribution, `MediaFrame` still renders it. Licensed city
-  context must continue using `CityContextMedia`, where caption and attribution
-  remain visible.
+  context stays out of public city pages by default; if it is rendered in the
+  dev fixture or a future approved public context, use `CityContextMedia` so
+  caption and attribution remain visible.
 - Use eager loading and high fetch priority only for above-the-fold media.
 - Follow `PREMIUM_MEDIA_SYSTEM.md` for role selection, disclosures, delivery,
   rights records, and the future verified-proof boundary.
@@ -425,12 +426,14 @@ acting as service or completed-project proof.
 Allowed variants:
 
 - `standard`: framed review treatment for the dev-only city-image fixture.
-- `compact`: small open callout used later on public city pages.
+- `compact`: small open callout retained for fixture review or a future
+  approved public context.
 
 Rules:
 
-- Public city pages must use `compact`, expose `data-city-context-callout`, and
-  keep the label `City context only` visible.
+- Public city pages must not render civic city-context imagery by default.
+- Any approved future use must expose `data-city-context-callout` and keep the
+  label `City context only` visible.
 - Preserve the registered `city-context` role, `context-only` proof status,
   factual alt text, responsive sources, intrinsic dimensions, caption, and
   attribution.
@@ -654,18 +657,19 @@ Rules:
   reflect an existing homeowner scenario, but must not imply work completed in
   that city.
 - Use the shared brand page hero, open service navigation, water scenario band,
-  white compact local-context treatment, warm process, soft FAQ, compact nearby
+  white compact local planning treatment, warm process, soft FAQ, compact nearby
   links, and inverse close. Do not fork the six route templates.
 - Render one stronger lead scenario and two quieter supporting scenarios as an
   open editorial composition, not bordered cards.
-- Keep civic imagery inside the compact `CityContextMedia` callout after the
-  service and homeowner content. It must remain secondary and attributed.
+- Keep public city pages service-led and text-led after the hero; do not render
+  civic city-context imagery unless a future issue re-approves the public use.
 - Keep hero and final actions full width on mobile, quote first, and call/email
   second.
 - Preserve canonical paths under `/service-areas/{slug}`.
 - Preserve `data-cta` and `data-cta-location` values on quote, call, and email actions.
 - Do not add cities through this pattern unless the city is approved in the service-area data and SEO inventory.
-- Use city-context images only as location context, never as completed project proof.
+- Retain city-context image records only as provenance and dev-fixture material,
+  never as completed project proof.
 
 ### Service-area hub composition
 
