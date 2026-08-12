@@ -227,14 +227,12 @@ const secretPatterns = [
   },
 ]
 const routeContentExpectations = Object.fromEntries(
-  expectedCityPages.map(
-    ({ route, snippets, imageSources, alt, attribution }) => [
-      route,
-      {
-        snippets: [...snippets, ...imageSources, alt, attribution],
-      },
-    ],
-  ),
+  expectedCityPages.map(({ route, snippets }) => [
+    route,
+    {
+      snippets,
+    },
+  ]),
 )
 
 async function walkFiles(dir, prefix = '') {
@@ -1241,6 +1239,38 @@ async function main() {
     )
   }
 
+  const homepageServiceArticles = getTags(homepage, 'article')
+    .map((tag) => parseAttributes(tag))
+    .filter(
+      (attributes) => attributes['data-media-role'] === 'service-illustration',
+    )
+
+  if (homepageServiceArticles.length !== 4) {
+    failures.push(
+      `Homepage service presentation must stay focused on four public-facing offers; found ${homepageServiceArticles.length}.`,
+    )
+  }
+
+  const homepageText = stripHtml(homepage)
+  for (const serviceOfferLabel of [
+    ['Driveway Cleaning'],
+    ['Sidewalk & Walkway Cleaning', 'Sidewalk &amp; Walkway Cleaning'],
+    ['Concrete Cleaning'],
+    ['HOA Notice Cleanup'],
+  ]) {
+    if (!serviceOfferLabel.some((label) => homepageText.includes(label))) {
+      failures.push(
+        `Homepage service presentation must include \`${serviceOfferLabel[0]}\`.`,
+      )
+    }
+  }
+
+  if (homepageText.includes('Curb Appeal Cleanup')) {
+    failures.push(
+      'Homepage must treat curb appeal as positioning, not a standalone service offer.',
+    )
+  }
+
   const serviceAreaHub = htmlByRoute.get('/service-areas')?.html ?? ''
   if (serviceAreaHub.includes('/images/city-context/')) {
     failures.push(
@@ -2242,25 +2272,11 @@ async function main() {
   const cityH1ToRoutes = getUniqueValueRoutes(cityPageRecords, ({ html }) =>
     findHeading(html, 1),
   )
-  const cityImageSrcToRoutes = getUniqueValueRoutes(
-    cityPageRecords,
-    ({ html, imageSrc }) => {
-      const imageTag = getTags(html, 'img')
-        .map((tag) => parseAttributes(tag))
-        .find((attributes) => attributes.src === imageSrc)
-
-      return imageTag?.src ?? ''
-    },
-  )
-
   for (const cityPage of cityPageRecords) {
     const h1 = findHeading(cityPage.html, 1)
     const robotsContent = findMetaContent(cityPage.html, 'robots')
       .trim()
       .toLowerCase()
-    const imageTag = getTags(cityPage.html, 'img')
-      .map((tag) => parseAttributes(tag))
-      .find((attributes) => attributes.src === cityPage.imageSrc)
     const structuredData = parseStructuredData(cityPage.html)
     const breadcrumbSchema = structuredData.find(
       (value) =>
@@ -2276,9 +2292,9 @@ async function main() {
       cityPage.html,
       `${cityPage.city} quote questions`,
     )
-    const localContextSection = findSectionContaining(
+    const localPlanningSection = findSectionContaining(
       cityPage.html,
-      'City context only',
+      'Send the surface details',
     )
     const visibleCityCopy = stripHtml(cityPage.html)
     const requiredBuyerCopy = [
@@ -2333,10 +2349,10 @@ async function main() {
     }
 
     if (
-      !localContextSection?.html.includes('py-[var(--section-space-compact)]')
+      !localPlanningSection?.html.includes('py-[var(--section-space-compact)]')
     ) {
       failures.push(
-        `City page \`${cityPage.route}\` must keep the secondary local-context section compact.`,
+        `City page \`${cityPage.route}\` must keep the secondary local planning section compact.`,
       )
     }
 
@@ -2385,15 +2401,27 @@ async function main() {
       )
     }
 
-    if (countOccurrences(cityPage.html, 'data-city-context-callout') !== 1) {
+    if (countOccurrences(cityPage.html, 'data-city-local-context') !== 1) {
       failures.push(
-        `City page \`${cityPage.route}\` must render its civic image once as a compact context-only callout.`,
+        `City page \`${cityPage.route}\` must render one service-led local planning context region.`,
       )
     }
 
-    if (!cityPage.html.includes('data-media-role="city-context"')) {
+    if (cityPage.html.includes('data-city-context-callout')) {
       failures.push(
-        `City page \`${cityPage.route}\` must identify civic photography as secondary city context.`,
+        `City page \`${cityPage.route}\` must not render the legacy civic image callout in public content.`,
+      )
+    }
+
+    if (cityPage.html.includes('data-media-role="city-context"')) {
+      failures.push(
+        `City page \`${cityPage.route}\` must not render city-context photography as public page media.`,
+      )
+    }
+
+    if (cityPage.html.includes('/images/city-context/')) {
+      failures.push(
+        `City page \`${cityPage.route}\` must not render civic city-context image assets in public content.`,
       )
     }
 
@@ -2446,87 +2474,12 @@ async function main() {
         )
       }
     }
-
-    if (!imageTag) {
-      failures.push(
-        `City page \`${cityPage.route}\` must render its approved city-context image \`${cityPage.imageSrc}\`.`,
-      )
-    } else {
-      if ((imageTag.alt ?? '').trim() !== cityPage.alt) {
-        failures.push(
-          `City page \`${cityPage.route}\` must render the approved city-image alt text.`,
-        )
-      }
-
-      if (!imageTag.width || !imageTag.height) {
-        failures.push(
-          `City page \`${cityPage.route}\` must reserve width and height for its city-context image.`,
-        )
-      }
-
-      const srcset = imageTag.srcset ?? ''
-      for (const source of cityPage.imageSources) {
-        if (!srcset.includes(source)) {
-          failures.push(
-            `City page \`${cityPage.route}\` must include responsive image source \`${source}\`.`,
-          )
-        }
-      }
-
-      if (!(imageTag.sizes ?? '').trim()) {
-        failures.push(
-          `City page \`${cityPage.route}\` must include a responsive \`sizes\` attribute for its city-context image.`,
-        )
-      }
-    }
-
-    if (!cityPage.html.includes(cityPage.attribution)) {
-      failures.push(
-        `City page \`${cityPage.route}\` must render the approved city-image attribution.`,
-      )
-    }
-
-    for (const imageSource of new Set([
-      ...cityPage.imageSources,
-      cityPage.imageSrc,
-    ])) {
-      const distAssetPath = imageSource
-        .replace(/\s+\d+w$/, '')
-        .replace(/^\//, '')
-
-      if (!fileSet.has(distAssetPath)) {
-        failures.push(
-          `City image asset \`${imageSource}\` for \`${cityPage.route}\` is missing from \`dist/\`.`,
-        )
-        continue
-      }
-
-      const assetBuffer = await readFile(path.join(distDir, distAssetPath))
-      const hasExif = assetBuffer.includes(Buffer.from('Exif\u0000\u0000'))
-      const hasXmp = assetBuffer.includes(
-        Buffer.from('http://ns.adobe.com/xap/1.0/'),
-      )
-
-      if (hasExif || hasXmp) {
-        failures.push(
-          `City image asset \`dist/${distAssetPath}\` must not retain EXIF, GPS, or XMP metadata.`,
-        )
-      }
-    }
   }
 
   for (const [h1, routes] of cityH1ToRoutes) {
     if (routes.length > 1) {
       failures.push(
         `City pages must not share duplicate H1s. \`${h1}\` appears on: ${routes.join(', ')}.`,
-      )
-    }
-  }
-
-  for (const [imageSrc, routes] of cityImageSrcToRoutes) {
-    if (routes.length > 1) {
-      failures.push(
-        `City pages must not reuse the same city-context image asset. \`${imageSrc}\` appears on: ${routes.join(', ')}.`,
       )
     }
   }

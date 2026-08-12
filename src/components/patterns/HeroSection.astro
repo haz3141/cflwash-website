@@ -22,6 +22,7 @@ const {
 
 const hasMedia = Astro.slots.has('media')
 const isSplit = variant === 'split'
+const shouldUseMediaSplit = isSplit && hasMedia
 const toneClass = {
   default: 'page-hero page-hero--default',
   soft: 'page-hero page-hero--soft',
@@ -51,7 +52,7 @@ const contentClass = [
   >
     <div class={isSplit ? 'py-2 sm:py-4' : 'py-2 sm:py-4 lg:py-6'}>
       <div
-        class={`min-w-0 ${isSplit ? 'grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.92fr)] lg:items-center lg:gap-[var(--layout-gap)]' : ''}`.trim()}
+        class={`min-w-0 ${shouldUseMediaSplit ? 'grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.92fr)] lg:items-center lg:gap-[var(--layout-gap)]' : ''}`.trim()}
       >
         <div class={contentClass || undefined}>
           <div>
@@ -85,7 +86,7 @@ const contentClass = [
         </div>
 
         {
-          isSplit && hasMedia && (
+          shouldUseMediaSplit && (
             <div class="min-w-0">
               <slot name="media" />
             </div>

@@ -2,7 +2,6 @@
 import Button from '../ui/Button.astro'
 import BreadcrumbSchema from '../site/BreadcrumbSchema.astro'
 import CTASection from './CTASection.astro'
-import CityContextMedia from './CityContextMedia.astro'
 import FAQList from './FAQList.astro'
 import HeroSection from './HeroSection.astro'
 import LinkGrid from './LinkGrid.astro'
@@ -10,7 +9,6 @@ import MediaFrame from './MediaFrame.astro'
 import ProcessSteps from './ProcessSteps.astro'
 import Section from '../ui/Section.astro'
 import Layout from '../../layouts/Layout.astro'
-import { cityContextImages } from '../../data/cityContextImages'
 import { serviceAreaFaqAdditions } from '../../data/serviceAreaFaqAdditions'
 import type { ServiceAreaPageContent } from '../../data/serviceAreaPages'
 import { serviceAreas } from '../../data/serviceAreas'
@@ -29,7 +27,6 @@ if (!area) {
   throw new Error(`Unknown service area: ${page.slug}`)
 }
 
-const cityContextImage = cityContextImages[page.slug]
 const faqs = [...page.faqs, ...(serviceAreaFaqAdditions[page.slug] ?? [])]
 const breadcrumbs = [
   { label: 'Home', href: '/' },
@@ -237,7 +234,8 @@ const quoteSteps = [
       class="border-y border-[var(--color-border)]"
     >
       <div
-        class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,0.56fr)] lg:items-start lg:gap-[var(--layout-gap)]"
+        class="grid gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:items-start lg:gap-[var(--layout-gap)]"
+        data-city-local-context
       >
         <div class="max-w-2xl border-l-2 border-[var(--color-accent)] pl-5">
           <p class="text-base leading-8 text-[var(--color-text-muted)]">
@@ -245,12 +243,26 @@ const quoteSteps = [
           </p>
         </div>
 
-        <CityContextMedia
-          media={cityContextImage}
-          variant="compact"
-          sizes="(min-width: 1024px) 22rem, 100vw"
-          class="w-full max-w-sm justify-self-end"
-        />
+        <div class="grid gap-4 sm:grid-cols-2">
+          <article class="border-t border-[var(--color-border)] pt-5">
+            <h3 class="text-sm font-semibold text-[var(--color-text)]">
+              Send the surface details
+            </h3>
+            <p class="mt-2 text-sm leading-6 text-[var(--color-text-muted)]">
+              Include wide photos, close photos, access notes, and any HOA
+              notice wording tied to the concrete.
+            </p>
+          </article>
+          <article class="border-t border-[var(--color-border)] pt-5">
+            <h3 class="text-sm font-semibold text-[var(--color-text)]">
+              Keep the request surface-led
+            </h3>
+            <p class="mt-2 text-sm leading-6 text-[var(--color-text-muted)]">
+              Focus the quote on the driveway, sidewalk, walkway, patio, pad,
+              apron, curb, or entry area that needs attention.
+            </p>
+          </article>
+        </div>
       </div>
     </Section>
 

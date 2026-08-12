@@ -9,9 +9,17 @@ type Props = {
   href: string
   media: PublicMediaAsset
   icon: any
+  actionLabel?: string
 }
 
-const { title, description, href, media, icon } = Astro.props as Props
+const {
+  title,
+  description,
+  href,
+  media,
+  icon,
+  actionLabel = 'Learn more',
+} = Astro.props as Props
 const srcset = media.image.sources
   .map(({ src, width }) => `${src} ${width}w`)
   .join(', ')
@@ -67,7 +75,7 @@ const srcset = media.image.sources
       href={href}
       class="mt-5 inline-flex items-center gap-1.5 text-[0.68rem] font-bold uppercase tracking-[0.12em] text-[var(--color-text)] transition-colors hover:text-[var(--color-action)] focus:outline-none focus-visible:rounded-[var(--radius-sm)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
     >
-      Learn more
+      {actionLabel}
       <ArrowRight class="h-3.5 w-3.5" aria-hidden="true" stroke-width="1.8" />
     </a>
   </div>

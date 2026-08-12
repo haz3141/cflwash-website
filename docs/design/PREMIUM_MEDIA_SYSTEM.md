@@ -13,7 +13,7 @@ vocabulary.
 | Decorative             | Texture, dividers, or layout support with no factual content         | `not-proof`      |
 | Brand artwork          | CFL Wash Co. identity and residential mood-setting                   | `not-proof`      |
 | Service illustration   | Surface-specific visual guidance for an active service               | `not-proof`      |
-| City context           | Licensed place photography used only to identify a city              | `context-only`   |
+| City context           | Licensed place photography retained for internal/dev review only     | `context-only`   |
 | Verified project proof | Future owner-approved project photography with documented provenance | `verified-proof` |
 
 No active public asset is classified as verified project proof. The generated
@@ -67,17 +67,20 @@ of CFL Wash Co. jobs, crews, equipment, customers, or outcomes.
 
 ### Licensed city context
 
-| Asset families                                              | Public usage                                            | Classification | Alt and caption                                                               | Risk and delivery                                          |
-| ----------------------------------------------------------- | ------------------------------------------------------- | -------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| `/images/city-context/deltona-city-hall-{640,1280}.jpg`     | `/service-areas/deltona` local-context section only     | City context   | Factual building description; “Deltona City Hall civic context.”              | `context-only`; attribution visible; not on conversion hub |
-| `/images/city-context/orange-city-town-hall-{640,1280}.jpg` | `/service-areas/orange-city` local-context section only | City context   | Factual building description; “Orange City Town Hall civic context.”          | `context-only`; attribution visible; not on conversion hub |
-| `/images/city-context/debary-hall-{640,1280}.jpg`           | `/service-areas/debary` local-context section only      | City context   | Factual building description; “DeBary Hall historic civic context.”           | `context-only`; attribution visible; not on conversion hub |
-| `/images/city-context/deland-athens-theatre-{640,1280}.jpg` | `/service-areas/deland` local-context section only      | City context   | Factual building description; “Athens Theatre downtown DeLand civic context.” | `context-only`; attribution visible; not on conversion hub |
-| `/images/city-context/sanford-city-hall-{640,1280}.jpg`     | `/service-areas/sanford` local-context section only     | City context   | Factual building description; “Sanford City Hall civic context.”              | `context-only`; attribution visible; not on conversion hub |
-| `/images/city-context/lake-mary-city-hall-{640,1280}.jpg`   | `/service-areas/lake-mary` local-context section only   | City context   | Factual building description; “Lake Mary City Hall civic context.”            | `context-only`; attribution visible; not on conversion hub |
+| Asset families                                              | Public usage                  | Classification | Alt and caption                                                               | Risk and delivery                              |
+| ----------------------------------------------------------- | ----------------------------- | -------------- | ----------------------------------------------------------------------------- | ---------------------------------------------- |
+| `/images/city-context/deltona-city-hall-{640,1280}.jpg`     | Dev-only city-context fixture | City context   | Factual building description; “Deltona City Hall civic context.”              | `context-only`; attribution visible in fixture |
+| `/images/city-context/orange-city-town-hall-{640,1280}.jpg` | Dev-only city-context fixture | City context   | Factual building description; “Orange City Town Hall civic context.”          | `context-only`; attribution visible in fixture |
+| `/images/city-context/debary-hall-{640,1280}.jpg`           | Dev-only city-context fixture | City context   | Factual building description; “DeBary Hall historic civic context.”           | `context-only`; attribution visible in fixture |
+| `/images/city-context/deland-athens-theatre-{640,1280}.jpg` | Dev-only city-context fixture | City context   | Factual building description; “Athens Theatre downtown DeLand civic context.” | `context-only`; attribution visible in fixture |
+| `/images/city-context/sanford-city-hall-{640,1280}.jpg`     | Dev-only city-context fixture | City context   | Factual building description; “Sanford City Hall civic context.”              | `context-only`; attribution visible in fixture |
+| `/images/city-context/lake-mary-city-hall-{640,1280}.jpg`   | Dev-only city-context fixture | City context   | Factual building description; “Lake Mary City Hall civic context.”            | `context-only`; attribution visible in fixture |
 
 License, creator, source URL, and derivative details remain authoritative in
 `docs/seo/image-rights-manifest.yaml` and `src/data/cityContextImages.ts`.
+These records are retained for provenance, but public city pages should not
+render civic building photography unless a future issue re-approves a clear
+user-facing reason and attribution treatment.
 
 ### Routes without content imagery
 
@@ -96,9 +99,9 @@ the user complete or confirm the quote flow. Shared wordmarks remain present.
   visible not-project-proof caption.
 - `/service-areas`: one residential brand artwork frame supports the route;
   city selection is text-and-icon led, so civic buildings do not dominate.
-- Six city pages: an explicitly selected service illustration leads with a
-  visible not-project-proof caption; one compact, attributed civic photo appears
-  later under “Local context” and is labeled `City context only`.
+- Six city pages: an explicitly selected service illustration leads each route;
+  local planning sections stay text-led and do not render civic building
+  photography.
 - `/request-quote` and `/thank-you`: no content imagery by design.
 
 ## Proof-safety rules
@@ -107,8 +110,9 @@ the user complete or confirm the quote flow. Shared wordmarks remain present.
   source type, factual alt text, intrinsic dimensions, and responsive sources.
 - Realistic generated or stock-style imagery must be labeled as illustrative
   and `not-proof`; never describe it as a project, result, customer, or crew.
-- City photography must remain `context-only`, include visible attribution, and
-  never stand in for service quality, local project history, or business proof.
+- City photography must remain `context-only` in the internal registry or
+  dev-only fixture, include visible attribution when rendered, and never stand
+  in for service quality, local project history, or business proof.
 - Do not create or imply before-and-after pairs from unmatched images.
 - Do not add people, uniforms, trucks, equipment, logos, addresses, awards,
   ratings, or service-result claims unless the underlying evidence is verified.

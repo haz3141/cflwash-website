@@ -47,6 +47,8 @@
 - [ ] No public route renders visible breadcrumb UI; breadcrumb structured data remains where expected.
 - [ ] No mobile route shows a white band below the footer, and sticky CTA spacing is handled without layout-level footer padding.
 - [ ] Interior heroes, cards, links, CTA panels, media frames, borders, radii, shadows, and section spacing feel connected to the homepage.
+- [ ] Public city pages do not render civic building photography as prominent page media; city-context records remain internal/dev-only unless separately re-approved.
+- [ ] Homepage service presentation stays focused on Driveway Cleaning, Sidewalk & Walkway Cleaning, Concrete Cleaning, and HOA Notice Cleanup support.
 - [ ] No page-local theme styling was added where a token, primitive prop, pattern prop, or shared utility fits, including legacy `bg`, `text`, `border`, `ring`, `divide`, `outline`, `decoration`, `placeholder`, `accent`, `caret`, `fill`, `stroke`, `from`, `via`, or `to` color utilities.
 - [ ] PR notes include route and viewport visual QA notes, plus any intentional deviations.
 
